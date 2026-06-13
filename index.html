@@ -10,269 +10,288 @@
 <style>
   :root {
     --red:       #DC5B5B;
-    --red-light: #f5d5d5;
+    --red-dark:  #c44848;
+    --red-light: #faeaea;
     --sky:       #B3CDD6;
     --sky-text:  #7DA4B2;
     --sky-bg:    #E3F1F6;
-    --sky-dark:  #4a7f93;
+    --sky-dark:  #3a6878;
     --white:     #ffffff;
-    --bg:        #f7fbfd;
-    --border:    #d4e8ef;
+    --bg:        #f8fbfc;
+    --border:    #e0ecf0;
     --text:      #1a2b30;
     --text-soft: #4a6570;
 
-    /* Jednotná typografická škála */
-    --fs-xl:   clamp(32px, 5vw, 52px);  /* H1 hlavička       */
-    --fs-lg:   20px;                      /* nadpisy sekcí     */
-    --fs-md:   17px;                      /* název školy / projektu */
-    --fs-base: 16px;                      /* tělo, popisy      */
-    --fs-sm:   14px;                      /* meta, labely, buttony */
-    --fs-xs:   12px;                      /* badge, chip "Kritérium N" */
-    --lh:      1.4;
+    --fs-xl:   clamp(34px, 5vw, 54px);
+    --fs-lg:   22px;
+    --fs-md:   17px;
+    --fs-base: 16px;
+    --fs-sm:   14px;
+    --fs-xs:   12px;
+    --lh:      1.5;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     font-family: "Darker Grotesque", sans-serif;
-    background: var(--bg);
+    background: var(--white);
     color: var(--text);
     font-size: var(--fs-base);
     line-height: var(--lh);
     font-weight: 500;
   }
 
-  /* Space Grotesk: nadpisy, číselné hodnoty, názvy */
-  .sg { font-family: "Space Grotesk", sans-serif; }
-  h1, h2, h3,
-  .school-name, .project-name,
-  .avg-num, .total-badge,
-  .score-val, .stat-pill strong,
-  .header-badge, .criterion-chip .num,
-  .avg-label, .scale-badge,
-  .project-link { font-family: "Space Grotesk", sans-serif; }
-
-  /* TOP BAR */
-  .topbar { background: var(--red); height: 5px; }
-
-  /* HEADER */
-  .header {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 52px 24px 48px;
+  /* ---- TOPBAR ---- */
+  .topbar {
+    background: var(--red);
+    padding: 10px 0;
     text-align: center;
+  }
+  .topbar-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .topbar-logo {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 18px; font-weight: 700; color: white;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .topbar-logo span { opacity: 0.8; font-weight: 400; font-size: 14px; }
+
+  /* ---- HERO ---- */
+  .hero {
+    background: var(--red);
+    padding: 64px 20px 72px;
     position: relative;
     overflow: hidden;
   }
-  .header::before {
-    content: ""; position: absolute;
-    top: -120px; right: -100px;
-    width: 380px; height: 380px;
-    background: var(--sky-bg); border-radius: 50%; opacity: 0.6;
+  .hero::after {
+    content: "";
+    position: absolute; right: -60px; top: -60px;
+    width: 340px; height: 340px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
   }
-  .header::after {
-    content: ""; position: absolute;
-    bottom: -80px; left: -80px;
-    width: 260px; height: 260px;
-    background: var(--red-light); border-radius: 50%; opacity: 0.4;
+  .hero::before {
+    content: "";
+    position: absolute; right: 80px; bottom: -80px;
+    width: 220px; height: 220px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
   }
-  .header-inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
-
-  .header-badge {
+  .hero-inner {
+    max-width: 1100px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+  .hero-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
-    background: var(--sky-bg); border: 1.5px solid var(--sky);
-    border-radius: 100px; padding: 6px 18px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 100px; padding: 5px 16px;
+    font-family: "Space Grotesk", sans-serif;
     font-size: var(--fs-xs); font-weight: 600;
-    letter-spacing: 0.07em; text-transform: uppercase;
-    margin-bottom: 24px; color: var(--sky-dark);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 20px;
   }
-  .header h1 {
+  .hero h1 {
+    font-family: "Space Grotesk", sans-serif;
     font-size: var(--fs-xl); font-weight: 700;
-    line-height: 1.1; margin-bottom: 16px;
-    color: var(--text); letter-spacing: -0.02em;
+    color: white; line-height: 1.1;
+    letter-spacing: -0.02em;
+    max-width: 640px; margin-bottom: 16px;
   }
-  .header h1 em { font-style: normal; color: var(--red); }
-  .header p {
-    font-size: var(--fs-base); color: var(--text-soft);
-    max-width: 520px; margin: 0 auto; line-height: var(--lh);
+  .hero h1 em { font-style: normal; color: rgba(255,255,255,0.75); }
+  .hero-desc {
+    font-size: var(--fs-md); color: rgba(255,255,255,0.82);
+    max-width: 520px; line-height: 1.55; margin-bottom: 32px;
+  }
+  .hero-stats {
+    display: flex; gap: 40px; flex-wrap: wrap;
+  }
+  .hero-stat-val {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 38px; font-weight: 700; color: white; line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: var(--fs-sm); color: rgba(255,255,255,0.7);
+    margin-top: 4px;
   }
 
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+  /* ---- SECTION ANATOMY ---- */
+  .section { padding: 48px 20px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-eyebrow {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: var(--fs-xs); font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--sky-text); margin-bottom: 8px;
+  }
+  .section h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: var(--fs-lg); font-weight: 700;
+    color: var(--text); margin-bottom: 24px;
+  }
 
-  /* INFO CARDS */
-  .info-section {
+  /* ---- INFO STRIP (sky bg) ---- */
+  .info-strip { background: var(--sky-bg); }
+  .info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 16px; margin: 36px auto 0;
-    max-width: 1100px; padding: 0 20px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
   }
   .info-card {
-    background: var(--white); border-radius: 14px; padding: 24px;
+    background: var(--white); border-radius: 12px; padding: 22px 24px;
     border: 1.5px solid var(--border);
-    box-shadow: 0 2px 12px rgba(179,205,214,.18);
   }
-  .info-card-icon {
-    width: 42px; height: 42px; border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px; margin-bottom: 14px;
-  }
-  .info-card-icon.sky { background: var(--sky-bg); }
-  .info-card-icon.red { background: var(--red-light); }
+  .info-card-icon { font-size: 22px; margin-bottom: 12px; }
   .info-card h3 {
     font-family: "Space Grotesk", sans-serif;
-    font-size: var(--fs-md); font-weight: 600;
-    margin-bottom: 8px; color: var(--text);
+    font-size: var(--fs-md); font-weight: 600; color: var(--text); margin-bottom: 6px;
   }
   .info-card p { font-size: var(--fs-base); color: var(--text-soft); line-height: var(--lh); }
 
-  /* SCORING LEGEND */
-  .scoring-section {
-    background: var(--white); border-radius: 14px;
-    border: 1.5px solid var(--border);
-    box-shadow: 0 2px 12px rgba(179,205,214,.18);
-    padding: 28px; margin: 20px auto 0; max-width: 1100px;
-  }
-  .scoring-section h2 {
-    font-size: var(--fs-lg); font-weight: 600;
-    color: var(--text); margin-bottom: 20px;
-    display: flex; align-items: center; gap: 8px;
-  }
+  /* ---- CRITERIA ---- */
+  .criteria-section { background: var(--white); border-top: 1.5px solid var(--border); }
   .criteria-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+    gap: 12px; margin-bottom: 24px;
   }
   .criterion-chip {
-    background: var(--sky-bg); border: 1.5px solid var(--sky);
-    border-radius: 10px; padding: 12px 14px;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 14px 16px;
+    border-left: 4px solid var(--red);
   }
   .criterion-chip .num {
-    font-size: var(--fs-xs); font-weight: 600; color: var(--sky-text);
-    text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: var(--fs-xs); font-weight: 700; color: var(--red);
+    text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 5px;
   }
   .criterion-chip .name {
-    font-family: "Darker Grotesque", sans-serif;
-    font-size: var(--fs-base); font-weight: 600; color: var(--text); line-height: 1.25;
+    font-size: var(--fs-base); font-weight: 600; color: var(--text); line-height: 1.3;
   }
   .criterion-chip .range {
-    font-family: "Darker Grotesque", sans-serif;
-    font-size: var(--fs-sm); color: var(--sky-text); margin-top: 3px;
+    font-size: var(--fs-sm); color: var(--text-soft); margin-top: 2px;
   }
 
-  .score-scale {
-    margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
-  }
-  .score-scale > span { font-size: var(--fs-sm); color: var(--text-soft); margin-right: 4px; }
+  .score-scale { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .score-scale-label { font-size: var(--fs-sm); color: var(--text-soft); margin-right: 4px; }
   .scale-badge {
     display: inline-flex; align-items: center;
     padding: 4px 12px; border-radius: 100px;
+    font-family: "Space Grotesk", sans-serif;
     font-size: var(--fs-xs); font-weight: 700;
   }
 
-  /* STATS */
-  .stats-bar {
-    display: flex; flex-wrap: wrap; gap: 12px;
-    max-width: 1100px; margin: 20px auto 0; padding: 0 20px;
-  }
-  .stat-pill {
-    background: var(--white); border: 1.5px solid var(--border);
-    border-radius: 100px; padding: 8px 18px;
-    font-size: var(--fs-sm); font-weight: 500; color: var(--text-soft);
-    display: flex; align-items: center; gap: 6px;
-  }
-  .stat-pill strong { color: var(--red); font-weight: 700; }
-
-  /* SEARCH */
-  .search-section { max-width: 1100px; margin: 20px auto 0; padding: 0 20px; }
+  /* ---- SEARCH ---- */
+  .search-section { background: var(--bg); border-top: 1.5px solid var(--border); padding: 24px 20px; }
+  .search-inner { max-width: 1100px; margin: 0 auto; }
   .search-wrap { position: relative; }
   .search-wrap svg {
     position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
     color: var(--sky-text); pointer-events: none;
   }
   #search {
-    width: 100%; padding: 14px 16px 14px 46px;
-    border: 1.5px solid var(--border); border-radius: 12px;
+    width: 100%; padding: 13px 16px 13px 46px;
+    border: 1.5px solid var(--border); border-radius: 100px;
     font-size: var(--fs-base); font-family: "Darker Grotesque", sans-serif;
     font-weight: 500; color: var(--text); background: var(--white);
     outline: none; transition: border-color .15s, box-shadow .15s;
   }
-  #search:focus { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(179,205,214,.28); }
+  #search:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(220,91,91,.12); }
   #search::placeholder { color: #9cbac5; }
-  #search-count { font-size: var(--fs-sm); color: var(--text-soft); margin-top: 8px; }
+  #search-count { font-size: var(--fs-sm); color: var(--text-soft); margin-top: 8px; padding-left: 4px; }
 
-  /* SCHOOL CARDS */
+  /* ---- SCHOOLS ---- */
   .schools-section {
-    max-width: 1100px; margin: 24px auto 60px; padding: 0 20px;
-    display: flex; flex-direction: column; gap: 16px;
+    background: var(--white);
+    padding: 24px 20px 64px;
   }
+  .schools-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+
   .school-card {
-    background: var(--white); border-radius: 14px;
+    background: var(--white);
+    border-radius: 12px;
     border: 1.5px solid var(--border);
-    box-shadow: 0 2px 8px rgba(179,205,214,.12);
-    overflow: hidden; transition: box-shadow .2s, border-color .2s;
+    overflow: hidden;
+    transition: border-color .2s, box-shadow .2s;
   }
-  .school-card:hover { box-shadow: 0 4px 20px rgba(179,205,214,.35); border-color: var(--sky); }
-  .school-card.open { border-color: var(--sky); }
+  .school-card:hover { border-color: var(--sky); box-shadow: 0 4px 20px rgba(179,205,214,.25); }
+  .school-card.open { border-color: var(--red); }
 
   .school-header {
-    padding: 20px 24px;
+    padding: 18px 22px;
     display: flex; align-items: center; justify-content: space-between; gap: 16px;
     cursor: pointer; user-select: none;
   }
   .school-header-left { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0; }
   .school-avatar {
-    width: 46px; height: 46px; min-width: 46px; border-radius: 12px;
+    width: 44px; height: 44px; min-width: 44px; border-radius: 10px;
     background: var(--red); display: flex; align-items: center; justify-content: center;
     font-family: "Space Grotesk", sans-serif;
-    font-size: var(--fs-sm); font-weight: 700; color: white;
+    font-size: 14px; font-weight: 700; color: white;
   }
   .school-name {
+    font-family: "Space Grotesk", sans-serif;
     font-size: var(--fs-md); font-weight: 600; color: var(--text); line-height: 1.3;
   }
-  .school-meta { font-size: var(--fs-sm); color: var(--sky-text); margin-top: 4px; }
+  .school-meta { font-size: var(--fs-sm); color: var(--sky-text); margin-top: 3px; }
 
-  .school-header-right { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
-  .school-avg-badge { text-align: center; }
-  .avg-num { font-size: 26px; font-weight: 700; line-height: 1; color: var(--red); }
+  .school-header-right { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+  .school-avg-badge { text-align: right; }
+  .avg-num {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 28px; font-weight: 700; line-height: 1; color: var(--red);
+  }
   .avg-label {
-    font-size: var(--fs-xs); color: var(--sky-text); font-weight: 600;
-    letter-spacing: 0.06em; text-transform: uppercase;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 10px; color: var(--sky-text); font-weight: 600;
+    letter-spacing: 0.07em; text-transform: uppercase;
   }
   .toggle-icon { color: var(--sky-text); transition: transform .25s; flex-shrink: 0; }
   .school-card.open .toggle-icon { transform: rotate(180deg); }
 
-  .school-body { border-top: 1.5px solid var(--sky-bg); display: none; }
+  .school-body { border-top: 1.5px solid var(--border); display: none; background: var(--bg); }
   .school-card.open .school-body { display: block; }
 
-  /* PROJECTS */
-  .project-list { padding: 12px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
+  /* ---- PROJECTS ---- */
+  .project-list { padding: 12px 16px 16px; display: flex; flex-direction: column; gap: 10px; }
+
   .project-item {
-    border: 1.5px solid var(--border); border-radius: 12px; padding: 18px 20px;
-    background: var(--bg); transition: border-color .15s, background .15s;
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 18px 20px;
+    transition: border-color .15s;
   }
-  .project-item:hover { border-color: var(--sky); background: var(--sky-bg); }
+  .project-item:hover { border-color: var(--sky); }
 
   .project-top {
     display: flex; align-items: flex-start; justify-content: space-between;
     gap: 12px; margin-bottom: 16px;
   }
-  .project-name { font-size: var(--fs-md); font-weight: 600; color: var(--text); line-height: 1.25; }
+  .project-name {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: var(--fs-md); font-weight: 600; color: var(--text); line-height: 1.25;
+  }
   .project-link {
     display: inline-flex; align-items: center; gap: 5px;
+    font-family: "Space Grotesk", sans-serif;
     font-size: var(--fs-sm); color: var(--red); font-weight: 600;
     text-decoration: none; background: var(--red-light);
-    border: 1.5px solid #e8a0a0; border-radius: 8px; padding: 5px 12px;
+    border: 1.5px solid #e8b0b0; border-radius: 100px; padding: 6px 14px;
     flex-shrink: 0; transition: background .15s;
+    white-space: nowrap;
   }
-  .project-link:hover { background: #f0bebe; }
+  .project-link:hover { background: #f5d0d0; }
 
   .scores-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 8px; margin-bottom: 16px;
   }
   .score-item {
-    background: var(--white); border: 1.5px solid var(--border);
+    background: var(--bg); border: 1.5px solid var(--border);
     border-radius: 8px; padding: 10px 12px;
   }
   .score-item-label {
@@ -282,154 +301,188 @@
   }
   .score-item-row { display: flex; align-items: center; gap: 8px; }
   .score-bar-wrap {
-    flex: 1; height: 7px; background: var(--sky-bg); border-radius: 100px; overflow: hidden;
-    border: 1px solid var(--border);
+    flex: 1; height: 6px; background: var(--sky-bg); border-radius: 100px; overflow: hidden;
   }
   .score-bar { height: 100%; border-radius: 100px; transition: width .5s ease; }
   .score-val {
+    font-family: "Space Grotesk", sans-serif;
     font-size: var(--fs-md); font-weight: 700; min-width: 20px; text-align: right;
   }
 
   .project-footer {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 12px; flex-wrap: wrap;
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    border-top: 1px solid var(--border); padding-top: 14px;
   }
-  .total-score { display: flex; align-items: center; gap: 10px; }
-  .total-score-label { font-size: var(--fs-sm); color: var(--text-soft); }
+  .total-score-label {
+    font-size: var(--fs-sm); color: var(--text-soft);
+  }
   .total-badge {
+    font-family: "Space Grotesk", sans-serif;
     font-size: var(--fs-base); font-weight: 700;
     padding: 5px 16px; border-radius: 100px;
   }
 
   /* Score bar colors */
-  .bar-0 { background: #f0c0c0; }
-  .bar-1 { background: #e8997a; }
-  .bar-2 { background: #e8c86a; }
+  .bar-0 { background: #f5b8b8; }
+  .bar-1 { background: #eda07a; }
+  .bar-2 { background: #e8c46a; }
   .bar-3 { background: #a5c98a; }
   .bar-4 { background: #7DA4B2; }
-  .bar-5 { background: #4a7f93; }
+  .bar-5 { background: #3a8098; }
 
-  /* Score value colors */
   .sc-0 { color: #c0392b; }
-  .sc-1 { color: #c0634c; }
-  .sc-2 { color: #b59a30; }
-  .sc-3 { color: #5a8a3a; }
-  .sc-4 { color: #7DA4B2; }
+  .sc-1 { color: #c06040; }
+  .sc-2 { color: #a08020; }
+  .sc-3 { color: #4a8030; }
+  .sc-4 { color: #5a8fa0; }
   .sc-5 { color: var(--sky-dark); }
 
-  /* Total score tiers */
-  .total-0-5   { background: #fde8e8; color: #b83030; border: 1.5px solid #f0bebe; }
-  .total-6-10  { background: #fdf0e0; color: #a05a20; border: 1.5px solid #f0d0a0; }
-  .total-11-15 { background: #fafae0; color: #7a7820; border: 1.5px solid #e0e090; }
-  .total-16-20 { background: #e6f5ea; color: #2a7040; border: 1.5px solid #a0d8b0; }
+  .total-0-5   { background: #fde8e8; color: #b83030; border: 1.5px solid #f0b8b8; }
+  .total-6-10  { background: #fdf0e0; color: #a05020; border: 1.5px solid #f0d0a0; }
+  .total-11-15 { background: #fafae0; color: #808020; border: 1.5px solid #e0e090; }
+  .total-16-20 { background: #e8f5ea; color: #2a7040; border: 1.5px solid #a0d8b0; }
   .total-21-25 { background: #dff0f5; color: #1a6070; border: 1.5px solid #7DA4B2; }
 
-  .no-results { text-align: center; padding: 60px 20px; color: var(--text-soft); display: none; }
+  .no-results { text-align: center; padding: 60px 20px; color: var(--text-soft); display: none; font-size: var(--fs-md); }
   .no-results.visible { display: block; }
 
+  /* ---- FOOTER ---- */
   footer {
-    text-align: center; padding: 28px;
-    font-size: var(--fs-sm); color: var(--sky-text);
-    border-top: 1.5px solid var(--border); background: var(--white);
+    background: var(--sky-dark);
+    padding: 32px 20px;
+    text-align: center;
   }
-  footer a { color: var(--red); text-decoration: none; font-weight: 600; }
+  footer-inner { max-width: 1100px; margin: 0 auto; }
+  footer p { font-size: var(--fs-sm); color: rgba(255,255,255,0.7); }
+  footer a { color: white; text-decoration: none; font-weight: 600; }
   footer a:hover { text-decoration: underline; }
 
   @media (max-width: 600px) {
-    .info-section { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr; }
+    .criteria-grid { grid-template-columns: 1fr 1fr; }
     .scores-grid { grid-template-columns: 1fr 1fr; }
-    .school-header { padding: 16px; }
+    .school-header { padding: 14px 16px; }
     .project-list { padding: 8px 8px 12px; }
     .project-item { padding: 14px; }
-    .header { padding: 40px 20px 36px; }
+    .hero { padding: 48px 20px 56px; }
+    .hero-stats { gap: 24px; }
   }
 </style>
 </head>
 <body>
 
-<div class="topbar"></div>
-
-<!-- HEADER -->
-<div class="header">
-  <div class="header-inner">
-    <div class="header-badge">🤖 AI Olympiáda 2026</div>
-    <h1>Výsledky hodnocení<br><em>Startup Lab</em></h1>
-    <p>Přehled hodnocení projektů z kategorie Startup Lab — aplikací vytvořených žáky pomocí umělé inteligence.</p>
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-logo">🤖 AI dětem <span>/ AI Olympiáda 2026</span></div>
   </div>
 </div>
 
-<!-- INFO CARDS -->
-<div class="info-section">
-  <div class="info-card">
-    <div class="info-card-icon sky">📋</div>
-    <h3>O této stránce</h3>
-    <p>Zde najdete hodnocení všech projektů vaší školy z kategorie Startup Lab AI Olympiády 2026. Každý projekt hodnotila porota podle pěti kritérií.</p>
-  </div>
-  <div class="info-card">
-    <div class="info-card-icon red">⭐</div>
-    <h3>Jak číst hodnocení</h3>
-    <p>Každé kritérium je hodnoceno 0–5 body. Maximální počet bodů za projekt je <strong>25</strong>. Barevné pruhy ukazují relativní výši skóre v daném kritériu.</p>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Startup Lab · Výsledky hodnocení</div>
+    <h1>Hodnocení projektů<br><em>AI Olympiády 2026</em></h1>
+    <p class="hero-desc">Přehled výsledků kategorie Startup Lab — aplikací vytvořených žáky pomocí umělé inteligence na platformě Macaly.</p>
+    <div class="hero-stats" id="hero-stats">
+      <div>
+        <div class="hero-stat-val" id="stat-schools">—</div>
+        <div class="hero-stat-label">škol</div>
+      </div>
+      <div>
+        <div class="hero-stat-val" id="stat-projects">—</div>
+        <div class="hero-stat-label">projektů</div>
+      </div>
+      <div>
+        <div class="hero-stat-val" id="stat-avg">—</div>
+        <div class="hero-stat-label">průměrné skóre z 25</div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- SCORING LEGEND -->
-<div class="scoring-section container">
-  <h2>📊 Hodnotící kritéria</h2>
-  <div class="criteria-grid">
-    <div class="criterion-chip">
-      <div class="num">Kritérium 1</div>
-      <div class="name">Originalita a inovace</div>
-      <div class="range">0–5 bodů</div>
+<!-- INFO STRIP -->
+<div class="section info-strip">
+  <div class="section-inner">
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-icon">📋</div>
+        <h3>O této stránce</h3>
+        <p>Zde najdete hodnocení všech projektů vaší školy z kategorie Startup Lab AI Olympiády 2026. Každý projekt hodnotila porota podle pěti kritérií.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">⭐</div>
+        <h3>Jak číst hodnocení</h3>
+        <p>Každé kritérium je hodnoceno 0–5 body. Maximální počet bodů za projekt je <strong>25</strong>. Barevné pruhy ukazují relativní výši skóre v daném kritériu.</p>
+      </div>
     </div>
-    <div class="criterion-chip">
-      <div class="num">Kritérium 2</div>
-      <div class="name">Přínos a hodnota</div>
-      <div class="range">0–5 bodů</div>
-    </div>
-    <div class="criterion-chip">
-      <div class="num">Kritérium 3</div>
-      <div class="name">Technické zpracování</div>
-      <div class="range">0–5 bodů</div>
-    </div>
-    <div class="criterion-chip">
-      <div class="num">Kritérium 4</div>
-      <div class="name">Použitelnost a design</div>
-      <div class="range">0–5 bodů</div>
-    </div>
-    <div class="criterion-chip">
-      <div class="num">Kritérium 5</div>
-      <div class="name">Reflexe procesu a práce s&nbsp;AI</div>
-      <div class="range">0–5 bodů</div>
-    </div>
-  </div>
-  <div class="score-scale">
-    <span>Celkové skóre:</span>
-    <span class="scale-badge total-0-5">0–5 bodů</span>
-    <span class="scale-badge total-6-10">6–10 bodů</span>
-    <span class="scale-badge total-11-15">11–15 bodů</span>
-    <span class="scale-badge total-16-20">16–20 bodů</span>
-    <span class="scale-badge total-21-25">21–25 bodů</span>
   </div>
 </div>
 
-<!-- STATS -->
-<div class="stats-bar" id="stats-bar"></div>
+<!-- CRITERIA -->
+<div class="section criteria-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Hodnotící kritéria</div>
+    <h2>Co porota hodnotila</h2>
+    <div class="criteria-grid">
+      <div class="criterion-chip">
+        <div class="num">Kritérium 1</div>
+        <div class="name">Originalita a inovace</div>
+        <div class="range">0–5 bodů</div>
+      </div>
+      <div class="criterion-chip">
+        <div class="num">Kritérium 2</div>
+        <div class="name">Přínos a hodnota</div>
+        <div class="range">0–5 bodů</div>
+      </div>
+      <div class="criterion-chip">
+        <div class="num">Kritérium 3</div>
+        <div class="name">Technické zpracování</div>
+        <div class="range">0–5 bodů</div>
+      </div>
+      <div class="criterion-chip">
+        <div class="num">Kritérium 4</div>
+        <div class="name">Použitelnost a design</div>
+        <div class="range">0–5 bodů</div>
+      </div>
+      <div class="criterion-chip">
+        <div class="num">Kritérium 5</div>
+        <div class="name">Reflexe procesu a práce s&nbsp;AI</div>
+        <div class="range">0–5 bodů</div>
+      </div>
+    </div>
+    <div class="score-scale" style="margin-top:20px;">
+      <span class="score-scale-label">Celkové skóre:</span>
+      <span class="scale-badge total-0-5">0–5 bodů</span>
+      <span class="scale-badge total-6-10">6–10 bodů</span>
+      <span class="scale-badge total-11-15">11–15 bodů</span>
+      <span class="scale-badge total-16-20">16–20 bodů</span>
+      <span class="scale-badge total-21-25">21–25 bodů</span>
+    </div>
+  </div>
+</div>
 
 <!-- SEARCH -->
 <div class="search-section">
-  <div class="search-wrap">
-    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input type="text" id="search" placeholder="Hledat školu nebo název projektu…" autocomplete="off">
+  <div class="search-inner">
+    <div class="search-wrap">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="search" placeholder="Hledat školu nebo název projektu…" autocomplete="off">
+    </div>
+    <div id="search-count"></div>
   </div>
-  <div id="search-count"></div>
 </div>
 
 <!-- SCHOOLS -->
-<div class="schools-section" id="schools-container"></div>
-<div class="no-results" id="no-results">Žádné výsledky neodpovídají vašemu hledání.</div>
+<div class="schools-section">
+  <div class="schools-inner" id="schools-container"></div>
+  <div class="no-results" id="no-results" style="max-width:1100px;margin:0 auto;">Žádné výsledky neodpovídají vašemu hledání.</div>
+</div>
 
 <footer>
-  <p>AI Olympiáda 2026 &middot; Startup Lab &middot; <a href="https://aidetem.cz/ai-olympiada/" target="_blank" rel="noopener">aidetem.cz</a></p>
+  <div class="footer-inner">
+    <p>AI Olympiáda 2026 &middot; Startup Lab &middot; <a href="https://aidetem.cz/ai-olympiada/" target="_blank" rel="noopener">aidetem.cz</a></p>
+  </div>
 </footer>
 
 <script>
@@ -718,19 +771,16 @@ function renderProject(p) {
 function render() {
   const schoolsMap = groupBySchool(RAW);
   const container = document.getElementById('schools-container');
-  const statsBar = document.getElementById('stats-bar');
+  // stats rendered in hero
 
   const totalProjects = RAW.length;
   const totalSchools = schoolsMap.size;
   const avgScore = (RAW.reduce((s, r) => s + r[3], 0) / RAW.length).toFixed(1);
   const topScore = Math.max(...RAW.map(r => r[3]));
 
-  statsBar.innerHTML = `
-    <div class="stat-pill">🏫 Škol: <strong>${totalSchools}</strong></div>
-    <div class="stat-pill">📱 Projektů: <strong>${totalProjects}</strong></div>
-    <div class="stat-pill">📊 Průměrné skóre: <strong>${avgScore} / 25</strong></div>
-    <div class="stat-pill">🏆 Nejvyšší skóre: <strong>${topScore} / 25</strong></div>
-  `;
+  document.getElementById('stat-schools').textContent = totalSchools;
+  document.getElementById('stat-projects').textContent = totalProjects;
+  document.getElementById('stat-avg').textContent = avgScore;
 
   const sorted = [...schoolsMap.entries()].sort((a, b) => a[0].localeCompare(b[0], 'cs'));
 
