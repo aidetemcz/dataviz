@@ -278,12 +278,12 @@
     display: inline-flex; align-items: center; gap: 5px;
     font-family: "Space Grotesk", sans-serif;
     font-size: var(--fs-sm); color: var(--red); font-weight: 600;
-    text-decoration: none; background: var(--red-light);
-    border: 1.5px solid #e8b0b0; border-radius: 100px; padding: 6px 14px;
-    flex-shrink: 0; transition: background .15s;
+    text-decoration: none; background: var(--white);
+    border: 1.5px solid var(--red); border-radius: 100px; padding: 6px 14px;
+    flex-shrink: 0; transition: background .15s, color .15s;
     white-space: nowrap;
   }
-  .project-link:hover { background: #f5d0d0; }
+  .project-link:hover { background: var(--red); color: white; }
 
   .scores-grid {
     display: grid;
