@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Olympiáda 2026 – Startup Lab | Výsledky hodnocení</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple-900: #3b0764;
+    --purple-800: #4c1d95;
+    --purple-700: #5b21b6;
+    --purple-600: #7c3aed;
+    --purple-500: #8b5cf6;
+    --purple-400: #a78bfa;
+    --purple-100: #ede9fe;
+    --purple-50: #f5f3ff;
+    --amber: #f59e0b;
+    --green-500: #10b981;
+    --green-600: #059669;
+    --orange-500: #f97316;
+    --red-500: #ef4444;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-700: #374151;
+    --gray-900: #111827;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-900);
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, var(--purple-900) 0%, var(--purple-700) 60%, var(--purple-500) 100%);
+    color: white;
+    padding: 48px 24px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: rgba(167,139,250,0.15);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 220px; height: 220px;
+    background: rgba(139,92,246,0.12);
+    border-radius: 50%;
+  }
+  .header-inner { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+  .header-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 20px;
+    color: var(--purple-100);
+  }
+  .header h1 {
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+  .header h1 span { color: var(--purple-400); }
+  .header p {
+    font-size: clamp(15px, 2vw, 18px);
+    color: rgba(255,255,255,0.8);
+    max-width: 560px; margin: 0 auto;
+  }
+
+  /* MAIN CONTENT */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+  /* INFO CARDS */
+  .info-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin: -28px auto 0;
+    max-width: 1100px;
+    padding: 0 20px;
+    position: relative; z-index: 2;
+  }
+  .info-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 24px rgba(109,40,217,0.1), 0 1px 4px rgba(0,0,0,0.06);
+    border: 1px solid var(--purple-100);
+  }
+  .info-card-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  .info-card-icon.purple { background: var(--purple-100); }
+  .info-card-icon.amber { background: #fef3c7; }
+  .info-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--gray-900); }
+  .info-card p { font-size: 14px; color: var(--gray-500); line-height: 1.6; }
+
+  /* SCORING LEGEND */
+  .scoring-section {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid var(--purple-100);
+    box-shadow: 0 2px 12px rgba(109,40,217,0.06);
+    padding: 28px;
+    margin: 24px 20px 0;
+    max-width: 1100px;
+    margin-left: auto; margin-right: auto;
+  }
+  .scoring-section h2 {
+    font-size: 17px; font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 12px;
+  }
+  .criterion-chip {
+    background: var(--purple-50);
+    border: 1px solid var(--purple-100);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .criterion-chip .num {
+    font-size: 11px; font-weight: 700;
+    color: var(--purple-600);
+    text-transform: uppercase; letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+  .criterion-chip .name { font-size: 13px; font-weight: 600; color: var(--gray-700); }
+  .criterion-chip .range { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+
+  .score-scale {
+    margin-top: 20px;
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  }
+  .score-scale span { font-size: 13px; color: var(--gray-500); font-weight: 500; margin-right: 4px; }
+  .scale-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 10px; border-radius: 100px;
+    font-size: 12px; font-weight: 600;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    max-width: 1100px; margin: 20px auto 0; padding: 0 20px;
+  }
+  .stat-pill {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 14px; font-weight: 500;
+    color: var(--gray-700);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .stat-pill strong { color: var(--purple-700); font-weight: 700; }
+
+  /* SEARCH */
+  .search-section {
+    max-width: 1100px; margin: 20px auto 0; padding: 0 20px;
+  }
+  .search-wrap {
+    position: relative;
+  }
+  .search-wrap svg {
+    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+    color: var(--gray-400);
+    pointer-events: none;
+  }
+  #search {
+    width: 100%;
+    padding: 14px 16px 14px 46px;
+    border: 2px solid var(--gray-200);
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    color: var(--gray-900);
+    background: white;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  #search:focus { border-color: var(--purple-500); box-shadow: 0 0 0 3px rgba(139,92,246,0.12); }
+  #search::placeholder { color: var(--gray-400); }
+  #search-count {
+    font-size: 13px; color: var(--gray-500); margin-top: 8px;
+  }
+
+  /* SCHOOL CARDS */
+  .schools-section {
+    max-width: 1100px; margin: 24px auto 48px; padding: 0 20px;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+
+  .school-card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid var(--gray-200);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .school-card:hover { box-shadow: 0 4px 20px rgba(109,40,217,0.1); }
+
+  .school-header {
+    padding: 20px 24px;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .school-header-left { display: flex; align-items: flex-start; gap: 14px; flex: 1; min-width: 0; }
+  .school-avatar {
+    width: 44px; height: 44px; min-width: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800; color: white;
+  }
+  .school-name {
+    font-size: 16px; font-weight: 700; color: var(--gray-900);
+    line-height: 1.35;
+  }
+  .school-meta {
+    font-size: 13px; color: var(--gray-500); margin-top: 3px;
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .school-meta span { display: flex; align-items: center; gap: 4px; }
+
+  .school-header-right {
+    display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+  }
+  .school-avg-badge {
+    text-align: center;
+  }
+  .school-avg-badge .avg-num {
+    font-size: 22px; font-weight: 800; line-height: 1; color: var(--purple-700);
+  }
+  .school-avg-badge .avg-label {
+    font-size: 10px; color: var(--gray-400); font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .toggle-icon {
+    color: var(--gray-400);
+    transition: transform 0.25s;
+  }
+  .school-card.open .toggle-icon { transform: rotate(180deg); }
+
+  .school-body {
+    border-top: 1px solid var(--gray-100);
+    display: none;
+  }
+  .school-card.open .school-body { display: block; }
+
+  /* PROJECT ROWS */
+  .project-list { padding: 8px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
+
+  .project-item {
+    border: 1px solid var(--gray-100);
+    border-radius: 12px;
+    padding: 16px 18px;
+    background: var(--gray-50);
+    transition: border-color 0.15s;
+  }
+  .project-item:hover { border-color: var(--purple-200, #ddd6fe); }
+
+  .project-top {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 12px; margin-bottom: 14px;
+  }
+  .project-name {
+    font-size: 15px; font-weight: 700; color: var(--gray-900);
+  }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; color: var(--purple-600); font-weight: 600;
+    text-decoration: none;
+    background: var(--purple-50);
+    border: 1px solid var(--purple-100);
+    border-radius: 8px;
+    padding: 4px 10px;
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+  .project-link:hover { background: var(--purple-100); }
+
+  .scores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .score-item {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .score-item-label {
+    font-size: 11px; color: var(--gray-500); font-weight: 500;
+    margin-bottom: 6px; line-height: 1.3;
+  }
+  .score-item-row {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .score-bar-wrap {
+    flex: 1; height: 6px; background: var(--gray-200); border-radius: 100px; overflow: hidden;
+  }
+  .score-bar {
+    height: 100%; border-radius: 100px; transition: width 0.4s ease;
+  }
+  .score-val {
+    font-size: 13px; font-weight: 700; min-width: 16px; text-align: right;
+  }
+  .score-desc {
+    font-size: 11px; color: var(--gray-400); margin-top: 3px; line-height: 1.2;
+  }
+
+  .project-footer {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    flex-wrap: wrap;
+  }
+  .total-score {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .total-score-label { font-size: 13px; color: var(--gray-500); font-weight: 500; }
+  .total-badge {
+    font-size: 18px; font-weight: 800;
+    padding: 4px 14px;
+    border-radius: 100px;
+  }
+
+  /* Score colors */
+  .sc-0 { color: #ef4444; }
+  .sc-1 { color: #f97316; }
+  .sc-2 { color: #f59e0b; }
+  .sc-3 { color: #84cc16; }
+  .sc-4 { color: #10b981; }
+  .sc-5 { color: #059669; }
+
+  .bar-0 { background: #fca5a5; }
+  .bar-1 { background: #fdba74; }
+  .bar-2 { background: #fcd34d; }
+  .bar-3 { background: #a3e635; }
+  .bar-4 { background: #34d399; }
+  .bar-5 { background: #059669; }
+
+  /* total score color tiers */
+  .total-0-5   { background: #fee2e2; color: #b91c1c; }
+  .total-6-10  { background: #ffedd5; color: #c2410c; }
+  .total-11-15 { background: #fef9c3; color: #a16207; }
+  .total-16-20 { background: #dcfce7; color: #15803d; }
+  .total-21-25 { background: #d1fae5; color: #065f46; }
+
+  .no-results {
+    text-align: center; padding: 60px 20px;
+    color: var(--gray-500); font-size: 16px;
+    display: none;
+  }
+  .no-results.visible { display: block; }
+
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 13px;
+    color: var(--gray-400);
+    border-top: 1px solid var(--gray-200);
+    background: white;
+  }
+  footer a { color: var(--purple-600); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .info-section { grid-template-columns: 1fr; margin-top: -20px; }
+    .scores-grid { grid-template-columns: 1fr 1fr; }
+    .school-header { padding: 16px; }
+    .project-list { padding: 8px 8px 12px; }
+    .project-item { padding: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-badge">🤖 AI Olympiáda 2026</div>
+    <h1>Výsledky hodnocení<br><span>Startup Lab</span></h1>
+    <p>Přehled hodnocení projektů z kategorie Startup Lab — aplikací vytvořených žáky pomocí umělé inteligence.</p>
+  </div>
+</div>
+
+<!-- INFO CARDS -->
+<div class="info-section">
+  <div class="info-card">
+    <div class="info-card-icon purple">📋</div>
+    <h3>O této stránce</h3>
+    <p>Zde najdete hodnocení všech projektů vaší školy z kategorie Startup Lab AI Olympiády 2026. Každý projekt hodnotila porota podle pěti kritérií.</p>
+  </div>
+  <div class="info-card">
+    <div class="info-card-icon amber">⭐</div>
+    <h3>Jak číst hodnocení</h3>
+    <p>Každé kritérium je hodnoceno 0–5 body. Maximální počet bodů za projekt je <strong>25</strong>. Barevné pruhy ukazují relativní výši skóre v daném kritériu.</p>
+  </div>
+</div>
+
+<!-- SCORING LEGEND -->
+<div class="scoring-section container" style="margin-top:20px;">
+  <h2>📊 Hodnotící kritéria</h2>
+  <div class="criteria-grid">
+    <div class="criterion-chip">
+      <div class="num">Kritérium 1</div>
+      <div class="name">Originalita a inovace</div>
+      <div class="range">0–5 bodů</div>
+    </div>
+    <div class="criterion-chip">
+      <div class="num">Kritérium 2</div>
+      <div class="name">Přínos a hodnota</div>
+      <div class="range">0–5 bodů</div>
+    </div>
+    <div class="criterion-chip">
+      <div class="num">Kritérium 3</div>
+      <div class="name">Technické zpracování</div>
+      <div class="range">0–5 bodů</div>
+    </div>
+    <div class="criterion-chip">
+      <div class="num">Kritérium 4</div>
+      <div class="name">Použitelnost a design</div>
+      <div class="range">0–5 bodů</div>
+    </div>
+    <div class="criterion-chip">
+      <div class="num">Kritérium 5</div>
+      <div class="name">Reflexe procesu a práce s&nbsp;AI</div>
+      <div class="range">0–5 bodů</div>
+    </div>
+  </div>
+  <div class="score-scale">
+    <span>Celkové skóre:</span>
+    <span class="scale-badge total-0-5">0–5 bodů</span>
+    <span class="scale-badge total-6-10">6–10 bodů</span>
+    <span class="scale-badge total-11-15">11–15 bodů</span>
+    <span class="scale-badge total-16-20">16–20 bodů</span>
+    <span class="scale-badge total-21-25">21–25 bodů</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar" id="stats-bar"></div>
+
+<!-- SEARCH -->
+<div class="search-section">
+  <div class="search-wrap">
+    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="search" placeholder="Hledat školu nebo název projektu…" autocomplete="off">
+  </div>
+  <div id="search-count"></div>
+</div>
+
+<!-- SCHOOLS -->
+<div class="schools-section" id="schools-container"></div>
+<div class="no-results" id="no-results">Žádné výsledky neodpovídají vašemu hledání.</div>
+
+<footer>
+  <p>AI Olympiáda 2026 · Startup Lab · <a href="https://aidetem.cz/ai-olympiada/" target="_blank">aidetem.cz</a></p>
+</footer>
+
+<script>
+const CRITERIA = [
+  "Originalita a inovace",
+  "Přínos a hodnota",
+  "Technické zpracování",
+  "Použitelnost a design",
+  "Reflexe procesu a práce s AI"
+];
+
+const RAW = [
+  ["Gymnázium T. G. Masaryka Zastávka, příspěvková organizace","—",[4,3,3,3,3],16,"https://macaly-mp1ynsghj3p4i4dyk20cxsfo.macaly.app"],
+  ["Gymnázium T. G. Masaryka Zastávka, příspěvková organizace","—",[2,1,3,3,1],10,"https://macaly-j56w7rs8vmdomsoyb6noelx9.macaly.app"],
+  ["Gymnázium Židlochovice, příspěvková organizace","—",[1,3,3,3,1],11,"https://macaly-cchdupa62m9td7k7ylv2mgt1.macaly.app"],
+  ["Městské víceleté gymnázium Klobouky u Brna, příspěvková organizace","—",[3,2,2,2,2],11,"https://macaly-dc4camf8emrq7qb95fhnn6ur.macaly.app"],
+  ["Městské víceleté gymnázium Klobouky u Brna, příspěvková organizace","—",[2,3,0,3,3],11,"https://macaly-ynuytryno0lcwf81z5xntwod.macaly.app"],
+  ["Základní škola a Základní umělecká škola Líbeznice, příspěvková organizace","—",[1,2,3,3,3],12,"https://auragen.macaly.app"],
+  ["Základní škola Štěrboholy, příspěvková organizace","—",[2,2,4,4,1],13,"https://macaly-eqzu40wy6mf5gtv8e3bauaxn.macaly.app"],
+  ["Základní škola Štěrboholy, příspěvková organizace","—",[2,3,3,2,1],11,"https://macaly-o4gqoxyysmdqqvj053g6umq5.macaly.app"],
+  ["Základní škola Ústí nad Labem, Mírová 2734/4, příspěvková organizace","—",[3,2,1,2,2],10,"https://macaly-z4rkw2tsi9lifhbc9eemxaar.macaly.app"],
+  ["Základní škola Ústí nad Labem, Mírová 2734/4, příspěvková organizace","—",[1,1,2,2,2],8,"https://macaly-ukq5o3ade8nh5kn7ocul7xmp.macaly.app"],
+  ["Základní škola Václava Havla, Poděbrady, Na Valech 45, okres Nymburk","—",[1,2,4,4,3],14,"https://macaly-nxq5r87ty67b9on550b7olei.macaly.app"],
+  ["Základní škola Václava Havla, Poděbrady, Na Valech 45, okres Nymburk","—",[3,3,0,2,0],8,"https://macaly-tp7i0t4evp8567ky9xr68gkt.macaly.app"],
+  ["Základní škola Václava Havla, Poděbrady, Na Valech 45, okres Nymburk","—",[1,3,0,3,2],9,"https://macaly-xi8j7pdvikennjhrpuncifqo.macaly.app"],
+  ["Základní škola Václava Havla, Poděbrady, Na Valech 45, okres Nymburk","—",[1,3,0,2,1],7,"https://macaly-o9cphkvu3u9xl6jx723uf2y5.macaly.app"],
+  ["Základní škola Václava Havla, Poděbrady, Na Valech 45, okres Nymburk","—",[2,2,2,3,2],11,"https://macaly-t23028oupz1hk9ez7jkj7kq0.macaly.app"],
+  ["Základní škola Václava Havla, Poděbrady, Na Valech 45, okres Nymburk","—",[1,2,1,2,1],7,"https://macaly-kwdrj4kg7hkcgqd1sl0abfsf.macaly.app"],
+  ["Základní škola Václava Havla, Poděbrady, Na Valech 45, okres Nymburk","—",[3,3,0,3,1],10,"https://macaly-or7juz0hs2abtkln98efpgqk.macaly.app"],
+  ["Gymnázium, Nový Jičín, příspěvková organizace","2D Ballistic Simulator",[0,0,0,0,2],2,"https://www.macaly.com/chat/b9bo4qwqzotxeq5i740ctr9p"],
+  ["Fakultní základní škola s rozšířenou výukou jazyků při PedF UK, Praha 5 - Smíchov, Drtinova 1/1861, příspěvková organizace","90 day football challenge",[4,3,2,3,1],13,"https://macaly-fukqcsb4o7fzei688pgpb76t.macaly.app"],
+  ["Gymnázium, Lovosice, Sady pionýrů 600, příspěvková organizace","Ahoj, Cyklisto",[2,1,1,2,1],7,"https://macaly-rjv9af1myrbtivemmbc20h4x.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","AI scam detector",[3,3,0,3,3],12,"https://macaly-dayv2mwth5kmc05smsayb0n5.macaly.app"],
+  ["Základní škola a Mateřská škola Dr. Edvarda Beneše, Praha-Čakovice","AI Sport Coach",[3,3,3,4,3],16,"https://macaly-z7wqsqqk0ohi9pur5ym74iad.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","AI trenér",[0,1,2,2,1],6,"https://macaly-o608nrvlds8lykbkdso3e0p9.macaly.app"],
+  ["Základní škola Kamenice, okres Praha - východ","Alpha Centauri - Záchranná mise",[3,2,3,4,2],14,"https://macaly-aek7p1tmu6davmca0cvxcqmd.macaly.app"],
+  ["Základní škola a Mateřská škola Bohumín-Skřečoň 1. máje 217 okres Karviná, příspěvková organizace","Analýza AI",[2,2,1,2,2],9,"https://macaly-lkd3o1380l6i7wqvmkivzu85.macaly.app"],
+  ["Základní škola a Mateřská škola Kladno, Doberská 323","Animal Fun-Facter",[2,2,4,3,1],12,"https://macaly-fkrrupmx5bzxrw4fz9qjp2ya.macaly.app"],
+  ["Gymnázium J.Š.Baara, Domažlice, Pivovarská 323","Aplikace: Level Up",[1,2,2,2,3],10,"https://macaly-ytgq5k3rp6u99niikvtagol2.macaly.app"],
+  ["Gymnázium Brno, třída Kapitána Jaroše, příspěvková organizace","Arkáda",[1,1,4,5,3],14,"https://macaly-d47lud4pqaz1tzdt2jr57h3d.macaly.app"],
+  ["Základní škola Pardubice-Polabiny, npor. Eliáše 344","Astronomie.",[3,2,3,3,2],13,"https://macaly-a9d0r47svwm0gk7t8udwr6nm.macaly.app"],
+  ["Základní škola a Mateřská škola Ždírec nad Doubravou","Aura",[4,3,2,4,3],16,"https://macaly-ro7cxrpgul3aho4zwe9rgusr.macaly.app"],
+  ["Základní škola Tomáše Šobra a Mateřská škola Písek, Šobrova 2070","Bakix",[2,3,4,4,5],18,"https://bakix.macaly.app/welcome"],
+  ["Základní škola, Praha 4, Na Líše 16","BEBErun",[3,2,3,3,3],14,"https://macaly-w7ne2w27e26rv4vhx5mwztby.macaly.app"],
+  ["Gymnázium J.Š.Baara, Domažlice, Pivovarská 323","BIOstudium",[4,3,3,3,4],17,"https://macaly-olhhn6mzo8qwo5bsi9kvv1i8.macaly.app"],
+  ["Gymnázium T. G. Masaryka Zastávka, příspěvková organizace","BloomSave",[0,2,3,3,2],10,"https://macaly-p9zy90cy0f7ubtja5k0b6lj6.macaly.app"],
+  ["Základní škola a mateřská škola Sázava","Bludiště",[1,1,2,0,2],6,"https://macaly-yvhw3rb5lkgzrtfrlnfg041m.macaly.app"],
+  ["Základní škola a mateřská škola Sázava","Burger Catcher",[2,1,3,3,2],11,"https://macaly-r2ojc1nfjc6z017gdzop9gsg.macaly.app"],
+  ["Základní škola a mateřská škola Montessori Slaný s.r.o.","Catch Treasure",[2,2,5,5,4],18,"https://catch-treasure-game.macaly.app"],
+  ["Základní škola a Mateřská škola, Kubatova 1, České Budějovice","Clothesify",[1,2,3,2,2],10,"https://macaly-gs3a23is18oww0jvq04iom3e.macaly.app"],
+  ["Základní škola Písnická v Praze 12","Conect & Explore",[3,3,4,3,4],17,"https://macaly-r3r1flp45mycv6sg5dzhouas.macaly.app"],
+  ["Gymnázium Židlochovice, příspěvková organizace","Costly",[3,2,1,2,2],10,"https://macaly-n63numikmr77gknni826np7g.macaly.app"],
+  ["Gymnázium, Teplice, Čs. dobrovolců 11, příspěvková organizace","Countdown Board",[1,1,3,3,2],10,"https://macaly-lhaxm48hli2on1fxhouwurbg.macaly.app"],
+  ["Základní škola Karla Hašlera Libčice nad Vltavou","Crystul run",[2,2,5,5,2],16,"https://zombierun.macaly.app"],
+  ["Střední škola, základní škola a mateřská škola da Vinci","Černá kočka",[2,2,4,3,2],13,"https://macaly-b1xsjmlzmrls4erifefvcwsz.macaly.app"],
+  ["Základní škola a Mateřská škola Ždírec nad Doubravou","Desková hra",[2,2,2,2,2],10,"https://macaly-ci977s08y505lz9yd8pjvfqi.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Dog walking app",[2,2,2,2,2],10,"https://macaly-qeuho8nkialyi0em5vxanzim.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Domácí ukoly",[2,2,3,3,1],11,"https://macaly-agxvfszjhrc8pa0lkanrt0lo.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Downhelp",[1,2,1,3,2],9,"https://macaly-wpq5kfw5xqbn7w3eyfjw14it.macaly.app"],
+  ["Základní škola Světice, příspěvková organizace","ECO Lednice",[5,3,4,5,2],19,"https://macaly-tjdswo0eqbatduluhtvlryds.macaly.app"],
+  ["Gymnázium Zlín - Lesní čtvrť","EduSpace",[3,3,2,3,4],15,"https://eduspace.macaly.app"],
+  ["Gymnázium J.Š.Baara, Domažlice, Pivovarská 323","EVKAA",[1,2,3,2,3],11,"https://macaly-occ44bxb5ijjpm1gnzqdmex7.macaly.app"],
+  ["Gymnázium, Teplice, Čs. dobrovolců 11, příspěvková organizace","Excuse Generator",[3,1,3,3,3],13,"https://macaly-yftzjb8bpuduuf2ltt2r6418.macaly.app"],
+  ["Základní škola Karla Hašlera Libčice nad Vltavou","Fake social simulator",[4,4,2,3,2],15,"https://fakesocialsimulator.macaly.app"],
+  ["Základní škola a Mateřská škola Pohořelice, příspěvková organizace","FarmFlow",[4,3,4,3,3],17,"https://macaly-q10o5k72n7gce1p44nkqd68i.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Fashion KV",[1,1,2,2,1],7,"https://macaly-jgz0mavq4s6sz2mkyfpdlh6x.macaly.app"],
+  ["Gymnázium, Teplice, Čs. dobrovolců 11, příspěvková organizace","Fitly - AI stylista",[2,2,2,3,3],12,"https://macaly-s1b0ckztn3bcb1gmvrqdq2xu.macaly.app"],
+  ["Základní škola a mateřská škola Adamov, příspěvková organizace","Five Nights at Leo's",[1,2,1,1,2],7,"https://macaly-tbr3gbr2o5q1ir824grplool.macaly.app"],
+  ["Základní škola Václava Havla, Poděbrady, Na Valech 45, okres Nymburk","Food Vote",[1,2,3,3,2],11,"https://macaly-wxp6ngxdwwbzpbekg3f0gjzj.macaly.app"],
+  ["Základní škola Václava Havla, Poděbrady, Na Valech 45, okres Nymburk","FoodHub",[1,2,2,2,2],9,"https://macaly-xdgwp29ekroywrfnuj95eyq6.macaly.app"],
+  ["Gymnázium J.Š.Baara, Domažlice, Pivovarská 323","Fotbalová hra",[3,2,3,3,2],13,"https://macaly-f586x9hc975ghlkrqzeubmrp.macaly.app"],
+  ["Základní škola, Liberec, Česká 354, příspěvková organizace","Foto editor",[1,2,1,3,2],9,"https://macaly-kr4ut3laobbdakdk9p1p6jgh.macaly.app"],
+  ["Základní škola Štěrboholy, příspěvková organizace","FPS aréna",[2,1,1,2,1],7,"https://macaly-mrj1kyqij1xai3wzbrkxh223.macaly.app"],
+  ["Základní škola Karla Hašlera Libčice nad Vltavou","Frender",[2,2,2,3,1],10,"https://frender.macaly.app"],
+  ["Městské víceleté gymnázium Klobouky u Brna, příspěvková organizace","Gejoguessr",[1,1,1,1,1],5,"https://macaly-v5ovwxizvv409puuyvf1gwxr.macaly.app"],
+  ["Základní škola s rozšířenou výukou jazyků Magic Hill s.r.o.","Gen-z slang academy",[3,2,3,4,4],16,"https://macaly-bz37p20iesdnm6dylgshyzio.macaly.app"],
+  ["Základní škola a lesní mateřská škola Na dvorečku","Generátor nahodných výzev",[3,2,3,3,1],12,"https://macaly-x2na0e5df33guqv5ppcxyw3j.macaly.app"],
+  ["Základní škola Kamenice, okres Praha - východ","GENIUS INKOGNITO",[1,2,4,3,3],13,"https://macaly-t4csma39mk6z0c9dogg35puk.macaly.app"],
+  ["Městské víceleté gymnázium Klobouky u Brna, příspěvková organizace","GeoKoala",[4,3,4,3,4],18,"https://macaly-zz7n9q1oazbav48abzakcuq1.macaly.app"],
+  ["Gymnázium J.Š.Baara, Domažlice, Pivovarská 323","ghost mode",[2,3,4,3,5],17,"https://macaly-m3ou6tpq3afhqkh0hv8tgz86.macaly.app"],
+  ["PORG - gymnázium, základní škola a mateřská škola, o.p.s.","goatbongo chat",[3,2,3,3,3],14,"https://macaly-pp33c7gbblfu4kcrey1iytlz.macaly.app"],
+  ["Základní škola a Základní umělecká škola Líbeznice, příspěvková organizace","GroupGo",[3,2,3,3,4],15,"https://groupgo.macaly.app/"],
+  ["Základní škola Karla Hašlera Libčice nad Vltavou","Guess the song",[2,2,3,3,2],12,"https://guessthesong.macaly.app"],
+  ["Gymnázium, Teplice, Čs. dobrovolců 11, příspěvková organizace","GuessPoint",[2,3,4,4,4],17,"https://guesspoint.macaly.app"],
+  ["Základní škola Štěrboholy, příspěvková organizace","Hádej Reality Show",[4,1,1,3,2],11,"https://macaly-j9pcte165zimmov7adi0lft4.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Healtyclub",[2,2,2,2,2],10,"https://macaly-cmnd6d13j487lljofsjv6p0w.macaly.app"],
+  ["Gymnázium, Teplice, Čs. dobrovolců 11, příspěvková organizace","Historické osobnosti",[3,2,3,2,1],11,"https://macaly-tzxf6p1tlg23setyt69a7weh.macaly.app"],
+  ["Základní škola a Mateřská škola Pohořelice, příspěvková organizace","Hodinová pomoc",[3,3,1,2,2],11,"https://macaly-sv2ewmiw6l64qyp55yr8l31o.macaly.app"],
+  ["Gymnázium, Lovosice, Sady pionýrů 600, příspěvková organizace","Holubí Módní Molo",[3,0,3,3,2],11,"https://macaly-tdj8qudqbm60wh4imnuqh52t.macaly.app"],
+  ["Základní škola Litomyšl, U Školek 1117, okres Svitavy","HomeGym",[1,3,3,3,3],13,"https://macaly-kbsvhmbh2xx4dkgj6fooots9.macaly.app"],
+  ["Základní škola a Mateřská škola Dělnická, Karviná, příspěvková organizace","HomeworkSnap AI",[3,3,4,3,1],14,"https://macaly-k5krr3g8ft8qe5k8e5pdwdss.macaly.app"],
+  ["Základní škola a mateřská škola Sázava","Horský biker",[1,1,2,2,1],7,"https://macaly-d93tsu6k1wehfiv5t5eqxo5g.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Chat & style",[1,2,1,2,3],9,"https://macaly-pbc2au4uaki9dr8wmx3r0i32.macaly.app"],
+  ["Základní škola Litomyšl, U Školek 1117, okres Svitavy","Chemie zábavně",[2,2,4,4,1],13,"https://macaly-xorj3c2ejnml6mqokd9ga5fc.macaly.app"],
+  ["Základní škola a mateřská škola Sázava","Chyť hmyzáčka",[3,2,3,3,2],13,"https://macaly-z13ou4eqxmo8tiay4cuwdd1r.macaly.app"],
+  ["Základní škola Karla Hašlera Libčice nad Vltavou","INFOMAP",[2,2,3,3,1],11,"https://infomap.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Internetový kuchař",[1,2,3,3,2],11,"https://macaly-ywib11tl4vxcem2fk835wn9g.macaly.app"],
+  ["Základní škola Tomáše Šobra a Mateřská škola Písek, Šobrova 2070","island words",[2,1,3,0,1],7,"https://macaly-kkx2b3qmwapluhbm3m5bhz51.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Jídlo pod Zub",[1,2,1,2,2],8,"https://macaly-u4w63j5sspgvnncdy1x0b2z0.macaly.app"],
+  ["Základní škola Světice, příspěvková organizace","JustFly",[2,2,1,2,1],8,"https://macaly-dky3wr9et943egvunu6jq9x9.macaly.app"],
+  ["Základní škola Litomyšl, U Školek 1117, okres Svitavy","Kalkulačka průměru známek",[2,2,4,4,2],14,"https://macaly-aa50dvm9dutq7r91mn9j8xvn.macaly.app"],
+  ["PORG - gymnázium, základní škola a mateřská škola, o.p.s.","Klávesnicový peklo",[3,3,2,2,4],14,"https://macaly-s8ygkmy0pb0aci3b342nbgk8.macaly.app"],
+  ["Gymnázium T. G. Masaryka Zastávka, příspěvková organizace","KOLO SEZNÁMENÍ",[3,2,2,3,1],11,"https://macaly-j56w7rs8vmdomsoyb6noelx9.macaly.app"],
+  ["Základní škola Světice, příspěvková organizace","LazySchool.AI",[1,1,2,3,1],8,"https://macaly-vl6ho3y5usl0xw61liodhxcg.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Le boiz password",[2,3,4,4,0],13,"https://macaly-m0d09ibm36ypun894oa05ia5.macaly.app"],
+  ["Základní škola a Mateřská škola Chýně, okres Praha - západ","Learn up",[3,2,3,3,2],13,"https://macaly-s8q8ccu1mm8y2cdmjd2aepce.macaly.app"],
+  ["Gymnázium T. G. Masaryka Zastávka, příspěvková organizace","Léčivky",[2,1,2,3,3],11,"https://macaly-lpb1apb7x3htyqhd93y1ycki.macaly.app"],
+  ["Základní škola Litomyšl, U Školek 1117, okres Svitavy","Lekto",[2,2,2,3,1],10,"https://macaly-ooogldgim9bhwh66scmx8659.macaly.app"],
+  ["Gymnázium, Teplice, Čs. dobrovolců 11, příspěvková organizace","Life Price Calculator",[4,4,4,3,4],19,"https://macaly-ihkxen8jgv5m5vbwzj47udth.macaly.app"],
+  ["Základní škola Kamenice, okres Praha - východ","Lifesaver",[2,3,2,2,3],12,"https://macaly-tbqlpa41xhr1ulak45hp5mwg.macaly.app"],
+  ["Základní škola generála Heliodora Píky a Mateřská škola Štítina, okres Opava, příspěvková organizace","LYRICFIND",[1,2,2,2,2],9,"https://macaly-tif3qyfp4tjt9safli38fkff.macaly.app"],
+  ["Základní škola a lesní mateřská škola Na dvorečku","Maják",[4,3,3,3,3],16,"https://macaly-u9lj6961x2fvxrn3g6uja22x.macaly.app"],
+  ["Gymnázium a Střední odborná škola, Klášterec nad Ohří, Chomutovská 459, příspěvková organizace","Mám odvahu a nebojím se ji použít",[5,4,4,5,4],22,"https://chcisetohozbavit.macaly.app"],
+  ["Základní škola a Mateřská škola Chýně, okres Praha - západ","Mario Revival",[3,2,3,3,0],11,"https://macaly-trhlepwkjhyei5am0nu9wgi5.macaly.app"],
+  ["Základní škola Kamenice, okres Praha - východ","Město Budoucnosti",[4,2,4,4,4],18,"https://macaly-dquwxeqikpgzfdtzhqe6ddvl.macaly.app"],
+  ["Základní škola, Praha 4, Na Líše 16","Midnight Factory",[1,1,2,2,2],8,"https://macaly-yao3he81f7n4glppywxhdbrv.macaly.app"],
+  ["Gymnázium a Střední odborná škola, Klášterec nad Ohří, Chomutovská 459, příspěvková organizace","Moje Lednice",[3,3,4,3,4],17,"https://macaly-ck4licqoabyf0x27mzo8b02y.macaly.app"],
+  ["Základní škola Pardubice-Polabiny, npor. Eliáše 344","MojeLéky",[1,3,3,3,3],13,"https://macaly-ib47rnxrz5e1n0fxyndiqajw.macaly.app"],
+  ["Základní škola a mateřská škola Sázava","Motocross riding",[1,1,1,3,1],7,"https://macaly-v2u20runu82ta6jwy48u9i0j.macaly.app"],
+  ["Základní škola Pardubice-Polabiny, npor. Eliáše 344","Motosport",[3,2,3,3,0],11,"https://macaly-jsdas14c0a1nm2lpxycv2tnh.macaly.app"],
+  ["Základní škola Litomyšl, U Školek 1117, okres Svitavy","nAIč se",[2,4,5,5,4],20,"https://macaly-pouoi4fpwxr8h126sg7tfdf5.macaly.app"],
+  ["Základní škola Litomyšl, U Školek 1117, okres Svitavy","Najdi své povolání",[2,4,4,4,1],15,"https://macaly-anyn07ejtimg8rwooknf1m3j.macaly.app"],
+  ["Základní škola a mateřská škola Sázava","Nauč se šachy",[1,2,3,4,2],12,"https://macaly-x8xf895cqk0hiqb9il8pfbk5.macaly.app"],
+  ["Základní škola Kamenice, okres Praha - východ","Navrhni si svůj vysněný dům",[3,2,1,4,3],13,"https://dreamhomedesigner.macaly.app"],
+  ["Základní škola Štěrboholy, příspěvková organizace","Neon escape",[1,1,3,1,2],8,"https://macaly-eqzu40wy6mf5gtv8e3bauaxn.macaly.app"],
+  ["Základní škola Kamenice, okres Praha - východ","Neon Runner",[1,1,1,1,1],5,"https://macaly-aslsskvkfjj95zstszb52pkv.macaly.app"],
+  ["Základní škola Litomyšl, U Školek 1117, okres Svitavy","Nu-Metal Moodboard",[4,2,4,3,3],16,"https://macaly-ql42ui6sv6l6og7w0nv51bhc.macaly.app"],
+  ["Gymnázium Brno, třída Kapitána Jaroše, příspěvková organizace","Oblíkačka",[1,1,2,3,1],8,"https://macaly-pjeq4bmhau785epjpi14lk29.macaly.app"],
+  ["Základní škola a Mateřská škola, Kubatova 1, České Budějovice","Online casino pro deti TYSO",[1,1,2,2,2],8,"https://macaly-zeq04ey1zk0gbg6aff9qp2cv.macaly.app"],
+  ["Gymnázium a Střední odborná škola, Klášterec nad Ohří, Chomutovská 459, příspěvková organizace","Orbit Architect",[3,2,2,2,3],12,"https://macaly-qmol16we12p7irxup34wq9fm.macaly.app"],
+  ["Základní škola a lesní mateřská škola Na dvorečku","Otta Cookery",[3,3,3,2,2],13,"https://macaly-ht8uzwh21rxnp5rig0rbnm1b.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Outfit planner",[2,2,2,3,3],12,"https://macaly-ens30pcq42e1f0zssxiqzkvh.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Partner countdown",[1,1,3,3,1],9,"https://macaly-ajs04fhnfo5i4wi3wp1bt0sq.macaly.app"],
+  ["Základní škola, Praha 10, U Roháčových kasáren 1381/19, příspěvková organizace","PeaceFunds",[2,4,4,4,3],17,"https://macaly-jlqchkc2d8clujuzgplqfbyw.macaly.app"],
+  ["PORG - gymnázium, základní škola a mateřská škola, o.p.s.","PeLVis",[2,3,4,5,4],18,"https://macaly-sixa5widy9ueesqqhbgtjkun.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Petder",[3,2,3,3,2],13,"https://macaly-s2azgeac26ylzra9ylewbhar.macaly.app"],
+  ["Základní škola Štěrboholy, příspěvková organizace","Pexeso",[1,2,3,3,1],10,"https://macaly-o4gqoxyysmdqqvj053g6umq5.macaly.app"],
+  ["Gymnázium, Lovosice, Sady pionýrů 600, příspěvková organizace","Pigment",[3,2,3,3,2],13,"https://macaly-w09sv9lhl6g5m3nto9snnfg2.macaly.app"],
+  ["Gymnázium, Lovosice, Sady pionýrů 600, příspěvková organizace","Pingueno",[3,3,5,4,3],18,"https://macaly-kxhaj6xwy96eo412pmjyo7ik.macaly.app"],
+  ["Základní škola Václava Havla, Poděbrady, Na Valech 45, okres Nymburk","Pixelo",[1,2,4,4,4],15,"https://macaly-kzuw5a753cx1aui9ql53lrae.macaly.app"],
+  ["Základní škola Olomouc, Stupkova 16, příspěvková organizace","Plantify",[3,3,4,5,3],18,"https://macaly-haylv3xqk3v30k2q2zgpyfkw.macaly.app"],
+  ["Městské víceleté gymnázium Klobouky u Brna, příspěvková organizace","Po Stopách Zloděje",[3,3,2,2,2],12,"https://macaly-bojuvxcw0ta2fpwke458fr9w.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Počítálek",[1,1,3,3,1],9,"https://macaly-dvhzpr232jsac9h0l32fgtlu.macaly.app"],
+  ["Základní škola Kamenice, okres Praha - východ","Počítej a leť",[1,2,3,2,3],11,"https://macaly-ybl7kudg9050da9eojww4md0.macaly.app"],
+  ["Gymnázium T. G. Masaryka Zastávka, příspěvková organizace","PodStudy",[3,3,0,2,2],10,"https://macaly-gf57wykhb4clwwuyyfn6iks7.macaly.app"],
+  ["Základní škola Kamenice, okres Praha - východ","Projekt Chronos: Cesta dějinami",[2,3,4,4,5],18,"https://macaly-tw19rbulzaqzfytejudrgek2.macaly.app"],
+  ["Základní škola a Základní umělecká škola, Liberec, Jabloňová 564/43, příspěvková organizace","Průvodce v Pythonu",[2,3,2,3,2],12,"https://macaly-f0ljegpkljnj95uhuenj1m2z.macaly.app"],
+  ["Základní škola Kamenice, okres Praha - východ","Převodník věku zvířat",[1,2,3,2,2],10,"https://macaly-fdutgthgwogmphj44e5o0ms6.macaly.app"],
+  ["Základní škola a Mateřská škola Dělnická, Karviná, příspěvková organizace","QuestLife",[2,2,1,1,2],8,"https://macaly-palexeck5ieadfv2wqd95n5o.macaly.app"],
+  ["Základní škola Karla Hašlera Libčice nad Vltavou","Relaxy",[1,2,0,4,2],9,"https://relaxy.macaly.app"],
+  ["Základní škola Karla Hašlera Libčice nad Vltavou","Roleverse",[1,2,0,2,1],6,"https://roleverse.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","RUNFIT",[1,2,3,3,1],10,"https://macaly-sewcctfyv5kb3h2pr8j1v3z6.macaly.app"],
+  ["Základní škola Kamenice, okres Praha - východ","Říše Příkladů",[2,3,4,4,3],16,"https://macaly-xkpsni0iw61ii0gtlrhbk5hn.macaly.app"],
+  ["Gymnázium Karla Sladkovského, Praha 3, Sladkovského náměstí 8","Samootevírající dveře",[2,3,3,3,4],15,"https://macaly-fgdi2tzuhbrm7e72147ciwsq.macaly.app"],
+  ["Základní škola Kamenice, okres Praha - východ","Sandbox Genesis",[2,2,3,2,2],11,"https://macaly-b5x3n0j3rf6tip7s2f6jrhfh.macaly.app"],
+  ["Fakultní základní škola a mateřská škola Barrandov II při PedF UK, Praha 5 - Hlubočepy, V Remízku 7/919, příspěvková organizace","Sandrhythm",[4,3,4,4,3],18,"https://macaly-wqyi6zap64w4iy0ipjvmht3j.macaly.app"],
+  ["Základní škola, Praha 4, Na Líše 16","Second Brain",[4,4,3,5,4],20,"https://macaly-h13zvrn7dtdfpwfsv53ecuyb.macaly.app"],
+  ["Základní škola T.G. Masaryka Rajhrad, okres Brno-venkov, příspěvková organizace","Shadow Dungeon Maze",[3,2,4,4,3],16,"https://macaly-shadowdungeonmazeaisoutez26.macaly.app"],
+  ["Základní škola a Mateřská škola, Kubatova 1, České Budějovice","School TD 1",[1,2,3,3,3],12,"https://macaly-w8qakcvop26aj1z7o2nbdhx2.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","SCHOOLFOOD",[2,3,3,3,2],13,"https://macaly-tmti0o75fqf5lcn9uib0lon6.macaly.app"],
+  ["Základní škola Kamenice, okres Praha - východ","Sience Delivers",[2,2,2,2,3],11,"https://macaly-zjnbg1jmzrwyxt4nxosmi8r6.macaly.app"],
+  ["Základní škola a mateřská škola Ostrava-Svinov, příspěvková organizace","Silver Link",[4,3,0,3,3],13,"https://macaly-imr6f32oo2m6x2di9iwa7zm5.macaly.app"],
+  ["Fakultní základní škola a mateřská škola Barrandov II při PedF UK, Praha 5 - Hlubočepy, V Remízku 7/919, příspěvková organizace","simplidoc",[1,2,0,1,4],8,"https://macaly-o7hswxrc88epwsxggicfo9ah.macaly.app"],
+  ["Gymnázium, Teplice, Čs. dobrovolců 11, příspěvková organizace","Singer quiz",[1,1,1,3,1],7,"https://macaly-tolm9r2q8qzl1jd3ai9f9ypw.macaly.app"],
+  ["Základní škola Štěrboholy, příspěvková organizace","Sirulis",[3,1,2,2,0],8,"https://macaly-g8tax8oen33jtirvip7djw0q.macaly.app"],
+  ["Základní škola a Mateřská škola, Kubatova 1, České Budějovice","Skákací kostky",[1,1,0,0,1],3,"https://macaly-oh5uy65rt9lejmp0sy99qod5.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Skilly na úrovni",[2,2,2,3,2],11,"https://macaly-bxuzjwmlrsluzxvtd452wz47.macaly.app"],
+  ["Základní škola a lesní mateřská škola Na dvorečku","Slang AI Forage",[3,2,3,3,2],13,"https://macaly-zdp9jslm9f70tf4jojx1tilc.macaly.app"],
+  ["Základní škola Tomáše Šobra a Mateřská škola Písek, Šobrova 2070","Slev.AI",[4,5,4,3,2],18,"https://macaly-kuamtf0bipyhgkmblt5vp8gp.macaly.app"],
+  ["Základní škola Světice, příspěvková organizace","Smart calendae",[2,2,2,2,0],8,"https://macaly-gg79o3mtkcg0ymrtvkrptheg.macaly.app"],
+  ["Základní škola a mateřská škola Sázava","Soccer Cars",[1,1,1,2,1],6,"https://macaly-hjnghjc15ybukyuabegxyalf.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Spadni",[1,2,2,2,1],8,"https://macaly-m681seutm6oeo911zhhhlpmi.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Spánek a klid",[2,1,1,1,1],6,"https://macaly-q2crxkpyoyg7zwwf1joc1i3j.macaly.app"],
+  ["Základní škola Václava Havla, Poděbrady, Na Valech 45, okres Nymburk","Sparta games",[1,1,0,3,2],7,"https://macaly-dohz0y99y2ieox1a09bk5yrf.macaly.app"],
+  ["Základní škola a lesní mateřská škola Na dvorečku","Splátky Andreje Babiše",[4,1,3,3,2],13,"https://macaly-asj4wc4wv3avn02pyvgivk7n.macaly.app"],
+  ["Základní škola a Mateřská škola Kladno, Doberská 323","SportHub",[1,2,1,2,2],8,"https://macaly-cormyct7i42cb8wrl0n5kyw2.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","sportswap",[1,1,2,4,2],10,"https://macaly-sx1sojhx1wlk4hw3xz2i3umx.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","StayFit",[2,3,0,3,2],10,"https://macaly-bk4joxs08lphlcv2egxm6jnb.macaly.app"],
+  ["Gymnázium Karla Sladkovského, Praha 3, Sladkovského náměstí 8","Stock viewer",[2,3,3,2,2],12,"https://macaly-aia9zu85n075t6gtbsicwdrl.macaly.app"],
+  ["Základní škola Kamenice, okres Praha - východ","Streetspeak",[2,4,4,5,4],19,"https://macaly-wjzbxvomnz8iosh7mttgno9a.macaly.app"],
+  ["Gymnázium Karla Sladkovského, Praha 3, Sladkovského náměstí 8","Student Quiz",[1,2,0,2,2],7,"https://macaly-yqb7szccie0uo8qinhw4fid5.macaly.app"],
+  ["Základní škola Litomyšl, U Školek 1117, okres Svitavy","Studentská kuchařka",[2,2,3,3,2],12,"https://macaly-p9up75w9ro4c8puu18mz7xos.macaly.app"],
+  ["Základní škola, Praha 4, Na Líše 16","Study Legends",[4,3,4,4,4],19,"https://macaly-i261wwb90scp7crzayr4i9n1.macaly.app"],
+  ["Městské víceleté gymnázium Klobouky u Brna, příspěvková organizace","StudyStacionAi",[3,3,3,3,3],15,"https://macaly-n05kka1rfgzihbxiu70qt18t.macaly.app"],
+  ["Gymnázium Židlochovice, příspěvková organizace","Styleflow",[2,1,3,3,2],11,"https://macaly-p3t0rd8l01ft245arw2jxvks.macaly.app"],
+  ["Základní škola a Mateřská škola Chýně, okres Praha - západ","StyleMatch",[3,1,0,3,1],8,"https://macaly-wgdedrqib9u2s97cqlef5gd6.macaly.app"],
+  ["Gymnázium, Lovosice, Sady pionýrů 600, příspěvková organizace","Subspace reaktor",[3,2,3,3,2],13,"https://macaly-subspacereactor.macaly.app"],
+  ["Základní škola Pardubice-Polabiny, npor. Eliáše 344","Svět jinak",[0,1,0,1,1],3,"https://macaly-x8iy6ob9y4vk3zvpc9lowg8s.macaly.app"],
+  ["Gymnázium, Lovosice, Sady pionýrů 600, příspěvková organizace","Šest sedm holub",[1,1,1,1,2],6,"https://macaly-nman1at7lmfz06d4b3oj6u7g.macaly.app"],
+  ["Gymnázium, Teplice, Čs. dobrovolců 11, příspěvková organizace","Školní bazar učebnic",[2,3,4,5,1],15,"https://macaly-rft0hqrcj7wpscck7nwu2c7z.macaly.app"],
+  ["Gymnázium Židlochovice, příspěvková organizace","Školní obědy",[1,2,2,3,1],9,"https://macaly-kf7to0djirtgfb99oqj3kdxk.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","Školní Portál Akcí",[1,3,2,2,2],10,"https://macaly-polyh9p55hse6dpuksosd4dl.macaly.app"],
+  ["Základní škola a Mateřská škola Dělnická, Karviná, příspěvková organizace","Školníček",[3,3,4,3,3],16,"https://macaly-p2zfep2104jrkgwhvvtk5r3s.macaly.app"],
+  ["Gymnázium T. G. Masaryka Zastávka, příspěvková organizace","Taktická tabule Gottcoach",[3,3,3,3,3],15,"https://gottcoach.macaly.app"],
+  ["Gymnázium, Lovosice, Sady pionýrů 600, příspěvková organizace","Talent od přírody",[3,2,0,3,2],10,"https://macaly-zp24m1k6rbe3ukosleqtqncw.macaly.app"],
+  ["Základní škola a mateřská škola Sázava","Těstovina na útěku",[1,2,4,4,1],12,"https://macaly-xjtfo33nvslwimomaj6f44i8.macaly.app"],
+  ["Základní škola Litomyšl, U Školek 1117, okres Svitavy","The UFC History",[1,1,3,3,1],9,"https://macaly-lnv9nimtoot6xb99m8rcqab2.macaly.app"],
+  ["PORG - gymnázium, základní škola a mateřská škola, o.p.s.","The Voice Control",[2,2,1,3,2],10,"https://macaly-zhwv2u1rtucx0yk4yz2cejzx.macaly.app"],
+  ["Gymnázium T. G. Masaryka Zastávka, příspěvková organizace","Time2study",[2,2,3,3,1],11,"https://time2study.macaly.app"],
+  ["Gymnázium, Teplice, Čs. dobrovolců 11, příspěvková organizace","Tipy na výlety",[3,2,3,2,4],14,"https://macaly-b8x2xr2c8h7shyanfa0xa8ia.macaly.app"],
+  ["Základní škola Václava Havla, Poděbrady, Na Valech 45, okres Nymburk","Travelfinder",[1,1,0,3,2],7,"https://macaly-jxqlt6c584x86899p3diefcv.macaly.app"],
+  ["Gymnázium Židlochovice, příspěvková organizace","Tree finder uwu max",[3,2,2,3,2],12,"https://macaly-vphaviytrbkhlbwremlc380i.macaly.app"],
+  ["Základní škola Praha 7, Strossmayerovo náměstí 4","Vyhledavač bazaru (Rakce)",[1,3,2,2,2],10,"https://macaly-ninh7cl7o0fv49lq01u0gbml.macaly.app"],
+  ["Gymnázium, Olomouc - Hejčín, Tomkova 45","Vysoká jednoduše",[1,3,2,2,4],12,"https://macaly-eh3k8kr0trdjx8i1asbkqioh.macaly.app"],
+  ["Základní škola a mateřská škola Sázava","Vytvoř si svou holčičku",[1,1,2,3,2],9,"https://macaly-th9jz7l2kvet7ncnm5zjrng3.macaly.app"],
+  ["Základní škola Chrást, okres Plzeň-město, příspěvková organizace","Vzpomínková zahrada",[1,1,0,3,0],5,"https://macaly-ec1zxzorntnvfierfacitsvq.macaly.app"],
+  ["Základní škola Světice, příspěvková organizace","Wear it style",[1,1,1,3,0],6,"https://macaly-wt8xh114p3xv5szton7jkje1.macaly.app"],
+  ["Základní škola a Mateřská škola Chýně, okres Praha - západ","Whack-a-Mole",[2,2,3,2,1],10,"https://macaly-szqe7rpkgk4b8eliil5ckkt3.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","World of books",[2,2,2,2,2],10,"https://macaly-fcjebiow4yver3dax8486658.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","World Weather App",[1,1,3,3,1],9,"https://macaly-ladd32nwllqx0tnraztjzz5a.macaly.app"],
+  ["Základní škola a Mateřská škola Chýně, okres Praha - západ","World's mňamy",[2,2,3,3,3],13,"https://macaly-y40phlyclmdw06gj65ssepgw.macaly.app"],
+  ["Základní škola Kralupy nad Vltavou, Gen. Klapálka 1029, okres Mělník, příspěvková organizace","ZORA",[2,3,4,4,3],16,"https://macaly-heev9665oryz1vks6r3t2ti8.macaly.app"],
+  ["Základní škola Chrást, okres Plzeň-město, příspěvková organizace","Zorra",[1,1,2,4,1],9,"https://macaly-p7fd8g9jci9mtroiyplrzu6h.macaly.app"],
+  ["Základní škola Václava Havla, Poděbrady, Na Valech 45, okres Nymburk","Zvířecí překladač",[1,1,0,3,2],7,"https://macaly-jlmg3y2kgozlhfkk39ev9wxv.macaly.app"]
+];
+
+// Group by school, deduplicate unnamed projects
+function groupBySchool(raw) {
+  const map = new Map();
+  const unnamedCount = new Map();
+  raw.forEach(([school, name, scores, total, link]) => {
+    if (!map.has(school)) map.set(school, []);
+    let displayName = name;
+    if (name === '—') {
+      const cnt = (unnamedCount.get(school) || 0) + 1;
+      unnamedCount.set(school, cnt);
+      displayName = cnt === 1 ? 'Projekt bez názvu' : `Projekt bez názvu ${cnt}`;
+    }
+    map.get(school).push({ name: displayName, scores, total, link });
+  });
+  return map;
+}
+
+function totalClass(t) {
+  if (t <= 5) return 'total-0-5';
+  if (t <= 10) return 'total-6-10';
+  if (t <= 15) return 'total-11-15';
+  if (t <= 20) return 'total-16-20';
+  return 'total-21-25';
+}
+
+function barClass(s) {
+  return 'bar-' + Math.min(s, 5);
+}
+function valClass(s) {
+  return 'sc-' + Math.min(s, 5);
+}
+
+function initials(name) {
+  return name.split(/[\s,]+/).filter(Boolean).map(w => w[0]).join('').toUpperCase().slice(0,2);
+}
+
+function renderProject(p) {
+  const scoreItems = CRITERIA.map((c, i) => {
+    const s = p.scores[i];
+    const pct = (s / 5 * 100).toFixed(0);
+    return `<div class="score-item">
+      <div class="score-item-label">${c}</div>
+      <div class="score-item-row">
+        <div class="score-bar-wrap"><div class="score-bar ${barClass(s)}" style="width:${pct}%"></div></div>
+        <span class="score-val ${valClass(s)}">${s}</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  const linkHtml = p.link ? `<a class="project-link" href="${p.link}" target="_blank" rel="noopener">
+    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    Zobrazit aplikaci
+  </a>` : '';
+
+  return `<div class="project-item">
+    <div class="project-top">
+      <div class="project-name">${p.name}</div>
+      ${linkHtml}
+    </div>
+    <div class="scores-grid">${scoreItems}</div>
+    <div class="project-footer">
+      <div class="total-score">
+        <span class="total-score-label">Celkové skóre:</span>
+        <span class="total-badge ${totalClass(p.total)}">${p.total} / 25</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+function render() {
+  const schoolsMap = groupBySchool(RAW);
+  const container = document.getElementById('schools-container');
+  const statsBar = document.getElementById('stats-bar');
+
+  const totalProjects = RAW.length;
+  const totalSchools = schoolsMap.size;
+  const avgScore = (RAW.reduce((s, r) => s + r[3], 0) / RAW.length).toFixed(1);
+  const topScore = Math.max(...RAW.map(r => r[3]));
+
+  statsBar.innerHTML = `
+    <div class="stat-pill">🏫 Škol: <strong>${totalSchools}</strong></div>
+    <div class="stat-pill">📱 Projektů: <strong>${totalProjects}</strong></div>
+    <div class="stat-pill">📊 Průměrné skóre: <strong>${avgScore} / 25</strong></div>
+    <div class="stat-pill">🏆 Nejvyšší skóre: <strong>${topScore} / 25</strong></div>
+  `;
+
+  const sorted = [...schoolsMap.entries()].sort((a, b) => a[0].localeCompare(b[0], 'cs'));
+
+  sorted.forEach(([school, projects]) => {
+    const avg = (projects.reduce((s, p) => s + p.total, 0) / projects.length).toFixed(1);
+    const card = document.createElement('div');
+    card.className = 'school-card';
+    card.dataset.school = school.toLowerCase();
+    card.dataset.projects = projects.map(p => p.name.toLowerCase()).join(' ');
+
+    const projectsHtml = projects.map(renderProject).join('');
+
+    card.innerHTML = `
+      <div class="school-header" onclick="this.closest('.school-card').classList.toggle('open')">
+        <div class="school-header-left">
+          <div class="school-avatar">${initials(school)}</div>
+          <div>
+            <div class="school-name">${school}</div>
+            <div class="school-meta">
+              <span>📱 ${projects.length} ${projects.length === 1 ? 'projekt' : projects.length < 5 ? 'projekty' : 'projektů'}</span>
+            </div>
+          </div>
+        </div>
+        <div class="school-header-right">
+          <div class="school-avg-badge">
+            <div class="avg-num">${avg}</div>
+            <div class="avg-label">průměr</div>
+          </div>
+          <svg class="toggle-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="school-body">
+        <div class="project-list">${projectsHtml}</div>
+      </div>`;
+
+    container.appendChild(card);
+  });
+
+  // Search
+  const searchEl = document.getElementById('search');
+  const noResults = document.getElementById('no-results');
+  const countEl = document.getElementById('search-count');
+  const cards = container.querySelectorAll('.school-card');
+
+  function updateSearch() {
+    const q = searchEl.value.toLowerCase().trim();
+    let visible = 0;
+    cards.forEach(card => {
+      const match = !q || card.dataset.school.includes(q) || card.dataset.projects.includes(q);
+      card.style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+    noResults.classList.toggle('visible', visible === 0 && q.length > 0);
+    countEl.textContent = q ? `Nalezeno: ${visible} škol` : '';
+  }
+
+  searchEl.addEventListener('input', updateSearch);
+}
+
+render();
+</script>
+</body>
+</html>
