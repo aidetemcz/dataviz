@@ -435,6 +435,17 @@
     height: 1px; background: rgba(255,255,255,0.2);
   }
 
+
+  /* ---- FINALIST / SECTION HEADINGS ---- */
+  .school-card.finalist { border-color: var(--red); }
+  .school-card.finalist:hover { border-color: var(--red-dark); box-shadow: 0 4px 20px rgba(220,91,91,.2); }
+  .schools-group-heading {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: var(--fs-lg); font-weight: 700; color: var(--text);
+    margin: 16px 0 8px;
+  }
+  .schools-group-heading:first-child { margin-top: 0; }
+
   /* ---- APPS GRID (seznam aplikací) ---- */
   .apps-grid {
     display: grid;
@@ -503,7 +514,6 @@
       <div class="hero-buttons">
         <button class="btn-hero btn-hero-primary" onclick="showView('vysledky')">Výsledky</button>
         <button class="btn-hero btn-hero-outline" onclick="showView('aplikace')">Seznam aplikací</button>
-        <button class="btn-hero btn-hero-outline" onclick="showView('finaliste')">Finalisté</button>
       </div>
     </div>
     <div class="hero-right">
@@ -625,19 +635,6 @@
   </div>
 </div>
 
-<!-- FINALISTÉ VIEW -->
-<div id="view-finaliste" class="view-section" style="display:none;">
-  <div class="section-inner" style="max-width:1100px;margin:0 auto;padding:48px 20px;">
-    <div class="section-eyebrow">Finálové kolo</div>
-    <h2>Finalisté</h2>
-    <p style="color:var(--text-soft);margin-bottom:32px;font-size:var(--fs-base);">15 projektů, které postoupily do finále AI Olympiády 2026. Tabulka finalistů bude doplněna.</p>
-    <div id="finaliste-grid" class="apps-grid">
-      <div style="padding:60px 20px;text-align:center;color:var(--text-soft);border:2px dashed var(--border);border-radius:12px;">
-        Data finalistů budou brzy doplněna.
-      </div>
-    </div>
-  </div>
-</div>
 
 <footer>
   <div class="footer-inner">
@@ -937,12 +934,34 @@ function render() {
   document.getElementById('stat-projects').textContent = totalProjects;
   document.getElementById('stat-avg').textContent = avgScore;
 
-  const sorted = [...schoolsMap.entries()].sort((a, b) => a[0].localeCompare(b[0], 'cs'));
+  // Sort schools by average score descending
+  const sorted = [...schoolsMap.entries()].sort((a, b) => {
+    const avgA = a[1].reduce((s, p) => s + p.total, 0) / a[1].length;
+    const avgB = b[1].reduce((s, p) => s + p.total, 0) / b[1].length;
+    return avgB - avgA;
+  });
 
-  sorted.forEach(([school, projects]) => {
+  const FINALIST_COUNT = 15;
+
+  sorted.forEach(([school, projects], idx) => {
+    const isFinalist = idx < FINALIST_COUNT;
+
+    // Insert group headings
+    if (idx === 0) {
+      const h = document.createElement('div');
+      h.className = 'schools-group-heading';
+      h.textContent = 'Finalisté';
+      container.appendChild(h);
+    } else if (idx === FINALIST_COUNT) {
+      const h = document.createElement('div');
+      h.className = 'schools-group-heading';
+      h.textContent = 'Další hodnocené projekty';
+      container.appendChild(h);
+    }
+
     const avg = (projects.reduce((s, p) => s + p.total, 0) / projects.length).toFixed(1);
     const card = document.createElement('div');
-    card.className = 'school-card';
+    card.className = 'school-card' + (isFinalist ? ' finalist' : '');
     card.dataset.school = school.toLowerCase();
     card.dataset.projects = projects.map(p => p.name.toLowerCase()).join(' ');
 
@@ -1011,12 +1030,9 @@ function render() {
 }
 
 // View switching
-const VIEWS = ['vysledky', 'aplikace', 'finaliste'];
-
 function showView(view) {
   // Hide all view sections
   document.getElementById('view-aplikace').style.display = 'none';
-  document.getElementById('view-finaliste').style.display = 'none';
 
   const infoStrip = document.querySelector('.info-strip');
   const criteriaSection = document.querySelector('.criteria-section');
@@ -1041,7 +1057,6 @@ function showView(view) {
     schoolsSection.style.display = 'none';
     document.getElementById('view-' + view).style.display = '';
     if (view === 'aplikace') btns[1].classList.add('active');
-    if (view === 'finaliste') btns[2].classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
