@@ -2985,7 +2985,7 @@ function render() {
 
   // Render apps grid (seznam aplikací)
   const appsGrid = document.getElementById('apps-grid');
-  const allApps = [...RAW].sort((a, b) => b[3] - a[3]);
+  const allApps = [...RAW].sort((a, b) => a[1].localeCompare(b[1], 'cs'));
   appsGrid.innerHTML = allApps.map(([school, name, scores, total, link]) => {
     const linkHtml = link
       ? `<a class="app-card-link" href="${link}" target="_blank" rel="noopener">
