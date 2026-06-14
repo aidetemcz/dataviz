@@ -436,15 +436,7 @@
   }
 
 
-  /* ---- FINALIST / SECTION HEADINGS ---- */
-  .school-card.finalist { border-color: var(--red); }
-  .school-card.finalist:hover { border-color: var(--red-dark); box-shadow: 0 4px 20px rgba(220,91,91,.2); }
-  .schools-group-heading {
-    font-family: "Space Grotesk", sans-serif;
-    font-size: var(--fs-lg); font-weight: 700; color: var(--text);
-    margin: 16px 0 8px;
-  }
-  .schools-group-heading:first-child { margin-top: 0; }
+
 
   /* ---- APPS GRID (seznam aplikací) ---- */
   .apps-grid {
@@ -2539,27 +2531,10 @@ function render() {
     return avgB - avgA;
   });
 
-  const FINALIST_COUNT = 15;
-
-  sorted.forEach(([school, projects], idx) => {
-    const isFinalist = idx < FINALIST_COUNT;
-
-    // Insert group headings
-    if (idx === 0) {
-      const h = document.createElement('div');
-      h.className = 'schools-group-heading';
-      h.textContent = 'Finalisté';
-      container.appendChild(h);
-    } else if (idx === FINALIST_COUNT) {
-      const h = document.createElement('div');
-      h.className = 'schools-group-heading';
-      h.textContent = 'Další hodnocené projekty';
-      container.appendChild(h);
-    }
-
+  sorted.forEach(([school, projects]) => {
     const avg = (projects.reduce((s, p) => s + p.total, 0) / projects.length).toFixed(1);
     const card = document.createElement('div');
-    card.className = 'school-card' + (isFinalist ? ' finalist' : '');
+    card.className = 'school-card';
     card.dataset.school = school.toLowerCase();
     card.dataset.projects = projects.map(p => p.name.toLowerCase()).join(' ');
 
