@@ -479,6 +479,22 @@
   }
   .app-card-link:hover { background: var(--red); color: white; }
 
+
+  .app-card-desc {
+    font-size: var(--fs-sm); color: var(--text-soft); line-height: 1.45;
+    flex: 1;
+  }
+  .app-card-tags {
+    display: flex; flex-wrap: wrap; gap: 5px;
+  }
+  .app-tag {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 13px; font-weight: 600;
+    background: var(--sky-bg); color: var(--sky-dark);
+    border: 1px solid var(--border);
+    border-radius: 100px; padding: 3px 10px;
+  }
+
   /* View sections */
   .view-section { background: var(--bg); border-top: 1.5px solid var(--border); }
 
@@ -920,6 +936,1588 @@ function renderProject(p) {
   </div>`;
 }
 
+const APPINFO = {
+  "macaly-j56w7rs8vmdomsoyb6noelx9.macaly.app": {
+    "desc": "Seznamovací kolo, které usnadňuje a odlehčuje seznamování ve skupinách.",
+    "tags": [
+      "sociální",
+      "seznamování",
+      "zábava"
+    ]
+  },
+  "macaly-eqzu40wy6mf5gtv8e3bauaxn.macaly.app": {
+    "desc": "Neon Escape – nekonečná skákačka inspirovaná Google dinosaurem, vhodná i na odreagování.",
+    "tags": [
+      "hra",
+      "arkáda",
+      "relax",
+      "zábava"
+    ]
+  },
+  "macaly-o4gqoxyysmdqqvj053g6umq5.macaly.app": {
+    "desc": "Pexeso – pexeso na procvičování angličtiny.",
+    "tags": [
+      "hra",
+      "vzdělávací",
+      "jazyky",
+      "paměť"
+    ]
+  },
+  "www.macaly.com/chat/b9bo4qwqzotxeq5i740ctr9p": {
+    "desc": "2D balistický simulátor pro návrh a testování odolnosti pancířů včetně ceny materiálů.",
+    "tags": [
+      "simulace",
+      "nástroj",
+      "fyzika",
+      "návrhářství"
+    ]
+  },
+  "macaly-fukqcsb4o7fzei688pgpb76t.macaly.app": {
+    "desc": "90denní výzva pro zlepšení fotbalových dovedností formou každodenních úkolů.",
+    "tags": [
+      "sport",
+      "fotbal",
+      "výzva",
+      "hra"
+    ]
+  },
+  "macaly-rjv9af1myrbtivemmbc20h4x.macaly.app": {
+    "desc": "Cyklistická hra inspirovaná reálným světem a Resident Evil.",
+    "tags": [
+      "hra",
+      "cyklistika",
+      "zábava"
+    ]
+  },
+  "macaly-dayv2mwth5kmc05smsayb0n5.macaly.app": {
+    "desc": "AI Scam Detector – aplikace, která zkontroluje zprávu a vyhodnotí, zda je podvodná.",
+    "tags": [
+      "AI nástroj",
+      "bezpečnost",
+      "detekce podvodů"
+    ]
+  },
+  "macaly-z7wqsqqk0ohi9pur5ym74iad.macaly.app": {
+    "desc": "AI Sport Coach – kombinace kalorických tabulek a AI trenéra pro zlepšení výkonu.",
+    "tags": [
+      "zdraví",
+      "fitness",
+      "AI nástroj",
+      "trénink"
+    ]
+  },
+  "macaly-o608nrvlds8lykbkdso3e0p9.macaly.app": {
+    "desc": "AI trenér – aplikace pro obézní lidi s radami, jak zhubnout a co jíst zdravě.",
+    "tags": [
+      "zdraví",
+      "fitness",
+      "AI nástroj",
+      "hubnutí"
+    ]
+  },
+  "macaly-aek7p1tmu6davmca0cvxcqmd.macaly.app": {
+    "desc": "Alpha Centauri – interaktivní vesmírné dobrodružství učící o vesmíru zábavnou formou.",
+    "tags": [
+      "hra",
+      "vesmír",
+      "vzdělávací",
+      "astronomie"
+    ]
+  },
+  "macaly-lkd3o1380l6i7wqvmkivzu85.macaly.app": {
+    "desc": "Analýza AI – nástroj rozpoznávající, zda je obrázek vytvořený umělou inteligencí.",
+    "tags": [
+      "AI nástroj",
+      "detekce",
+      "obrázky"
+    ]
+  },
+  "macaly-fkrrupmx5bzxrw4fz9qjp2ya.macaly.app": {
+    "desc": "Animal Fun-Facter – aplikace s obrázky, zvuky a zajímavostmi o zvířatech.",
+    "tags": [
+      "vzdělávací",
+      "zvířata",
+      "zábava",
+      "děti"
+    ]
+  },
+  "macaly-ytgq5k3rp6u99niikvtagol2.macaly.app": {
+    "desc": "Hra Level Up s tvorbou avatara a minihrami pro zábavu a procvičení logiky.",
+    "tags": [
+      "hra",
+      "avatar",
+      "zábava",
+      "logika"
+    ]
+  },
+  "macaly-d47lud4pqaz1tzdt2jr57h3d.macaly.app": {
+    "desc": "Arkáda s jednoduchými hrami zdarma a bez reklam a plateb.",
+    "tags": [
+      "hra",
+      "arkáda",
+      "zábava"
+    ]
+  },
+  "macaly-a9d0r47svwm0gk7t8udwr6nm.macaly.app": {
+    "desc": "Astronomie – aplikace pro zájemce o astronomii všech věkových kategorií.",
+    "tags": [
+      "vzdělávací",
+      "astronomie",
+      "vesmír"
+    ]
+  },
+  "macaly-ro7cxrpgul3aho4zwe9rgusr.macaly.app": {
+    "desc": "Aura – komplexní vzdělávací aplikace spojující úkoly, učení a gamifikaci s důrazem na motivaci.",
+    "tags": [
+      "vzdělávací",
+      "produktivita",
+      "gamifikace",
+      "studenti"
+    ]
+  },
+  "bakix.macaly.app/welcome": {
+    "desc": "Bakix – modernější a přehlednější alternativa Bakalářů s AI asistentem.",
+    "tags": [
+      "škola",
+      "produktivita",
+      "AI nástroj",
+      "studenti"
+    ]
+  },
+  "macaly-w7ne2w27e26rv4vhx5mwztby.macaly.app": {
+    "desc": "BEBErun – jednoduchá běhací hra spojující zábavu s učením.",
+    "tags": [
+      "hra",
+      "arkáda",
+      "vzdělávací",
+      "děti"
+    ]
+  },
+  "macaly-olhhn6mzo8qwo5bsi9kvv1i8.macaly.app": {
+    "desc": "Studijní nástroj pro biologii: učební část s vyhledáváním o fauně a flóře a obrázkový kvíz (poznávačka).",
+    "tags": [
+      "vzdělávací",
+      "biologie",
+      "kvíz",
+      "studenti"
+    ]
+  },
+  "macaly-p9zy90cy0f7ubtja5k0b6lj6.macaly.app": {
+    "desc": "BloomSave – aplikace učící děti a mládež hospodařit s penězi a šetřit zábavnou formou.",
+    "tags": [
+      "finance",
+      "vzdělávací",
+      "děti",
+      "spoření"
+    ]
+  },
+  "macaly-yvhw3rb5lkgzrtfrlnfg041m.macaly.app": {
+    "desc": "Bludiště – jednoduchá hra na pobavení a procvičení.",
+    "tags": [
+      "hra",
+      "bludiště",
+      "zábava"
+    ]
+  },
+  "macaly-r2ojc1nfjc6z017gdzop9gsg.macaly.app": {
+    "desc": "Burger Catcher – barevná chytací hra pro děti inspirovaná hrou Like a Dino.",
+    "tags": [
+      "hra",
+      "děti",
+      "arkáda",
+      "zábava"
+    ]
+  },
+  "catch-treasure-game.macaly.app": {
+    "desc": "Catch Treasure – minihra s plošinkami a rozdílnou grafikou pro každý level.",
+    "tags": [
+      "hra",
+      "arkáda",
+      "plošinovka",
+      "zábava"
+    ]
+  },
+  "macaly-gs3a23is18oww0jvq04iom3e.macaly.app": {
+    "desc": "Clothesify – aplikace pro hledání oblečení a inspiraci k oblékání, inspirovaná Instagramem a Zalandem.",
+    "tags": [
+      "móda",
+      "inspirace",
+      "styl",
+      "nakupování"
+    ]
+  },
+  "macaly-r3r1flp45mycv6sg5dzhouas.macaly.app": {
+    "desc": "Connect & Explore – aplikace spojující lidi se stejnými zájmy, motivuje vyrazit ven a plnit cíle, s chatem.",
+    "tags": [
+      "sociální",
+      "komunita",
+      "aktivity",
+      "chat"
+    ]
+  },
+  "macaly-n63numikmr77gknni826np7g.macaly.app": {
+    "desc": "Costly – aplikace převádějící peníze na čas (kolik času stála daná útrata).",
+    "tags": [
+      "finance",
+      "produktivita",
+      "nástroj"
+    ]
+  },
+  "macaly-lhaxm48hli2on1fxhouwurbg.macaly.app": {
+    "desc": "Countdown Board – tvorba a sdílení odpočtů do důležitých událostí a dat.",
+    "tags": [
+      "produktivita",
+      "odpočet",
+      "organizace",
+      "sdílení"
+    ]
+  },
+  "zombierun.macaly.app": {
+    "desc": "Crystal Run – hra o prevenci rizikového chování zasazená do zombie apokalypsy.",
+    "tags": [
+      "hra",
+      "prevence",
+      "zábava"
+    ]
+  },
+  "macaly-ci977s08y505lz9yd8pjvfqi.macaly.app": {
+    "desc": "Desková hra – digitální deskovka s minihrami, tresty a pochvalami na políčkách.",
+    "tags": [
+      "hra",
+      "desková hra",
+      "zábava",
+      "děti"
+    ]
+  },
+  "macaly-qeuho8nkialyi0em5vxanzim.macaly.app": {
+    "desc": "Dog Walking App – připomínky a organizace venčení psů.",
+    "tags": [
+      "zvířata",
+      "organizace",
+      "připomínky",
+      "nástroj"
+    ]
+  },
+  "macaly-agxvfszjhrc8pa0lkanrt0lo.macaly.app": {
+    "desc": "Domácí úkoly – aplikace pro zadávání a odškrtávání hotových úkolů, aby žáci nezapomínali.",
+    "tags": [
+      "vzdělávací",
+      "úkoly",
+      "organizace",
+      "děti"
+    ]
+  },
+  "macaly-wpq5kfw5xqbn7w3eyfjw14it.macaly.app": {
+    "desc": "Downhelp – aplikace s připomínkami ohledně zdraví pro postižené, psychicky nemocné a osoby s Alzheimerem.",
+    "tags": [
+      "zdraví",
+      "přístupnost",
+      "připomínky",
+      "podpora"
+    ]
+  },
+  "macaly-tjdswo0eqbatduluhtvlryds.macaly.app": {
+    "desc": "ECO Lednice – aplikace proti plýtvání jídlem: vyfotí lednici a vygeneruje recepty.",
+    "tags": [
+      "vaření",
+      "recepty",
+      "AI nástroj",
+      "ekologie"
+    ]
+  },
+  "eduspace.macaly.app": {
+    "desc": "EduSpace – studijní prostor pro sdílení zápisků, poznámky, denní rozvrh a chat o učivu.",
+    "tags": [
+      "vzdělávací",
+      "produktivita",
+      "studenti",
+      "sdílení"
+    ]
+  },
+  "macaly-occ44bxb5ijjpm1gnzqdmex7.macaly.app": {
+    "desc": "Detektivní hra, kde uživatel řeší záhadné vraždy a zmizení a procvičuje čtení s porozuměním a bystrost.",
+    "tags": [
+      "hra",
+      "detektivka",
+      "čtení",
+      "logika"
+    ]
+  },
+  "macaly-yftzjb8bpuduuf2ltt2r6418.macaly.app": {
+    "desc": "Excuse Generator – aplikace, která rychle vymyslí omluvy a výmluvy do různých situací.",
+    "tags": [
+      "zábava",
+      "AI nástroj",
+      "generátor",
+      "studenti"
+    ]
+  },
+  "fakesocialsimulator.macaly.app": {
+    "desc": "Fake Social Simulator – nástroj učící rozeznávat realitu, fake news a AI obrázky na sociálních sítích.",
+    "tags": [
+      "vzdělávací",
+      "fake news",
+      "média",
+      "AI"
+    ]
+  },
+  "macaly-q10o5k72n7gce1p44nkqd68i.macaly.app": {
+    "desc": "FarmFlow – přehled pro zemědělce: evidence skladu a strojů, teamboard, mapa pojezdu a počasí.",
+    "tags": [
+      "byznys",
+      "zemědělství",
+      "evidence",
+      "nástroj"
+    ]
+  },
+  "macaly-jgz0mavq4s6sz2mkyfpdlh6x.macaly.app": {
+    "desc": "Fashion KV – aplikace pro nápady na outfity a hraní si s oblečením.",
+    "tags": [
+      "móda",
+      "styl",
+      "outfity",
+      "inspirace"
+    ]
+  },
+  "macaly-s1b0ckztn3bcb1gmvrqdq2xu.macaly.app": {
+    "desc": "Fitly – AI stylista, který z nahraných kusů oblečení a zájmů vygeneruje outfit a propojuje komunitu.",
+    "tags": [
+      "móda",
+      "AI nástroj",
+      "styl",
+      "komunita"
+    ]
+  },
+  "macaly-tbr3gbr2o5q1ir824grplool.macaly.app": {
+    "desc": "Five Nights at Leo's – méně strašidelná hororová hra inspirovaná FNAF.",
+    "tags": [
+      "hra",
+      "horor",
+      "zábava"
+    ]
+  },
+  "macaly-wxp6ngxdwwbzpbekg3f0gjzj.macaly.app": {
+    "desc": "Food Vote – hlasování o školních obědech, které řeší plýtvání nevyzvednutým jídlem.",
+    "tags": [
+      "škola",
+      "jídlo",
+      "hlasování",
+      "ekologie"
+    ]
+  },
+  "macaly-xdgwp29ekroywrfnuj95eyq6.macaly.app": {
+    "desc": "FoodHub – aplikace shromažďující recepty z celého světa pro ty, kdo nevědí, co vařit.",
+    "tags": [
+      "vaření",
+      "recepty",
+      "sdílení"
+    ]
+  },
+  "macaly-f586x9hc975ghlkrqzeubmrp.macaly.app": {
+    "desc": "Fotbalová hra zaměřená na rozvoj herního myšlení začínajících hráčů.",
+    "tags": [
+      "hra",
+      "sport",
+      "fotbal"
+    ]
+  },
+  "macaly-kr4ut3laobbdakdk9p1p6jgh.macaly.app": {
+    "desc": "Foto editor – nástroj na úpravu fotografií s možností předělání pomocí AI.",
+    "tags": [
+      "nástroj",
+      "fotografie",
+      "AI nástroj",
+      "úpravy"
+    ]
+  },
+  "macaly-mrj1kyqij1xai3wzbrkxh223.macaly.app": {
+    "desc": "FPS Arena – jednoduchá střílečka s pohybem a výměnou zbraní.",
+    "tags": [
+      "hra",
+      "FPS",
+      "akční",
+      "multiplayer"
+    ]
+  },
+  "frender.macaly.app": {
+    "desc": "Frender – aplikace pro hledání kamarádů inspirovaná Tinderem (swipe + chat po shodě).",
+    "tags": [
+      "sociální",
+      "seznamování",
+      "přátelství",
+      "chat"
+    ]
+  },
+  "macaly-v5ovwxizvv409puuyvf1gwxr.macaly.app": {
+    "desc": "Gejoguessr – zeměpisná hra na procvičení znalostí, inspirovaná GeoGuessr.",
+    "tags": [
+      "hra",
+      "zeměpis",
+      "vzdělávací"
+    ]
+  },
+  "macaly-bz37p20iesdnm6dylgshyzio.macaly.app": {
+    "desc": "Gen-Z Slang Academy – hra učící starší generaci slang generace Z formou testů.",
+    "tags": [
+      "vzdělávací",
+      "slang",
+      "jazyky",
+      "hra"
+    ]
+  },
+  "macaly-x2na0e5df33guqv5ppcxyw3j.macaly.app": {
+    "desc": "Generátor náhodných výzev, který motivuje dělat aktivity mimo telefon.",
+    "tags": [
+      "zábava",
+      "generátor",
+      "výzva",
+      "mladí"
+    ]
+  },
+  "macaly-t4csma39mk6z0c9dogg35puk.macaly.app": {
+    "desc": "Genius Inkognito – kvíz o slavných osobnostech fyziky a chemie inspirovaný pořadem Inkognito.",
+    "tags": [
+      "kvíz",
+      "vzdělávací",
+      "fyzika",
+      "chemie"
+    ]
+  },
+  "macaly-zz7n9q1oazbav48abzakcuq1.macaly.app": {
+    "desc": "GeoKoala – vzdělávací hra o zemích světa ve stylu Duolinga, hlavně pro mladší děti.",
+    "tags": [
+      "vzdělávací",
+      "zeměpis",
+      "gamifikace",
+      "děti"
+    ]
+  },
+  "macaly-m3ou6tpq3afhqkh0hv8tgz86.macaly.app": {
+    "desc": "Ghost Mode – aplikace pro duševní pohodu a soustředění s check-inem nálady, deníkem, hydratací a relaxační sekcí.",
+    "tags": [
+      "zdraví",
+      "duševní pohoda",
+      "produktivita",
+      "studenti"
+    ]
+  },
+  "macaly-pp33c7gbblfu4kcrey1iytlz.macaly.app": {
+    "desc": "Goatbongo Chat – rychlá, návyková hra s ranky a questy.",
+    "tags": [
+      "hra",
+      "zábava",
+      "multiplayer"
+    ]
+  },
+  "groupgo.macaly.app": {
+    "desc": "GroupGo – aplikace organizující bezpečné společné docházení dětí do školy a rezervaci tras.",
+    "tags": [
+      "bezpečí",
+      "doprava",
+      "organizace",
+      "rodiče"
+    ]
+  },
+  "guessthesong.macaly.app": {
+    "desc": "Guess the Song – hudební hádací hra na poznávání písniček a interpretů.",
+    "tags": [
+      "hra",
+      "hudba",
+      "kvíz",
+      "zábava"
+    ]
+  },
+  "guesspoint.macaly.app": {
+    "desc": "GuessPoint – vzdělávací zeměpisná hra inspirovaná GeoGuessr.",
+    "tags": [
+      "hra",
+      "zeměpis",
+      "vzdělávací",
+      "kvíz"
+    ]
+  },
+  "macaly-j9pcte165zimmov7adi0lft4.macaly.app": {
+    "desc": "Hádej reality show – hádací hra pro fanoušky reality shows.",
+    "tags": [
+      "hra",
+      "kvíz",
+      "zábava",
+      "reality show"
+    ]
+  },
+  "macaly-cmnd6d13j487lljofsjv6p0w.macaly.app": {
+    "desc": "Healthyclub – aplikace pro zdravý životní styl s kalorickými tabulkami, cvičením, playlisty a trasami na jednom místě.",
+    "tags": [
+      "zdraví",
+      "fitness",
+      "životní styl",
+      "nástroj"
+    ]
+  },
+  "macaly-tzxf6p1tlg23setyt69a7weh.macaly.app": {
+    "desc": "Aplikace na procvičování poznávání historických osobností a jejich vzájemných souvislostí.",
+    "tags": [
+      "vzdělávací",
+      "dějepis",
+      "kvíz"
+    ]
+  },
+  "macaly-sv2ewmiw6l64qyp55yr8l31o.macaly.app": {
+    "desc": "Hodinová pomoc – aplikace propojující lidi, kteří potřebují pomoc (rodiče, senioři, handicapovaní), s pomocníky.",
+    "tags": [
+      "sociální",
+      "pomoc",
+      "komunita",
+      "služby"
+    ]
+  },
+  "macaly-tdj8qudqbm60wh4imnuqh52t.macaly.app": {
+    "desc": "Holubí módní molo – zábavná a barevná hra propojující módu a holuby (ornitologie).",
+    "tags": [
+      "hra",
+      "móda",
+      "zvířata",
+      "zábava"
+    ]
+  },
+  "macaly-kbsvhmbh2xx4dkgj6fooots9.macaly.app": {
+    "desc": "HomeGym – bezplatná aplikace pro cvičení doma pro ty, kdo nechtějí nebo nemohou do posilovny.",
+    "tags": [
+      "zdraví",
+      "fitness",
+      "cvičení",
+      "domácí trénink"
+    ]
+  },
+  "macaly-k5krr3g8ft8qe5k8e5pdwdss.macaly.app": {
+    "desc": "HomeworkSnap AI – pomocník s domácími úkoly pro žáky základní školy.",
+    "tags": [
+      "vzdělávací",
+      "AI nástroj",
+      "úkoly",
+      "děti"
+    ]
+  },
+  "macaly-d93tsu6k1wehfiv5t5eqxo5g.macaly.app": {
+    "desc": "Horský biker – cyklistická hra pro všechny věkové kategorie.",
+    "tags": [
+      "hra",
+      "cyklistika",
+      "zábava"
+    ]
+  },
+  "macaly-pbc2au4uaki9dr8wmx3r0i32.macaly.app": {
+    "desc": "Chat & Style – chatovací a inspirační aplikace o módě, make-upu a péči o pleť, hlavně pro dívky.",
+    "tags": [
+      "sociální",
+      "móda",
+      "chat",
+      "komunita"
+    ]
+  },
+  "macaly-xorj3c2ejnml6mqokd9ga5fc.macaly.app": {
+    "desc": "Chemie zábavně – aplikace pomáhající žákům 2. stupně s učením chemie.",
+    "tags": [
+      "vzdělávací",
+      "chemie",
+      "děti"
+    ]
+  },
+  "macaly-z13ou4eqxmo8tiay4cuwdd1r.macaly.app": {
+    "desc": "Chyť hmyzáčka – jednoduchá chytací hra pro děti.",
+    "tags": [
+      "hra",
+      "děti",
+      "arkáda",
+      "zábava"
+    ]
+  },
+  "infomap.macaly.app": {
+    "desc": "INFOMAP – mapa pro rychlé zjištění základních informací o jednotlivých zemích.",
+    "tags": [
+      "vzdělávací",
+      "zeměpis",
+      "mapy",
+      "nástroj"
+    ]
+  },
+  "macaly-ywib11tl4vxcem2fk835wn9g.macaly.app": {
+    "desc": "Internetový kuchař – aplikace pro ukládání, hodnocení a sdílení vlastních receptů.",
+    "tags": [
+      "vaření",
+      "recepty",
+      "sdílení",
+      "komunita"
+    ]
+  },
+  "macaly-kkx2b3qmwapluhbm3m5bhz51.macaly.app": {
+    "desc": "Island Words – jednoduchá hra pro děti spojující chytání zvířat a slovní zásobu.",
+    "tags": [
+      "hra",
+      "vzdělávací",
+      "děti",
+      "slovní zásoba"
+    ]
+  },
+  "macaly-u4w63j5sspgvnncdy1x0b2z0.macaly.app": {
+    "desc": "Jídlo pod zub – aplikace, která radí, co vařit, pomocí AI režimu.",
+    "tags": [
+      "vaření",
+      "recepty",
+      "AI nástroj"
+    ]
+  },
+  "macaly-dky3wr9et943egvunu6jq9x9.macaly.app": {
+    "desc": "JustFly – aplikace pro cestovatele hledající nová místa za dobré ceny.",
+    "tags": [
+      "cestování",
+      "letenky",
+      "objevování"
+    ]
+  },
+  "macaly-aa50dvm9dutq7r91mn9j8xvn.macaly.app": {
+    "desc": "Kalkulačka průměru známek – nástroj na výpočet průměru známek s vahami.",
+    "tags": [
+      "škola",
+      "kalkulačka",
+      "studenti",
+      "nástroj"
+    ]
+  },
+  "macaly-s8ygkmy0pb0aci3b342nbgk8.macaly.app": {
+    "desc": "Klávesnicový peklo – logická plošinovka, kde se přes klávesnici řeší minihádanky.",
+    "tags": [
+      "hra",
+      "plošinovka",
+      "logika",
+      "hádanky"
+    ]
+  },
+  "macaly-vl6ho3y5usl0xw61liodhxcg.macaly.app": {
+    "desc": "LazySchool.AI – nástroj pro studenty na generování prezentací.",
+    "tags": [
+      "vzdělávací",
+      "AI nástroj",
+      "prezentace",
+      "studenti"
+    ]
+  },
+  "macaly-m0d09ibm36ypun894oa05ia5.macaly.app": {
+    "desc": "Le boiz password – generátor hesel pro ty, kdo si heslo nedokážou vymyslet.",
+    "tags": [
+      "nástroj",
+      "hesla",
+      "bezpečnost",
+      "generátor"
+    ]
+  },
+  "macaly-s8q8ccu1mm8y2cdmjd2aepce.macaly.app": {
+    "desc": "Learn Up – plánovač testů a úkolů, který studenty upozorňuje na termíny.",
+    "tags": [
+      "produktivita",
+      "plánovač",
+      "studenti",
+      "škola"
+    ]
+  },
+  "macaly-ooogldgim9bhwh66scmx8659.macaly.app": {
+    "desc": "Lekto – aplikace na procvičování školních předmětů pro žáky ZŠ i lidi s postižením.",
+    "tags": [
+      "vzdělávací",
+      "procvičování",
+      "přístupnost",
+      "děti"
+    ]
+  },
+  "macaly-ihkxen8jgv5m5vbwzj47udth.macaly.app": {
+    "desc": "Life Price Calculator – přepočítává čas a 'zbytečné' výdaje, aby ukázal jejich skutečnou cenu.",
+    "tags": [
+      "produktivita",
+      "finance",
+      "sebereflexe",
+      "nástroj"
+    ]
+  },
+  "macaly-tbqlpa41xhr1ulak45hp5mwg.macaly.app": {
+    "desc": "Lifesaver – edukační hra o první pomoci a záchraně života.",
+    "tags": [
+      "vzdělávací",
+      "první pomoc",
+      "kvíz",
+      "zdraví"
+    ]
+  },
+  "macaly-tif3qyfp4tjt9safli38fkff.macaly.app": {
+    "desc": "LYRICFIND – vyhledávač písní podle úryvku textu.",
+    "tags": [
+      "hudba",
+      "vyhledávač",
+      "nástroj"
+    ]
+  },
+  "macaly-u9lj6961x2fvxrn3g6uja22x.macaly.app": {
+    "desc": "Maják – aplikace proti šikaně s chatem, vysvětlením a podporou pro šikanované žáky.",
+    "tags": [
+      "podpora",
+      "šikana",
+      "škola",
+      "bezpečí"
+    ]
+  },
+  "chcisetohozbavit.macaly.app": {
+    "desc": "Aplikace pomáhající závislým na nikotinu či alkoholu zvládnout začátky abstinence.",
+    "tags": [
+      "zdraví",
+      "závislosti",
+      "podpora",
+      "mladí"
+    ]
+  },
+  "macaly-trhlepwkjhyei5am0nu9wgi5.macaly.app": {
+    "desc": "Mario Revival – obtížnější moderní verze klasické hry Mario z roku 1985.",
+    "tags": [
+      "hra",
+      "retro",
+      "plošinovka"
+    ]
+  },
+  "macaly-dquwxeqikpgzfdtzhqe6ddvl.macaly.app": {
+    "desc": "Město budoucnosti – strategická hra o správě města propojující ekonomiku, politiku, dopravu a ekologii.",
+    "tags": [
+      "hra",
+      "strategie",
+      "simulace",
+      "vzdělávací"
+    ]
+  },
+  "macaly-yao3he81f7n4glppywxhdbrv.macaly.app": {
+    "desc": "Midnight Factory – hororová detektivní hra inspirovaná Five Nights at Freddy's.",
+    "tags": [
+      "hra",
+      "horor",
+      "detektivka",
+      "zábava"
+    ]
+  },
+  "macaly-ck4licqoabyf0x27mzo8b02y.macaly.app": {
+    "desc": "Aplikace generuje recepty podle toho, co máš doma v lednici; zaměřená na úsporu času a peněz a méně plýtvání.",
+    "tags": [
+      "vaření",
+      "recepty",
+      "AI nástroj",
+      "úspora",
+      "přístupnost"
+    ]
+  },
+  "macaly-ib47rnxrz5e1n0fxyndiqajw.macaly.app": {
+    "desc": "MojeLéky – aplikace pro seniory a dlouhodobě nemocné, která hlídá a připomíná užívání léků.",
+    "tags": [
+      "zdraví",
+      "senioři",
+      "léky",
+      "připomínky"
+    ]
+  },
+  "macaly-v2u20runu82ta6jwy48u9i0j.macaly.app": {
+    "desc": "Motocross riding – závodní motocrossová hra pro děti.",
+    "tags": [
+      "hra",
+      "závody",
+      "motocross"
+    ]
+  },
+  "macaly-jsdas14c0a1nm2lpxycv2tnh.macaly.app": {
+    "desc": "Motosport – aplikace informující, kdy se jede jaký závod.",
+    "tags": [
+      "sport",
+      "motorsport",
+      "výsledky",
+      "kalendář"
+    ]
+  },
+  "macaly-pouoi4fpwxr8h126sg7tfdf5.macaly.app": {
+    "desc": "nAIč se – bezplatný plánovač písemek a úkolů pro žáky 2. stupně a středoškoláky.",
+    "tags": [
+      "produktivita",
+      "plánovač",
+      "studenti",
+      "škola"
+    ]
+  },
+  "macaly-anyn07ejtimg8rwooknf1m3j.macaly.app": {
+    "desc": "Najdi své povolání – zábavná aplikace pomáhající žákům 7.–9. třídy s výběrem povolání.",
+    "tags": [
+      "kariéra",
+      "vzdělávací",
+      "studenti",
+      "kvíz"
+    ]
+  },
+  "macaly-x8xf895cqk0hiqb9il8pfbk5.macaly.app": {
+    "desc": "Nauč se šachy – výukový nástroj základů šachů pro úplné začátečníky a děti.",
+    "tags": [
+      "vzdělávací",
+      "šachy",
+      "začátečníci",
+      "děti"
+    ]
+  },
+  "dreamhomedesigner.macaly.app": {
+    "desc": "Navrhni si svůj vysněný dům – aplikace pro návrh ideálního domu s AI generováním.",
+    "tags": [
+      "návrhářství",
+      "AI nástroj",
+      "bydlení",
+      "kreativita"
+    ]
+  },
+  "macaly-aslsskvkfjj95zstszb52pkv.macaly.app": {
+    "desc": "Neon Runner – závodní hra spojená s kvízem o dopravě a fyzice.",
+    "tags": [
+      "hra",
+      "závody",
+      "vzdělávací",
+      "fyzika"
+    ]
+  },
+  "macaly-ql42ui6sv6l6og7w0nv51bhc.macaly.app": {
+    "desc": "Nu-Metal Moodboard – aplikace seznamující s hudebním žánrem nu-metal a jeho kapelami, s jukeboxem.",
+    "tags": [
+      "hudba",
+      "vzdělávací",
+      "žánr",
+      "zábava"
+    ]
+  },
+  "macaly-pjeq4bmhau785epjpi14lk29.macaly.app": {
+    "desc": "Oblékací hra pro děti zaměřená na styl, barvy a představivost.",
+    "tags": [
+      "hra",
+      "děti",
+      "móda",
+      "kreativita"
+    ]
+  },
+  "macaly-zeq04ey1zk0gbg6aff9qp2cv.macaly.app": {
+    "desc": "Online casino pro děti TYSO – satirická hra bez plateb upozorňující na rizika gamblingu.",
+    "tags": [
+      "hra",
+      "satira",
+      "vzdělávací",
+      "prevence"
+    ]
+  },
+  "macaly-qmol16we12p7irxup34wq9fm.macaly.app": {
+    "desc": "Videohra Orbit Architect, ve které si hráč staví vlastní sluneční soustavu.",
+    "tags": [
+      "hra",
+      "vesmír",
+      "kreativita",
+      "simulace"
+    ]
+  },
+  "macaly-ht8uzwh21rxnp5rig0rbnm1b.macaly.app": {
+    "desc": "Otta Cookery – analýza surovin a generování receptů se zábavnou herní částí.",
+    "tags": [
+      "vaření",
+      "recepty",
+      "AI nástroj",
+      "hra"
+    ]
+  },
+  "macaly-ens30pcq42e1f0zssxiqzkvh.macaly.app": {
+    "desc": "Outfit Planner – aplikace zadávající rozměry postavy a oblečení s AI asistentem na výběr outfitu.",
+    "tags": [
+      "móda",
+      "AI nástroj",
+      "styl",
+      "outfity"
+    ]
+  },
+  "macaly-ajs04fhnfo5i4wi3wp1bt0sq.macaly.app": {
+    "desc": "Partner Countdown – odpočítávání dnů a připomínky důležitých dat ve vztahu.",
+    "tags": [
+      "produktivita",
+      "vztahy",
+      "odpočet",
+      "připomínky"
+    ]
+  },
+  "macaly-jlqchkc2d8clujuzgplqfbyw.macaly.app": {
+    "desc": "PeaceFunds – aplikace zjednodušující dárcovství: výběr globální krize a možnost přispět.",
+    "tags": [
+      "charita",
+      "dárcovství",
+      "sociální",
+      "nástroj"
+    ]
+  },
+  "macaly-sixa5widy9ueesqqhbgtjkun.macaly.app": {
+    "desc": "PeLVis – aplikace doporučující filmy a seriály podle vkusu uživatele a jeho přátel.",
+    "tags": [
+      "doporučování",
+      "filmy",
+      "AI nástroj",
+      "zábava"
+    ]
+  },
+  "macaly-s2azgeac26ylzra9ylewbhar.macaly.app": {
+    "desc": "Petder – seznamka pro zvířata inspirovaná Tinderem (hledání partnera či kamaráda pro mazlíčka).",
+    "tags": [
+      "sociální",
+      "zvířata",
+      "seznamování",
+      "zábava"
+    ]
+  },
+  "macaly-w09sv9lhl6g5m3nto9snnfg2.macaly.app": {
+    "desc": "Pigment – nástroj pro míchání a hledání konkrétních odstínů barev pro kreslíře.",
+    "tags": [
+      "umění",
+      "nástroj",
+      "barvy",
+      "kreativita"
+    ]
+  },
+  "macaly-kxhaj6xwy96eo412pmjyo7ik.macaly.app": {
+    "desc": "Pingueno – vzdělávací platforma ve stylu Duolinga, ale pro libovolné předměty, s vlastními sadami a soutěžemi.",
+    "tags": [
+      "vzdělávací",
+      "jazyky",
+      "gamifikace",
+      "studenti"
+    ]
+  },
+  "macaly-kzuw5a753cx1aui9ql53lrae.macaly.app": {
+    "desc": "Pixelo – vyhledávač volně použitelných fotek s filtrem na autorská práva.",
+    "tags": [
+      "nástroj",
+      "obrázky",
+      "vyhledávač",
+      "produktivita"
+    ]
+  },
+  "macaly-haylv3xqk3v30k2q2zgpyfkw.macaly.app": {
+    "desc": "Plantify – aplikace s informacemi a tipy o pěstování a péči o rostliny na jednom místě.",
+    "tags": [
+      "rostliny",
+      "pěstování",
+      "nástroj",
+      "zahrada"
+    ]
+  },
+  "macaly-bojuvxcw0ta2fpwke458fr9w.macaly.app": {
+    "desc": "Po stopách zloděje – výuková zeměpisná detektivní hra s výběrem obtížnosti.",
+    "tags": [
+      "hra",
+      "zeměpis",
+      "vzdělávací",
+      "detektivka"
+    ]
+  },
+  "macaly-dvhzpr232jsac9h0l32fgtlu.macaly.app": {
+    "desc": "Počítálek – aplikace na procvičování matematiky pro děti.",
+    "tags": [
+      "vzdělávací",
+      "matematika",
+      "děti"
+    ]
+  },
+  "macaly-ybl7kudg9050da9eojww4md0.macaly.app": {
+    "desc": "Počítej a leť – hra na procvičování matematiky zábavnou formou.",
+    "tags": [
+      "vzdělávací",
+      "matematika",
+      "hra",
+      "děti"
+    ]
+  },
+  "macaly-tw19rbulzaqzfytejudrgek2.macaly.app": {
+    "desc": "Projekt Chronos – výuka dějepisu formou cestování časem, která mění memorování v zážitek.",
+    "tags": [
+      "vzdělávací",
+      "dějepis",
+      "hra",
+      "studenti"
+    ]
+  },
+  "macaly-f0ljegpkljnj95uhuenj1m2z.macaly.app": {
+    "desc": "Průvodce v Pythonu – výuka programování v Pythonu po lekcích, inspirovaná Duolingem.",
+    "tags": [
+      "vzdělávací",
+      "programování",
+      "Python",
+      "gamifikace"
+    ]
+  },
+  "macaly-fdutgthgwogmphj44e5o0ms6.macaly.app": {
+    "desc": "Převodník věku zvířat – jednoduchá aplikace přepočítávající věk mazlíčka na lidský.",
+    "tags": [
+      "nástroj",
+      "zvířata",
+      "kalkulačka"
+    ]
+  },
+  "macaly-palexeck5ieadfv2wqd95n5o.macaly.app": {
+    "desc": "QuestLife – gamifikace povinností, za jejichž splnění hráč získává herní odměny.",
+    "tags": [
+      "produktivita",
+      "gamifikace",
+      "motivace"
+    ]
+  },
+  "relaxy.macaly.app": {
+    "desc": "Relaxy – aplikace doporučující dovolenou podle vyplněného dotazníku.",
+    "tags": [
+      "cestování",
+      "doporučování",
+      "dovolená",
+      "nástroj"
+    ]
+  },
+  "roleverse.macaly.app": {
+    "desc": "Roleverse – roleplay s AI postavami inspirovaný Character.AI.",
+    "tags": [
+      "AI nástroj",
+      "roleplay",
+      "zábava"
+    ]
+  },
+  "macaly-sewcctfyv5kb3h2pr8j1v3z6.macaly.app": {
+    "desc": "RUNFIT – aplikace na hubnutí i nabírání váhy podle tabulek.",
+    "tags": [
+      "zdraví",
+      "fitness",
+      "hubnutí",
+      "nástroj"
+    ]
+  },
+  "macaly-xkpsni0iw61ii0gtlrhbk5hn.macaly.app": {
+    "desc": "Říše příkladů – hra na procvičování matematiky pro žáky 2. stupně a samouky.",
+    "tags": [
+      "vzdělávací",
+      "matematika",
+      "hra",
+      "děti"
+    ]
+  },
+  "macaly-fgdi2tzuhbrm7e72147ciwsq.macaly.app": {
+    "desc": "AutoDoor Pro – B2B prezentace řešení samootevíracích dveří pro firmy a instituce.",
+    "tags": [
+      "B2B",
+      "prezentace",
+      "technologie",
+      "byznys"
+    ]
+  },
+  "macaly-b5x3n0j3rf6tip7s2f6jrhfh.macaly.app": {
+    "desc": "Sandbox Genesis – sandboxová hra na generování světů inspirovaná WorldBox.",
+    "tags": [
+      "hra",
+      "sandbox",
+      "simulace"
+    ]
+  },
+  "macaly-wqyi6zap64w4iy0ipjvmht3j.macaly.app": {
+    "desc": "Vizuální editor pro tvorbu a ladění algoritmů a matematických výrazů pomocí propojitelných modulů (ve stylu node editoru).",
+    "tags": [
+      "nástroj",
+      "vývojáři",
+      "matematika",
+      "vzdělávací",
+      "vizuální editor"
+    ]
+  },
+  "macaly-h13zvrn7dtdfpwfsv53ecuyb.macaly.app": {
+    "desc": "Second Brain – aplikace pro zápis nápadů, poznámek a deníku, inspirovaná Google Keep a Obsidian.",
+    "tags": [
+      "produktivita",
+      "poznámky",
+      "organizace",
+      "studenti"
+    ]
+  },
+  "macaly-shadowdungeonmazeaisoutez26.macaly.app": {
+    "desc": "Shadow Dungeon Maze – únikovka s náhodně generovaným bludištěm, souboji a teleporty.",
+    "tags": [
+      "hra",
+      "únikovka",
+      "bludiště",
+      "dobrodružství"
+    ]
+  },
+  "macaly-w8qakcvop26aj1z7o2nbdhx2.macaly.app": {
+    "desc": "School TD 1 – tower defense hra inspirovaná Bloons TD 6 s upgrady a buffy.",
+    "tags": [
+      "hra",
+      "tower defense",
+      "strategie"
+    ]
+  },
+  "macaly-tmti0o75fqf5lcn9uib0lon6.macaly.app": {
+    "desc": "SchoolFood – koncept řešící hlad žáků ve škole formou školního stravování.",
+    "tags": [
+      "škola",
+      "jídlo",
+      "koncept"
+    ]
+  },
+  "macaly-zjnbg1jmzrwyxt4nxosmi8r6.macaly.app": {
+    "desc": "Science Delivers – jednoduchá videohra s ovládáním auta propojená s fyzikou a matematikou.",
+    "tags": [
+      "hra",
+      "vzdělávací",
+      "fyzika",
+      "matematika"
+    ]
+  },
+  "macaly-imr6f32oo2m6x2di9iwa7zm5.macaly.app": {
+    "desc": "Silver Link – aplikace propojující seniory a studenty proti samotě a pro výměnu znalostí.",
+    "tags": [
+      "sociální",
+      "senioři",
+      "mezigenerační",
+      "podpora"
+    ]
+  },
+  "macaly-o7hswxrc88epwsxggicfo9ah.macaly.app": {
+    "desc": "Aplikace, která dlouhé a složité dokumenty převádí do krátkého, srozumitelného shrnutí s klíčovými body a riziky.",
+    "tags": [
+      "AI nástroj",
+      "produktivita",
+      "studenti",
+      "sumarizace textu"
+    ]
+  },
+  "macaly-tolm9r2q8qzl1jd3ai9f9ypw.macaly.app": {
+    "desc": "Singer Quiz – kvíz ověřující znalosti o známých zpěvácích a jejich tvorbě.",
+    "tags": [
+      "kvíz",
+      "hudba",
+      "zábava"
+    ]
+  },
+  "macaly-g8tax8oen33jtirvip7djw0q.macaly.app": {
+    "desc": "Sirulis – plošinovka s čarodějem inspirovaná Mariem pro zlepšení reflexů u dětí.",
+    "tags": [
+      "hra",
+      "plošinovka",
+      "děti",
+      "zábava"
+    ]
+  },
+  "macaly-oh5uy65rt9lejmp0sy99qod5.macaly.app": {
+    "desc": "Skákací kostky – skákačka inspirovaná Geometry Dash.",
+    "tags": [
+      "hra",
+      "arkáda",
+      "plošinovka"
+    ]
+  },
+  "macaly-bxuzjwmlrsluzxvtd452wz47.macaly.app": {
+    "desc": "Skilly na úrovni – výuka angličtiny pro mladší děti inspirovaná Duolingem.",
+    "tags": [
+      "vzdělávací",
+      "jazyky",
+      "angličtina",
+      "děti"
+    ]
+  },
+  "macaly-zdp9jslm9f70tf4jojx1tilc.macaly.app": {
+    "desc": "Slang AI Forage – aplikace učící starší generaci slovník generací Z a Alfa, s kvízem a flash cards.",
+    "tags": [
+      "vzdělávací",
+      "slang",
+      "jazyky",
+      "AI nástroj"
+    ]
+  },
+  "macaly-kuamtf0bipyhgkmblt5vp8gp.macaly.app": {
+    "desc": "Slev.AI – aplikace pro vyhledávání slev pro všechny uživatele.",
+    "tags": [
+      "nakupování",
+      "slevy",
+      "AI nástroj",
+      "vyhledávač"
+    ]
+  },
+  "macaly-gg79o3mtkcg0ymrtvkrptheg.macaly.app": {
+    "desc": "Smart Calendar – chytrý kalendář s plánováním, počasím a AI asistentem napříč zařízeními.",
+    "tags": [
+      "produktivita",
+      "kalendář",
+      "AI nástroj",
+      "organizace"
+    ]
+  },
+  "macaly-hjnghjc15ybukyuabegxyalf.macaly.app": {
+    "desc": "Soccer Cars – hra s auty a fotbalem inspirovaná Rocket League.",
+    "tags": [
+      "hra",
+      "sport",
+      "auta",
+      "zábava"
+    ]
+  },
+  "macaly-m681seutm6oeo911zhhhlpmi.macaly.app": {
+    "desc": "Spadni – aplikace pro hledání výhodných letenek pro studenty a rodiny.",
+    "tags": [
+      "cestování",
+      "letenky",
+      "vyhledávač"
+    ]
+  },
+  "macaly-q2crxkpyoyg7zwwf1joc1i3j.macaly.app": {
+    "desc": "Spánek a klid – aplikace pomáhající s usínáním a relaxací, počítá dobu spánku.",
+    "tags": [
+      "zdraví",
+      "spánek",
+      "relax",
+      "děti"
+    ]
+  },
+  "macaly-dohz0y99y2ieox1a09bk5yrf.macaly.app": {
+    "desc": "Sparta Games – kvízy a přehled o fotbalové Spartě pro fanoušky.",
+    "tags": [
+      "sport",
+      "fotbal",
+      "kvíz",
+      "fanoušci"
+    ]
+  },
+  "macaly-asj4wc4wv3avn02pyvgivk7n.macaly.app": {
+    "desc": "Splátky Andreje Babiše – satirická hra inspirovaná Spend Bill Gates' Money s politickým tématem.",
+    "tags": [
+      "hra",
+      "satira",
+      "politika",
+      "zábava"
+    ]
+  },
+  "macaly-cormyct7i42cb8wrl0n5kyw2.macaly.app": {
+    "desc": "SportHub – moderní aplikace kombinující rychlý přehled sportovních výsledků s komunitou a personalizací.",
+    "tags": [
+      "sport",
+      "výsledky",
+      "komunita",
+      "mobilní"
+    ]
+  },
+  "macaly-sx1sojhx1wlk4hw3xz2i3umx.macaly.app": {
+    "desc": "Sportswap – e-shop se sportovním vybavením inspirovaný Decathlonem.",
+    "tags": [
+      "e-shop",
+      "sport",
+      "vybavení",
+      "nakupování"
+    ]
+  },
+  "macaly-bk4joxs08lphlcv2egxm6jnb.macaly.app": {
+    "desc": "StayFit – aplikace využívající AI k určení kalorií jídel a hlídání váhy.",
+    "tags": [
+      "zdraví",
+      "fitness",
+      "AI nástroj",
+      "kalorie"
+    ]
+  },
+  "macaly-aia9zu85n075t6gtbsicwdrl.macaly.app": {
+    "desc": "Aplikace pro jednoduchý nákup a sledování akcií na pár kliknutí.",
+    "tags": [
+      "finance",
+      "investice",
+      "akcie",
+      "nástroj"
+    ]
+  },
+  "macaly-wjzbxvomnz8iosh7mttgno9a.macaly.app": {
+    "desc": "Streetspeak – výuka angličtiny zaměřená na reálné situace z běžného života a cestování.",
+    "tags": [
+      "vzdělávací",
+      "jazyky",
+      "angličtina",
+      "cestování"
+    ]
+  },
+  "macaly-yqb7szccie0uo8qinhw4fid5.macaly.app": {
+    "desc": "Kvízová aplikace pro studenty s možností nahrát fotky materiálů a opakovat látku před testy.",
+    "tags": [
+      "vzdělávací",
+      "kvíz",
+      "studenti",
+      "AI nástroj"
+    ]
+  },
+  "macaly-p9up75w9ro4c8puu18mz7xos.macaly.app": {
+    "desc": "Studentská kuchařka – sbírka receptů jako pomocník při vaření ve škole i doma.",
+    "tags": [
+      "vaření",
+      "recepty",
+      "studenti"
+    ]
+  },
+  "macaly-i261wwb90scp7crzayr4i9n1.macaly.app": {
+    "desc": "Study Legends – aplikace na procvičování předmětů s výběrem obtížnosti a tvorbou testů.",
+    "tags": [
+      "vzdělávací",
+      "procvičování",
+      "studenti",
+      "kvíz"
+    ]
+  },
+  "macaly-n05kka1rfgzihbxiu70qt18t.macaly.app": {
+    "desc": "StudyStation AI – přehledné studijní materiály na jednom místě s funkcí zkoušení.",
+    "tags": [
+      "vzdělávací",
+      "studenti",
+      "AI nástroj",
+      "studijní materiály"
+    ]
+  },
+  "macaly-p3t0rd8l01ft245arw2jxvks.macaly.app": {
+    "desc": "Styleflow – aplikace, která z nahraných fotek oblečení vygeneruje outfit.",
+    "tags": [
+      "móda",
+      "AI nástroj",
+      "styl",
+      "outfity"
+    ]
+  },
+  "macaly-wgdedrqib9u2s97cqlef5gd6.macaly.app": {
+    "desc": "StyleMatch – aplikace pomáhající vybrat ladící outfit.",
+    "tags": [
+      "móda",
+      "styl",
+      "outfity",
+      "nástroj"
+    ]
+  },
+  "macaly-subspacereactor.macaly.app": {
+    "desc": "Subspace reaktor – obtížná hříčka s komplexním ovládáním vyžadující čtení manuálu.",
+    "tags": [
+      "hra",
+      "výzva",
+      "zábava"
+    ]
+  },
+  "macaly-x8iy6ob9y4vk3zvpc9lowg8s.macaly.app": {
+    "desc": "Svět jinak – aplikace ukazující svět zajímavou formou pro žáky.",
+    "tags": [
+      "vzdělávací",
+      "zábava",
+      "studenti"
+    ]
+  },
+  "macaly-nman1at7lmfz06d4b3oj6u7g.macaly.app": {
+    "desc": "Šest sedm holub – jednoduchá hra zaměřená na soustředivost dětí.",
+    "tags": [
+      "hra",
+      "děti",
+      "soustředění"
+    ]
+  },
+  "macaly-rft0hqrcj7wpscck7nwu2c7z.macaly.app": {
+    "desc": "Školní bazar učebnic – marketplace pro levnější prodej a nákup učebnic mezi studenty.",
+    "tags": [
+      "marketplace",
+      "škola",
+      "učebnice",
+      "studenti"
+    ]
+  },
+  "macaly-kf7to0djirtgfb99oqj3kdxk.macaly.app": {
+    "desc": "Koncept přehlednější aplikace pro objednávání školních obědů.",
+    "tags": [
+      "škola",
+      "objednávání",
+      "koncept",
+      "jídlo"
+    ]
+  },
+  "macaly-polyh9p55hse6dpuksosd4dl.macaly.app": {
+    "desc": "Školní portál akcí – přehledné informování učitelů, žáků a rodičů o školních akcích, spravované adminy.",
+    "tags": [
+      "škola",
+      "organizace",
+      "kalendář",
+      "informace"
+    ]
+  },
+  "macaly-p2zfep2104jrkgwhvvtk5r3s.macaly.app": {
+    "desc": "Školníček – studijní platforma s poznámkami, úkoly, procvičováním a komunikací mezi učiteli a žáky.",
+    "tags": [
+      "vzdělávací",
+      "produktivita",
+      "škola",
+      "komunikace"
+    ]
+  },
+  "macaly-zp24m1k6rbe3ukosleqtqncw.macaly.app": {
+    "desc": "Talent od přírody – aplikace pro získávání inspirace k umělecké a hudební tvorbě.",
+    "tags": [
+      "umění",
+      "hudba",
+      "inspirace",
+      "kreativita"
+    ]
+  },
+  "macaly-xjtfo33nvslwimomaj6f44i8.macaly.app": {
+    "desc": "Těstovina na útěku – jednoduchá skákací hra.",
+    "tags": [
+      "hra",
+      "arkáda",
+      "zábava"
+    ]
+  },
+  "macaly-lnv9nimtoot6xb99m8rcqab2.macaly.app": {
+    "desc": "The UFC History – aplikace pro vyhledávání zápasníků a historie UFC a MMA.",
+    "tags": [
+      "sport",
+      "MMA",
+      "UFC",
+      "databáze"
+    ]
+  },
+  "macaly-zhwv2u1rtucx0yk4yz2cejzx.macaly.app": {
+    "desc": "The Voice Control – adaptivní hlasový asistent pro ovládání systému, mj. pro lidi s omezenou mobilitou.",
+    "tags": [
+      "AI nástroj",
+      "přístupnost",
+      "hlasové ovládání",
+      "asistent"
+    ]
+  },
+  "macaly-b8x2xr2c8h7shyanfa0xa8ia.macaly.app": {
+    "desc": "Tipy na výlety – aplikace, která podle věku a vzdálenosti doporučuje populární místa k návštěvě.",
+    "tags": [
+      "cestování",
+      "výlety",
+      "doporučování",
+      "nástroj"
+    ]
+  },
+  "macaly-jxqlt6c584x86899p3diefcv.macaly.app": {
+    "desc": "Travelfinder – aplikace hledající ideální dovolenou podle zájmů uživatele.",
+    "tags": [
+      "cestování",
+      "dovolená",
+      "doporučování",
+      "nástroj"
+    ]
+  },
+  "macaly-vphaviytrbkhlbwremlc380i.macaly.app": {
+    "desc": "Tree finder – aplikace pro rozpoznávání stromů.",
+    "tags": [
+      "příroda",
+      "rozpoznávání",
+      "vzdělávací"
+    ]
+  },
+  "macaly-ninh7cl7o0fv49lq01u0gbml.macaly.app": {
+    "desc": "Rakce – vyhledávač bazarů pro rychlé hledání produktů, inspirovaný eBayem.",
+    "tags": [
+      "marketplace",
+      "vyhledávač",
+      "bazar",
+      "nakupování"
+    ]
+  },
+  "macaly-eh3k8kr0trdjx8i1asbkqioh.macaly.app": {
+    "desc": "Vysoká jednoduše – nástroj pro vyhledávání, filtrování a porovnávání vysokých a středních škol.",
+    "tags": [
+      "vzdělávací",
+      "vyhledávač",
+      "studenti",
+      "rozhodování"
+    ]
+  },
+  "macaly-th9jz7l2kvet7ncnm5zjrng3.macaly.app": {
+    "desc": "Vytvoř si svou holčičku – líčicí a oblékací hra pro menší děti.",
+    "tags": [
+      "hra",
+      "děti",
+      "líčení",
+      "kreativita"
+    ]
+  },
+  "macaly-ec1zxzorntnvfierfacitsvq.macaly.app": {
+    "desc": "Vzpomínková zahrada – aplikace určená pro mateřské školy.",
+    "tags": [
+      "vzdělávací",
+      "děti",
+      "MŠ"
+    ]
+  },
+  "macaly-wt8xh114p3xv5szton7jkje1.macaly.app": {
+    "desc": "Wear It Style – aplikace s nápady na styl a outfity.",
+    "tags": [
+      "móda",
+      "styl",
+      "outfity",
+      "inspirace"
+    ]
+  },
+  "macaly-szqe7rpkgk4b8eliil5ckkt3.macaly.app": {
+    "desc": "Whack-a-Mole – klasická reflexní hra pro mládež i seniory.",
+    "tags": [
+      "hra",
+      "reflexy",
+      "zábava"
+    ]
+  },
+  "macaly-fcjebiow4yver3dax8486658.macaly.app": {
+    "desc": "World of Books – aplikace doporučující knihy, pro povinnou četbu a sdílení názorů.",
+    "tags": [
+      "knihy",
+      "čtení",
+      "doporučování",
+      "komunita"
+    ]
+  },
+  "macaly-ladd32nwllqx0tnraztjzz5a.macaly.app": {
+    "desc": "World Weather App – jednoduchá aplikace zobrazující počasí.",
+    "tags": [
+      "počasí",
+      "nástroj"
+    ]
+  },
+  "macaly-y40phlyclmdw06gj65ssepgw.macaly.app": {
+    "desc": "World's mňamy – sbírka receptů na dezerty z celého světa zdarma a na jednom místě.",
+    "tags": [
+      "vaření",
+      "recepty",
+      "pečení",
+      "sdílení"
+    ]
+  },
+  "macaly-heev9665oryz1vks6r3t2ti8.macaly.app": {
+    "desc": "ZORA – jednoduchá aplikace pro zápis myšlenek, nálad a pocitů pro lepší duševní pohodu.",
+    "tags": [
+      "zdraví",
+      "duševní pohoda",
+      "deník",
+      "teenageři"
+    ]
+  },
+  "macaly-p7fd8g9jci9mtroiyplrzu6h.macaly.app": {
+    "desc": "Zorra – výuková aplikace pro malé děti (abeceda, čísla, zvuky zvířat) inspirovaná dětským tabletem.",
+    "tags": [
+      "vzdělávací",
+      "děti",
+      "abeceda",
+      "předškoláci"
+    ]
+  },
+  "macaly-jlmg3y2kgozlhfkk39ev9wxv.macaly.app": {
+    "desc": "Zvířecí překladač – aplikace, která 'překládá' zvuky mazlíčků pro chovatele a veterináře.",
+    "tags": [
+      "zvířata",
+      "zábava",
+      "AI nástroj"
+    ]
+  }
+};
+
 function render() {
   const schoolsMap = groupBySchool(RAW);
   const container = document.getElementById('schools-container');
@@ -1022,8 +2620,16 @@ function render() {
         </a>`
       : '';
     // Skóre záměrně skryto (řazení podle skóre zachováno interně)
+    const normUrl = link.replace(/^https?:\/\//, '').replace(/^\/\//, '').replace(/\/+$/, '').toLowerCase();
+    const info = APPINFO[normUrl] || {};
+    const descHtml = info.desc ? `<div class="app-card-desc">${info.desc}</div>` : '';
+    const tagsHtml = info.tags && info.tags.length
+      ? `<div class="app-card-tags">${info.tags.map(t => `<span class="app-tag">${t}</span>`).join('')}</div>`
+      : '';
     return `<div class="app-card">
       <div class="app-card-name">${name === '—' ? 'Projekt bez názvu' : name}</div>
+      ${descHtml}
+      ${tagsHtml}
       ${linkHtml}
     </div>`;
   }).join('');
