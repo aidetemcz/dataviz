@@ -367,6 +367,121 @@
     .hero { padding: 48px 20px 56px; }
     .hero-stats { gap: 24px; }
   }
+
+  /* ---- HERO TWO-COLUMN ---- */
+  .hero-inner {
+    max-width: 1100px; margin: 0 auto;
+    position: relative; z-index: 1;
+    display: flex; align-items: center; gap: 48px;
+  }
+  .hero-left { flex: 1; min-width: 0; }
+  .hero-right { flex-shrink: 0; }
+
+  .hero-buttons {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    margin-top: 28px;
+  }
+  .btn-hero-primary {
+    font-family: "Darker Grotesque", sans-serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--red); background: white;
+    border: none; border-radius: 100px;
+    padding: 10px 28px; cursor: pointer;
+    text-decoration: none;
+    transition: background .15s, color .15s;
+    display: inline-block;
+  }
+  .btn-hero-primary:hover { background: var(--red-light); }
+
+  .btn-hero-outline {
+    font-family: "Darker Grotesque", sans-serif;
+    font-size: 20px; font-weight: 700;
+    color: white; background: transparent;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 100px;
+    padding: 10px 28px; cursor: pointer;
+    transition: border-color .15s, background .15s;
+  }
+  .btn-hero-outline:hover {
+    border-color: white;
+    background: rgba(255,255,255,0.12);
+  }
+  .btn-hero-outline.active {
+    background: rgba(255,255,255,0.2);
+    border-color: white;
+  }
+
+  /* Stats box */
+  .hero-stats-box {
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 16px;
+    padding: 28px 32px;
+    display: flex; flex-direction: column; gap: 0;
+    min-width: 200px;
+    backdrop-filter: blur(4px);
+  }
+  .hero-stat { padding: 16px 0; }
+  .hero-stat:first-child { padding-top: 0; }
+  .hero-stat:last-child { padding-bottom: 0; }
+  .hero-stat-val {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 42px; font-weight: 700; color: white; line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 16px; color: rgba(255,255,255,0.75); margin-top: 4px;
+  }
+  .hero-stat-divider {
+    height: 1px; background: rgba(255,255,255,0.2);
+  }
+
+  /* ---- APPS GRID (seznam aplikací) ---- */
+  .apps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+  .app-card {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 12px; padding: 18px 20px;
+    display: flex; flex-direction: column; gap: 12px;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .app-card:hover { border-color: var(--sky); box-shadow: 0 4px 16px rgba(179,205,214,.2); }
+  .app-card-name {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.2;
+  }
+  .app-card-score {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 14px; font-weight: 600; color: var(--sky-text);
+  }
+  .app-card-link {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: "Darker Grotesque", sans-serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--red); text-decoration: none;
+    background: var(--white); border: 1.5px solid var(--red);
+    border-radius: 100px; padding: 6px 16px;
+    align-self: flex-start;
+    transition: background .15s, color .15s;
+  }
+  .app-card-link:hover { background: var(--red); color: white; }
+
+  /* View sections */
+  .view-section { background: var(--bg); border-top: 1.5px solid var(--border); }
+
+  @media (max-width: 768px) {
+    .hero-inner { flex-direction: column; }
+    .hero-stats-box { flex-direction: row; gap: 0; width: 100%; }
+    .hero-stat { flex: 1; padding: 0 16px; }
+    .hero-stat:first-child { padding-left: 0; }
+    .hero-stat:last-child { padding-right: 0; }
+    .hero-stat-divider { width: 1px; height: auto; }
+    .hero-stat-val { font-size: 28px; }
+    .hero-buttons { flex-direction: column; }
+    .btn-hero-primary, .btn-hero-outline { text-align: center; }
+  }
 </style>
 </head>
 <body>
@@ -381,21 +496,32 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-eyebrow">Startup Lab · Výsledky hodnocení</div>
-    <h1>Hodnocení projektů<br><em>AI Olympiády 2026</em></h1>
-    <p class="hero-desc">Přehled výsledků kategorie Startup Lab — aplikací vytvořených žáky pomocí umělé inteligence na platformě Macaly.</p>
-    <div class="hero-stats" id="hero-stats">
-      <div>
-        <div class="hero-stat-val" id="stat-schools">—</div>
-        <div class="hero-stat-label">škol</div>
+    <div class="hero-left">
+      <div class="hero-eyebrow">Startup Lab · Výsledky hodnocení</div>
+      <h1>Hodnocení projektů<br><em>AI Olympiády 2026</em></h1>
+      <p class="hero-desc">Přehled výsledků kategorie Startup Lab — aplikací vytvořených žáky pomocí umělé inteligence na platformě Macaly.</p>
+      <div class="hero-buttons">
+        <a href="#vysledky" class="btn-hero-primary">Výsledky</a>
+        <button class="btn-hero-outline" onclick="showView('aplikace')">Seznam aplikací</button>
+        <button class="btn-hero-outline" onclick="showView('finaliste')">Finalisté</button>
       </div>
-      <div>
-        <div class="hero-stat-val" id="stat-projects">—</div>
-        <div class="hero-stat-label">projektů</div>
-      </div>
-      <div>
-        <div class="hero-stat-val" id="stat-avg">—</div>
-        <div class="hero-stat-label">průměrné skóre z 25</div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stats-box">
+        <div class="hero-stat">
+          <div class="hero-stat-val" id="stat-schools">—</div>
+          <div class="hero-stat-label">škol</div>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-val" id="stat-projects">—</div>
+          <div class="hero-stat-label">projektů</div>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-val" id="stat-avg">—</div>
+          <div class="hero-stat-label">průměrné skóre z 25</div>
+        </div>
       </div>
     </div>
   </div>
@@ -474,9 +600,33 @@
 </div>
 
 <!-- SCHOOLS -->
-<div class="schools-section">
+<div class="schools-section" id="vysledky">
   <div class="schools-inner" id="schools-container"></div>
   <div class="no-results" id="no-results" style="max-width:1100px;margin:0 auto;">Žádné výsledky neodpovídají vašemu hledání.</div>
+</div>
+
+<!-- SEZNAM APLIKACÍ VIEW -->
+<div id="view-aplikace" class="view-section" style="display:none;">
+  <div class="section-inner" style="max-width:1100px;margin:0 auto;padding:48px 20px;">
+    <div class="section-eyebrow">Všechny projekty</div>
+    <h2>Seznam aplikací</h2>
+    <p style="color:var(--text-soft);margin-bottom:32px;font-size:var(--fs-base);">Přehled všech aplikací bez uvedení školy.</p>
+    <div id="apps-grid" class="apps-grid"></div>
+  </div>
+</div>
+
+<!-- FINALISTÉ VIEW -->
+<div id="view-finaliste" class="view-section" style="display:none;">
+  <div class="section-inner" style="max-width:1100px;margin:0 auto;padding:48px 20px;">
+    <div class="section-eyebrow">Finálové kolo</div>
+    <h2>Finalisté</h2>
+    <p style="color:var(--text-soft);margin-bottom:32px;font-size:var(--fs-base);">15 projektů, které postoupily do finále AI Olympiády 2026. Tabulka finalistů bude doplněna.</p>
+    <div id="finaliste-grid" class="apps-grid">
+      <div style="padding:60px 20px;text-align:center;color:var(--text-soft);border:2px dashed var(--border);border-radius:12px;">
+        Data finalistů budou brzy doplněna.
+      </div>
+    </div>
+  </div>
 </div>
 
 <footer>
@@ -836,6 +986,57 @@ function render() {
   }
 
   searchEl.addEventListener('input', updateSearch);
+
+  // Render apps grid (seznam aplikací)
+  const appsGrid = document.getElementById('apps-grid');
+  const allApps = [...RAW].sort((a, b) => b[3] - a[3]);
+  appsGrid.innerHTML = allApps.map(([school, name, scores, total, link]) => {
+    const linkHtml = link
+      ? `<a class="app-card-link" href="${link}" target="_blank" rel="noopener">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Zobrazit aplikaci
+        </a>`
+      : '';
+    return `<div class="app-card">
+      <div class="app-card-name">${name === '—' ? 'Projekt bez názvu' : name}</div>
+      <div class="app-card-score total-badge ${totalClass(total)}" style="display:inline-block;padding:3px 12px;">${total} / 25</div>
+      ${linkHtml}
+    </div>`;
+  }).join('');
+}
+
+// View switching
+const VIEWS = ['vysledky', 'aplikace', 'finaliste'];
+
+function showView(view) {
+  // Hide all view sections
+  document.getElementById('view-aplikace').style.display = 'none';
+  document.getElementById('view-finaliste').style.display = 'none';
+
+  const infoStrip = document.querySelector('.info-strip');
+  const criteriaSection = document.querySelector('.criteria-section');
+  const searchSection = document.querySelector('.search-section');
+  const schoolsSection = document.querySelector('.schools-section');
+
+  // Reset button states
+  document.querySelectorAll('.btn-hero-outline').forEach(b => b.classList.remove('active'));
+
+  if (view === 'vysledky' || !view) {
+    infoStrip.style.display = '';
+    criteriaSection.style.display = '';
+    searchSection.style.display = '';
+    schoolsSection.style.display = '';
+  } else {
+    infoStrip.style.display = 'none';
+    criteriaSection.style.display = 'none';
+    searchSection.style.display = 'none';
+    schoolsSection.style.display = 'none';
+    document.getElementById('view-' + view).style.display = '';
+    // Mark active button
+    const btns = document.querySelectorAll('.btn-hero-outline');
+    if (view === 'aplikace') btns[0].classList.add('active');
+    if (view === 'finaliste') btns[1].classList.add('active');
+  }
 }
 
 render();
