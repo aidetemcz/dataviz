@@ -381,26 +381,26 @@
     display: flex; flex-wrap: wrap; gap: 12px;
     margin-top: 28px;
   }
-  .btn-hero-primary {
+  .btn-hero {
     font-family: "Darker Grotesque", sans-serif;
-    font-size: 20px; font-weight: 700;
-    color: var(--red); background: white;
-    border: none; border-radius: 100px;
-    padding: 10px 28px; cursor: pointer;
+    font-size: 20px; font-weight: 700; line-height: 1;
+    border-radius: 100px;
+    padding: 13px 28px; cursor: pointer;
     text-decoration: none;
-    transition: background .15s, color .15s;
-    display: inline-block;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 2px solid transparent;
+    transition: background .15s, color .15s, border-color .15s;
   }
-  .btn-hero-primary:hover { background: var(--red-light); }
+  .btn-hero-primary {
+    color: var(--red); background: white;
+    border-color: white;
+  }
+  .btn-hero-primary:hover { background: var(--red-light); border-color: var(--red-light); }
+  .btn-hero-primary.active { background: white; border-color: white; }
 
   .btn-hero-outline {
-    font-family: "Darker Grotesque", sans-serif;
-    font-size: 20px; font-weight: 700;
     color: white; background: transparent;
-    border: 2px solid rgba(255,255,255,0.5);
-    border-radius: 100px;
-    padding: 10px 28px; cursor: pointer;
-    transition: border-color .15s, background .15s;
+    border-color: rgba(255,255,255,0.5);
   }
   .btn-hero-outline:hover {
     border-color: white;
@@ -501,9 +501,9 @@
       <h1>Hodnocení projektů<br><em>AI Olympiády 2026</em></h1>
       <p class="hero-desc">Přehled výsledků kategorie Startup Lab — aplikací vytvořených žáky pomocí umělé inteligence na platformě Macaly.</p>
       <div class="hero-buttons">
-        <a href="#vysledky" class="btn-hero-primary">Výsledky</a>
-        <button class="btn-hero-outline" onclick="showView('aplikace')">Seznam aplikací</button>
-        <button class="btn-hero-outline" onclick="showView('finaliste')">Finalisté</button>
+        <button class="btn-hero btn-hero-primary" onclick="showView('vysledky')">Výsledky</button>
+        <button class="btn-hero btn-hero-outline" onclick="showView('aplikace')">Seznam aplikací</button>
+        <button class="btn-hero btn-hero-outline" onclick="showView('finaliste')">Finalisté</button>
       </div>
     </div>
     <div class="hero-right">
@@ -1019,23 +1019,25 @@ function showView(view) {
   const schoolsSection = document.querySelector('.schools-section');
 
   // Reset button states
-  document.querySelectorAll('.btn-hero-outline').forEach(b => b.classList.remove('active'));
+  const btns = document.querySelectorAll('.btn-hero');
+  btns.forEach(b => b.classList.remove('active'));
 
   if (view === 'vysledky' || !view) {
     infoStrip.style.display = '';
     criteriaSection.style.display = '';
     searchSection.style.display = '';
     schoolsSection.style.display = '';
+    btns[0].classList.add('active');
+    schoolsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } else {
     infoStrip.style.display = 'none';
     criteriaSection.style.display = 'none';
     searchSection.style.display = 'none';
     schoolsSection.style.display = 'none';
     document.getElementById('view-' + view).style.display = '';
-    // Mark active button
-    const btns = document.querySelectorAll('.btn-hero-outline');
-    if (view === 'aplikace') btns[0].classList.add('active');
-    if (view === 'finaliste') btns[1].classList.add('active');
+    if (view === 'aplikace') btns[1].classList.add('active');
+    if (view === 'finaliste') btns[2].classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
 
