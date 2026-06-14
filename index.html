@@ -898,15 +898,10 @@ function renderProject(p) {
     </div>`;
   }).join('');
 
-  const linkHtml = p.link ? `<a class="project-link" href="${p.link}" target="_blank" rel="noopener">
-    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-    Zobrazit aplikaci
-  </a>` : '';
-
+  // Odkaz na aplikaci ve výsledcích záměrně skryt (zůstává v Seznamu aplikací)
   return `<div class="project-item">
     <div class="project-top">
       <div class="project-name">${p.name}</div>
-      ${linkHtml}
     </div>
     <div class="scores-grid">${scoreItems}</div>
     <div class="project-footer">
