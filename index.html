@@ -501,6 +501,49 @@
     .hero-buttons { flex-direction: column; }
     .btn-hero-primary, .btn-hero-outline { text-align: center; }
   }
+
+  /* ---- FINALIST CARDS ---- */
+  .finalist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .finalist-card {
+    background: var(--white);
+    border: 2px solid var(--red);
+    border-radius: 16px;
+    padding: 28px 28px 24px;
+    display: flex; flex-direction: column; gap: 16px;
+    transition: box-shadow .2s;
+  }
+  .finalist-card:hover { box-shadow: 0 6px 24px rgba(220,91,91,.18); }
+  .finalist-card-name {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: var(--fs-lg); font-weight: 700; color: var(--text); line-height: 1.2;
+  }
+  .finalist-meta { display: flex; flex-direction: column; gap: 6px; }
+  .finalist-meta-row {
+    display: flex; gap: 8px; align-items: baseline;
+    font-size: var(--fs-sm); line-height: 1.3;
+  }
+  .finalist-meta-label {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 13px; font-weight: 700; color: var(--sky-text);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    white-space: nowrap; min-width: 80px;
+  }
+  .finalist-meta-value { color: var(--text); font-weight: 600; }
+  .finalist-credits {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: var(--fs-lg); font-weight: 700; color: var(--red);
+  }
+  .finalist-desc {
+    font-size: var(--fs-sm); color: var(--text-soft); line-height: 1.5;
+    border-top: 1px solid var(--border); padding-top: 14px;
+  }
+  @media (max-width: 600px) {
+    .finalist-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -522,6 +565,7 @@
       <div class="hero-buttons">
         <button class="btn-hero btn-hero-primary" onclick="showView('vysledky')">Výsledky</button>
         <button class="btn-hero btn-hero-outline" onclick="showView('aplikace')">Seznam aplikací</button>
+        <button class="btn-hero btn-hero-outline" onclick="showView('finaliste')">Finalisté</button>
       </div>
     </div>
     <div class="hero-right">
@@ -643,6 +687,241 @@
   </div>
 </div>
 
+
+<!-- FINALISTÉ VIEW -->
+<div id="view-finaliste" class="view-section" style="display:none;">
+  <div class="section-inner" style="max-width:1100px;margin:0 auto;padding:48px 20px;">
+    <div class="section-eyebrow">Finálové kolo</div>
+    <h2>Finalisté AI Olympiády 2026</h2>
+    <p style="color:var(--text-soft);margin-bottom:32px;font-size:var(--fs-base);">16 projektů, které postoupily do finále Startup Lab kategorie AI Olympiády 2026.</p>
+    <div class="finalist-grid">
+      <div class="finalist-card">
+        <div class="finalist-card-name">ECO Lednice</div>
+        <div class="finalist-meta">
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Škola</span>
+            <span class="finalist-meta-value">Základní škola Světice, příspěvková organizace</span>
+          </div>
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Kredity</span>
+            <span class="finalist-credits">2 286 243</span>
+          </div>
+        </div>
+        <div class="finalist-desc">ECO Lednice je aplikace, která pomáhá bojovat proti plýtvání jídlem. Uživatel jednoduše vyfotí obsah své lednice nebo zadá dostupné suroviny a umělá inteligence mu navrhne recepty na míru. Projekt zaujal porotu svým praktickým využitím a snahou řešit každodenní problém, který zná téměř každý z nás.</div>
+      </div>
+      <div class="finalist-card">
+        <div class="finalist-card-name">Life Price Calculator</div>
+        <div class="finalist-meta">
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Škola</span>
+            <span class="finalist-meta-value">Gymnázium, Teplice, Čs. dobrovolců 11, příspěvková organizace</span>
+          </div>
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Kredity</span>
+            <span class="finalist-credits">1 085 471</span>
+          </div>
+        </div>
+        <div class="finalist-desc">Life Price Calculator ukazuje, kolik nás ve skutečnosti stojí naše každodenní návyky – časově i finančně. Pomocí dat o práci, spánku, používání telefonu nebo zbytečných výdajích vypočítá jejich dlouhodobý dopad a porovná výsledky s českým průměrem. Porotu zaujal ambiciózní rozsah projektu, propracované zpracování a snaha motivovat uživatele k lepším životním rozhodnutím.</div>
+      </div>
+      <div class="finalist-card">
+        <div class="finalist-card-name">Study Legends</div>
+        <div class="finalist-meta">
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Škola</span>
+            <span class="finalist-meta-value">Základní škola, Praha 4, Na Líše 16</span>
+          </div>
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Kredity</span>
+            <span class="finalist-credits">4 449 627</span>
+          </div>
+        </div>
+        <div class="finalist-desc">Study Legends proměňuje procvičování učiva v zábavnou výzvu. Aplikace je určená studentům, dospělým i učitelům a umožňuje přizpůsobit obtížnost podle znalostí uživatele. Porotu zaujal nápad vytvořit jednoduchý a přehledný nástroj, který podporuje učení hravou formou a motivuje uživatele k dalšímu rozvoji.</div>
+      </div>
+      <div class="finalist-card">
+        <div class="finalist-card-name">Streetspeak</div>
+        <div class="finalist-meta">
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Škola</span>
+            <span class="finalist-meta-value">Základní škola Kamenice, okres Praha - východ</span>
+          </div>
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Kredity</span>
+            <span class="finalist-credits">3 698 785</span>
+          </div>
+        </div>
+        <div class="finalist-desc">StreetSpeak přináší výuku angličtiny prostřednictvím situací, které zažíváme v běžném životě – na cestách, v restauraci nebo při řešení nečekaných problémů v zahraničí. Místo klasických lekcí nabízí interaktivní příběhy a komiksové scénáře, které pomáhají překonávat jazykovou bariéru zábavnou a praktickou formou. Porotu zaujal důraz na reálné využití jazyka i originální zpracování výuky.</div>
+      </div>
+      <div class="finalist-card">
+        <div class="finalist-card-name">Plantify</div>
+        <div class="finalist-meta">
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Škola</span>
+            <span class="finalist-meta-value">Základní škola Olomouc, Stupkova 16, příspěvková organizace</span>
+          </div>
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Kredity</span>
+            <span class="finalist-credits">–</span>
+          </div>
+        </div>
+        <div class="finalist-desc">Plantify je chytrý pomocník pro všechny milovníky rostlin. Na jednom místě nabízí informace o pěstování, péči i praktické tipy, které pomáhají rostlinám prospívat a jejich majitelům šetří čas při hledání potřebných informací. Porotu zaujal jednoduchý, ale užitečný nápad, který řeší každodenní potřeby velké skupiny uživatelů.</div>
+      </div>
+      <div class="finalist-card">
+        <div class="finalist-card-name">PeaceFunds</div>
+        <div class="finalist-meta">
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Škola</span>
+            <span class="finalist-meta-value">Základní škola, Praha 10, U Roháčových kasáren 1381/19, příspěvková organizace</span>
+          </div>
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Kredity</span>
+            <span class="finalist-credits">1 600 746</span>
+          </div>
+        </div>
+        <div class="finalist-desc">PeaceFunds usnadňuje lidem pomáhat tam, kde je to právě nejvíce potřeba. Aplikace přehledně propojuje uživatele s organizacemi zaměřenými na řešení globálních krizí a nabízí jednoduchou cestu, jak přispět na dobrou věc. Porotu zaujal společenský přesah projektu i snaha zpřístupnit pomoc druhým co nejširšímu okruhu lidí.</div>
+      </div>
+      <div class="finalist-card">
+        <div class="finalist-card-name">nAIč se</div>
+        <div class="finalist-meta">
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Škola</span>
+            <span class="finalist-meta-value">Základní škola Litomyšl, U Školek 1117, okres Svitavy</span>
+          </div>
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Kredity</span>
+            <span class="finalist-credits">2 113 682</span>
+          </div>
+        </div>
+        <div class="finalist-desc">nAIč se je studijní pomocník, který pomáhá studentům zvládat školní povinnosti bez stresu. Umožňuje plánovat testy, úkoly i termíny odevzdání tak, aby na nic důležitého nezapomněli. Porotu zaujal praktický přístup k problému, který dobře znají téměř všichni školáci, a také snaha nabídnout podobné služby zdarma a dostupně pro každého.</div>
+      </div>
+      <div class="finalist-card">
+        <div class="finalist-card-name">Second Brain</div>
+        <div class="finalist-meta">
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Škola</span>
+            <span class="finalist-meta-value">Základní škola, Praha 4, Na Líše 16</span>
+          </div>
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Kredity</span>
+            <span class="finalist-credits">5 415 628</span>
+          </div>
+        </div>
+        <div class="finalist-desc">Second Brain je digitální prostor pro ukládání nápadů, myšlenek a inspirace na jednom místě. Kromě poznámek nabízí deník, kalendář, brainstormingové mapy, čtecí koutek a dokonce i AI asistenta, který vznikl až během vývoje. Porotu zaujal rozsah projektu i proměna původně jednoduchého zapisníku v komplexní nástroj pro organizaci myšlenek a osobní produktivitu.</div>
+      </div>
+      <div class="finalist-card">
+        <div class="finalist-card-name">Mám odvahu a nebojím se ji použít</div>
+        <div class="finalist-meta">
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Škola</span>
+            <span class="finalist-meta-value">Gymnázium a Střední odborná škola, Klášterec nad Ohří, Chomutovská 459, příspěvková organizace</span>
+          </div>
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Kredity</span>
+            <span class="finalist-credits">1 740 948</span>
+          </div>
+        </div>
+        <div class="finalist-desc">Mám odvahu a nebojím se ji použít je aplikace zaměřená na pomoc lidem, kteří se rozhodli bojovat se závislostí na nikotinu nebo alkoholu. Nabízí podporu v prvních a často nejtěžších krocích na cestě k abstinenci a motivuje uživatele k vytrvalosti. Porotu zaujal odvážný výběr tématu a snaha využít technologie k řešení skutečného společenského problému.</div>
+      </div>
+      <div class="finalist-card">
+        <div class="finalist-card-name">AI Sport Coach</div>
+        <div class="finalist-meta">
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Škola</span>
+            <span class="finalist-meta-value">Základní škola a Mateřská škola Dr. Edvarda Beneše, Praha-Čakovice</span>
+          </div>
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Kredity</span>
+            <span class="finalist-credits">2 343 523</span>
+          </div>
+        </div>
+        <div class="finalist-desc">AI Sport Coach spojuje funkce kalorických tabulek a osobního AI trenéra do jedné aplikace. Pomáhá sportovcům i rekreačním cvičencům sledovat pokrok, plánovat tréninky a udržet motivaci díky herním prvkům, jako je získávání zkušenostních bodů za splněné cíle. Porotu zaujal promyšlený přístup ke zlepšování výkonu i podpora dlouhodobé motivace uživatelů.</div>
+      </div>
+      <div class="finalist-card">
+        <div class="finalist-card-name">Nu-Metal Moodboard</div>
+        <div class="finalist-meta">
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Škola</span>
+            <span class="finalist-meta-value">Základní škola Litomyšl, U Školek 1117, okres Svitavy</span>
+          </div>
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Kredity</span>
+            <span class="finalist-credits">1 071 758</span>
+          </div>
+        </div>
+        <div class="finalist-desc">Nu-Metal Moodboard je interaktivní průvodce hudebním žánrem nu-metal, který představuje jeho historii, nejznámější kapely i charakteristickou atmosféru. Projekt vznikl z nadšení pro hudbu a snahy přiblížit tento styl lidem, kteří ho zatím neznají. Porotu zaujal osobní přístup autorů i originální propojení hudební kultury s moderními technologiemi.</div>
+      </div>
+      <div class="finalist-card">
+        <div class="finalist-card-name">ghost mode</div>
+        <div class="finalist-meta">
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Škola</span>
+            <span class="finalist-meta-value">Gymnázium J.Š.Baara, Domažlice, Pivovarská 323</span>
+          </div>
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Kredity</span>
+            <span class="finalist-credits">2 460 075</span>
+          </div>
+        </div>
+        <div class="finalist-desc">Ghost Mode není jen plánovač úkolů, ale digitální průvodce duševní pohodou. Pomocí sledování nálady, stresu a každodenních návyků pomáhá uživatelům zvládat digitální přetížení, soustředit se na důležité věci a předcházet vyhoření. Porotu zaujal promyšlený koncept, silný důraz na mentální zdraví i vize technologií, které člověku nepřidávají stres, ale naopak mu pomáhají najít rovnováhu.</div>
+      </div>
+      <div class="finalist-card">
+        <div class="finalist-card-name">Bakix</div>
+        <div class="finalist-meta">
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Škola</span>
+            <span class="finalist-meta-value">Základní škola Tomáše Šobra a Mateřská škola Písek, Šobrova 2070</span>
+          </div>
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Kredity</span>
+            <span class="finalist-credits">8 751 640</span>
+          </div>
+        </div>
+        <div class="finalist-desc">Bakix přináší modernější a přívětivější alternativu k tradičním školním systémům. Studentům i rodičům nabízí přehled známek, úkolů a komentářů doplněný o AI asistenta, který pomáhá s organizací studia i hledáním cest ke zlepšení výsledků. Porotu zaujal ambiciózní rozsah projektu, propracované technické řešení a snaha přetvořit školní administrativu do podoby, kterou budou uživatelé skutečně rádi používat.</div>
+      </div>
+      <div class="finalist-card">
+        <div class="finalist-card-name">Město Budoucnosti</div>
+        <div class="finalist-meta">
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Škola</span>
+            <span class="finalist-meta-value">Základní škola Kamenice, okres Praha - východ</span>
+          </div>
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Kredity</span>
+            <span class="finalist-credits">–</span>
+          </div>
+        </div>
+        <div class="finalist-desc">Město Budoucnosti je strategická hra, ve které hráči budují a řídí vlastní futuristické město. Musí přitom vyvažovat ekonomiku, dopravu, ekologii i spokojenost obyvatel a zjišťují, že každé rozhodnutí má své důsledky. Porotu zaujal kreativní koncept, propojení zábavy se vzděláváním a snaha ukázat složitost řízení moderní společnosti.</div>
+      </div>
+      <div class="finalist-card">
+        <div class="finalist-card-name">Maják</div>
+        <div class="finalist-meta">
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Škola</span>
+            <span class="finalist-meta-value">Základní škola a lesní mateřská škola Na dvorečku</span>
+          </div>
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Kredity</span>
+            <span class="finalist-credits">4 152 997</span>
+          </div>
+        </div>
+        <div class="finalist-desc">Maják je aplikace, která pomáhá dětem a studentům, kteří se setkávají se šikanou nebo mají strach o svých problémech mluvit. Nabízí informace, možnost kontaktovat učitele a také chat, který může být prvním krokem k získání pomoci. Porotu zaujal silný společenský přesah projektu i snaha vytvořit bezpečné místo pro ty, kteří se ocitnou v obtížné životní situaci.</div>
+      </div>
+      <div class="finalist-card">
+        <div class="finalist-card-name">Pingueno</div>
+        <div class="finalist-meta">
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Škola</span>
+            <span class="finalist-meta-value">Gymnázium, Lovosice, Sady pionýrů 600, příspěvková organizace</span>
+          </div>
+          <div class="finalist-meta-row">
+            <span class="finalist-meta-label">Kredity</span>
+            <span class="finalist-credits">14 938 207</span>
+          </div>
+        </div>
+        <div class="finalist-desc">Pingueno je vzdělávací platforma, která spojuje učení, soutěžení a zábavu do jednoho prostředí. Inspiraci si bere z aplikací jako Duolingo nebo Kahoot, ale přidává vlastní herní prvky, možnost vytvářet a sdílet vzdělávací sady i AI pomocníka, který je připraven poradit s jakýmkoliv tématem. Porotu zaujal ambiciózní rozsah projektu a snaha proměnit učení v zážitek, který bude bavit žáky všech věkových kategorií.</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <footer>
   <div class="footer-inner">
@@ -2614,6 +2893,7 @@ function render() {
 function showView(view) {
   // Hide all view sections
   document.getElementById('view-aplikace').style.display = 'none';
+  document.getElementById('view-finaliste').style.display = 'none';
 
   const infoStrip = document.querySelector('.info-strip');
   const criteriaSection = document.querySelector('.criteria-section');
@@ -2638,6 +2918,7 @@ function showView(view) {
     schoolsSection.style.display = 'none';
     document.getElementById('view-' + view).style.display = '';
     if (view === 'aplikace') btns[1].classList.add('active');
+    if (view === 'finaliste') btns[2].classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
