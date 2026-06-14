@@ -997,9 +997,9 @@ function render() {
           Zobrazit aplikaci
         </a>`
       : '';
+    // Skóre záměrně skryto (řazení podle skóre zachováno interně)
     return `<div class="app-card">
       <div class="app-card-name">${name === '—' ? 'Projekt bez názvu' : name}</div>
-      <div class="app-card-score total-badge ${totalClass(total)}" style="display:inline-block;padding:3px 12px;">${total} / 25</div>
       ${linkHtml}
     </div>`;
   }).join('');
