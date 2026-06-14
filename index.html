@@ -3009,7 +3009,7 @@ function render() {
 }
 
 // View switching
-function showView(view) {
+function showView(view, updateHash = true) {
   // Hide all view sections
   document.getElementById('view-aplikace').style.display = 'none';
   document.getElementById('view-finaliste').style.display = 'none';
@@ -3029,6 +3029,7 @@ function showView(view) {
     searchSection.style.display = '';
     schoolsSection.style.display = '';
     btns[0].classList.add('active');
+    if (updateHash) history.pushState(null, '', '#vysledky');
     schoolsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } else {
     infoStrip.style.display = 'none';
@@ -3038,11 +3039,20 @@ function showView(view) {
     document.getElementById('view-' + view).style.display = '';
     if (view === 'aplikace') btns[1].classList.add('active');
     if (view === 'finaliste') btns[2].classList.add('active');
+    if (updateHash) history.pushState(null, '', '#' + view);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
 
+// Handle hash on load and back/forward navigation
+function routeFromHash() {
+  const hash = location.hash.replace('#', '') || 'vysledky';
+  showView(['vysledky', 'aplikace', 'finaliste'].includes(hash) ? hash : 'vysledky', false);
+}
+window.addEventListener('popstate', routeFromHash);
+
 render();
+routeFromHash();
 </script>
 </body>
 </html>
