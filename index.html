@@ -563,8 +563,7 @@
       <h1>Hodnocení projektů<br><em>AI Olympiády 2026</em></h1>
       <p class="hero-desc">Přehled výsledků kategorie Startup Lab — aplikací vytvořených žáky pomocí umělé inteligence na platformě Macaly.</p>
       <div class="hero-buttons">
-        <button class="btn-hero btn-hero-primary" onclick="showView('vysledky')">Výsledky</button>
-        <button class="btn-hero btn-hero-outline" onclick="showView('aplikace')">Seznam aplikací</button>
+        <button class="btn-hero btn-hero-primary" onclick="showView('aplikace')">Seznam aplikací</button>
         <button class="btn-hero btn-hero-outline" onclick="showView('finaliste')">Finalisté</button>
       </div>
     </div>
@@ -589,94 +588,6 @@
   </div>
 </div>
 
-<!-- INFO STRIP -->
-<div class="section info-strip">
-  <div class="section-inner">
-    <div class="info-grid">
-      <div class="info-card">
-        <div class="info-card-icon">📋</div>
-        <h3>O této stránce</h3>
-        <p>Zde najdete hodnocení všech projektů vaší školy z kategorie Startup Lab AI Olympiády 2026. Každý projekt hodnotila porota podle pěti kritérií.</p>
-      </div>
-      <div class="info-card">
-        <div class="info-card-icon">⭐</div>
-        <h3>Jak číst hodnocení</h3>
-        <p>Každé kritérium je hodnoceno 0–5 body. Maximální počet bodů za projekt je <strong>25</strong>. Barevné pruhy ukazují relativní výši skóre v daném kritériu.</p>
-      </div>
-      <div class="info-card">
-        <div class="info-card-icon">📊</div>
-        <h3>Průběh hodnocení</h3>
-        <p>Žákovské týmy z <strong>57 škol</strong> odevzdaly <strong>244 projektů</strong>. Formální kontrolou prošlo <strong>202 projektů</strong> k užšímu posouzení porotou a <strong>42 projektů</strong> bylo vyřazeno, zejména z důvodů jako chybějící nebo nefunkční odkaz na projekt, chybějící popis nebo kontakt na kapitána, případně nesplnění zadání (např. individuální projekt místo týmového) nebo porušení pravidel soutěže.</p>
-      </div>
-      <div class="info-card">
-        <div class="info-card-icon">🧑‍⚖️</div>
-        <h3>Porota</h3>
-        <p>Projekty hodnotila porota složená ze studentů Smíchovské střední průmyslové školy.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- CRITERIA -->
-<div class="section criteria-section">
-  <div class="section-inner">
-    <div class="section-eyebrow">Hodnotící kritéria</div>
-    <h2>Co porota hodnotila</h2>
-    <div class="criteria-grid">
-      <div class="criterion-chip">
-        <div class="num">Kritérium 1</div>
-        <div class="name">Originalita a inovace</div>
-        <div class="range">0–5 bodů</div>
-      </div>
-      <div class="criterion-chip">
-        <div class="num">Kritérium 2</div>
-        <div class="name">Přínos a hodnota</div>
-        <div class="range">0–5 bodů</div>
-      </div>
-      <div class="criterion-chip">
-        <div class="num">Kritérium 3</div>
-        <div class="name">Technické zpracování</div>
-        <div class="range">0–5 bodů</div>
-      </div>
-      <div class="criterion-chip">
-        <div class="num">Kritérium 4</div>
-        <div class="name">Použitelnost a design</div>
-        <div class="range">0–5 bodů</div>
-      </div>
-      <div class="criterion-chip">
-        <div class="num">Kritérium 5</div>
-        <div class="name">Reflexe procesu a práce s&nbsp;AI</div>
-        <div class="range">0–5 bodů</div>
-      </div>
-    </div>
-    <div class="score-scale" style="margin-top:20px;">
-      <span class="score-scale-label">Celkové skóre:</span>
-      <span class="scale-badge total-0-5">0–5 bodů</span>
-      <span class="scale-badge total-6-10">6–10 bodů</span>
-      <span class="scale-badge total-11-15">11–15 bodů</span>
-      <span class="scale-badge total-16-20">16–20 bodů</span>
-      <span class="scale-badge total-21-25">21–25 bodů</span>
-    </div>
-  </div>
-</div>
-
-<!-- SEARCH -->
-<div class="search-section">
-  <div class="search-inner">
-    <div class="search-wrap">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="search" placeholder="Hledat školu nebo název projektu…" autocomplete="off">
-    </div>
-    <div id="search-count"></div>
-    <div style="font-size:var(--fs-xs);color:var(--text-soft);margin-top:8px;padding-left:4px;">Školy jsou řazeny abecedně.</div>
-  </div>
-</div>
-
-<!-- SCHOOLS -->
-<div class="schools-section" id="vysledky">
-  <div class="schools-inner" id="schools-container"></div>
-  <div class="no-results" id="no-results" style="max-width:1100px;margin:0 auto;">Žádné výsledky neodpovídají vašemu hledání.</div>
-</div>
 
 <!-- SEZNAM APLIKACÍ VIEW -->
 <div id="view-aplikace" class="view-section" style="display:none;">
@@ -2919,69 +2830,14 @@ const APPINFO = {
 };
 
 function render() {
-  const schoolsMap = groupBySchool(RAW);
-  const container = document.getElementById('schools-container');
-  // stats rendered in hero
-
+  // Hero stats
   const totalProjects = RAW.length;
-  const totalSchools = schoolsMap.size;
+  const totalSchools = new Set(RAW.map(r => r[0])).size;
   const avgScore = (RAW.reduce((s, r) => s + r[3], 0) / RAW.length).toFixed(1);
-  const topScore = Math.max(...RAW.map(r => r[3]));
 
   document.getElementById('stat-schools').textContent = totalSchools;
   document.getElementById('stat-projects').textContent = totalProjects;
   document.getElementById('stat-avg').textContent = avgScore;
-
-  // Sort schools alphabetically
-  const sorted = [...schoolsMap.entries()].sort((a, b) => a[0].localeCompare(b[0], 'cs'));
-
-  sorted.forEach(([school, projects]) => {
-    const card = document.createElement('div');
-    card.className = 'school-card';
-    card.dataset.school = school.toLowerCase();
-    card.dataset.projects = projects.map(p => p.name.toLowerCase()).join(' ');
-
-    const projectsHtml = projects.map(renderProject).join('');
-
-    card.innerHTML = `
-      <div class="school-header" onclick="this.closest('.school-card').classList.toggle('open')">
-        <div class="school-header-left">
-          <div class="school-avatar">${initials(school)}</div>
-          <div>
-            <div class="school-name">${school}</div>
-            <div class="school-meta">${projects.length} ${projects.length === 1 ? 'projekt' : projects.length < 5 ? 'projekty' : 'projektů'}</div>
-          </div>
-        </div>
-        <div class="school-header-right">
-          <svg class="toggle-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-      </div>
-      <div class="school-body">
-        <div class="project-list">${projectsHtml}</div>
-      </div>`;
-
-    container.appendChild(card);
-  });
-
-  // Search
-  const searchEl = document.getElementById('search');
-  const noResults = document.getElementById('no-results');
-  const countEl = document.getElementById('search-count');
-  const cards = container.querySelectorAll('.school-card');
-
-  function updateSearch() {
-    const q = searchEl.value.toLowerCase().trim();
-    let visible = 0;
-    cards.forEach(card => {
-      const match = !q || card.dataset.school.includes(q) || card.dataset.projects.includes(q);
-      card.style.display = match ? '' : 'none';
-      if (match) visible++;
-    });
-    noResults.classList.toggle('visible', visible === 0 && q.length > 0);
-    countEl.textContent = q ? `Nalezeno: ${visible} škol` : '';
-  }
-
-  searchEl.addEventListener('input', updateSearch);
 
   // Render apps grid (seznam aplikací)
   const appsGrid = document.getElementById('apps-grid');
@@ -2993,7 +2849,6 @@ function render() {
           Zobrazit aplikaci
         </a>`
       : '';
-    // Skóre záměrně skryto (řazení podle skóre zachováno interně)
     const normUrl = link.replace(/^https?:\/\//, '').replace(/^\/\//, '').replace(/\/+$/, '').toLowerCase();
     const info = APPINFO[normUrl] || {};
     const descHtml = info.desc ? `<div class="app-card-desc">${info.desc}</div>` : '';
@@ -3011,44 +2866,24 @@ function render() {
 
 // View switching
 function showView(view, updateHash = true) {
-  // Hide all view sections
   document.getElementById('view-aplikace').style.display = 'none';
   document.getElementById('view-finaliste').style.display = 'none';
 
-  const infoStrip = document.querySelector('.info-strip');
-  const criteriaSection = document.querySelector('.criteria-section');
-  const searchSection = document.querySelector('.search-section');
-  const schoolsSection = document.querySelector('.schools-section');
-
-  // Reset button states
   const btns = document.querySelectorAll('.btn-hero');
   btns.forEach(b => b.classList.remove('active'));
 
-  if (view === 'vysledky' || !view) {
-    infoStrip.style.display = '';
-    criteriaSection.style.display = '';
-    searchSection.style.display = '';
-    schoolsSection.style.display = '';
-    btns[0].classList.add('active');
-    if (updateHash) history.pushState(null, '', '#vysledky');
-    schoolsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    infoStrip.style.display = 'none';
-    criteriaSection.style.display = 'none';
-    searchSection.style.display = 'none';
-    schoolsSection.style.display = 'none';
-    document.getElementById('view-' + view).style.display = '';
-    if (view === 'aplikace') btns[1].classList.add('active');
-    if (view === 'finaliste') btns[2].classList.add('active');
-    if (updateHash) history.pushState(null, '', '#' + view);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  const v = (view === 'aplikace' || view === 'finaliste') ? view : 'aplikace';
+  document.getElementById('view-' + v).style.display = '';
+  if (v === 'aplikace') btns[0].classList.add('active');
+  if (v === 'finaliste') btns[1].classList.add('active');
+  if (updateHash) history.pushState(null, '', '#' + v);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Handle hash on load and back/forward navigation
 function routeFromHash() {
-  const hash = location.hash.replace('#', '') || 'vysledky';
-  showView(['vysledky', 'aplikace', 'finaliste'].includes(hash) ? hash : 'vysledky', false);
+  const hash = location.hash.replace('#', '');
+  showView(['aplikace', 'finaliste'].includes(hash) ? hash : 'aplikace', false);
 }
 window.addEventListener('popstate', routeFromHash);
 
