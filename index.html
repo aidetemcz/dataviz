@@ -578,11 +578,7 @@
           <div class="hero-stat-val" id="stat-projects">—</div>
           <div class="hero-stat-label">projektů</div>
         </div>
-        <div class="hero-stat-divider"></div>
-        <div class="hero-stat">
-          <div class="hero-stat-val" id="stat-avg">—</div>
-          <div class="hero-stat-label">průměrné skóre z 25</div>
-        </div>
+
       </div>
     </div>
   </div>
@@ -2833,11 +2829,8 @@ function render() {
   // Hero stats
   const totalProjects = RAW.length;
   const totalSchools = new Set(RAW.map(r => r[0])).size;
-  const avgScore = (RAW.reduce((s, r) => s + r[3], 0) / RAW.length).toFixed(1);
-
   document.getElementById('stat-schools').textContent = totalSchools;
   document.getElementById('stat-projects').textContent = totalProjects;
-  document.getElementById('stat-avg').textContent = avgScore;
 
   // Render apps grid (seznam aplikací)
   const appsGrid = document.getElementById('apps-grid');
