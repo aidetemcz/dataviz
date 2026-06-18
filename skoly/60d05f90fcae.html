@@ -19,57 +19,54 @@
       --white: #ffffff;
       --border: #e5e7eb;
     }
-    body { font-family: "Darker Grotesque", sans-serif; background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.5; }
+    body { font-family: "Darker Grotesque", sans-serif; background: var(--bg); color: var(--text); font-size: 20px; line-height: 1; font-weight: 500; }
     a { color: var(--red); }
-
-    /* HEADER */
     .header { background: var(--red); padding: 40px 24px 48px; }
     .header-inner { max-width: 860px; margin: 0 auto; }
     .header-eyebrow { font-family: "Space Grotesk", sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 12px; }
     .header h1 { font-family: "Space Grotesk", sans-serif; font-size: clamp(22px, 4vw, 32px); font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 10px; }
     .header-sub { font-size: 16px; color: rgba(255,255,255,0.85); max-width: 620px; line-height: 1.5; }
-
-    /* CONTENT */
     .content { max-width: 860px; margin: 0 auto; padding: 56px 24px 80px; }
-
-    /* INTRO TEXT */
-    .intro { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 24px 28px; margin-bottom: 48px; font-size: 15px; color: var(--text-soft); line-height: 1.6; }
-    .intro p + p { margin-top: 12px; }
-
-    /* LEGEND */
+    .intro { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 24px 28px; margin-bottom: 48px; }
+    .intro-lead { color: var(--text); line-height: 1.4; margin-bottom: 8px; }
+    .intro-lead + .intro-lead { margin-top: 12px; }
+    .intro-close { color: var(--text-soft); line-height: 1.4; margin-top: 24px; padding-top: 24px; border-top: 1.5px solid var(--border); }
+    .intro-close p + p { margin-top: 10px; }
+    .accordion { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+    details.acc-item { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; overflow: hidden; }
+    details.acc-item[open] { border-color: var(--sky); }
+    details.acc-item summary { font-family: "Space Grotesk", sans-serif; font-size: 16px; font-weight: 700; color: var(--text); padding: 16px 20px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    details.acc-item summary::-webkit-details-marker { display: none; }
+    details.acc-item summary::after { content: '+'; font-size: 20px; font-weight: 400; color: var(--text-soft); flex-shrink: 0; }
+    details.acc-item[open] summary::after { content: '−'; }
+    .acc-body { padding: 0 20px 20px; color: var(--text-soft); line-height: 1.4; }
+    .acc-body h3 { font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 700; color: var(--sky-text); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 20px; margin-bottom: 6px; }
+    .acc-body h3:first-child { margin-top: 0; }
+    .acc-body p + p { margin-top: 10px; }
     .legend { margin-bottom: 48px; }
     .legend-title { font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sky-text); margin-bottom: 16px; }
     .legend-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
     .legend-item { background: var(--white); border: 1.5px solid var(--border); border-radius: 10px; padding: 14px 16px; }
-    .legend-cat { font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-    .legend-desc { font-size: 13px; color: var(--text-soft); line-height: 1.4; }
-
-    /* PROJECT CARDS */
+    .legend-cat { font-family: "Space Grotesk", sans-serif; font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .legend-desc { font-size: 16px; color: var(--text-soft); line-height: 1.3; }
     .section-title { font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sky-text); margin-bottom: 20px; }
     .projects { display: flex; flex-direction: column; gap: 20px; }
     .project-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 28px; }
     .project-name { font-family: "Space Grotesk", sans-serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 20px; }
     .categories { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
     .cat-item { background: var(--bg); border-radius: 10px; padding: 12px 14px; }
-    .cat-label { font-size: 12px; color: var(--text-soft); margin-bottom: 6px; line-height: 1.3; }
+    .cat-label { font-size: 16px; color: var(--text-soft); margin-bottom: 6px; line-height: 1.3; }
     .cat-bar-row { display: flex; align-items: center; gap: 10px; }
     .cat-bar-track { flex: 1; height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; }
     .cat-bar-fill { height: 100%; border-radius: 3px; }
-    .cat-score { font-family: "Space Grotesk", sans-serif; font-size: 18px; font-weight: 700; min-width: 20px; text-align: right; }
-    .cat-desc { font-size: 12px; color: var(--text-soft); margin-top: 4px; line-height: 1.3; }
+    .cat-score { font-family: "Space Grotesk", sans-serif; font-size: 24px; font-weight: 700; min-width: 28px; text-align: right; }
     .total-row { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1.5px solid var(--border); }
-    .total-label { font-size: 14px; color: var(--text-soft); }
-    .total-badge { font-family: "Space Grotesk", sans-serif; font-size: 18px; font-weight: 700; background: var(--bg); border: 2px solid; border-radius: 100px; padding: 4px 16px; }
-    .project-link { font-size: 14px; color: var(--red); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; }
+    .total-label { font-size: 18px; color: var(--text-soft); }
+    .total-badge { font-family: "Space Grotesk", sans-serif; font-size: 22px; font-weight: 700; background: var(--bg); border: 2px solid; border-radius: 100px; padding: 4px 16px; }
+    .project-link { font-size: 16px; color: var(--red); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; }
     .project-link:hover { text-decoration: underline; }
-
-    /* FOOTER */
     .footer { text-align: center; padding: 32px 24px; font-size: 13px; color: var(--text-soft); border-top: 1.5px solid var(--border); }
-
-    @media (max-width: 600px) {
-      .categories { grid-template-columns: 1fr 1fr; }
-      .legend-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 600px) { .categories { grid-template-columns: 1fr 1fr; } .legend-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -85,38 +82,94 @@
 <div class="content">
 
   <div class="intro">
-    <p>Žákovské týmy z 57 škol odevzdaly 244 projektů. Formální kontrolou prošlo 202 projektů k užšímu posouzení porotou a 42 projektů bylo vyřazeno, zejména z důvodů jako chybějící nebo nefunkční odkaz na projekt, chybějící popis nebo kontakt na kapitána, případně nesplnění zadání (např. individuální projekt místo týmového) nebo porušení pravidel soutěže.</p>
-    <p>Projekty hodnotila porota složená ze studentů Smíchovské střední průmyslové školy.</p>
+    <p class="intro-lead">Děkujeme za zapojení do prvního ročníku AI Olympiády v kategorii Startup Lab.</p>
+    <p class="intro-lead">Žákovské týmy z 57 škol odevzdaly celkem 244 projektů, což výrazně překonalo původní očekávání organizátorů. Hodnocení probíhalo ve třech kolech.</p>
+    <div class="accordion">
+      <details class="acc-item">
+        <summary>Jak probíhalo hodnocení</summary>
+        <div class="acc-body">
+          <h3>1. Formální kontrola</h3>
+          <p>Nejprve byly projekty zkontrolovány z hlediska splnění soutěžních podmínek. Celkem 43 projektů bylo vyřazeno, nejčastěji z důvodu chybějícího nebo nefunkčního odkazu, neúplně vyplněného odevzdávacího formuláře (např. chybějícího popisu projektu nebo kontaktu na kapitána týmu) nebo nesplnění zadání, například v případě individuálního projektu místo týmového nebo použití jiné technologické platformy.</p>
+          <h3>2. Hodnocení studentskou porotou</h3>
+          <p>V duchu myšlenky „studenti studentům" projekty hodnotila pětičlenná studentská porota ze Smíchovské střední průmyslové školy, gymnázia a hotelové školy Radlická. Starší studenti tak posuzovali práce autorů, kterým jsou věkově i zkušenostmi blízcí. Hodnocení probíhalo podle pěti kritérií: originalita a dopad, přínos a hodnota, technické zpracování, použitelnost a design a reflexe procesu a práce s AI. Každý porotce posuzoval přibližně 40 projektů a vybral své tři nejlepší.</p>
+          <p>Porotci hodnotili projekty bez znalosti toho, z jaké základní školy pocházejí.</p>
+          <h3>3. Finální hodnocení</h3>
+          <p>Z odevzdaných projektů vybrala studentská porota patnáct finalistů. Tyto projekty následně posoudili zástupci AI dětem podle stejných kritérií a určili vítězné projekty.</p>
+        </div>
+      </details>
+      <details class="acc-item">
+        <summary>Proč nezveřejňujeme žebříček škol a celkové pořadí</summary>
+        <div class="acc-body">
+          <p>V souladu s publikovanými pravidly soutěže nezveřejňujeme celonárodní žebříček škol ani pořadí jednotlivých projektů. Podobně jako v některých sportovních disciplínách, například v gymnastice, krasobruslení nebo skocích do vody, je hodnocení založeno na posouzení podle předem daných kritérií, ale zároveň v něm vždy hraje roli odborný úsudek porotce.</p>
+          <p>Cílem nebylo ocenit jen technicky nejsložitější řešení, ale dobře promyšlený, použitelný a srozumitelně představený projekt.</p>
+          <p>I při použití stejné hodnoticí škály musí porotce posoudit, co dané kritérium znamená u konkrétního projektu. Například jednoduchá aplikace, která velmi přesně řeší reálnou potřebu, může být vnímána jako hodnotnější než technicky složitější projekt, u něhož není zřejmé praktické využití. Samotné pořadí podle bodů by mohlo poskytnout zkreslenou informaci o úspěšnosti žáků. Může také záležet například na aktuálním stavu technologické platformy v době hodnocení, na dostupnosti projektu nebo na tom, jak se porotci podařilo projekt spustit a ověřit.</p>
+        </div>
+      </details>
+    </div>
+    <div class="intro-close">
+      <p>Níže uvádíme výsledky projektů, které žáci přiřadili k vaší škole pomocí čtyřmístného kódu školy. Výsledky vycházejí z údajů uvedených při odevzdání projektu.</p>
+      <p>Naší snahou je poskytnout vám zpětnou vazbu k projektům vašich žáků, nikoli vytvářet srovnávací pořadí.</p>
+    </div>
   </div>
 
   <div class="legend">
     <div class="legend-title">Hodnoticí kategorie</div>
     <div class="legend-grid">
-      <div class="legend-item">
-        <div class="legend-cat">Originalita a inovace</div>
-        <div class="legend-desc">Jak originální a inovativní je nápad projektu.</div>
-      </div>
-      <div class="legend-item">
-        <div class="legend-cat">Přínos a hodnota</div>
-        <div class="legend-desc">Jakou hodnotu projekt přináší uživatelům nebo společnosti.</div>
-      </div>
-      <div class="legend-item">
-        <div class="legend-cat">Technické zpracování</div>
-        <div class="legend-desc">Funkčnost, stabilita a kvalita technického provedení.</div>
-      </div>
-      <div class="legend-item">
-        <div class="legend-cat">Použitelnost a design</div>
-        <div class="legend-desc">Přívětivost rozhraní a celkový design.</div>
-      </div>
-      <div class="legend-item">
-        <div class="legend-cat">Reflexe procesu a práce s AI</div>
-        <div class="legend-desc">Jak tým reflektoval svůj proces tvorby a využití AI.</div>
-      </div>
+      <div class="legend-item"><div class="legend-cat">Originalita a inovace</div><div class="legend-desc">Jak originální a inovativní je nápad projektu.</div></div>
+      <div class="legend-item"><div class="legend-cat">Přínos a hodnota</div><div class="legend-desc">Jakou hodnotu projekt přináší uživatelům nebo společnosti.</div></div>
+      <div class="legend-item"><div class="legend-cat">Technické zpracování</div><div class="legend-desc">Funkčnost, stabilita a kvalita technického provedení.</div></div>
+      <div class="legend-item"><div class="legend-cat">Použitelnost a design</div><div class="legend-desc">Přívětivost rozhraní a celkový design.</div></div>
+      <div class="legend-item"><div class="legend-cat">Reflexe procesu a práce s AI</div><div class="legend-desc">Jak tým reflektoval svůj proces tvorby a využití AI.</div></div>
     </div>
   </div>
 
-  <div class="section-title">13 projektů vaší školy</div>
+  <div class="section-title">14 projektů vaší školy</div>
   <div class="projects">
+    <div class="project-card">
+      <div class="project-name">AI Sport Coach</div>
+      <div class="categories">
+      <div class="cat-item">
+        <div class="cat-label">Originalita a inovace</div>
+        <div class="cat-bar-row">
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:60%;background:#c8b830;"></div></div>
+          <div class="cat-score" style="color:#c8b830;">3</div>
+        </div>
+      </div>
+      <div class="cat-item">
+        <div class="cat-label">Přínos a hodnota</div>
+        <div class="cat-bar-row">
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:60%;background:#c8b830;"></div></div>
+          <div class="cat-score" style="color:#c8b830;">3</div>
+        </div>
+      </div>
+      <div class="cat-item">
+        <div class="cat-label">Technické zpracování</div>
+        <div class="cat-bar-row">
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:60%;background:#c8b830;"></div></div>
+          <div class="cat-score" style="color:#c8b830;">3</div>
+        </div>
+      </div>
+      <div class="cat-item">
+        <div class="cat-label">Použitelnost a design</div>
+        <div class="cat-bar-row">
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:80%;background:#70b040;"></div></div>
+          <div class="cat-score" style="color:#70b040;">4</div>
+        </div>
+      </div>
+      <div class="cat-item">
+        <div class="cat-label">Reflexe procesu a práce s AI</div>
+        <div class="cat-bar-row">
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:60%;background:#c8b830;"></div></div>
+          <div class="cat-score" style="color:#c8b830;">3</div>
+        </div>
+      </div>
+      </div>
+      <div class="total-row">
+        <div class="total-label">Celkové skóre</div>
+        <div class="total-badge" style="color:#70b040;border-color:#70b040;">16 / 25</div>
+      </div>
+      <a class="project-link" href="https://macaly-z7wqsqqk0ohi9pur5ym74iad.macaly.app" target="_blank" rel="noopener">↗ Zobrazit aplikaci</a>
+    </div>
     <div class="project-card">
       <div class="project-name">Alpha Centauri - Záchranná mise</div>
       <div class="categories">
@@ -158,7 +211,7 @@
       </div>
       <div class="total-row">
         <div class="total-label">Celkové skóre</div>
-        <div class="total-badge" style="color:#70b040;border-color:#70b040;">14 / 25</div>
+        <div class="total-badge" style="color:#c8b830;border-color:#c8b830;">14 / 25</div>
       </div>
       <a class="project-link" href="https://macaly-aek7p1tmu6davmca0cvxcqmd.macaly.app/" target="_blank" rel="noopener">↗ Zobrazit aplikaci</a>
     </div>
@@ -203,7 +256,7 @@
       </div>
       <div class="total-row">
         <div class="total-label">Celkové skóre</div>
-        <div class="total-badge" style="color:#70b040;border-color:#70b040;">13 / 25</div>
+        <div class="total-badge" style="color:#c8b830;border-color:#c8b830;">13 / 25</div>
       </div>
       <a class="project-link" href="https://macaly-t4csma39mk6z0c9dogg35puk.macaly.app" target="_blank" rel="noopener">↗ Zobrazit aplikaci</a>
     </div>
@@ -248,7 +301,7 @@
       </div>
       <div class="total-row">
         <div class="total-label">Celkové skóre</div>
-        <div class="total-badge" style="color:#e09030;border-color:#e09030;">12 / 25</div>
+        <div class="total-badge" style="color:#c8b830;border-color:#c8b830;">12 / 25</div>
       </div>
       <a class="project-link" href="https://macaly-tbqlpa41xhr1ulak45hp5mwg.macaly.app/" target="_blank" rel="noopener">↗ Zobrazit aplikaci</a>
     </div>
@@ -293,7 +346,7 @@
       </div>
       <div class="total-row">
         <div class="total-label">Celkové skóre</div>
-        <div class="total-badge" style="color:#30a060;border-color:#30a060;">18 / 25</div>
+        <div class="total-badge" style="color:#70b040;border-color:#70b040;">18 / 25</div>
       </div>
       <a class="project-link" href="https://macaly-dquwxeqikpgzfdtzhqe6ddvl.macaly.app/" target="_blank" rel="noopener">↗ Zobrazit aplikaci</a>
     </div>
@@ -338,7 +391,7 @@
       </div>
       <div class="total-row">
         <div class="total-label">Celkové skóre</div>
-        <div class="total-badge" style="color:#70b040;border-color:#70b040;">13 / 25</div>
+        <div class="total-badge" style="color:#c8b830;border-color:#c8b830;">13 / 25</div>
       </div>
       <a class="project-link" href="https://dreamhomedesigner.macaly.app" target="_blank" rel="noopener">↗ Zobrazit aplikaci</a>
     </div>
@@ -388,7 +441,7 @@
       <a class="project-link" href="https://macaly-aslsskvkfjj95zstszb52pkv.macaly.app" target="_blank" rel="noopener">↗ Zobrazit aplikaci</a>
     </div>
     <div class="project-card">
-      <div class="project-name">Počítej a leť </div>
+      <div class="project-name">Počítej a leť</div>
       <div class="categories">
       <div class="cat-item">
         <div class="cat-label">Originalita a inovace</div>
@@ -428,7 +481,7 @@
       </div>
       <div class="total-row">
         <div class="total-label">Celkové skóre</div>
-        <div class="total-badge" style="color:#e09030;border-color:#e09030;">11 / 25</div>
+        <div class="total-badge" style="color:#c8b830;border-color:#c8b830;">11 / 25</div>
       </div>
       <a class="project-link" href="https://macaly-ybl7kudg9050da9eojww4md0.macaly.app/" target="_blank" rel="noopener">↗ Zobrazit aplikaci</a>
     </div>
@@ -473,7 +526,7 @@
       </div>
       <div class="total-row">
         <div class="total-label">Celkové skóre</div>
-        <div class="total-badge" style="color:#30a060;border-color:#30a060;">18 / 25</div>
+        <div class="total-badge" style="color:#70b040;border-color:#70b040;">18 / 25</div>
       </div>
       <a class="project-link" href="https://macaly-tw19rbulzaqzfytejudrgek2.macaly.app" target="_blank" rel="noopener">↗ Zobrazit aplikaci</a>
     </div>
@@ -520,7 +573,7 @@
         <div class="total-label">Celkové skóre</div>
         <div class="total-badge" style="color:#e09030;border-color:#e09030;">10 / 25</div>
       </div>
-      <a class="project-link" href="https://macaly-fdutgthgwogmphj44e5o0ms6.macaly.app/" target="_blank" rel="noopener">↗ Zobrazit aplikaci</a>
+      <a class="project-link" href="https://macaly-fdutgthgwogmphj44e5o0ms6.macaly.app" target="_blank" rel="noopener">↗ Zobrazit aplikaci</a>
     </div>
     <div class="project-card">
       <div class="project-name">Říše Příkladů</div>
@@ -608,7 +661,7 @@
       </div>
       <div class="total-row">
         <div class="total-label">Celkové skóre</div>
-        <div class="total-badge" style="color:#e09030;border-color:#e09030;">11 / 25</div>
+        <div class="total-badge" style="color:#c8b830;border-color:#c8b830;">11 / 25</div>
       </div>
       <a class="project-link" href="https://macaly-b5x3n0j3rf6tip7s2f6jrhfh.macaly.app/" target="_blank" rel="noopener">↗ Zobrazit aplikaci</a>
     </div>
@@ -653,9 +706,9 @@
       </div>
       <div class="total-row">
         <div class="total-label">Celkové skóre</div>
-        <div class="total-badge" style="color:#e09030;border-color:#e09030;">11 / 25</div>
+        <div class="total-badge" style="color:#c8b830;border-color:#c8b830;">11 / 25</div>
       </div>
-      <a class="project-link" href="https://share.google/qBjPopaI7rXy0d0XE" target="_blank" rel="noopener">↗ Zobrazit aplikaci</a>
+      <a class="project-link" href="https://macaly-zjnbg1jmzrwyxt4nxosmi8r6.macaly.app" target="_blank" rel="noopener">↗ Zobrazit aplikaci</a>
     </div>
     <div class="project-card">
       <div class="project-name">Streetspeak</div>
@@ -698,7 +751,7 @@
       </div>
       <div class="total-row">
         <div class="total-label">Celkové skóre</div>
-        <div class="total-badge" style="color:#30a060;border-color:#30a060;">19 / 25</div>
+        <div class="total-badge" style="color:#70b040;border-color:#70b040;">19 / 25</div>
       </div>
       <a class="project-link" href="https://macaly-wjzbxvomnz8iosh7mttgno9a.macaly.app" target="_blank" rel="noopener">↗ Zobrazit aplikaci</a>
     </div>
