@@ -973,6 +973,17 @@ const RAW = [
   ["Základní škola Václava Havla, Poděbrady, Na Valech 45, okres Nymburk","Zvířecí překladač",[1,1,0,3,2],7,"https://macaly-jlmg3y2kgozlhfkk39ev9wxv.macaly.app"]
 ];
 
+// Doplňkové aplikace zobrazené pouze v Seznamu aplikací (bez hodnocení/skóre).
+// Stejný tvar jako RAW; v seznamu se používá jen název a odkaz, popis a tagy se berou z APPINFO.
+const EXTRA_APPS = [
+  ["","Bookly",[],0,"https://macaly-noigyp5p2jkc5xyhsy6s1kmg.macaly.app"],
+  ["","Boutique.kizz",[],0,"https://macaly-ugje39c72xpagxn0heolkq75.macaly.app"],
+  ["","DOMOVplus",[],0,"https://mamradsvujdomecek.macaly.app/"],
+  ["","Schooly",[],0,"https://macaly-jk1ru2obctymje110ytsj7gi.macaly.app"],
+  ["","Teacher spot",[],0,"https://macaly-hwfc9gwnnfozltwwz7feb0io.macaly.app"],
+  ["","Treodory",[],0,"https://macaly-o2dp5tz988owck6ef9j65f5j.macaly.app"]
+];
+
 // Group by school, deduplicate unnamed projects
 function groupBySchool(raw) {
   const map = new Map();
@@ -2744,6 +2755,44 @@ const APPINFO = {
       "móda",
       "e-shop"
     ]
+  },
+  "macaly-noigyp5p2jkc5xyhsy6s1kmg.macaly.app": {
+    "desc": "Rezervační systém pro služby.",
+    "tags": [
+      "rezervační systém"
+    ]
+  },
+  "mamradsvujdomecek.macaly.app": {
+    "desc": "Katalog moderních doplňků do domácnosti.",
+    "tags": [
+      "katalog",
+      "webová stránka"
+    ]
+  },
+  "macaly-o2dp5tz988owck6ef9j65f5j.macaly.app": {
+    "desc": "Aplikace spojující pěstounské rodiny s dětmi.",
+    "tags": [
+      "sociální pomoc",
+      "aplikace"
+    ]
+  },
+  "macaly-hwfc9gwnnfozltwwz7feb0io.macaly.app": {
+    "desc": "Seznamka pro pedagogy!",
+    "tags": [
+      "seznamovací aplikace"
+    ]
+  },
+  "macaly-ugje39c72xpagxn0heolkq75.macaly.app": {
+    "desc": "Moderní platforma pro kreativní duše.",
+    "tags": [
+      "tvořivá aplikace"
+    ]
+  },
+  "macaly-jk1ru2obctymje110ytsj7gi.macaly.app": {
+    "desc": "Gamifikovaná vzdělávací platforma.",
+    "tags": [
+      "vzdělávací aplikace"
+    ]
   }
 };
 
@@ -2756,7 +2805,7 @@ function render() {
 
   // Render apps grid (seznam aplikací)
   const appsGrid = document.getElementById('apps-grid');
-  const allApps = [...RAW].sort((a, b) => a[1].localeCompare(b[1], 'cs'));
+  const allApps = [...RAW, ...EXTRA_APPS].sort((a, b) => a[1].localeCompare(b[1], 'cs'));
   appsGrid.innerHTML = allApps.map(([school, name, scores, total, link]) => {
     const linkHtml = link
       ? `<a class="app-card-link" href="${link}" target="_blank" rel="noopener">
