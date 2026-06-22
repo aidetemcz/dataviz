@@ -503,6 +503,12 @@
   }
 
   /* ---- FINALIST CARDS ---- */
+  .winners { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+  .winner-card { background: var(--white); border: 2px solid var(--red); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; gap: 24px; }
+  .winner-place { font-family: "Space Grotesk", sans-serif; font-size: var(--fs-lg); font-weight: 700; color: var(--red); white-space: nowrap; min-width: 100px; }
+  .winner-info { flex: 1; }
+  .winner-name { font-family: "Space Grotesk", sans-serif; font-size: var(--fs-lg); font-weight: 700; color: var(--text); line-height: 1.2; }
+  .winner-school { font-size: var(--fs-sm); color: var(--text-soft); margin-top: 4px; line-height: 1; }
   .finalist-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -602,6 +608,30 @@
     <div class="section-eyebrow">Finálové kolo</div>
     <h2>Finalisté AI Olympiády 2026</h2>
     <p style="color:var(--text-soft);margin-bottom:48px;font-size:var(--fs-base);">15 projektů, které postoupily do finále Startup Lab kategorie AI Olympiády 2026.</p>
+    <div class="winners">
+      <div class="winner-card">
+        <div class="winner-place">1. místo</div>
+        <div class="winner-info">
+          <div class="winner-name">Město Budoucnosti</div>
+          <div class="winner-school">Základní škola Kamenice, okres Praha - východ</div>
+        </div>
+      </div>
+      <div class="winner-card">
+        <div class="winner-place">2. místo</div>
+        <div class="winner-info">
+          <div class="winner-name">Life Price Calculator</div>
+          <div class="winner-school">Gymnázium, Teplice, Čs. dobrovolců 11, příspěvková organizace</div>
+        </div>
+      </div>
+      <div class="winner-card">
+        <div class="winner-place">3. místo</div>
+        <div class="winner-info">
+          <div class="winner-name">Second Brain</div>
+          <div class="winner-school">Základní škola, Praha 4, Na Líše 16</div>
+        </div>
+      </div>
+    </div>
+
     <div class="finalist-grid">
       <div class="finalist-card">
         <div class="finalist-card-name">ECO Lednice</div>
