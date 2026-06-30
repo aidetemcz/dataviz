@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lektori AI deťom 2.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Darker+Grotesque:wght@400;500;600;700;800&display=block" rel="stylesheet">
+<style>
+  :root {
+    --red:       #DC5B5B;
+    --red-dark:  #c44848;
+    --red-light: #faeaea;
+    --sky:       #B3CDD6;
+    --sky-text:  #7DA4B2;
+    --sky-bg:    #E3F1F6;
+    --sky-dark:  #3a6878;
+    --white:     #ffffff;
+    --bg:        #f8fbfc;
+    --border:    #e0ecf0;
+    --text:      #1a2b30;
+    --text-soft: #4a6570;
+    --green:     #4caf87;
+    --green-bg:  #eaf7f1;
+    --amber:     #e8943a;
+    --amber-bg:  #fdf3e7;
+
+    --fs-xl:   clamp(30px, 4vw, 46px);
+    --fs-lg:   22px;
+    --fs-md:   18px;
+    --fs-base: 17px;
+    --fs-sm:   15px;
+    --fs-xs:   13px;
+    --lh:      1.45;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Darker Grotesque", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: var(--fs-base);
+    line-height: var(--lh);
+    font-weight: 500;
+  }
+
+  /* ---- TOPBAR ---- */
+  .topbar {
+    background: var(--red);
+    padding: 12px 0;
+  }
+  .topbar-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .topbar-logo {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 17px; font-weight: 700; color: white;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .topbar-logo span { opacity: 0.75; font-weight: 400; font-size: 14px; }
+
+  /* ---- HERO ---- */
+  .hero {
+    background: var(--red);
+    padding: 56px 24px 88px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; right: -60px; top: -60px;
+    width: 340px; height: 340px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; right: 80px; bottom: -80px;
+    width: 220px; height: 220px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .hero-inner {
+    max-width: 1100px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 100px; padding: 5px 16px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: var(--fs-xs); font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: var(--fs-xl); font-weight: 700;
+    color: white; line-height: 1.1;
+    letter-spacing: -0.02em;
+    max-width: 620px; margin-bottom: 14px;
+  }
+  .hero h1 em { font-style: normal; color: rgba(255,255,255,0.75); }
+  .hero-desc {
+    font-size: 18px; color: rgba(255,255,255,0.82);
+    max-width: 500px; line-height: 1.5; margin-bottom: 36px;
+  }
+  .hero-stats {
+    display: flex; gap: 40px; flex-wrap: wrap;
+  }
+  .hero-stat-val {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 36px; font-weight: 700; color: white; line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: var(--fs-sm); color: rgba(255,255,255,0.7);
+    margin-top: 4px;
+  }
+
+  /* ---- MAIN CONTENT ---- */
+  .main {
+    max-width: 1100px; margin: 0 auto;
+    padding: 48px 24px 80px;
+    display: flex; flex-direction: column; gap: 32px;
+  }
+
+  /* ---- LEKTOR CARD ---- */
+  .card {
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    display: flex; align-items: flex-start; gap: 24px;
+    padding: 28px 32px 24px;
+    border-bottom: 1.5px solid var(--border);
+  }
+
+  .card-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: var(--sky-bg);
+    border: 2px solid var(--sky);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 24px; font-weight: 700;
+    color: var(--sky-dark);
+    overflow: hidden;
+  }
+  .card-avatar img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+
+  .card-title { flex: 1; }
+  .card-name {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 22px; font-weight: 700; color: var(--text);
+    margin-bottom: 4px;
+  }
+  .card-meta {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    margin-top: 8px;
+  }
+  .meta-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 100px; padding: 3px 12px;
+    font-size: var(--fs-xs); font-weight: 600; color: var(--text-soft);
+  }
+  .meta-badge.red {
+    background: var(--red-light); border-color: var(--red);
+    color: var(--red-dark);
+  }
+
+  .card-bio {
+    padding: 20px 32px;
+    border-bottom: 1.5px solid var(--border);
+    font-size: var(--fs-sm); color: var(--text-soft); line-height: 1.6;
+  }
+
+  .card-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+  }
+
+  .card-col {
+    padding: 24px 28px;
+    border-right: 1.5px solid var(--border);
+  }
+  .card-col:last-child { border-right: none; }
+
+  .col-label {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: var(--fs-xs); font-weight: 700;
+    letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--sky-text); margin-bottom: 14px;
+  }
+
+  .tag-list {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .tag {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 8px; padding: 4px 10px;
+    font-size: 13px; color: var(--text-soft); font-weight: 600;
+  }
+  .tag.level-expert {
+    background: #eaf7f1; border-color: #7dcfaa; color: #2a7a55;
+  }
+  .tag.level-solid {
+    background: #e8f4fb; border-color: #7abcd6; color: #1e5f80;
+  }
+  .tag.level-basic {
+    background: var(--amber-bg); border-color: #f0b86e; color: #8a5015;
+  }
+
+  /* ---- RECOMMENDATION STRIP ---- */
+  .card-reco {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border-top: 1.5px solid var(--border);
+  }
+
+  .reco-box {
+    padding: 22px 28px;
+  }
+  .reco-box:first-child {
+    border-right: 1.5px solid var(--border);
+    background: var(--green-bg);
+  }
+  .reco-box:last-child {
+    background: var(--amber-bg);
+  }
+
+  .reco-label {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: var(--fs-xs); font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .reco-box:first-child .reco-label { color: #2a7a55; }
+  .reco-box:last-child .reco-label { color: #8a5015; }
+
+  .reco-items {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .reco-item {
+    display: flex; align-items: baseline; gap: 8px;
+    font-size: var(--fs-sm); line-height: 1.4;
+  }
+  .reco-item::before {
+    content: "·";
+    font-size: 18px; flex-shrink: 0; margin-top: -1px;
+  }
+  .reco-box:first-child .reco-item { color: #1e5f3a; }
+  .reco-box:last-child .reco-item { color: #7a4510; }
+
+  @media (max-width: 800px) {
+    .card-body { grid-template-columns: 1fr 1fr; }
+    .card-col:nth-child(2) { border-right: none; }
+    .card-col:nth-child(3) { border-top: 1.5px solid var(--border); grid-column: 1 / -1; border-right: none; }
+    .card-reco { grid-template-columns: 1fr; }
+    .reco-box:first-child { border-right: none; border-bottom: 1.5px solid var(--border); }
+  }
+  @media (max-width: 560px) {
+    .card-header { flex-direction: column; }
+    .card-body { grid-template-columns: 1fr; }
+    .card-col { border-right: none; border-bottom: 1.5px solid var(--border); }
+    .card-col:last-child { border-bottom: none; }
+    .card-bio, .card-header { padding: 20px; }
+    .card-col, .reco-box { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-logo">AI deťom <span>/ Lektori 2.0</span></div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Onboarding · Jún 2026</div>
+    <h1>Lektori <em>AI deťom 2.0</em></h1>
+    <p class="hero-desc">Prehľad nových lektorov, ich skúseností, silných stránok a oblastí, v ktorých ich chceme podporiť.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-val">10</div>
+        <div class="hero-stat-label">lektorov</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">7</div>
+        <div class="hero-stat-label">krajov SR + ČR</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">5+</div>
+        <div class="hero-stat-label">rokov praxe u 8 z 10</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ===== KATARÍNA SALIŠOVÁ ===== -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-avatar">KS</div>
+      <div class="card-title">
+        <div class="card-name">Katarína Sališová</div>
+        <div class="card-meta">
+          <span class="meta-badge">Liptovský Mikuláš</span>
+          <span class="meta-badge">viac než 5 rokov praxe</span>
+          <span class="meta-badge red">DPČ</span>
+          <span class="meta-badge">auto: áno · Žilinský kraj</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-bio">
+      Koučka a lektorka z prostredia škôl aj neziskoviek. Dlhodobo pracuje s pedagógmi a vedením škôl na témach spolupráce a rozvoja. Webová stránka: <em>yournextstep.sk</em>
+    </div>
+    <div class="card-body">
+      <div class="card-col">
+        <div class="col-label">Cieľové skupiny</div>
+        <div class="tag-list">
+          <span class="tag">Žiaci 2. cyklu ZŠ</span>
+          <span class="tag">Pedagógovia</span>
+          <span class="tag">Vedenie škôl</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Formáty</div>
+        <div class="tag-list">
+          <span class="tag">45 min lekcie</span>
+          <span class="tag">90 min workshopy</span>
+          <span class="tag">3h workshopy</span>
+          <span class="tag">Konzultácie pre školu</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Úroveň v AI témach</div>
+        <div class="tag-list">
+          <span class="tag level-solid">Chatboty – s metodikou</span>
+          <span class="tag level-solid">Promptovanie – s metodikou</span>
+          <span class="tag level-basic">AI nástroje pre pedagógov – základ</span>
+          <span class="tag level-basic">Dezinformácie – základ</span>
+          <span class="tag level-basic">Vibecoding – základ</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-reco">
+      <div class="reco-box">
+        <div class="reco-label">Silné stránky</div>
+        <div class="reco-items">
+          <div class="reco-item">Výborné facilitačné zručnosti – vie viesť skupiny detí aj dospelých, pracovať s odporom, viesť reflexiu</div>
+          <div class="reco-item">Flexibilita a adaptácia metodiky v reálnom čase (príklad zo špeciálnej školy)</div>
+          <div class="reco-item">Silná orientácia na potreby účastníkov, nie len splnenie osnovy</div>
+          <div class="reco-item">Skúsenosť s konzultáciami pre školy – vidí systémový kontext</div>
+        </div>
+      </div>
+      <div class="reco-box">
+        <div class="reco-label">Chce a potrebuje rozvíjať</div>
+        <div class="reco-items">
+          <div class="reco-item">Hlbší základ v AI temách – väčšina na úrovni „základ" alebo „s metodikou"</div>
+          <div class="reco-item">Vibecoding a tvorba digitálnych artefaktov s AI</div>
+          <div class="reco-item">AI nástroje špecificky pre pedagógov</div>
+          <div class="reco-item">AI a dezinformácie / mediálna výchova</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MÁRIA BAJÚZOVÁ ===== -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-avatar">MB</div>
+      <div class="card-title">
+        <div class="card-name">Mária Bajúzová</div>
+        <div class="card-meta">
+          <span class="meta-badge">Trenčín</span>
+          <span class="meta-badge">viac než 5 rokov praxe</span>
+          <span class="meta-badge red">DPČ</span>
+          <span class="meta-badge">auto: áno · Trenčiansky, Nitriansky kraj</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-bio">
+      Expertka a lektorka v národnom projekte DiTEdu. Prešla rolami majsterky odborného výcviku, mentorky RCPU aj školskej digitálnej koordinátorky. Dlhodobo sa venuje zmysluplnému využívaniu AI vo vzdelávaní a praktickým riešeniam pre učiteľov.
+    </div>
+    <div class="card-body">
+      <div class="card-col">
+        <div class="col-label">Cieľové skupiny</div>
+        <div class="tag-list">
+          <span class="tag">Žiaci 2.–3. cyklu ZŠ</span>
+          <span class="tag">Stredoškoláci</span>
+          <span class="tag">Pedagógovia</span>
+          <span class="tag">Vedenie škôl</span>
+          <span class="tag">Dospelá verejnosť</span>
+          <span class="tag">Verejná správa</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Formáty</div>
+        <div class="tag-list">
+          <span class="tag">45 min – 6h workshopy</span>
+          <span class="tag">Online webinár</span>
+          <span class="tag">Inovačné vzdelávania</span>
+          <span class="tag">Konferencie</span>
+          <span class="tag">Videokurz</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Úroveň v AI témach</div>
+        <div class="tag-list">
+          <span class="tag level-expert">Základy AI – lektor lektorov</span>
+          <span class="tag level-expert">Chatboty – lektor lektorov</span>
+          <span class="tag level-expert">Promptovanie – lektor lektorov</span>
+          <span class="tag level-expert">AI nástroje pre pedagógov – lektor lektorov</span>
+          <span class="tag level-expert">Generovanie médií – lektor lektorov</span>
+          <span class="tag level-solid">Dezinformácie – samostatne</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-reco">
+      <div class="reco-box">
+        <div class="reco-label">Silné stránky</div>
+        <div class="reco-items">
+          <div class="reco-item">Jedna z najkomplexnejšie pripravených lektoriek – viacero AI tém na úrovni lektora lektorov</div>
+          <div class="reco-item">Schopnosť vytvárať metodiky a vzdelávať iných lektorov</div>
+          <div class="reco-item">Bohatá škála formátov vrátane inovačných vzdelávaní a videokurzov</div>
+          <div class="reco-item">Prax v tandemovom vyučovaní a projektovej práci so žiakmi</div>
+        </div>
+      </div>
+      <div class="reco-box">
+        <div class="reco-label">Chce a potrebuje rozvíjať</div>
+        <div class="reco-items">
+          <div class="reco-item">AI bezpečnosť a etika – zaujíma ju, potrebuje zaškolenie</div>
+          <div class="reco-item">Digitálny wellbeing – zaujíma ju, potrebuje zaškolenie</div>
+          <div class="reco-item">Vibecoding – zaujíma ju, potrebuje zaškolenie</div>
+          <div class="reco-item">Systematické zavádzanie AI do školy – zaujíma ju, potrebuje zaškolenie</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== JURAJ DROPPA ===== -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-avatar">JD</div>
+      <div class="card-title">
+        <div class="card-name">Juraj Droppa</div>
+        <div class="card-meta">
+          <span class="meta-badge">Banská Bystrica</span>
+          <span class="meta-badge">viac než 5 rokov praxe (23 rokov)</span>
+          <span class="meta-badge red">DPČ</span>
+          <span class="meta-badge">auto: áno · Banskobystrický kraj</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-bio">
+      23 rokov vo vzdelávaní – zriaďovateľ školy, manažér aj učiteľ. Vedie školu sv. Filipa v Banskej Bystrici. Rád prijíma výzvy a reaguje na meniace sa potreby detí.
+    </div>
+    <div class="card-body">
+      <div class="card-col">
+        <div class="col-label">Cieľové skupiny</div>
+        <div class="tag-list">
+          <span class="tag">Žiaci 3. cyklu ZŠ</span>
+          <span class="tag">Pedagógovia</span>
+          <span class="tag">Vedenie škôl</span>
+          <span class="tag">Rodičia</span>
+          <span class="tag">Neziskové organizácie</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Formáty</div>
+        <div class="tag-list">
+          <span class="tag">45 min – 6h workshopy</span>
+          <span class="tag">Online webinár</span>
+          <span class="tag">Konzultácie pre školu</span>
+          <span class="tag">Konferencie</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Úroveň v AI témach</div>
+        <div class="tag-list">
+          <span class="tag level-solid">Vysvetlenie AI deťom – samostatne</span>
+          <span class="tag level-solid">Promptovanie – samostatne</span>
+          <span class="tag level-solid">AI a dezinformácie – samostatne</span>
+          <span class="tag level-solid">AI a hodnotenie – samostatne</span>
+          <span class="tag level-basic">Vibecoding – bez skúsenosti</span>
+          <span class="tag level-basic">Canva – základ</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-reco">
+      <div class="reco-box">
+        <div class="reco-label">Silné stránky</div>
+        <div class="reco-items">
+          <div class="reco-item">Systémový pohľad – vidí školu z pozície zriaďovateľa, manažéra aj učiteľa</div>
+          <div class="reco-item">Hlboká skúsenosť s reflexívnym vyučovaním a práca so zmyslom vzdelávania</div>
+          <div class="reco-item">Schopnosť viesť skupiny dospelých aj detí, humor a praktický prístup</div>
+          <div class="reco-item">Rovesnícke vzdelávanie – dokáže organizovať peer-learning v heterogénnej skupine</div>
+        </div>
+      </div>
+      <div class="reco-box">
+        <div class="reco-label">Chce a potrebuje rozvíjať</div>
+        <div class="reco-items">
+          <div class="reco-item">Vibecoding a tvorba digitálnych artefaktov – bez predchádzajúcej skúsenosti</div>
+          <div class="reco-item">AI asistenti a systémové prompty</div>
+          <div class="reco-item">Canva a Canva AI</div>
+          <div class="reco-item">Hlbší základ v základoch AI a ML (úroveň „s metodikou")</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ANNA ADAMEČKOVÁ ===== -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-avatar">AA</div>
+      <div class="card-title">
+        <div class="card-name">Anna Adamečková</div>
+        <div class="card-meta">
+          <span class="meta-badge">Sabinov</span>
+          <span class="meta-badge">3–5 rokov praxe</span>
+          <span class="meta-badge red">DPČ</span>
+          <span class="meta-badge">auto: áno · Prešovský, Košický kraj</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-bio">
+      Mentorka a lektorka RCPU Sabinov, digitálna koordinátorka ZŠ Komenského 13, absolventka programu JA Slovensko. Školí Microsoft 365, AI a programovanie – pozná školu zvnútra.
+    </div>
+    <div class="card-body">
+      <div class="card-col">
+        <div class="col-label">Cieľové skupiny</div>
+        <div class="tag-list">
+          <span class="tag">Žiaci 1.–3. cyklu ZŠ</span>
+          <span class="tag">Pedagógovia</span>
+          <span class="tag">Vedenie škôl</span>
+          <span class="tag">Rodičia</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Formáty</div>
+        <div class="tag-list">
+          <span class="tag">45 min – 6h workshopy</span>
+          <span class="tag">Konzultácie pre školu</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Úroveň v AI témach</div>
+        <div class="tag-list">
+          <span class="tag level-expert">Vysvetlenie AI deťom – lektor lektorov</span>
+          <span class="tag level-expert">Generovanie médií – lektor lektorov</span>
+          <span class="tag level-expert">AI nástroje pre pedagógov – lektor lektorov</span>
+          <span class="tag level-expert">Canva AI – lektor lektorov</span>
+          <span class="tag level-solid">Chatboty – samostatne</span>
+          <span class="tag level-solid">Promptovanie – samostatne</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-reco">
+      <div class="reco-box">
+        <div class="reco-label">Silné stránky</div>
+        <div class="reco-items">
+          <div class="reco-item">Komplexná znalosť prostredia školy – digitálna koordinátorka, mentor RCPU, lektorka v jednom</div>
+          <div class="reco-item">Expertíza v nástrojoch pre pedagógov (Microsoft 365, Canva AI) – vie školiť iných</div>
+          <div class="reco-item">Schopnosť organizovať AI deň v škole pre žiakov aj učiteľov naraz</div>
+          <div class="reco-item">Empatická reakcia na situácie – vie citlivo pracovať so žiakmi aj pedagógmi</div>
+        </div>
+      </div>
+      <div class="reco-box">
+        <div class="reco-label">Chce a potrebuje rozvíjať</div>
+        <div class="reco-items">
+          <div class="reco-item">AI bezpečnosť a etika</div>
+          <div class="reco-item">Digitálny wellbeing</div>
+          <div class="reco-item">AI a dezinformácie</div>
+          <div class="reco-item">Vibecoding</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== JANA KOLLÁROVÁ ===== -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-avatar">JK</div>
+      <div class="card-title">
+        <div class="card-name">Jana Kollárová</div>
+        <div class="card-meta">
+          <span class="meta-badge">Martin</span>
+          <span class="meta-badge">viac než 5 rokov praxe</span>
+          <span class="meta-badge red">DPP</span>
+          <span class="meta-badge">auto: áno · Žilinský kraj</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-bio">
+      Učiteľka matematiky a informatiky na ZŠ. Obľubuje aktívne metódy – stanovištia, pohyb, tímová práca. Vnímam AI ako silný nástroj, ktorý treba používať kriticky a zmysluplne.
+    </div>
+    <div class="card-body">
+      <div class="card-col">
+        <div class="col-label">Cieľové skupiny</div>
+        <div class="tag-list">
+          <span class="tag">Žiaci 2.–3. cyklu ZŠ</span>
+          <span class="tag">Pedagógovia</span>
+          <span class="tag">Dospelá verejnosť</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Formáty</div>
+        <div class="tag-list">
+          <span class="tag">45 min lekcie</span>
+          <span class="tag">Celodenné školenie</span>
+          <span class="tag">Konferencie</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Úroveň v AI témach</div>
+        <div class="tag-list">
+          <span class="tag level-solid">Vysvetlenie AI deťom – samostatne</span>
+          <span class="tag level-solid">Promptovanie – samostatne</span>
+          <span class="tag level-basic">Generovanie médií – s metodikou</span>
+          <span class="tag level-basic">Vibecoding – základ</span>
+          <span class="tag level-basic">AI projektové vyučovanie – základ</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-reco">
+      <div class="reco-box">
+        <div class="reco-label">Silné stránky</div>
+        <div class="reco-items">
+          <div class="reco-item">Silná pedagogická kreativita – aktivity so stanovišťami, Jama levova (startup simulácia)</div>
+          <div class="reco-item">Prax v projektovom vyučovaní vrátane SWOT, finančného plánu a prototypov</div>
+          <div class="reco-item">Matematické myslenie a kritický prístup k AI výstupom</div>
+          <div class="reco-item">Schopnosť viesť skupinu detí a zapojiť ich fyzicky a aktívne</div>
+        </div>
+      </div>
+      <div class="reco-box">
+        <div class="reco-label">Chce a potrebuje rozvíjať</div>
+        <div class="reco-items">
+          <div class="reco-item">Väčšina AI tém na úrovni „potrebujem zaškolenie" – systematický onboarding do AI obsahu</div>
+          <div class="reco-item">Vibecoding a tvorba digitálnych artefaktov</div>
+          <div class="reco-item">AI nástroje pre pedagógov</div>
+          <div class="reco-item">AI asistenti a systémové prompty</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ALŽBETA GALLIKOVÁ ===== -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-avatar">AG</div>
+      <div class="card-title">
+        <div class="card-name">Alžbeta Galliková</div>
+        <div class="card-meta">
+          <span class="meta-badge">Kežmarok / Slovenská Ves</span>
+          <span class="meta-badge">3–5 rokov praxe</span>
+          <span class="meta-badge red">DPČ</span>
+          <span class="meta-badge">auto: nie · Prešovský kraj</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-bio">
+      Učiteľka, mentorka RCPU, aktívna v eTwinning projektoch. Ambasádorka programu „AI v rukách učiteľa" aj Microsoft Copilot. Venuje sa inklúzii, diferenciácii a zodpovednému využívaniu AI.
+    </div>
+    <div class="card-body">
+      <div class="card-col">
+        <div class="col-label">Cieľové skupiny</div>
+        <div class="tag-list">
+          <span class="tag">Žiaci 2.–3. cyklu ZŠ</span>
+          <span class="tag">Pedagógovia</span>
+          <span class="tag">Rodičia</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Formáty</div>
+        <div class="tag-list">
+          <span class="tag">45 min – 6h workshopy</span>
+          <span class="tag">Online webinár</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Úroveň v AI témach</div>
+        <div class="tag-list">
+          <span class="tag level-solid">Základy AI – samostatne</span>
+          <span class="tag level-solid">Chatboty, promptovanie – samostatne</span>
+          <span class="tag level-solid">AI nástroje pre pedagógov – samostatne</span>
+          <span class="tag level-solid">AI a inklúzia – samostatne</span>
+          <span class="tag level-solid">Canva AI – samostatne</span>
+          <span class="tag level-solid">AI bezpečnosť – samostatne</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-reco">
+      <div class="reco-box">
+        <div class="reco-label">Silné stránky</div>
+        <div class="reco-items">
+          <div class="reco-item">Najširší záber AI tém na úrovni „viem prakticky" – spoľahlivá pre všetky základné moduly</div>
+          <div class="reco-item">Skúsenosť s workshopmi pre pedagógov s dôrazom na promptovanie a etiku</div>
+          <div class="reco-item">Medzinárodná skúsenosť cez eTwinning – vie pracovať s diverzitou</div>
+          <div class="reco-item">Inkuzívny prístup a podpora znevýhodnených žiakov</div>
+        </div>
+      </div>
+      <div class="reco-box">
+        <div class="reco-label">Chce a potrebuje rozvíjať</div>
+        <div class="reco-items">
+          <div class="reco-item">Digitálny wellbeing – zaujíma ju</div>
+          <div class="reco-item">Vibecoding – zaujíma ju</div>
+          <div class="reco-item">Konzultácie pre vedenie škôl – zaujíma ju</div>
+          <div class="reco-item">Systematické zavádzanie AI do školy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== KVETOSLAVA DANKOVÁ ===== -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-avatar">KD</div>
+      <div class="card-title">
+        <div class="card-name">Kvetoslava Danková</div>
+        <div class="card-meta">
+          <span class="meta-badge">Košice</span>
+          <span class="meta-badge">viac než 5 rokov praxe (33 rokov)</span>
+          <span class="meta-badge red">DPČ</span>
+          <span class="meta-badge">auto: áno · Prešovský, Košický kraj</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-bio">
+      Absolventka FRI VŠE, 33 rokov učila informatiku na gymnáziu. Microsoft MIEE od roku 2015. Ambasádorka AI pre učiteľov (Komenského inštitút). Lektorka finančnej a podnikateľskej gramotnosti, koordinátorka Junior Achievement.
+    </div>
+    <div class="card-body">
+      <div class="card-col">
+        <div class="col-label">Cieľové skupiny</div>
+        <div class="tag-list">
+          <span class="tag">Žiaci 3. cyklu ZŠ</span>
+          <span class="tag">Stredoškoláci</span>
+          <span class="tag">Pedagógovia</span>
+          <span class="tag">Seniori</span>
+          <span class="tag">Neziskové org.</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Formáty</div>
+        <div class="tag-list">
+          <span class="tag">45 min – 6h workshopy</span>
+          <span class="tag">Online webinár</span>
+          <span class="tag">Konferencie</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Úroveň v AI témach</div>
+        <div class="tag-list">
+          <span class="tag level-solid">Základy AI – samostatne</span>
+          <span class="tag level-solid">Chatboty, promptovanie – samostatne</span>
+          <span class="tag level-solid">Generovanie médií – samostatne</span>
+          <span class="tag level-solid">AI a wellbeing – samostatne</span>
+          <span class="tag level-solid">AI a dezinformácie – samostatne</span>
+          <span class="tag level-basic">Vibecoding – s metodikou</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-reco">
+      <div class="reco-box">
+        <div class="reco-label">Silné stránky</div>
+        <div class="reco-items">
+          <div class="reco-item">Unikátna kombinácia informatiky, podnikateľského myslenia a AI – vie prepojiť svetov</div>
+          <div class="reco-item">Kreativita v projektovom vyučovaní – AI kapela, komplexné výstupy so žiakmi</div>
+          <div class="reco-item">Dlhoročná sieť a skúsenosť s lektorovaním pedagógov naprieč celým Slovenskom</div>
+          <div class="reco-item">Práca so seniormi – vzácna zručnosť v tíme</div>
+        </div>
+      </div>
+      <div class="reco-box">
+        <div class="reco-label">Chce a potrebuje rozvíjať</div>
+        <div class="reco-items">
+          <div class="reco-item">Vibecoding a tvorba digitálnych artefaktov</div>
+          <div class="reco-item">AI asistenti a systémové prompty</div>
+          <div class="reco-item">Systematické zavádzanie AI do školy</div>
+          <div class="reco-item">Konzultácie pre vedenie škôl</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== JULIANA PEREČINSKÁ ===== -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-avatar">JP</div>
+      <div class="card-title">
+        <div class="card-name">Juliana Perečinská</div>
+        <div class="card-meta">
+          <span class="meta-badge">Veľký Šariš</span>
+          <span class="meta-badge">viac než 5 rokov praxe (30+ rokov)</span>
+          <span class="meta-badge red">DPČ</span>
+          <span class="meta-badge">auto: áno · Prešovský, Košický kraj</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-bio">
+      30+ rokov v školstve – učiteľka, riaditeľka ZŠ, riaditeľka RCPU Sabinov, supervízorka, mentorka. Expertka MŠ SR, spolupracuje s VÚDPaP. Srdcová téma: mentoring, inklúzia a bezpečné školské prostredie.
+    </div>
+    <div class="card-body">
+      <div class="card-col">
+        <div class="col-label">Cieľové skupiny</div>
+        <div class="tag-list">
+          <span class="tag">Žiaci 1.–3. cyklu ZŠ</span>
+          <span class="tag">Stredoškoláci</span>
+          <span class="tag">Vysokoškoláci</span>
+          <span class="tag">Pedagógovia</span>
+          <span class="tag">Vedenie škôl</span>
+          <span class="tag">Neziskové org.</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Formáty</div>
+        <div class="tag-list">
+          <span class="tag">45 min – 6h workshopy</span>
+          <span class="tag">Online webinár</span>
+          <span class="tag">Konzultácie pre školu</span>
+          <span class="tag">Konferencie</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Úroveň v AI témach</div>
+        <div class="tag-list">
+          <span class="tag level-expert">Promptovanie – lektor lektorov</span>
+          <span class="tag level-expert">AI a dezinformácie – lektor lektorov</span>
+          <span class="tag level-expert">Digitálny wellbeing – lektor lektorov</span>
+          <span class="tag level-expert">AI a inklúzia – lektor lektorov</span>
+          <span class="tag level-solid">Základy AI – samostatne</span>
+          <span class="tag level-basic">Vibecoding – s metodikou</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-reco">
+      <div class="reco-box">
+        <div class="reco-label">Silné stránky</div>
+        <div class="reco-items">
+          <div class="reco-item">Výnimočné facilitačné zručnosti – všetky na úrovni lektora lektorov, vrátane citlivých tém</div>
+          <div class="reco-item">Hĺbková expertíza v inklúzii, wellbeingu a riadení zmeny – vzácna v tíme AI deťom</div>
+          <div class="reco-item">Skúsenosť s vedením školy aj RCPU – systémové myslenie a leadership</div>
+          <div class="reco-item">Schopnosť supervízie a sprevádzania – cenná pri podpore iných lektorov</div>
+        </div>
+      </div>
+      <div class="reco-box">
+        <div class="reco-label">Chce a potrebuje rozvíjať</div>
+        <div class="reco-items">
+          <div class="reco-item">AI v hodnotení a formatívne hodnotenie – potrebuje zaškolenie</div>
+          <div class="reco-item">Vibecoding a AI asistenti</div>
+          <div class="reco-item">AI vo výuke – zaujíma ju</div>
+          <div class="reco-item">Systematické zavádzanie AI do školy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== LENKA MIHALICOVÁ ===== -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-avatar">LM</div>
+      <div class="card-title">
+        <div class="card-name">Lenka Mihalicová</div>
+        <div class="card-meta">
+          <span class="meta-badge">Turčianske Teplice</span>
+          <span class="meta-badge">viac než 5 rokov praxe</span>
+          <span class="meta-badge red">Iné</span>
+          <span class="meta-badge">auto: áno · Žilinský, Banskobystrický kraj</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-bio">
+      Filozofická fakulta – dejepis, ruský jazyk, etická výchova. Riaditeľka gymnázia aj súkromnej ZŠ. Lektorka IUVENTY, RCPU mentorka. Venuje sa globálnemu vzdelávaniu, multikultúrnej výchove, osobnostnému rozvoju a zážitkovým metódam.
+    </div>
+    <div class="card-body">
+      <div class="card-col">
+        <div class="col-label">Cieľové skupiny</div>
+        <div class="tag-list">
+          <span class="tag">Žiaci 1.–3. cyklu ZŠ</span>
+          <span class="tag">Stredoškoláci</span>
+          <span class="tag">Pedagógovia</span>
+          <span class="tag">Vedenie škôl</span>
+          <span class="tag">Seniori</span>
+          <span class="tag">Neziskové org.</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Formáty</div>
+        <div class="tag-list">
+          <span class="tag">45 min – 6h workshopy</span>
+          <span class="tag">Online webinár</span>
+          <span class="tag">Konzultácie pre školu</span>
+          <span class="tag">Panelové diskusie</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Úroveň v AI témach</div>
+        <div class="tag-list">
+          <span class="tag level-expert">Vzdelávacie ciele – lektor lektorov</span>
+          <span class="tag level-expert">Vysvetlenie zložitých tém – lektor lektorov</span>
+          <span class="tag level-expert">Práca so skupinou detí aj pedagógov – lektor lektorov</span>
+          <span class="tag level-solid">Chatboty – s metodikou</span>
+          <span class="tag level-basic">Vibecoding – základ</span>
+          <span class="tag level-basic">Canva – potrebuje zaškolenie</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-reco">
+      <div class="reco-box">
+        <div class="reco-label">Silné stránky</div>
+        <div class="reco-items">
+          <div class="reco-item">Majsterka facilitácie – všetky pedagogické zručnosti na expertnej úrovni</div>
+          <div class="reco-item">Víkendové pobytové vzdelávania, panelové diskusie – zvláda náročné formáty</div>
+          <div class="reco-item">Bohatá sieť skúseností z neformálneho vzdelávania (IUVENTY, Deutsch-Slowakische Akademien)</div>
+          <div class="reco-item">Prepájanie formálneho a neformálneho vzdelávania – unikátna perspektíva</div>
+        </div>
+      </div>
+      <div class="reco-box">
+        <div class="reco-label">Chce a potrebuje rozvíjať</div>
+        <div class="reco-items">
+          <div class="reco-item">Vibecoding a tvorba digitálnych artefaktov – iba základná orientácia</div>
+          <div class="reco-item">Canva a Canva AI – potrebuje zaškolenie</div>
+          <div class="reco-item">AI asistenti a systémové prompty</div>
+          <div class="reco-item">AI bezpečnosť a etika</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TEREZA VALA ===== -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-avatar">TV</div>
+      <div class="card-title">
+        <div class="card-name">Tereza Vala</div>
+        <div class="card-meta">
+          <span class="meta-badge">Brno</span>
+          <span class="meta-badge">3–5 rokov praxe</span>
+          <span class="meta-badge red">Fakturácia na IČO</span>
+          <span class="meta-badge">auto: nie · Bratislavský, Trenčiansky kraj</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-bio">
+      Učiteľka angličtiny a hudobnej výchovy na laboratórnej škole Labyrinth v Brne. Doktorandka MUNI (Content-based language teaching). EdTech špecialistka inkluzívnej labškoly Rozmanita v Bratislave. Vyvinula vlastnú AI platformu pre tvorbu učebných materiálov.
+    </div>
+    <div class="card-body">
+      <div class="card-col">
+        <div class="col-label">Cieľové skupiny</div>
+        <div class="tag-list">
+          <span class="tag">Žiaci 1.–2. cyklu ZŠ</span>
+          <span class="tag">Vysokoškoláci</span>
+          <span class="tag">Pedagógovia</span>
+          <span class="tag">Rodičia</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Formáty</div>
+        <div class="tag-list">
+          <span class="tag">45 min – 3h workshopy</span>
+          <span class="tag">Online webinár</span>
+          <span class="tag">Konzultácie pre školu</span>
+          <span class="tag">Konferencie</span>
+          <span class="tag">Videokurz</span>
+        </div>
+      </div>
+      <div class="card-col">
+        <div class="col-label">Úroveň v AI témach</div>
+        <div class="tag-list">
+          <span class="tag level-expert">Základy AI – lektor lektorov</span>
+          <span class="tag level-expert">Chatboty, promptovanie – lektor lektorov</span>
+          <span class="tag level-expert">Generovanie médií – lektor lektorov</span>
+          <span class="tag level-expert">AI asistenti – lektor lektorov</span>
+          <span class="tag level-expert">Vibecoding – lektor lektorov</span>
+          <span class="tag level-expert">Canva AI – lektor lektorov</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-reco">
+      <div class="reco-box">
+        <div class="reco-label">Silné stránky</div>
+        <div class="reco-items">
+          <div class="reco-item">Najkomplexnejšia AI expertíza v tíme – takmer všetky témy na úrovni lektora lektorov</div>
+          <div class="reco-item">Jedinečná prax vo vývoji vlastnej AI platformy – vie o implementácii AI zvnútra</div>
+          <div class="reco-item">Výskumná optika (doktorát) – kritické myslenie pri hodnotení efektivity nástrojov</div>
+          <div class="reco-item">AI deň v Rozmanite – organizácia pre viacero škôl naraz, od observácie po workshop</div>
+        </div>
+      </div>
+      <div class="reco-box">
+        <div class="reco-label">Chce a potrebuje rozvíjať</div>
+        <div class="reco-items">
+          <div class="reco-item">AI bezpečnosť a etika – zaujíma ju</div>
+          <div class="reco-item">Digitálny wellbeing</div>
+          <div class="reco-item">Systematické zavádzanie AI do školy – potrebuje zaškolenie</div>
+          <div class="reco-item">Konzultácie pre vedenie škôl</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+</body>
+</html>
