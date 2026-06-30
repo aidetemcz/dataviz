@@ -26,13 +26,13 @@
     --amber:     #e8943a;
     --amber-bg:  #fdf3e7;
 
-    --fs-xl:   clamp(30px, 4vw, 46px);
-    --fs-lg:   22px;
-    --fs-md:   18px;
-    --fs-base: 17px;
-    --fs-sm:   15px;
-    --fs-xs:   13px;
-    --lh:      1.45;
+    --fs-xl:   clamp(34px, 5vw, 54px);
+    --fs-lg:   24px;
+    --fs-md:   20px;
+    --fs-base: 20px;
+    --fs-sm:   20px;
+    --fs-xs:   15px;
+    --lh:      1.3;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -210,8 +210,8 @@
   }
   .tag {
     background: var(--bg); border: 1.5px solid var(--border);
-    border-radius: 8px; padding: 4px 10px;
-    font-size: 13px; color: var(--text-soft); font-weight: 600;
+    border-radius: 8px; padding: 4px 12px;
+    font-size: var(--fs-xs); color: var(--text-soft); font-weight: 600;
   }
   .tag.level-expert {
     background: #eaf7f1; border-color: #7dcfaa; color: #2a7a55;
@@ -254,7 +254,7 @@
   }
   .reco-item {
     display: flex; align-items: baseline; gap: 8px;
-    font-size: var(--fs-sm); line-height: 1.4;
+    font-size: var(--fs-base); line-height: 1.35;
   }
   .reco-item::before {
     content: "·";
