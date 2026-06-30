@@ -32,7 +32,7 @@
     --fs-base: 20px;
     --fs-sm:   20px;
     --fs-xs:   15px;
-    --lh:      1.3;
+    --lh:      1;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -107,8 +107,8 @@
   }
   .hero h1 em { font-style: normal; color: rgba(255,255,255,0.75); }
   .hero-desc {
-    font-size: 18px; color: rgba(255,255,255,0.82);
-    max-width: 500px; line-height: 1.5; margin-bottom: 36px;
+    font-size: 20px; color: rgba(255,255,255,0.82);
+    max-width: 500px; line-height: 1; margin-bottom: 36px;
   }
   .hero-stats {
     display: flex; gap: 40px; flex-wrap: wrap;
@@ -183,7 +183,7 @@
   .card-bio {
     padding: 20px 32px;
     border-bottom: 1.5px solid var(--border);
-    font-size: var(--fs-sm); color: var(--text-soft); line-height: 1.6;
+    font-size: var(--fs-base); color: var(--text-soft); line-height: 1;
   }
 
   .card-body {
@@ -210,8 +210,9 @@
   }
   .tag {
     background: var(--bg); border: 1.5px solid var(--border);
-    border-radius: 8px; padding: 4px 12px;
-    font-size: var(--fs-xs); color: var(--text-soft); font-weight: 600;
+    border-radius: 8px; padding: 5px 14px;
+    font-size: var(--fs-base); color: var(--text-soft); font-weight: 600;
+    line-height: 1;
   }
   .tag.level-expert {
     background: #eaf7f1; border-color: #7dcfaa; color: #2a7a55;
@@ -254,7 +255,7 @@
   }
   .reco-item {
     display: flex; align-items: baseline; gap: 8px;
-    font-size: var(--fs-base); line-height: 1.35;
+    font-size: var(--fs-base); line-height: 1;
   }
   .reco-item::before {
     content: "·";
