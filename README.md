@@ -37,12 +37,13 @@ Podklady a interaktivní diagram k **aktérům AI akcelerátoru na krajské úro
 
 | Soubor | Obsah |
 |---|---|
+| `index.html` | Přesměrování na diagram, aby fungovala i adresa samotné složky — Pages nevypisuje adresáře |
 | `kaskada-ai-akceleratoru.html` | Interaktivní diagram se dvěma pohledy — kaskáda dopadu a mapa aktérů |
 | `zadost_4_1_spoluprace.md` | Odstavec 4.1 projektové žádosti — klíčoví hráči a hloubka spolupráce |
 | `ZADANI.md` | Zadání navazujících úkolů |
 | `CLAUDE.md` | Trvalý kontext projektu |
 
-Diagram se publikuje jako Artifact, ne přes GitHub Pages — proto soubor záměrně **nemá** obalové tagy `<!DOCTYPE>`, `<html>`, `<head>` ani `<body>`; doplňuje si je publikační nástroj sám. Jeho vzhled vychází ze stejných tokenů jako aplikace v repozitáři `aidetemcz/podpurna-opatreni`.
+Diagram se publikuje jako Artifact — proto soubor záměrně **nemá** obalové tagy `<!DOCTYPE>`, `<html>`, `<head>` ani `<body>`; doplňuje si je publikační nástroj sám. Deklaraci `<meta charset="utf-8">` na prvním řádku ale má, aby diakritika držela i tehdy, když ho GitHub Pages naservíruje bez `charset` v hlavičce. Jeho vzhled vychází ze stejných tokenů jako aplikace v repozitáři `aidetemcz/podpurna-opatreni`.
 
 ## Vizuální styl
 
