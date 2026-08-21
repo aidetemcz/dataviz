@@ -33,9 +33,16 @@ Název souboru školní stránky je prvních 12 znaků `sha256` z přesného jm�
 
 ### `ai-akcelerator-krajska-uroven-akteri/`
 
-Podklady a stránka mapující **aktéry AI akcelerátoru na krajské úrovni**.
+Podklady a interaktivní diagram k **aktérům AI akcelerátoru na krajské úrovni** (Karlovarský kraj, 2026–2028).
 
-Složka je zatím prázdná, obsah se připravuje. Drží ji prázdný soubor `.gitkeep`, protože Git neumí verzovat prázdné adresáře — až přibudou reálné soubory, `.gitkeep` se smaže.
+| Soubor | Obsah |
+|---|---|
+| `kaskada-ai-akceleratoru.html` | Interaktivní diagram se dvěma pohledy — kaskáda dopadu a mapa aktérů |
+| `zadost_4_1_spoluprace.md` | Odstavec 4.1 projektové žádosti — klíčoví hráči a hloubka spolupráce |
+| `ZADANI.md` | Zadání navazujících úkolů |
+| `CLAUDE.md` | Trvalý kontext projektu |
+
+Diagram se publikuje jako Artifact, ne přes GitHub Pages — proto soubor záměrně **nemá** obalové tagy `<!DOCTYPE>`, `<html>`, `<head>` ani `<body>`; doplňuje si je publikační nástroj sám. Jeho vzhled vychází ze stejných tokenů jako aplikace v repozitáři `aidetemcz/podpurna-opatreni`.
 
 ## Vizuální styl
 

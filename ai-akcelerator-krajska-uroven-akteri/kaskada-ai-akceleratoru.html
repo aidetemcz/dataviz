@@ -1,67 +1,86 @@
 <title>Kaskáda AI akcelerátoru</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
 
 <style>
+/* Design systém AI dětem — shodné tokeny s aidetemcz/podpurna-opatreni (app/globals.css) */
 :root{
-  --paper:#EDF2F2;
+  --paper:#FFFFFF;
   --surface:#FFFFFF;
-  --surface-2:#F5F9F9;
-  --ink:#0F262C;
-  --ink-2:#456068;
-  --ink-3:#7A939A;
-  --line:#C3D4D7;
-  --line-soft:#DCE7E8;
-  --accent:#A2470F;
-  --accent-2:#C2703A;
-  --accent-soft:#F4E4D9;
-  --d1-bg:#1B3A43; --d1-fg:#E9F2F3;
-  --d2-bg:#426872; --d2-fg:#F4FAFA;
-  --d3-bg:#D5E3E5; --d3-fg:#123038;
-  --d4-bg:#EAF1F1; --d4-fg:#3D5A62; --d4-line:#9BB5BA;
-  --focus:#0F6E86;
-  --shadow:0 1px 2px rgba(15,38,44,.06), 0 8px 24px -12px rgba(15,38,44,.18);
+  --surface-2:#F1F4F6;
+  --ink:#1C2530;
+  --ink-2:#6B7885;
+  --ink-3:#8F9AA5;
+  --line:#E8EDF0;
+  --line-soft:#F1F4F6;
+  --accent:#DC5B5B;          /* Jahodová zmrzka */
+  --accent-2:#C94E4E;
+  --accent-soft:#FBEEEE;
+  --sky:#B3CDD6;             /* Nekonečné nebe */
+  --sky-deep:#7DA4B2;        /* před setměním */
+  --sky-light:#E3F1F6;       /* po úsvitu */
+  --d1-bg:#1C2530; --d1-fg:#FFFFFF;
+  --d2-bg:#7DA4B2; --d2-fg:#FFFFFF;
+  --d3-bg:#E3F1F6; --d3-fg:#1C2530;
+  --d4-bg:#FFFFFF; --d4-fg:#6B7885; --d4-line:#B3CDD6;
+  --us-fg:#FFFFFF;
+  --focus:#7DA4B2;
+  --radius:16px;
+  --radius-lg:22px;
+  --pill:999px;
+  --shadow:0 1px 2px rgba(28,37,48,.04), 0 8px 24px -14px rgba(28,37,48,.16);
+  --shadow-accent:0 6px 20px rgba(220,91,91,.10);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --paper:#0A181C;
-    --surface:#10252A;
-    --surface-2:#143036;
-    --ink:#E3EFF0;
-    --ink-2:#9CB5BA;
-    --ink-3:#6E8990;
-    --line:#254750;
-    --line-soft:#1B3941;
-    --accent:#E39057;
-    --accent-2:#C2703A;
-    --accent-soft:#33200F;
-    --d1-bg:#AFCBD0; --d1-fg:#08181C;
-    --d2-bg:#6E959D; --d2-fg:#06171B;
-    --d3-bg:#1C3C45; --d3-fg:#CBDFE2;
-    --d4-bg:#122A30; --d4-fg:#93AEB4; --d4-line:#33555D;
-    --focus:#6EC6DE;
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+    --paper:#141A21;
+    --surface:#1A222B;
+    --surface-2:#212B35;
+    --ink:#E7ECF0;
+    --ink-2:#9AA7B4;
+    --ink-3:#7A8794;
+    --line:#2B3641;
+    --line-soft:#232D37;
+    --accent:#E87B7B;
+    --accent-2:#DC5B5B;
+    --accent-soft:#3A2222;
+    --sky:#5E8494;
+    --sky-deep:#8FB8C6;
+    --sky-light:#22323A;
+    --d1-bg:#E7ECF0; --d1-fg:#141A21;
+    --d2-bg:#5E8494; --d2-fg:#0E161B;
+    --d3-bg:#22323A; --d3-fg:#D6E6EC;
+    --d4-bg:#1A222B; --d4-fg:#9AA7B4; --d4-line:#3D5560;
+    --us-fg:#2A1010;
+    --focus:#8FB8C6;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.6);
+    --shadow-accent:0 6px 20px rgba(232,123,123,.14);
   }
 }
 :root[data-theme="dark"]{
-  --paper:#0A181C;
-  --surface:#10252A;
-  --surface-2:#143036;
-  --ink:#E3EFF0;
-  --ink-2:#9CB5BA;
-  --ink-3:#6E8990;
-  --line:#254750;
-  --line-soft:#1B3941;
-  --accent:#E39057;
-  --accent-2:#C2703A;
-  --accent-soft:#33200F;
-  --d1-bg:#AFCBD0; --d1-fg:#08181C;
-  --d2-bg:#6E959D; --d2-fg:#06171B;
-  --d3-bg:#1C3C45; --d3-fg:#CBDFE2;
-  --d4-bg:#122A30; --d4-fg:#93AEB4; --d4-line:#33555D;
-  --focus:#6EC6DE;
-  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  --paper:#141A21;
+  --surface:#1A222B;
+  --surface-2:#212B35;
+  --ink:#E7ECF0;
+  --ink-2:#9AA7B4;
+  --ink-3:#7A8794;
+  --line:#2B3641;
+  --line-soft:#232D37;
+  --accent:#E87B7B;
+  --accent-2:#DC5B5B;
+  --accent-soft:#3A2222;
+  --sky:#5E8494;
+  --sky-deep:#8FB8C6;
+  --sky-light:#22323A;
+  --d1-bg:#E7ECF0; --d1-fg:#141A21;
+  --d2-bg:#5E8494; --d2-fg:#0E161B;
+  --d3-bg:#22323A; --d3-fg:#D6E6EC;
+  --d4-bg:#1A222B; --d4-fg:#9AA7B4; --d4-line:#3D5560;
+  --us-fg:#2A1010;
+  --focus:#8FB8C6;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.6);
+  --shadow-accent:0 6px 20px rgba(232,123,123,.14);
 }
 
 *{box-sizing:border-box}
@@ -69,10 +88,11 @@ body{
   margin:0;
   background:var(--paper);
   color:var(--ink);
-  font-family:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;
   font-size:15px;
-  line-height:1.55;
+  line-height:1.6;
   -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
 }
 .wrap{max-width:1240px;margin:0 auto;padding:32px 24px 72px}
 
@@ -82,28 +102,28 @@ header.top{
   gap:24px;padding-bottom:20px;border-bottom:1px solid var(--line);
 }
 .eyebrow{
-  font-size:11px;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--ink-3);font-weight:600;margin:0 0 8px;
+  font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-2);font-weight:600;margin:0 0 8px;
 }
 h1{
-  font-family:Newsreader,Georgia,"Times New Roman",serif;
-  font-weight:600;font-size:clamp(30px,4.4vw,46px);line-height:1.05;
+  font-family:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
+  font-weight:700;font-size:clamp(30px,4.4vw,44px);line-height:1.1;
   margin:0;letter-spacing:-.01em;text-wrap:balance;
 }
 .dek{margin:10px 0 0;max-width:62ch;color:var(--ink-2);font-size:15px}
 
 /* ---------- view switch ---------- */
 .switch{
-  display:inline-flex;background:var(--surface);border:1px solid var(--line);
-  border-radius:2px;padding:3px;gap:3px;box-shadow:var(--shadow);
+  display:inline-flex;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:var(--pill);padding:4px;gap:4px;
 }
 .switch button{
-  font:inherit;font-size:13px;font-weight:500;
-  padding:8px 16px;border:0;border-radius:1px;background:transparent;color:var(--ink-2);
+  font:inherit;font-size:13.5px;font-weight:600;
+  padding:9px 20px;border:0;border-radius:var(--pill);background:transparent;color:var(--ink-2);
   cursor:pointer;white-space:nowrap;transition:background .15s,color .15s;
 }
 .switch button:hover{color:var(--ink)}
-.switch button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.switch button[aria-pressed="true"]{background:var(--accent);color:#fff}
 :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 
 /* ---------- layout ---------- */
@@ -115,7 +135,7 @@ h1{
 
 figure.canvas{
   margin:0;background:var(--surface);border:1px solid var(--line);
-  border-radius:3px;box-shadow:var(--shadow);overflow:hidden;
+  border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;
 }
 .scroller{overflow-x:auto;padding:8px}
 .scroller svg{display:block;width:100%;min-width:820px;height:auto}
@@ -124,15 +144,17 @@ figcaption{
   font-size:12.5px;color:var(--ink-2);background:var(--surface-2);
 }
 .hidden{display:none}
+/* .scroller svg (0,1,1) by jinak přebilo .hidden (0,1,0) a přepínač pohledů by nic neskryl */
+.scroller svg.hidden{display:none}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- svg node styling ---------- */
 .node{cursor:pointer}
 .node rect.box{stroke-width:1.25;transition:opacity .2s}
-.node text{pointer-events:none}
-.node .t{font-size:13.5px;font-weight:600}
+.node text{pointer-events:none;font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+.node .t{font-size:13.5px;font-weight:600;font-family:"Space Grotesk",ui-sans-serif,system-ui,sans-serif}
 .node .s{font-size:11px;font-weight:400}
-.node .num{font-family:Newsreader,Georgia,serif;font-size:27px;font-weight:600;font-variant-numeric:tabular-nums}
+.node .num{font-family:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;font-size:27px;font-weight:700;font-variant-numeric:tabular-nums}
 .node:hover rect.box{stroke:var(--accent);stroke-width:2}
 .node:focus-visible rect.box{stroke:var(--focus);stroke-width:2.5}
 .node.sel rect.box{stroke:var(--accent);stroke-width:2.5}
@@ -141,23 +163,21 @@ figcaption{
 .n-d1 text{fill:var(--d1-fg)}
 .n-d2 rect.box{fill:var(--d2-bg);stroke:var(--d2-bg)}
 .n-d2 text{fill:var(--d2-fg)}
-.n-d3 rect.box{fill:var(--d3-bg);stroke:var(--d3-bg)}
+.n-d3 rect.box{fill:var(--d3-bg);stroke:var(--sky)}
 .n-d3 text{fill:var(--d3-fg)}
 .n-d4 rect.box{fill:var(--d4-bg);stroke:var(--d4-line);stroke-dasharray:5 4}
 .n-d4 text{fill:var(--d4-fg)}
 .n-us rect.box{fill:var(--accent);stroke:var(--accent)}
-.n-us text{fill:#FFF8F2}
-:root[data-theme="dark"] .n-us text{fill:#1A0D04}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .n-us text{fill:#1A0D04}}
+.n-us text{fill:var(--us-fg)}
 .n-school rect.box{fill:var(--surface);stroke:var(--accent);stroke-width:1.75}
 .n-school text{fill:var(--ink)}
 .n-school .num{fill:var(--accent)}
 
-.band rect{fill:var(--surface-2);stroke:var(--line-soft)}
+.band rect{fill:var(--surface-2);stroke:var(--line)}
 .band.explor rect{fill:transparent;stroke:var(--d4-line);stroke-dasharray:6 5}
-.bandlabel{font-size:10px;font-weight:600;letter-spacing:.12em;fill:var(--ink-3)}
+.bandlabel{font-size:10px;font-weight:600;letter-spacing:.08em;fill:var(--ink-2);font-family:"Space Grotesk",ui-sans-serif,system-ui,sans-serif}
 
-.edge{fill:none;stroke:var(--ink-3);stroke-width:1.4}
+.edge{fill:none;stroke:var(--sky-deep);stroke-width:1.4}
 .edge.dash{stroke-dasharray:6 5;stroke:var(--ink-3);opacity:.85}
 .edgelabel{font-size:11px;fill:var(--ink-2)}
 .edgelabel.small{font-size:10px}
@@ -168,26 +188,27 @@ figcaption{
 /* ---------- side panel ---------- */
 aside.panel{
   position:sticky;top:24px;background:var(--surface);border:1px solid var(--line);
-  border-radius:3px;box-shadow:var(--shadow);padding:22px;
+  border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:24px;
 }
 @media (max-width:1040px){ aside.panel{position:static} }
 .panel h2{
-  font-family:Newsreader,Georgia,serif;font-weight:600;font-size:22px;
-  line-height:1.15;margin:0 0 10px;text-wrap:balance;
+  font-family:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
+  font-weight:700;font-size:21px;
+  line-height:1.25;margin:0 0 12px;text-wrap:balance;letter-spacing:-.01em;
 }
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
 .chip{
   font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
-  padding:4px 9px;border-radius:2px;border:1px solid var(--line);color:var(--ink-2);
+  padding:5px 11px;border-radius:var(--pill);border:1px solid var(--line);color:var(--ink-2);
   background:var(--surface-2);
 }
-.chip.on{background:var(--accent-soft);border-color:var(--accent-2);color:var(--accent)}
+.chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
 .panel dl{margin:0}
 .panel dt{
-  font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
-  color:var(--ink-3);font-weight:600;margin-top:16px;
+  font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-2);font-weight:600;margin-top:16px;
 }
-.panel dd{margin:5px 0 0;font-size:13.5px;color:var(--ink);line-height:1.5}
+.panel dd{margin:5px 0 0;font-size:13.5px;color:var(--ink);line-height:1.6}
 .panel dd ul{margin:4px 0 0;padding-left:18px}
 .panel dd li{margin:3px 0}
 .panel .empty{color:var(--ink-2);font-size:13.5px}
@@ -196,26 +217,27 @@ aside.panel{
 /* ---------- legend ---------- */
 .legend{margin-top:28px;border-top:1px solid var(--line);padding-top:20px}
 .legend h3{
-  font-size:11px;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--ink-3);font-weight:600;margin:0 0 12px;
+  font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-2);font-weight:600;margin:0 0 12px;
 }
 .keys{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none}
 .keys button{
   font:inherit;font-size:12.5px;display:flex;align-items:center;gap:8px;
-  padding:7px 12px 7px 9px;border:1px solid var(--line);background:var(--surface);
-  color:var(--ink-2);border-radius:2px;cursor:pointer;text-align:left;
+  padding:8px 16px 8px 12px;border:1px solid var(--line);background:var(--surface);
+  color:var(--ink-2);border-radius:var(--pill);cursor:pointer;text-align:left;
+  transition:border-color .15s,color .15s,box-shadow .15s;
 }
-.keys button:hover{color:var(--ink);border-color:var(--ink-3)}
-.keys button[aria-pressed="true"]{border-color:var(--accent);color:var(--ink);background:var(--accent-soft)}
-.sw{width:15px;height:15px;border-radius:2px;flex:none;border:1px solid transparent}
+.keys button:hover{color:var(--ink);border-color:var(--accent);box-shadow:var(--shadow-accent)}
+.keys button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.sw{width:15px;height:15px;border-radius:5px;flex:none;border:1px solid transparent}
 .sw.d1{background:var(--d1-bg)}
 .sw.d2{background:var(--d2-bg)}
-.sw.d3{background:var(--d3-bg)}
+.sw.d3{background:var(--d3-bg);border-color:var(--sky)}
 .sw.d4{background:var(--d4-bg);border-color:var(--d4-line);border-style:dashed}
 .sw.us{background:var(--accent)}
 .sw.school{background:var(--surface);border-color:var(--accent);border-width:2px}
 .legend p.note{font-size:12.5px;color:var(--ink-2);margin:14px 0 0;max-width:80ch}
-footer{margin-top:34px;font-size:12px;color:var(--ink-3);border-top:1px solid var(--line-soft);padding-top:16px}
+footer{margin-top:34px;font-size:12px;color:var(--ink-2);border-top:1px solid var(--line-soft);padding-top:16px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
@@ -329,7 +351,7 @@ footer{margin-top:34px;font-size:12px;color:var(--ink-3);border-top:1px solid va
       <text class="num" x="188" y="562">1 000</text>
       <text class="t" x="286" y="546">Pedagogické sbory</text>
       <text class="s" x="286" y="564">pracovníků škol první vlny</text>
-      <text class="s" x="286" y="580">rolově cílené vzdělávání a doložená AI gramotnost</text>
+      <text class="s" x="286" y="580">rolově cílené vzdělávání, doložená AI gramotnost</text>
     </g>
 
     <!-- R1 -->
@@ -347,7 +369,7 @@ footer{margin-top:34px;font-size:12px;color:var(--ink-3);border-top:1px solid va
       <text class="num" x="650" y="562">16 000</text>
       <text class="t" x="756" y="546">Pedagogové v celé ČR</text>
       <text class="s" x="756" y="564">pracovníků škol (včetně první vlny)</text>
-      <text class="s" x="756" y="580">100+ škol mimo první vlnu, 50+ se zavedeným opatřením</text>
+      <text class="s" x="756" y="580">100+ škol mimo první vlnu, 50+ zavede opatření</text>
     </g>
 
     <!-- T5 -->
@@ -401,7 +423,7 @@ footer{margin-top:34px;font-size:12px;color:var(--ink-3);border-top:1px solid va
     </g>
 
     <g class="edgelabel small">
-      <text x="568" y="210">metodický soulad, krajští ICT metodici</text>
+      <text x="560" y="210" text-anchor="middle">metodický soulad, krajští ICT metodici</text>
       <text x="894" y="210" text-anchor="end">kanál k ředitelům a zřizovatelům</text>
       <text x="408" y="362">koordinace území, spolufinancování</text>
       <text x="408" y="514">nábor a koordinace škol</text>
@@ -452,7 +474,7 @@ footer{margin-top:34px;font-size:12px;color:var(--ink-3);border-top:1px solid va
       <rect class="box" x="248" y="258" width="280" height="72" rx="3"/>
       <text class="t" x="266" y="288">Karlovarský kraj</text>
       <text class="s" x="266" y="306">strategický spoluvlastník a spoluinvestor</text>
-      <text class="s" x="266" y="320">cca 50 mil. Kč na implementaci AI v kraji</text>
+      <text class="s" x="266" y="320">vlastní prostředky na implementaci AI</text>
     </g>
     <g class="node n-d1" data-id="kic" role="button" tabindex="0" aria-label="Krajské inovační centrum">
       <rect class="box" x="542" y="258" width="280" height="72" rx="3"/>
@@ -556,7 +578,7 @@ footer{margin-top:34px;font-size:12px;color:var(--ink-3);border-top:1px solid va
       <rect class="box" x="644" y="866" width="126" height="72" rx="3"/>
       <text class="s" x="658" y="894" font-weight="600">Partnerství</text>
       <text class="s" x="658" y="908" font-weight="600">2030+ · UK</text>
-      <text class="s" x="658" y="926">advokacie, diseminace</text>
+      <text class="s" x="658" y="926">advokacie a šíření</text>
     </g>
     <g class="node n-d3" data-id="tiny" role="button" tabindex="0" aria-label="Tiny">
       <rect class="box" x="776" y="866" width="126" height="72" rx="3"/>
@@ -678,8 +700,8 @@ const DETAILS = {
     depth:"d1", depthLabel:"Hloubka 1 — spoluvlastnictví",
     status:"Dohodnuto",
     dl:[
-      ["Co přináší",["cca 50 mil. Kč vlastních prostředků na implementaci AI ve vzdělávání","politickou podporu vedení kraje a ambici oslovit školy ve všech ORP","strategické plánovací dokumenty pro celé území — DZ kraje, KAP, RIS3","odbor školství a přístup ke zřizovatelům"]],
-      ["Forma zapojení","Smlouva o spolupráci, společná řídicí skupina, spoluautorství krajské implementační strategie, spolurozhodování o výběru mentorů a škol, spolufinancování a závazek převzít místní kapacitu po skončení grantu."],
+      ["Co přináší",["vlastní prostředky na implementaci AI ve vzdělávání","politickou podporu vedení kraje a ambici oslovit školy ve všech ORP","strategické plánovací dokumenty pro celé území — jako jediný aktér","odbor školství a přístup ke zřizovatelům"]],
+      ["Forma zapojení","Smlouva o spolupráci, společná řídicí skupina, spoluautorství krajské implementační strategie a její ukotvení v dlouhodobém záměru kraje, spolurozhodování o výběru krajských mentorů a škol první vlny, koordinace zřizovatelů, spolufinancování a závazek převzít místní kapacitu (krajští mentoři, koordinace dalších vln) po skončení grantu."],
       ["Pozor","Kraj základní školy přímo neřídí — zřizovateli jsou obce. Kraj je nositelem systémovosti a financí, ne velitelem škol; nábor musí jít přes územní vrstvu."]
     ]
   },
@@ -688,7 +710,7 @@ const DETAILS = {
     depth:"d1", depthLabel:"Hloubka 1 — spoluinvestice",
     status:"Rozjednáno",
     dl:[
-      ["Dvojí role","Finanční — vlastní dotační nástroje mohou krýt část krajské vrstvy programu, s návazností na RIS3 a Smart akcelerátor. Operační — vlastní síť spolupracujících škol, komunikační kanál k ředitelům, zázemí pro krajskou komunitu a krajský event."],
+      ["Dvojí role","Finanční — vlastní dotační nástroje mohou krýt část krajské vrstvy programu. Operační — vlastní síť spolupracujících škol, komunikační kanál k ředitelům, zázemí pro krajskou komunitu a krajský event."],
       ["Forma zapojení","Zástupce v řídicí skupině projektu, dohoda o spolufinancování konkrétních aktivit."]
     ]
   },
@@ -698,7 +720,8 @@ const DETAILS = {
     status:"Záměr",
     dl:[
       ["Role","Přirozený prostředník k podpůrné a sociální vrstvě — poradnám, OSPOD, službám sociální prevence a ústavní péči v kraji."],
-      ["Proč to dává smysl","Kraj je jejich zřizovatelem nebo koordinátorem. Jednou smlouvou s krajem se otevírá i tato linie, aniž by bylo nutné oslovovat každé pracoviště zvlášť."]
+      ["Proč to dává smysl","Kraj je jejich zřizovatelem nebo koordinátorem. Jednou smlouvou s krajem se otevírá i tato linie, aniž by bylo nutné oslovovat každé pracoviště zvlášť. Druhým přirozeným prostředníkem jsou MAS zaměřené na práci s rodinami."],
+      ["Forma zapojení v projektu","Mapování potřeb, otevřené materiály a vzdělávací cesty zdarma, jedno až dvě pilotní školení a vyhodnocení, zda má vzniknout samostatná linie podpory. Bez vazby na klíčové indikátory projektu."]
     ]
   },
   map: {
@@ -728,17 +751,17 @@ const DETAILS = {
     status:"Po výběru ORP",
     dl:[
       ["Proč jsou spoluhráči","Jmenují ředitele, rozhodují o kapacitě vedení a lídra změny a od 1. 1. 2026 financují nepedagogickou práci ze svého rozpočtu. Automatizace administrativy je tak jejich přímý ekonomický zájem, ne jen pedagogické téma."],
-      ["Forma zapojení",["účast na výběru škol","workshop pro zřizovatele a individuální konzultace","doložený závazek uvolnit kapacitu lídra změny","zapojení do plánu udržitelnosti"]],
+      ["Forma zapojení",["účast na výběru škol","workshop pro zřizovatele a individuální konzultace","doložený závazek uvolnit kapacitu lídra změny","zapojení do plánu udržitelnosti","proškolení zřizovatelů — samostatný vzdělávací modul"]],
       ["Systémová slabina","Tisíce malých obcí nemají odbornou kapacitu školu vést. To je mezera, kterou zaplňuje střední článek, MAP a Eduzměna — a částečně i AI akcelerátor."]
     ]
   },
   msmt: {
     title:"MŠMT",
     depth:"d3", depthLabel:"Hloubka 3 — koordinace a diseminace",
-    status:"Dlouhodobá spolupráce · spoluautorství draftu Strategie AI ve vzdělávání",
+    status:"Dlouhodobá spolupráce · podíl na přípravě Strategie AI ve vzdělávání",
     dl:[
       ["Vazby na opatření strategie",["1.1 a 1.2 katalog ověřených nástrojů — inventura reálně používaných nástrojů ve 20 školách jako terénní data","2.3.1 a 2.3.2 promítnutí pravidel do školní dokumentace — editovatelné vzory ověřené v praxi","2.1.1 a 2.2.x výklad legislativy, GDPR, lidský dohled — zpětná vazba, kde je výklad neproveditelný","3.1.1 a 3.1.3 rámec profesního rozvoje a podpora vedení škol — pilot rolově diferencovaného modelu","3.1.2 centrální metodický rozcestník — náš rozcestník jako obsahový dodavatel, ne konkurent","3.3 síť krajských AI metodiků — kompetenční profil, standard kvality, certifikační proces","3.4 monitorování implementace — evaluační data a případové studie","4.1.1 a 4.1.2 proměna hodnocení — jedna ze šesti oblastí změny akcelerátoru","5.1 osvětová kampaň — nemá být hrazena ze sekce II, otevírá prostor pro neziskového realizátora"]],
-      ["Hloubka","Konzultační a systémová, bez finančního toku. Účast v pracovní skupině, dodávání dat a nabídka metodiky k převzetí v okně evaluace Strategie 2030+ (konec 2026 – 2027)."]
+      ["Hloubka","Konzultační a systémová, bez finančního toku. Účast v pracovní skupině, dodávání dat a ověřených výstupů a nabídka metodiky k převzetí v okně evaluace Strategie 2030+ (konec 2026 – 2027)."]
     ]
   },
   npi: {
@@ -746,8 +769,8 @@ const DETAILS = {
     depth:"d3", depthLabel:"Hloubka 3 — metodický soulad",
     status:"Memorandum podepsáno · jednání s útvarem digitálního vzdělávání",
     dl:[
-      ["O čem jednáme",["sdílení implementačního know-how z velkých plošných projektů (DIGI, AIDIG)","spolupráce při tvorbě školicích modulů pro pedagogy","soulad metodiky s národními doporučeními k AI a s rámcem DigCompEdu","napojení na krajské ICT metodiky a IT guru jako spojence v území"]],
-      ["Vymezení","Spolupráce se soustředí na pedagogickou rovinu. Podporu vedení a řízení škol pokrývá v systému Střední článek podpory. Dělba působností mezi AI dětem, NPI ČR a Středním článkem bude písemně vymezena v úvodní fázi, aby nevzniklo dvojí financování téže agendy z veřejných zdrojů."],
+      ["O čem jednáme",["sdílení implementačního know-how z velkých plošných projektů (DIGI, AIDIG)","spolupráce při tvorbě školicích modulů pro pedagogy","soulad metodiky s národními doporučeními k AI a s rámcem DigCompEdu","případné napojení na krajské pracoviště NPI"]],
+      ["Vymezení","Spolupráce se záměrně soustředí na pedagogickou rovinu. Podporu vedení a řízení škol pokrývá v systému Střední článek podpory — vztah je komplementární, ne konkurenční."],
       ["K ověření","Draft Strategie AI ve vzdělávání přiřazuje NPI opatření 3.1.3 „Podporovat vzdělávání vedení škol, školních týmů a profesních komunit“ — formálně tedy NPI kompetenci k vedení škol má. Toto je potřeba vyjasnit dřív, než se na vymezení v žádosti odvoláme."]
     ]
   },
@@ -764,9 +787,10 @@ const DETAILS = {
   csi: {
     title:"Česká školní inspekce",
     depth:"d3", depthLabel:"Hloubka 3 — konzultační",
-    status:"Zatím neosloveno — návrh forem spolupráce",
+    status:"Kontaktováno — formy spolupráce k projednání",
     dl:[
       ["Čtyři možné formy",["zarovnání kritérií procesu AI odpovědná škola s rámcem Kvalitní škola, aby výstupy nevytvářely paralelní požadavky","explicitní vymezení, že označení není certifikátem právního souladu ani inspekčním nálezem — konzultace s ČŠI je nejlepší prevence tohoto rizika","využití tematických zpráv ČŠI k digitalizaci pro cílení podpory a jako externí referenční data pro evaluaci","nabídka anonymizovaných zjištění z první vlny jako podkladu pro připravovaná tematická šetření k AI"]],
+      ["Stav","ČŠI jsme kontaktovali; čtyři formy spolupráce chceme projednat v úvodní fázi projektu."],
       ["Hloubka","Konzultační, bez závazku a bez finančního toku. ČŠI není řídícím orgánem, ale její kritéria fakticky normují, co se ve školách považuje za dobrou praxi."]
     ]
   },
