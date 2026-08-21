@@ -43,7 +43,9 @@ Podklady a interaktivní diagram k **aktérům AI akcelerátoru na krajské úro
 | `ZADANI.md` | Zadání navazujících úkolů |
 | `CLAUDE.md` | Trvalý kontext projektu |
 
-Diagram se publikuje jako Artifact — proto soubor záměrně **nemá** obalové tagy `<!DOCTYPE>`, `<html>`, `<head>` ani `<body>`; doplňuje si je publikační nástroj sám. Deklaraci `<meta charset="utf-8">` na prvním řádku ale má, aby diakritika držela i tehdy, když ho GitHub Pages naservíruje bez `charset` v hlavičce. Jeho vzhled vychází ze stejných tokenů jako aplikace v repozitáři `aidetemcz/podpurna-opatreni`.
+Diagram je samostatný HTML dokument bez build kroku a bez závislostí kromě Google Fonts; logo je vložené jako data URI, takže soubor funguje i offline. Vzhled kopíruje aplikaci z větve `claude/prevod-katalogu-4c5gcn` v repozitáři `aidetemcz/podpurna-opatreni` — stejné CSS proměnné, rádiusy, fonty i rozvržení s levým panelem. Pouze světlý motiv.
+
+Ovládání: levý panel přepíná mezi dvěma pohledy a zobrazuje detail uzlu, na který se klikne. Plátno se přizpůsobí šířce okna, kolečkem se přibližuje, tažením posouvá. Jeho vzhled vychází ze stejných tokenů jako aplikace v repozitáři `aidetemcz/podpurna-opatreni`.
 
 ## Vizuální styl
 
