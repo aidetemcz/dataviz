@@ -92,6 +92,30 @@ h1,h2,h3,.brand-title,.nav-name,.topbar-title{font-family:var(--font-heading);le
 .nav-item.active .nav-name{color:var(--accent)}
 .nav-desc{font-size:0.78rem;color:var(--muted)}
 
+/* Přepínač pohledů — vlastní blok, aby šel najít na první pohled.
+   Čísla jdou z CSS counteru, takže další pohled stačí přidat do markupu. */
+.views{
+  border:1px solid var(--sky);border-radius:var(--radius-lg);
+  background:var(--sky-light);padding:10px;margin:0 2px 6px;
+}
+.views .nav-label{padding:2px 6px 8px;color:var(--sky-deep);font-weight:700}
+.views .nav{counter-reset:view;gap:8px}
+.views .nav-item{
+  background:#fff;border-color:var(--line);
+  flex-direction:row;align-items:flex-start;gap:10px;counter-increment:view;
+}
+.views .nav-item:hover{background:#fff;border-color:var(--accent)}
+.views .nav-item.active{background:var(--accent-soft);border-color:var(--accent)}
+.nav-num{
+  flex:none;width:22px;height:22px;border-radius:var(--pill);
+  background:var(--sky-deep);color:#fff;
+  font-family:var(--font-heading);font-size:0.75rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;margin-top:1px;
+}
+.nav-num::before{content:counter(view)}
+.views .nav-item.active .nav-num{background:var(--accent)}
+.nav-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+
 /* ---------- Detail vybraného uzlu ---------- */
 .detail{
   background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);
@@ -261,17 +285,25 @@ h1,h2,h3,.brand-title,.nav-name,.topbar-title{font-family:var(--font-heading);le
   </div>
 
   <div class="sidebar-scroll">
-    <div class="nav-label">Pohledy</div>
-    <nav class="nav">
-      <button class="nav-item active" data-view="A" aria-pressed="true">
-        <span class="nav-name">Kaskáda dopadu</span>
-        <span class="nav-desc">Od šesti lidí v AI dětem k žákům ve třídách</span>
-      </button>
-      <button class="nav-item" data-view="B" aria-pressed="false">
-        <span class="nav-name">Mapa aktérů</span>
-        <span class="nav-desc">Čtyři vrstvy české vzdělávací soustavy</span>
-      </button>
-    </nav>
+    <div class="views">
+      <div class="nav-label">Pohledy — přepněte diagram</div>
+      <nav class="nav">
+        <button class="nav-item active" data-view="A" aria-pressed="true">
+          <span class="nav-num" aria-hidden="true"></span>
+          <span class="nav-text">
+            <span class="nav-name">Kaskáda dopadu</span>
+            <span class="nav-desc">Od šesti lidí v AI dětem k žákům ve třídách</span>
+          </span>
+        </button>
+        <button class="nav-item" data-view="B" aria-pressed="false">
+          <span class="nav-num" aria-hidden="true"></span>
+          <span class="nav-text">
+            <span class="nav-name">Mapa aktérů</span>
+            <span class="nav-desc">Čtyři vrstvy české vzdělávací soustavy</span>
+          </span>
+        </button>
+      </nav>
+    </div>
 
     <div class="nav-label">Detail</div>
     <div class="detail" id="panelBody" aria-live="polite"></div>
@@ -305,6 +337,7 @@ h1,h2,h3,.brand-title,.nav-name,.topbar-title{font-family:var(--font-heading);le
       <span class="level" id="zoomLevel">100 %</span>
       <button id="zoomIn" aria-label="Přiblížit">+</button>
       <button id="zoomFit" class="wide" aria-label="Přizpůsobit šířce">Na šířku</button>
+      <button id="zoomAll" class="wide" aria-label="Zobrazit celý diagram">Celý</button>
     </div>
   </header>
 
@@ -604,40 +637,40 @@ h1,h2,h3,.brand-title,.nav-name,.topbar-title{font-family:var(--font-heading);le
 
     <!-- band 6 -->
     <g class="node n-d3" data-id="pravnici" role="button" tabindex="0" aria-label="Právní experti a pověřenci pro ochranu osobních údajů">
-      <rect class="box" x="248" y="866" width="126" height="72" rx="3"/>
-      <text class="s" x="262" y="894" font-weight="600">Právní experti</text>
-      <text class="s" x="262" y="908" font-weight="600">a DPO</text>
-      <text class="s" x="262" y="926">garance výstupů</text>
+      <rect class="box" x="380" y="866" width="126" height="72" rx="3"/>
+      <text class="s" x="394" y="894" font-weight="600">Právní experti</text>
+      <text class="s" x="394" y="908" font-weight="600">a DPO</text>
+      <text class="s" x="394" y="926">garance výstupů</text>
     </g>
     <g class="node n-d3" data-id="fakulta" role="button" tabindex="0" aria-label="Pedagogická fakulta nebo výzkumný partner">
-      <rect class="box" x="380" y="866" width="126" height="72" rx="3"/>
-      <text class="s" x="394" y="894" font-weight="600">Pedagogická</text>
-      <text class="s" x="394" y="908" font-weight="600">fakulta</text>
-      <text class="s" x="394" y="926">nezávislá evaluace</text>
+      <rect class="box" x="512" y="866" width="126" height="72" rx="3"/>
+      <text class="s" x="526" y="894" font-weight="600">Pedagogická</text>
+      <text class="s" x="526" y="908" font-weight="600">fakulta</text>
+      <text class="s" x="526" y="926">nezávislá evaluace</text>
     </g>
     <g class="node n-d3" data-id="eduzmena" role="button" tabindex="0" aria-label="Eduzměna a Centra podpory vzdělávání">
-      <rect class="box" x="512" y="866" width="126" height="72" rx="3"/>
-      <text class="s" x="526" y="894" font-weight="600">Eduzměna</text>
-      <text class="s" x="526" y="908" font-weight="600">a CPV</text>
-      <text class="s" x="526" y="926">benchmark, území</text>
+      <rect class="box" x="644" y="866" width="126" height="72" rx="3"/>
+      <text class="s" x="658" y="894" font-weight="600">Eduzměna</text>
+      <text class="s" x="658" y="908" font-weight="600">a CPV</text>
+      <text class="s" x="658" y="926">benchmark, území</text>
     </g>
     <g class="node n-d3" data-id="partnerstvi" role="button" tabindex="0" aria-label="Partnerství pro vzdělávání 2030+ a Univerzita Karlova">
-      <rect class="box" x="644" y="866" width="126" height="72" rx="3"/>
-      <text class="s" x="658" y="894" font-weight="600">Partnerství</text>
-      <text class="s" x="658" y="908" font-weight="600">2030+ · UK</text>
-      <text class="s" x="658" y="926">advokacie a šíření</text>
+      <rect class="box" x="776" y="866" width="126" height="72" rx="3"/>
+      <text class="s" x="790" y="894" font-weight="600">Partnerství</text>
+      <text class="s" x="790" y="908" font-weight="600">2030+ · UK</text>
+      <text class="s" x="790" y="926">advokacie a šíření</text>
     </g>
     <g class="node n-d3" data-id="tiny" role="button" tabindex="0" aria-label="Tiny">
-      <rect class="box" x="776" y="866" width="126" height="72" rx="3"/>
-      <text class="s" x="790" y="894" font-weight="600">Tiny</text>
-      <text class="s" x="790" y="912">přímá práce</text>
-      <text class="s" x="790" y="926">se žáky</text>
+      <rect class="box" x="908" y="866" width="126" height="72" rx="3"/>
+      <text class="s" x="922" y="894" font-weight="600">Tiny</text>
+      <text class="s" x="922" y="912">přímá práce</text>
+      <text class="s" x="922" y="926">se žáky</text>
     </g>
     <g class="node n-d1" data-id="ncs" role="button" tabindex="0" aria-label="Nadace České spořitelny">
-      <rect class="box" x="908" y="866" width="126" height="72" rx="3"/>
-      <text class="s" x="922" y="894" font-weight="600">Nadace České</text>
-      <text class="s" x="922" y="908" font-weight="600">spořitelny</text>
-      <text class="s" x="922" y="926">strategický partner</text>
+      <rect class="box" x="248" y="866" width="126" height="72" rx="3"/>
+      <text class="s" x="262" y="894" font-weight="600">Nadace České</text>
+      <text class="s" x="262" y="908" font-weight="600">spořitelny</text>
+      <text class="s" x="262" y="926">strategický partner</text>
     </g>
   </svg>
     </div>
@@ -999,6 +1032,18 @@ function fit(){
   ty = Math.max(pad, (r.height - h*k) / 2);
   apply();
 }
+/* Mapa aktérů je vyšší než široká, takže při přizpůsobení šířce spodní
+   vrstvy vypadnou pod okraj. fitAll() vejde celý diagram do plátna. */
+function fitAll(){
+  const {w, h} = svgSize(activeSvg());
+  const r = stage.getBoundingClientRect();
+  if(!r.width || !r.height) return;
+  const pad = 24;
+  k = Math.max(MIN_K, Math.min(MAX_K, Math.min((r.width - pad*2)/w, (r.height - pad*2)/h)));
+  tx = (r.width  - w*k) / 2;
+  ty = (r.height - h*k) / 2;
+  apply();
+}
 function zoomAt(cx, cy, factor){
   const k2 = Math.max(MIN_K, Math.min(MAX_K, k * factor));
   if(k2 === k) return;
@@ -1035,7 +1080,6 @@ stage.addEventListener('pointerdown', e=>{
   if(e.button !== 0) return;
   dragging = true; moved = false;
   sx = e.clientX; sy = e.clientY; stx = tx; sty = ty;
-  stage.setPointerCapture(e.pointerId);
   stage.classList.add('grabbing');
 });
 
@@ -1053,7 +1097,14 @@ stage.addEventListener('pointermove', e=>{
   }
   if(!dragging) return;
   const dx = e.clientX - sx, dy = e.clientY - sy;
-  if(!moved && Math.hypot(dx, dy) > 4) moved = true;
+  if(!moved && Math.hypot(dx, dy) > 4){
+    moved = true;
+    /* Ukazatel zachytáváme až tady. Kdyby se zachytil hned na pointerdown,
+       míří na plátno i následný pointerup — a click se pak doručí nejbližšímu
+       společnému předkovi, tedy plátnu, ne uzlu. Klikání na uzly by přestalo
+       fungovat. Při čistém kliknutí se sem nikdy nedostaneme. */
+    try { stage.setPointerCapture(e.pointerId); } catch (err) { /* ukazatel už není aktivní */ }
+  }
   if(moved){ tx = stx + dx; ty = sty + dy; apply(); }
 });
 
@@ -1071,6 +1122,7 @@ stage.addEventListener('pointercancel', endPointer);
 document.getElementById('zoomIn').addEventListener('click', ()=>zoomCentre(1.25));
 document.getElementById('zoomOut').addEventListener('click', ()=>zoomCentre(1/1.25));
 document.getElementById('zoomFit').addEventListener('click', fit);
+document.getElementById('zoomAll').addEventListener('click', fitAll);
 
 /* ---------- přepínání pohledů ---------- */
 function setView(v){
