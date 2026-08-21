@@ -1,0 +1,967 @@
+<title>Kaskáda AI akcelerátoru</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap">
+
+<style>
+:root{
+  --paper:#EDF2F2;
+  --surface:#FFFFFF;
+  --surface-2:#F5F9F9;
+  --ink:#0F262C;
+  --ink-2:#456068;
+  --ink-3:#7A939A;
+  --line:#C3D4D7;
+  --line-soft:#DCE7E8;
+  --accent:#A2470F;
+  --accent-2:#C2703A;
+  --accent-soft:#F4E4D9;
+  --d1-bg:#1B3A43; --d1-fg:#E9F2F3;
+  --d2-bg:#426872; --d2-fg:#F4FAFA;
+  --d3-bg:#D5E3E5; --d3-fg:#123038;
+  --d4-bg:#EAF1F1; --d4-fg:#3D5A62; --d4-line:#9BB5BA;
+  --focus:#0F6E86;
+  --shadow:0 1px 2px rgba(15,38,44,.06), 0 8px 24px -12px rgba(15,38,44,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0A181C;
+    --surface:#10252A;
+    --surface-2:#143036;
+    --ink:#E3EFF0;
+    --ink-2:#9CB5BA;
+    --ink-3:#6E8990;
+    --line:#254750;
+    --line-soft:#1B3941;
+    --accent:#E39057;
+    --accent-2:#C2703A;
+    --accent-soft:#33200F;
+    --d1-bg:#AFCBD0; --d1-fg:#08181C;
+    --d2-bg:#6E959D; --d2-fg:#06171B;
+    --d3-bg:#1C3C45; --d3-fg:#CBDFE2;
+    --d4-bg:#122A30; --d4-fg:#93AEB4; --d4-line:#33555D;
+    --focus:#6EC6DE;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0A181C;
+  --surface:#10252A;
+  --surface-2:#143036;
+  --ink:#E3EFF0;
+  --ink-2:#9CB5BA;
+  --ink-3:#6E8990;
+  --line:#254750;
+  --line-soft:#1B3941;
+  --accent:#E39057;
+  --accent-2:#C2703A;
+  --accent-soft:#33200F;
+  --d1-bg:#AFCBD0; --d1-fg:#08181C;
+  --d2-bg:#6E959D; --d2-fg:#06171B;
+  --d3-bg:#1C3C45; --d3-fg:#CBDFE2;
+  --d4-bg:#122A30; --d4-fg:#93AEB4; --d4-line:#33555D;
+  --focus:#6EC6DE;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  font-size:15px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1240px;margin:0 auto;padding:32px 24px 72px}
+
+/* ---------- header ---------- */
+header.top{
+  display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;
+  gap:24px;padding-bottom:20px;border-bottom:1px solid var(--line);
+}
+.eyebrow{
+  font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;margin:0 0 8px;
+}
+h1{
+  font-family:Newsreader,Georgia,"Times New Roman",serif;
+  font-weight:600;font-size:clamp(30px,4.4vw,46px);line-height:1.05;
+  margin:0;letter-spacing:-.01em;text-wrap:balance;
+}
+.dek{margin:10px 0 0;max-width:62ch;color:var(--ink-2);font-size:15px}
+
+/* ---------- view switch ---------- */
+.switch{
+  display:inline-flex;background:var(--surface);border:1px solid var(--line);
+  border-radius:2px;padding:3px;gap:3px;box-shadow:var(--shadow);
+}
+.switch button{
+  font:inherit;font-size:13px;font-weight:500;
+  padding:8px 16px;border:0;border-radius:1px;background:transparent;color:var(--ink-2);
+  cursor:pointer;white-space:nowrap;transition:background .15s,color .15s;
+}
+.switch button:hover{color:var(--ink)}
+.switch button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+/* ---------- layout ---------- */
+.stage{
+  display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:28px;
+  margin-top:28px;align-items:start;
+}
+@media (max-width:1040px){ .stage{grid-template-columns:minmax(0,1fr)} }
+
+figure.canvas{
+  margin:0;background:var(--surface);border:1px solid var(--line);
+  border-radius:3px;box-shadow:var(--shadow);overflow:hidden;
+}
+.scroller{overflow-x:auto;padding:8px}
+.scroller svg{display:block;width:100%;min-width:820px;height:auto}
+figcaption{
+  padding:14px 20px;border-top:1px solid var(--line-soft);
+  font-size:12.5px;color:var(--ink-2);background:var(--surface-2);
+}
+.hidden{display:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- svg node styling ---------- */
+.node{cursor:pointer}
+.node rect.box{stroke-width:1.25;transition:opacity .2s}
+.node text{pointer-events:none}
+.node .t{font-size:13.5px;font-weight:600}
+.node .s{font-size:11px;font-weight:400}
+.node .num{font-family:Newsreader,Georgia,serif;font-size:27px;font-weight:600;font-variant-numeric:tabular-nums}
+.node:hover rect.box{stroke:var(--accent);stroke-width:2}
+.node:focus-visible rect.box{stroke:var(--focus);stroke-width:2.5}
+.node.sel rect.box{stroke:var(--accent);stroke-width:2.5}
+
+.n-d1 rect.box{fill:var(--d1-bg);stroke:var(--d1-bg)}
+.n-d1 text{fill:var(--d1-fg)}
+.n-d2 rect.box{fill:var(--d2-bg);stroke:var(--d2-bg)}
+.n-d2 text{fill:var(--d2-fg)}
+.n-d3 rect.box{fill:var(--d3-bg);stroke:var(--d3-bg)}
+.n-d3 text{fill:var(--d3-fg)}
+.n-d4 rect.box{fill:var(--d4-bg);stroke:var(--d4-line);stroke-dasharray:5 4}
+.n-d4 text{fill:var(--d4-fg)}
+.n-us rect.box{fill:var(--accent);stroke:var(--accent)}
+.n-us text{fill:#FFF8F2}
+:root[data-theme="dark"] .n-us text{fill:#1A0D04}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .n-us text{fill:#1A0D04}}
+.n-school rect.box{fill:var(--surface);stroke:var(--accent);stroke-width:1.75}
+.n-school text{fill:var(--ink)}
+.n-school .num{fill:var(--accent)}
+
+.band rect{fill:var(--surface-2);stroke:var(--line-soft)}
+.band.explor rect{fill:transparent;stroke:var(--d4-line);stroke-dasharray:6 5}
+.bandlabel{font-size:10px;font-weight:600;letter-spacing:.12em;fill:var(--ink-3)}
+
+.edge{fill:none;stroke:var(--ink-3);stroke-width:1.4}
+.edge.dash{stroke-dasharray:6 5;stroke:var(--ink-3);opacity:.85}
+.edgelabel{font-size:11px;fill:var(--ink-2)}
+.edgelabel.small{font-size:10px}
+
+.diagram.filtering .node:not(.match){opacity:.22}
+.diagram.filtering .edge,.diagram.filtering .edgelabel{opacity:.3}
+
+/* ---------- side panel ---------- */
+aside.panel{
+  position:sticky;top:24px;background:var(--surface);border:1px solid var(--line);
+  border-radius:3px;box-shadow:var(--shadow);padding:22px;
+}
+@media (max-width:1040px){ aside.panel{position:static} }
+.panel h2{
+  font-family:Newsreader,Georgia,serif;font-weight:600;font-size:22px;
+  line-height:1.15;margin:0 0 10px;text-wrap:balance;
+}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.chip{
+  font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  padding:4px 9px;border-radius:2px;border:1px solid var(--line);color:var(--ink-2);
+  background:var(--surface-2);
+}
+.chip.on{background:var(--accent-soft);border-color:var(--accent-2);color:var(--accent)}
+.panel dl{margin:0}
+.panel dt{
+  font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;margin-top:16px;
+}
+.panel dd{margin:5px 0 0;font-size:13.5px;color:var(--ink);line-height:1.5}
+.panel dd ul{margin:4px 0 0;padding-left:18px}
+.panel dd li{margin:3px 0}
+.panel .empty{color:var(--ink-2);font-size:13.5px}
+.panel .empty strong{color:var(--ink)}
+
+/* ---------- legend ---------- */
+.legend{margin-top:28px;border-top:1px solid var(--line);padding-top:20px}
+.legend h3{
+  font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;margin:0 0 12px;
+}
+.keys{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none}
+.keys button{
+  font:inherit;font-size:12.5px;display:flex;align-items:center;gap:8px;
+  padding:7px 12px 7px 9px;border:1px solid var(--line);background:var(--surface);
+  color:var(--ink-2);border-radius:2px;cursor:pointer;text-align:left;
+}
+.keys button:hover{color:var(--ink);border-color:var(--ink-3)}
+.keys button[aria-pressed="true"]{border-color:var(--accent);color:var(--ink);background:var(--accent-soft)}
+.sw{width:15px;height:15px;border-radius:2px;flex:none;border:1px solid transparent}
+.sw.d1{background:var(--d1-bg)}
+.sw.d2{background:var(--d2-bg)}
+.sw.d3{background:var(--d3-bg)}
+.sw.d4{background:var(--d4-bg);border-color:var(--d4-line);border-style:dashed}
+.sw.us{background:var(--accent)}
+.sw.school{background:var(--surface);border-color:var(--accent);border-width:2px}
+.legend p.note{font-size:12.5px;color:var(--ink-2);margin:14px 0 0;max-width:80ch}
+footer{margin-top:34px;font-size:12px;color:var(--ink-3);border-top:1px solid var(--line-soft);padding-top:16px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <p class="eyebrow">Krajský AI akcelerátor · Karlovarský kraj · 2026–2028</p>
+    <h1>Kaskáda AI akcelerátoru</h1>
+    <p class="dek">Jak se know-how dostává od AI dětem až k dětem ve třídách — a kdo v české vzdělávací soustavě je pro to potřeba. Klikněte na kterýkoli uzel.</p>
+  </div>
+  <div class="switch" role="group" aria-label="Přepínač pohledu">
+    <button id="btnA" aria-pressed="true">Kaskáda dopadu</button>
+    <button id="btnB" aria-pressed="false">Mapa aktérů</button>
+  </div>
+</header>
+
+<div class="stage">
+
+<figure class="canvas">
+  <div class="scroller">
+
+  <!-- ============ VIEW A : KASKÁDA ============ -->
+  <svg id="viewA" class="diagram" viewBox="0 0 1080 800" role="group" aria-label="Kaskáda dopadu: AI dětem školí 12 krajských mentorů, ti mentorují 20 škol, školy zapojují pedagogické sbory a ty pracují se žáky; paralelně běží celostátní distribuční vrstva.">
+
+    <defs>
+      <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,1 L9,5 L0,9 z" fill="currentColor"/>
+      </marker>
+    </defs>
+
+    <g color="var(--ink-3)">
+      <!-- split -->
+      <path class="edge" d="M430,132 C430,168 360,162 360,194" marker-end="url(#ar)"/>
+      <path class="edge" d="M650,132 C650,168 830,162 830,194" marker-end="url(#ar)"/>
+      <!-- left spine -->
+      <path class="edge" d="M360,284 V350" marker-end="url(#ar)"/>
+      <path class="edge" d="M360,440 V506" marker-end="url(#ar)"/>
+      <path class="edge" d="M360,596 C360,632 450,628 450,658" marker-end="url(#ar)"/>
+      <!-- right spine -->
+      <path class="edge" d="M830,300 V506" marker-end="url(#ar)"/>
+      <path class="edge" d="M830,596 C830,632 630,628 630,658" marker-end="url(#ar)"/>
+      <!-- feedback -->
+      <path class="edge dash" d="M170,554 H70 V86 H284" marker-end="url(#ar)"/>
+    </g>
+
+    <text class="edgelabel" transform="rotate(-90 50 330)" x="50" y="330" text-anchor="middle">zpětná vazba do metodiky · data z praxe, evaluace, ověřování nástrojů</text>
+
+    <g class="edgelabel" text-anchor="end">
+      <text x="344" y="152">Akademie krajských mentorů</text>
+      <text x="344" y="166">kontinuální školení, supervize, intervize</text>
+      <text x="344" y="180">výběr mentorů společně s krajem</text>
+    </g>
+    <g class="edgelabel" text-anchor="start">
+      <text x="376" y="306">mentoring — 2–3 školy na mentora</text>
+      <text x="376" y="320">šest oblastí změny</text>
+      <text x="376" y="334">nábor škol přes MAP, MAS a zřizovatele</text>
+    </g>
+    <g class="edgelabel" text-anchor="start">
+      <text x="376" y="464">vedení změny uvnitř školy</text>
+      <text x="376" y="478">pravidla, workshopy, pilotní aktivity</text>
+    </g>
+    <g class="edgelabel" text-anchor="end">
+      <text x="338" y="622">výuka, AI kurikulum, hodnocení</text>
+      <text x="338" y="636">aplikace Tiny</text>
+    </g>
+    <g class="edgelabel" text-anchor="end">
+      <text x="1030" y="150">standardizace ověřeného know-how</text>
+      <text x="1030" y="164">právní a metodická garance</text>
+    </g>
+    <g class="edgelabel" text-anchor="start">
+      <text x="846" y="382">webináře, otevřené poradny,</text>
+      <text x="846" y="396">rozcestník a vzorové dokumenty</text>
+      <text x="846" y="410">kanály NPI, Středního článku, MAP</text>
+    </g>
+    <g class="edgelabel" text-anchor="start">
+      <text x="848" y="622">samostatná implementace</text>
+      <text x="848" y="636">bez přímého mentoringu</text>
+    </g>
+
+    <!-- T1 -->
+    <g class="node n-us" data-id="aidetem" role="button" tabindex="0" aria-label="AI dětem, z.s. — architekt a garant systému">
+      <rect class="box" x="290" y="40" width="500" height="92" rx="3"/>
+      <text class="num" x="316" y="88">6</text>
+      <text class="t" x="360" y="72">AI dětem, z.s.</text>
+      <text class="s" x="360" y="90">mentorů a odborných garantů</text>
+      <text class="s" x="360" y="106">metodika, Akademie mentorů, supervize, standard kvality</text>
+    </g>
+
+    <!-- L1 -->
+    <g class="node n-d1" data-id="mentori" role="button" tabindex="0" aria-label="12 krajských AI mentorů">
+      <rect class="box" x="170" y="200" width="380" height="84" rx="3"/>
+      <text class="num" x="196" y="250">12</text>
+      <text class="t" x="252" y="234">Krajští AI mentoři</text>
+      <text class="s" x="252" y="252">min. 10 absolventů, min. 8 aktivních</text>
+      <text class="s" x="252" y="268">pedagogové, ředitelé a regionální odborníci z kraje</text>
+    </g>
+
+    <!-- L2 -->
+    <g class="node n-school" data-id="skoly" role="button" tabindex="0" aria-label="20 škol první vlny, vedení školy a lídr změny">
+      <rect class="box" x="170" y="356" width="380" height="84" rx="3"/>
+      <text class="num" x="196" y="406">20</text>
+      <text class="t" x="252" y="390">Školy první vlny</text>
+      <text class="s" x="252" y="408">vedení školy + lídr změny (1–2 lidé)</text>
+      <text class="s" x="252" y="424">diagnostika, plán změny, pravidla pro AI</text>
+    </g>
+
+    <!-- L3 -->
+    <g class="node n-school" data-id="sbor" role="button" tabindex="0" aria-label="Pedagogické sbory, přibližně 1000 pracovníků škol první vlny">
+      <rect class="box" x="170" y="512" width="380" height="84" rx="3"/>
+      <text class="num" x="188" y="562">1 000</text>
+      <text class="t" x="286" y="546">Pedagogické sbory</text>
+      <text class="s" x="286" y="564">pracovníků škol první vlny</text>
+      <text class="s" x="286" y="580">rolově cílené vzdělávání a doložená AI gramotnost</text>
+    </g>
+
+    <!-- R1 -->
+    <g class="node n-d2" data-id="celostat" role="button" tabindex="0" aria-label="Celostátní infrastruktura: implementační balíček, vzdělávací cesty, rozcestník, nástroje">
+      <rect class="box" x="630" y="200" width="400" height="100" rx="3"/>
+      <text class="t" x="654" y="230">Celostátní infrastruktura</text>
+      <text class="s" x="654" y="250">implementační balíček k čl. 4 AI Actu</text>
+      <text class="s" x="654" y="266">4 rolově diferencované vzdělávací cesty</text>
+      <text class="s" x="654" y="282">rozcestník, AI asistenti, workflow, prompty</text>
+    </g>
+
+    <!-- R2 -->
+    <g class="node n-d2" data-id="ceskolky" role="button" tabindex="0" aria-label="Školy a pedagogové v celé ČR mimo první vlnu">
+      <rect class="box" x="630" y="512" width="400" height="84" rx="3"/>
+      <text class="num" x="650" y="562">16 000</text>
+      <text class="t" x="756" y="546">Pedagogové v celé ČR</text>
+      <text class="s" x="756" y="564">pracovníků škol (včetně první vlny)</text>
+      <text class="s" x="756" y="580">100+ škol mimo první vlnu, 50+ se zavedeným opatřením</text>
+    </g>
+
+    <!-- T5 -->
+    <g class="node n-school" data-id="zaci" role="button" tabindex="0" aria-label="Žáci a žákyně, nejméně 10 000 zapojených">
+      <rect class="box" x="290" y="664" width="500" height="92" rx="3"/>
+      <text class="num" x="316" y="716">10 000+</text>
+      <text class="t" x="472" y="700">Žáci a žákyně</text>
+      <text class="s" x="472" y="718">zapojených do aktivit s AI kurikulem a aplikací Tiny</text>
+      <text class="s" x="472" y="734">kritické, tvořivé a bezpečné používání AI</text>
+    </g>
+  </svg>
+
+  <!-- ============ VIEW B : MAPA AKTÉRŮ ============ -->
+  <svg id="viewB" class="diagram hidden" viewBox="0 0 1080 990" role="group" aria-label="Mapa aktérů ve čtyřech vrstvách české vzdělávací soustavy — národní, krajská, územní a školní — plus explorativní linie podpůrných služeb a odborní partneři. AI dětem prochází všemi vrstvami.">
+
+    <defs>
+      <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,1 L9,5 L0,9 z" fill="currentColor"/>
+      </marker>
+    </defs>
+
+    <!-- band frames -->
+    <g class="band"><rect x="232" y="76"  width="818" height="112" rx="4"/></g>
+    <g class="band"><rect x="232" y="228" width="818" height="112" rx="4"/></g>
+    <g class="band"><rect x="232" y="380" width="818" height="112" rx="4"/></g>
+    <g class="band"><rect x="232" y="532" width="818" height="112" rx="4"/></g>
+    <g class="band explor"><rect x="232" y="684" width="818" height="112" rx="4"/></g>
+    <g class="band"><rect x="232" y="836" width="818" height="112" rx="4"/></g>
+
+    <text class="bandlabel" x="248" y="98">NÁRODNÍ VRSTVA</text>
+    <text class="bandlabel" x="248" y="250">KRAJSKÁ VRSTVA</text>
+    <text class="bandlabel" x="248" y="402">ÚZEMNÍ VRSTVA — ORP</text>
+    <text class="bandlabel" x="248" y="554">ŠKOLA</text>
+    <text class="bandlabel" x="248" y="706">EXPLORATIVNÍ LINIE — PODPŮRNÉ A SOCIÁLNÍ SLUŽBY</text>
+    <text class="bandlabel" x="248" y="858">ODBORNÍ, EVALUAČNÍ A STRATEGIČTÍ PARTNEŘI</text>
+
+    <g color="var(--ink-3)">
+      <path class="edge" d="M198,132 H228" marker-end="url(#ar2)"/>
+      <path class="edge" d="M198,284 H228" marker-end="url(#ar2)"/>
+      <path class="edge" d="M198,436 H228" marker-end="url(#ar2)"/>
+      <path class="edge" d="M198,588 H228" marker-end="url(#ar2)"/>
+      <path class="edge dash" d="M198,740 H228" marker-end="url(#ar2)"/>
+      <path class="edge" d="M198,892 H228" marker-end="url(#ar2)"/>
+
+      <path class="edge" d="M560,188 V224" marker-end="url(#ar2)"/>
+      <path class="edge" d="M886,188 V224" marker-end="url(#ar2)"/>
+      <path class="edge" d="M400,340 V376" marker-end="url(#ar2)"/>
+      <path class="edge" d="M400,492 V528" marker-end="url(#ar2)"/>
+      <path class="edge" d="M900,492 V528" marker-end="url(#ar2)"/>
+      <path class="edge dash" d="M560,644 V680" marker-end="url(#ar2)"/>
+    </g>
+
+    <g class="edgelabel small">
+      <text x="568" y="210">metodický soulad, krajští ICT metodici</text>
+      <text x="894" y="210" text-anchor="end">kanál k ředitelům a zřizovatelům</text>
+      <text x="408" y="362">koordinace území, spolufinancování</text>
+      <text x="408" y="514">nábor a koordinace škol</text>
+      <text x="892" y="514" text-anchor="end">uvolněná kapacita lídra změny</text>
+      <text x="568" y="666">společné děti a rodiny</text>
+    </g>
+
+    <!-- spine -->
+    <g class="node n-us" data-id="aidetem" role="button" tabindex="0" aria-label="AI dětem, z.s. — architekt, školitel a garant kvality napříč všemi vrstvami">
+      <rect class="box" x="28" y="76" width="170" height="872" rx="3"/>
+      <text class="t" x="48" y="452">AI dětem, z.s.</text>
+      <text class="s" x="48" y="474">architekt, školitel</text>
+      <text class="s" x="48" y="490">a garant kvality</text>
+      <text class="s" x="48" y="516">Spolupracuje na každé</text>
+      <text class="s" x="48" y="532">úrovni soustavy —</text>
+      <text class="s" x="48" y="548">a nikde nenahrazuje</text>
+      <text class="s" x="48" y="564">její řízení.</text>
+    </g>
+
+    <!-- band 1 -->
+    <g class="node n-d3" data-id="msmt" role="button" tabindex="0" aria-label="MŠMT">
+      <rect class="box" x="248" y="106" width="186" height="72" rx="3"/>
+      <text class="t" x="266" y="136">MŠMT</text>
+      <text class="s" x="266" y="154">adresát systémových</text>
+      <text class="s" x="266" y="168">výstupů, Strategie AI</text>
+    </g>
+    <g class="node n-d3" data-id="npi" role="button" tabindex="0" aria-label="NPI ČR">
+      <rect class="box" x="448" y="106" width="186" height="72" rx="3"/>
+      <text class="t" x="466" y="136">NPI ČR</text>
+      <text class="s" x="466" y="154">metodický soulad,</text>
+      <text class="s" x="466" y="168">školicí moduly, KIM</text>
+    </g>
+    <g class="node n-d3" data-id="stredni" role="button" tabindex="0" aria-label="Střední článek podpory MŠMT">
+      <rect class="box" x="648" y="106" width="186" height="72" rx="3"/>
+      <text class="t" x="666" y="132">Střední článek</text>
+      <text class="t" x="666" y="148">podpory MŠMT</text>
+      <text class="s" x="666" y="166">kanál k vedení škol</text>
+    </g>
+    <g class="node n-d3" data-id="csi" role="button" tabindex="0" aria-label="Česká školní inspekce">
+      <rect class="box" x="848" y="106" width="186" height="72" rx="3"/>
+      <text class="t" x="866" y="136">ČŠI</text>
+      <text class="s" x="866" y="154">rámec Kvalitní škola,</text>
+      <text class="s" x="866" y="168">tematická šetření</text>
+    </g>
+
+    <!-- band 2 -->
+    <g class="node n-d1" data-id="kraj" role="button" tabindex="0" aria-label="Karlovarský kraj">
+      <rect class="box" x="248" y="258" width="280" height="72" rx="3"/>
+      <text class="t" x="266" y="288">Karlovarský kraj</text>
+      <text class="s" x="266" y="306">strategický spoluvlastník a spoluinvestor</text>
+      <text class="s" x="266" y="320">cca 50 mil. Kč na implementaci AI v kraji</text>
+    </g>
+    <g class="node n-d1" data-id="kic" role="button" tabindex="0" aria-label="Krajské inovační centrum">
+      <rect class="box" x="542" y="258" width="280" height="72" rx="3"/>
+      <text class="t" x="560" y="288">Krajské inovační centrum</text>
+      <text class="s" x="560" y="306">vlastní síť škol a dotační nástroje</text>
+      <text class="s" x="560" y="320">spolufinancování krajské vrstvy</text>
+    </g>
+    <g class="node n-d4" data-id="socodbor" role="button" tabindex="0" aria-label="Odbor sociálních věcí kraje">
+      <rect class="box" x="836" y="258" width="198" height="72" rx="3"/>
+      <text class="t" x="854" y="284">Odbor sociálních</text>
+      <text class="t" x="854" y="300">věcí kraje</text>
+      <text class="s" x="854" y="318">most k podpůrné linii</text>
+    </g>
+
+    <!-- band 3 -->
+    <g class="node n-d2" data-id="map" role="button" tabindex="0" aria-label="Nositelé MAP">
+      <rect class="box" x="248" y="410" width="260" height="72" rx="3"/>
+      <text class="t" x="266" y="440">Nositelé MAP</text>
+      <text class="s" x="266" y="458">nábor škol, koordinace v ORP,</text>
+      <text class="s" x="266" y="472">prevence duplicit, výzva MAP II</text>
+    </g>
+    <g class="node n-d2" data-id="mas" role="button" tabindex="0" aria-label="Místní akční skupiny">
+      <rect class="box" x="522" y="410" width="240" height="72" rx="3"/>
+      <text class="t" x="540" y="440">MAS</text>
+      <text class="s" x="540" y="458">znalost terénu, příběhy škol,</text>
+      <text class="s" x="540" y="472">spolutvorba krajské strategie</text>
+    </g>
+    <g class="node n-d2" data-id="zrizovatele" role="button" tabindex="0" aria-label="Zřizovatelé, obce">
+      <rect class="box" x="776" y="410" width="258" height="72" rx="3"/>
+      <text class="t" x="794" y="440">Zřizovatelé (obce)</text>
+      <text class="s" x="794" y="458">kapacita lídra změny, výběr škol,</text>
+      <text class="s" x="794" y="472">úspory z automatizace administrativy</text>
+    </g>
+
+    <!-- band 4 -->
+    <g class="node n-school" data-id="vedeni" role="button" tabindex="0" aria-label="Vedení školy a lídr změny">
+      <rect class="box" x="248" y="562" width="300" height="72" rx="3"/>
+      <text class="t" x="266" y="592">Vedení školy + lídr změny</text>
+      <text class="s" x="266" y="610">nositel změny uvnitř školy</text>
+      <text class="s" x="266" y="624">plán změny, pravidla, odpovědnosti</text>
+    </g>
+    <g class="node n-school" data-id="sbor" role="button" tabindex="0" aria-label="Pedagogický sbor">
+      <rect class="box" x="562" y="562" width="240" height="72" rx="3"/>
+      <text class="t" x="580" y="592">Pedagogický sbor</text>
+      <text class="s" x="580" y="610">rolově cílené vzdělávání,</text>
+      <text class="s" x="580" y="624">doložená AI gramotnost</text>
+    </g>
+    <g class="node n-school" data-id="zaci" role="button" tabindex="0" aria-label="Žáci a žákyně">
+      <rect class="box" x="816" y="562" width="218" height="72" rx="3"/>
+      <text class="t" x="834" y="592">Žáci a žákyně</text>
+      <text class="s" x="834" y="610">koneční příjemci změny</text>
+      <text class="s" x="834" y="624">AI kurikulum, Tiny</text>
+    </g>
+
+    <!-- band 5 -->
+    <g class="node n-d4" data-id="ppp" role="button" tabindex="0" aria-label="Pedagogicko-psychologické poradny">
+      <rect class="box" x="248" y="714" width="186" height="72" rx="3"/>
+      <text class="t" x="266" y="740">Pedagogicko-psych.</text>
+      <text class="t" x="266" y="756">poradny</text>
+      <text class="s" x="266" y="774">AI v diagnostice, SVP</text>
+    </g>
+    <g class="node n-d4" data-id="ospod" role="button" tabindex="0" aria-label="OSPOD">
+      <rect class="box" x="448" y="714" width="186" height="72" rx="3"/>
+      <text class="t" x="466" y="744">OSPOD</text>
+      <text class="s" x="466" y="762">administrativa,</text>
+      <text class="s" x="466" y="776">bezpečnost dětí a AI</text>
+    </g>
+    <g class="node n-d4" data-id="prevence" role="button" tabindex="0" aria-label="Služby sociální prevence">
+      <rect class="box" x="648" y="714" width="186" height="72" rx="3"/>
+      <text class="t" x="666" y="740">Služby sociální</text>
+      <text class="t" x="666" y="756">prevence</text>
+      <text class="s" x="666" y="774">nízkoprah, terén, SAS</text>
+    </g>
+    <g class="node n-d4" data-id="ustavy" role="button" tabindex="0" aria-label="Výchovné a diagnostické ústavy">
+      <rect class="box" x="848" y="714" width="186" height="72" rx="3"/>
+      <text class="t" x="866" y="740">Výchovné a diag-</text>
+      <text class="t" x="866" y="756">nostické ústavy</text>
+      <text class="s" x="866" y="774">nejzranitelnější děti</text>
+    </g>
+
+    <!-- band 6 -->
+    <g class="node n-d3" data-id="pravnici" role="button" tabindex="0" aria-label="Právní experti a pověřenci pro ochranu osobních údajů">
+      <rect class="box" x="248" y="866" width="126" height="72" rx="3"/>
+      <text class="s" x="262" y="894" font-weight="600">Právní experti</text>
+      <text class="s" x="262" y="908" font-weight="600">a DPO</text>
+      <text class="s" x="262" y="926">garance výstupů</text>
+    </g>
+    <g class="node n-d3" data-id="fakulta" role="button" tabindex="0" aria-label="Pedagogická fakulta nebo výzkumný partner">
+      <rect class="box" x="380" y="866" width="126" height="72" rx="3"/>
+      <text class="s" x="394" y="894" font-weight="600">Pedagogická</text>
+      <text class="s" x="394" y="908" font-weight="600">fakulta</text>
+      <text class="s" x="394" y="926">nezávislá evaluace</text>
+    </g>
+    <g class="node n-d3" data-id="eduzmena" role="button" tabindex="0" aria-label="Eduzměna a Centra podpory vzdělávání">
+      <rect class="box" x="512" y="866" width="126" height="72" rx="3"/>
+      <text class="s" x="526" y="894" font-weight="600">Eduzměna</text>
+      <text class="s" x="526" y="908" font-weight="600">a CPV</text>
+      <text class="s" x="526" y="926">benchmark, území</text>
+    </g>
+    <g class="node n-d3" data-id="partnerstvi" role="button" tabindex="0" aria-label="Partnerství pro vzdělávání 2030+ a Univerzita Karlova">
+      <rect class="box" x="644" y="866" width="126" height="72" rx="3"/>
+      <text class="s" x="658" y="894" font-weight="600">Partnerství</text>
+      <text class="s" x="658" y="908" font-weight="600">2030+ · UK</text>
+      <text class="s" x="658" y="926">advokacie, diseminace</text>
+    </g>
+    <g class="node n-d3" data-id="tiny" role="button" tabindex="0" aria-label="Tiny">
+      <rect class="box" x="776" y="866" width="126" height="72" rx="3"/>
+      <text class="s" x="790" y="894" font-weight="600">Tiny</text>
+      <text class="s" x="790" y="912">přímá práce</text>
+      <text class="s" x="790" y="926">se žáky</text>
+    </g>
+    <g class="node n-d1" data-id="ncs" role="button" tabindex="0" aria-label="Nadace České spořitelny">
+      <rect class="box" x="908" y="866" width="126" height="72" rx="3"/>
+      <text class="s" x="922" y="894" font-weight="600">Nadace České</text>
+      <text class="s" x="922" y="908" font-weight="600">spořitelny</text>
+      <text class="s" x="922" y="926">strategický partner</text>
+    </g>
+  </svg>
+
+  </div>
+  <figcaption id="cap">Kaskáda dopadu — jedna intervence ve dvou měřítkách. Vlevo hloubková kaskáda v partnerském kraji, vpravo celostátní distribuce ověřeného know-how; obě větve končí u žáků a obě se vracejí do metodiky.</figcaption>
+</figure>
+
+<aside class="panel" id="panel" aria-live="polite">
+  <div id="panelBody"></div>
+</aside>
+
+</div>
+
+<section class="legend">
+  <h3>Hloubka spolupráce — filtrovat mapu aktérů</h3>
+  <div class="keys" role="group" aria-label="Filtr podle hloubky spolupráce">
+    <button data-depth="us" aria-pressed="false"><span class="sw us"></span>AI dětem</button>
+    <button data-depth="d1" aria-pressed="false"><span class="sw d1"></span>1 · Spoluvlastnictví a spoluinvestice</button>
+    <button data-depth="d2" aria-pressed="false"><span class="sw d2"></span>2 · Operační partnerství v území</button>
+    <button data-depth="d3" aria-pressed="false"><span class="sw d3"></span>3 · Koordinace, legitimita, diseminace</button>
+    <button data-depth="d4" aria-pressed="false"><span class="sw d4"></span>4 · Explorativní spolupráce</button>
+    <button data-depth="school" aria-pressed="false"><span class="sw school"></span>Škola a žáci — kde změna vzniká</button>
+  </div>
+  <p class="note">Hloubka 1 znamená smlouvu, účast v řídicí skupině, spolurozhodování a finanční nebo věcný vklad. Hloubka 4 je mapování potřeb a ověřovací aktivity bez vazby na klíčové indikátory projektu. Uzly čtvrté úrovně jsou proto vykresleny přerušovaně.</p>
+</section>
+
+<footer>
+  Podklad k odstavci 4.1 projektové žádosti Nadace České spořitelny · AI dětem, z.s. · stav jednání k 21. 8. 2026. Počty vycházejí z matice logického rámce žádosti; jde o cílové hodnoty, nikoli o dosažené výsledky.
+</footer>
+
+</div>
+
+<script>
+const DETAILS = {
+  aidetem: {
+    title:"AI dětem, z.s.",
+    depth:"us", depthLabel:"Realizátor",
+    status:"Architekt a garant systému",
+    dl:[
+      ["Role","Šest mentorů a odborných garantů drží metodiku šesti oblastí změny, Akademii krajských mentorů, supervizi, standard kvality mentoringu a evaluaci. Role se oproti pilotu posouvá z „mentora škol“ na „architekta a garanta systému“."],
+      ["Co dodáváme",["metodika, sylaby a certifikační proces Akademie mentorů","právní a metodický rámec AI odpovědná škola","AI kurikulum, AI asistenti, workflow, promptové sady, Tiny","evaluace a případové studie"]],
+      ["Proč vertikálně","V mapě aktérů prochází AI dětem všemi vrstvami soustavy. Nikde ale nenahrazuje jejich řízení — dodává specializovanou AI a transformační vrstvu, kterou žádná z existujících struktur nepokrývá."]
+    ]
+  },
+  mentori: {
+    title:"Krajští AI mentoři",
+    depth:"d1", depthLabel:"Jádro kaskády",
+    status:"12 vybraných · min. 10 absolventů · min. 8 aktivních",
+    dl:[
+      ["Kdo to je","Zkušení pedagogové, ředitelé nebo regionální odborníci vybraní společně s krajem. Zůstávají v kraji i po skončení projektu — to je ta místní kapacita, kterou kraj přebírá."],
+      ["Jak vznikají",["úvodní dvoudenní blok — role mentora, change management, diagnostika","jednodenní trénink před vstupem do každé ze šesti oblastí změny","pravidelná online setkání, intervize a supervize","aplikační učení: během akademie vede každý nejvýše tři školy","certifikace na základě portfolia, reflexe, zpětné vazby škol a hospitace"]],
+      ["Riziko","Kvalita mentorů je nejcitlivější místo celé kaskády. Osobnost a expertíza mentora zásadně ovlivňuje výsledek školy — proto náročný výběr, jednotná metodika a kalibrace."]
+    ]
+  },
+  skoly: {
+    title:"Školy první vlny",
+    depth:"school", depthLabel:"Kde změna vzniká",
+    status:"20 základních škol",
+    dl:[
+      ["Kdo za školu","Tým vedení školy a lídra změny (1–2 lidé). Lídr změny nesmí být sám ředitel — nemá kapacitu — ani osamocený nadšenec zdola."],
+      ["Co škola projde",["vstupní diagnostika a inventura používání AI","Institut lídrů změny propojený s reálnými úkoly ve škole","mentoring ve dvou až třech prioritních oblastech podle potřeb","zavedení pravidel, odpovědností a rozvoje AI gramotnosti zaměstnanců","možnost získat označení AI odpovědná škola"]],
+      ["Cíl","Nejméně 16 z 20 škol zavede alespoň tři konkrétní klíčové změny; nejméně 15 splní kritéria procesu AI odpovědná škola."]
+    ]
+  },
+  sbor: {
+    title:"Pedagogické sbory",
+    depth:"school", depthLabel:"Kde změna vzniká",
+    status:"cca 1 000 pracovníků škol první vlny",
+    dl:[
+      ["Jak se zapojují","Přes interní workshopy, pilotní aktivity, komunikaci a sdílení výsledků uvnitř školy — vede je lídr změny, ne externí lektor. To je důvod, proč kaskáda funguje i bez přímé kapacity centrálního týmu."],
+      ["Co se měří",["podíl zaměstnanců, kteří znají školní pravidla a bezpečné postupy","podíl pedagogů využívajících AI s konkrétním pedagogickým účelem","60 % účastníků použije nástroj do 8 týdnů, 40 % opakovaně do 4 měsíců"]],
+      ["Právní rovina","Rolově cílené proškolení je zároveň způsob, jak škola naplňuje čl. 4 AI Actu — požadavek AI gramotnosti osob, které AI používají jejím jménem."]
+    ]
+  },
+  celostat: {
+    title:"Celostátní infrastruktura",
+    depth:"d2", depthLabel:"Druhá větev",
+    status:"otevřeno školám v celé ČR",
+    dl:[
+      ["Co v ní je",["implementační balíček k čl. 4 AI Actu a nejméně 8 editovatelných vzorových dokumentů","čtyři vzdělávací cesty podle rolí — vedení, pedagogové, ICT/AI lídři, nepedagogičtí pracovníci","veřejný online rozcestník s checklisty, návody, záznamy a FAQ","AI asistenti, administrativní workflow, promptové sady, aplikace Tiny"]],
+      ["Odkud se plní","Ze zkušeností první vlny škol. Materiály nevznikají od stolu — jsou uživatelsky ověřené a právně revidované."],
+      ["Proč je nutná","Přímý mentoring každé školy centrálním týmem je personálně a finančně neškálovatelný. Otevřená sada nástrojů zároveň snižuje náklady mentoringu, protože mentor se může soustředit na leadership a kulturu."]
+    ]
+  },
+  ceskolky: {
+    title:"Pedagogové v celé ČR",
+    depth:"d2", depthLabel:"Druhá větev",
+    status:"cíl 16 000 pracovníků škol",
+    dl:[
+      ["Rozsah",["nejméně 100 škol mimo první vlnu využije implementační balíček nebo dokončí sebehodnocení","nejméně 50 škol zavede alespoň jedno konkrétní opatření odpovědného používání AI","materiály nebo vzdělávání využije nejméně 20 000 pedagogů"]],
+      ["Distribuční kanály","Vlastní lektorská komunita a digitální kanály AI dětem, plus kanály NPI ČR, Středního článku podpory, MAP a MAS."],
+      ["Riziko","Vysoký dosah bez skutečného použití. Proto se odděleně měří unikátní uživatelé, použití po 8 týdnech a opakované použití — ne jen zhlédnutí."]
+    ]
+  },
+  zaci: {
+    title:"Žáci a žákyně",
+    depth:"school", depthLabel:"Koneční příjemci",
+    status:"cíl nejméně 10 000 zapojených",
+    dl:[
+      ["Co se u nich mění","Více příležitostí rozvíjet kritické, tvořivé a bezpečné používání AI a výuka, která smysluplně reaguje na změny spojené s AI."],
+      ["Jak se to ověřuje","Žákovské dotazníky nebo ověřovací úlohy a fokusní skupiny v evaluačním vzorku; cílem je zlepšení alespoň jednoho sledovaného ukazatele AI gramotnosti nebo bezpečného používání AI."],
+      ["Proč až na konci kaskády","Pilot ukázal, že o dopadu na žáky nerozhoduje technika, ale leadership a kultura školy. Zkratka přes jednorázové lekce pro žáky se v pilotu neosvědčila."]
+    ]
+  },
+  kraj: {
+    title:"Karlovarský kraj",
+    depth:"d1", depthLabel:"Hloubka 1 — spoluvlastnictví",
+    status:"Dohodnuto",
+    dl:[
+      ["Co přináší",["cca 50 mil. Kč vlastních prostředků na implementaci AI ve vzdělávání","politickou podporu vedení kraje a ambici oslovit školy ve všech ORP","strategické plánovací dokumenty pro celé území — DZ kraje, KAP, RIS3","odbor školství a přístup ke zřizovatelům"]],
+      ["Forma zapojení","Smlouva o spolupráci, společná řídicí skupina, spoluautorství krajské implementační strategie, spolurozhodování o výběru mentorů a škol, spolufinancování a závazek převzít místní kapacitu po skončení grantu."],
+      ["Pozor","Kraj základní školy přímo neřídí — zřizovateli jsou obce. Kraj je nositelem systémovosti a financí, ne velitelem škol; nábor musí jít přes územní vrstvu."]
+    ]
+  },
+  kic: {
+    title:"Krajské inovační centrum",
+    depth:"d1", depthLabel:"Hloubka 1 — spoluinvestice",
+    status:"Rozjednáno",
+    dl:[
+      ["Dvojí role","Finanční — vlastní dotační nástroje mohou krýt část krajské vrstvy programu, s návazností na RIS3 a Smart akcelerátor. Operační — vlastní síť spolupracujících škol, komunikační kanál k ředitelům, zázemí pro krajskou komunitu a krajský event."],
+      ["Forma zapojení","Zástupce v řídicí skupině projektu, dohoda o spolufinancování konkrétních aktivit."]
+    ]
+  },
+  socodbor: {
+    title:"Odbor sociálních věcí kraje",
+    depth:"d4", depthLabel:"Hloubka 4 — explorativní",
+    status:"Záměr",
+    dl:[
+      ["Role","Přirozený prostředník k podpůrné a sociální vrstvě — poradnám, OSPOD, službám sociální prevence a ústavní péči v kraji."],
+      ["Proč to dává smysl","Kraj je jejich zřizovatelem nebo koordinátorem. Jednou smlouvou s krajem se otevírá i tato linie, aniž by bylo nutné oslovovat každé pracoviště zvlášť."]
+    ]
+  },
+  map: {
+    title:"Nositelé MAP",
+    depth:"d2", depthLabel:"Hloubka 2 — operační partnerství",
+    status:"Rozjednáno",
+    dl:[
+      ["Proč jsou klíčoví","MAP je hotová infrastruktura vztahů se školami a zřizovateli ve správním obvodu ORP — nejrychlejší cesta k náboru škol první vlny."],
+      ["Tři role",["nábor a koordinace škol, včetně práce se zřizovateli","spolutvorba krajské strategie — zajišťují, že nevzniká od stolu","koordinace a prevence duplicit"]],
+      ["Finanční provazba","Výzva OP JAK „Akční plánování v území – MAP II“ (02_25_041) umožňuje nositelům MAP financovat implementační aktivity ve spolupráci s externím odborným partnerem. Příjem žádostí do 1. 12. 2026."],
+      ["Pozor","Nositel MAP má povinnost projednávat aktivity se školami v území kvůli zamezení duplicit. Jako partner je zlatý důl, opomenut je veto-hráč — dohoda proto musí být uzavřena hned v úvodní fázi, ne až při náboru."]
+    ]
+  },
+  mas: {
+    title:"Místní akční skupiny",
+    depth:"d2", depthLabel:"Hloubka 2 — operační partnerství",
+    status:"Rozjednáno",
+    dl:[
+      ["Co přinášejí","Zastoupení prakticky ve všech ORP, denní kontakt se školami a zřizovateli a znalost konkrétních příběhů, kapacit a limitů jednotlivých škol. Jsou zároveň nejčastějšími nositeli MAP."],
+      ["Role","Nábor škol, spolutvorba krajské implementační strategie, ukotvení strategie v realitě území."],
+      ["Most k sociální linii","Část MAS se zaměřuje na práci s rodinami a integraci — právě tyto organizace jsou přirozeným prostředníkem k explorativní linii podpůrných služeb."]
+    ]
+  },
+  zrizovatele: {
+    title:"Zřizovatelé (obce)",
+    depth:"d2", depthLabel:"Hloubka 2 — operační partnerství",
+    status:"Po výběru ORP",
+    dl:[
+      ["Proč jsou spoluhráči","Jmenují ředitele, rozhodují o kapacitě vedení a lídra změny a od 1. 1. 2026 financují nepedagogickou práci ze svého rozpočtu. Automatizace administrativy je tak jejich přímý ekonomický zájem, ne jen pedagogické téma."],
+      ["Forma zapojení",["účast na výběru škol","workshop pro zřizovatele a individuální konzultace","doložený závazek uvolnit kapacitu lídra změny","zapojení do plánu udržitelnosti"]],
+      ["Systémová slabina","Tisíce malých obcí nemají odbornou kapacitu školu vést. To je mezera, kterou zaplňuje střední článek, MAP a Eduzměna — a částečně i AI akcelerátor."]
+    ]
+  },
+  msmt: {
+    title:"MŠMT",
+    depth:"d3", depthLabel:"Hloubka 3 — koordinace a diseminace",
+    status:"Dlouhodobá spolupráce · spoluautorství draftu Strategie AI ve vzdělávání",
+    dl:[
+      ["Vazby na opatření strategie",["1.1 a 1.2 katalog ověřených nástrojů — inventura reálně používaných nástrojů ve 20 školách jako terénní data","2.3.1 a 2.3.2 promítnutí pravidel do školní dokumentace — editovatelné vzory ověřené v praxi","2.1.1 a 2.2.x výklad legislativy, GDPR, lidský dohled — zpětná vazba, kde je výklad neproveditelný","3.1.1 a 3.1.3 rámec profesního rozvoje a podpora vedení škol — pilot rolově diferencovaného modelu","3.1.2 centrální metodický rozcestník — náš rozcestník jako obsahový dodavatel, ne konkurent","3.3 síť krajských AI metodiků — kompetenční profil, standard kvality, certifikační proces","3.4 monitorování implementace — evaluační data a případové studie","4.1.1 a 4.1.2 proměna hodnocení — jedna ze šesti oblastí změny akcelerátoru","5.1 osvětová kampaň — nemá být hrazena ze sekce II, otevírá prostor pro neziskového realizátora"]],
+      ["Hloubka","Konzultační a systémová, bez finančního toku. Účast v pracovní skupině, dodávání dat a nabídka metodiky k převzetí v okně evaluace Strategie 2030+ (konec 2026 – 2027)."]
+    ]
+  },
+  npi: {
+    title:"NPI ČR",
+    depth:"d3", depthLabel:"Hloubka 3 — metodický soulad",
+    status:"Memorandum podepsáno · jednání s útvarem digitálního vzdělávání",
+    dl:[
+      ["O čem jednáme",["sdílení implementačního know-how z velkých plošných projektů (DIGI, AIDIG)","spolupráce při tvorbě školicích modulů pro pedagogy","soulad metodiky s národními doporučeními k AI a s rámcem DigCompEdu","napojení na krajské ICT metodiky a IT guru jako spojence v území"]],
+      ["Vymezení","Spolupráce se soustředí na pedagogickou rovinu. Podporu vedení a řízení škol pokrývá v systému Střední článek podpory. Dělba působností mezi AI dětem, NPI ČR a Středním článkem bude písemně vymezena v úvodní fázi, aby nevzniklo dvojí financování téže agendy z veřejných zdrojů."],
+      ["K ověření","Draft Strategie AI ve vzdělávání přiřazuje NPI opatření 3.1.3 „Podporovat vzdělávání vedení škol, školních týmů a profesních komunit“ — formálně tedy NPI kompetenci k vedení škol má. Toto je potřeba vyjasnit dřív, než se na vymezení v žádosti odvoláme."]
+    ]
+  },
+  stredni: {
+    title:"Střední článek podpory MŠMT",
+    depth:"d3", depthLabel:"Hloubka 3 — kanál a legitimita",
+    status:"Rozjednáno",
+    dl:[
+      ["Co umí","Má v každém kraji síť pracovníků poskytujících podporu přímo vedením škol na úrovni ORP — nejrychlejší cesta k ředitelům a zřizovatelům. Financován z OP JAK, běží do 30. 6. 2029."],
+      ["Forma zapojení",["informační a koordinační dohoda","společné akce v území","využití kanálů pro nábor škol a diseminaci celostátních materiálů","perspektivně cesta, jak model nabídnout dalším krajům"]],
+      ["Komplementarita","Střední článek podporuje manažerskou a nepedagogickou práci vedení a necílí na pedagogické inovace ani AI. Projekt doplňuje vrstvu, kterou nepokrývá — nejde o konkurenci."]
+    ]
+  },
+  csi: {
+    title:"Česká školní inspekce",
+    depth:"d3", depthLabel:"Hloubka 3 — konzultační",
+    status:"Zatím neosloveno — návrh forem spolupráce",
+    dl:[
+      ["Čtyři možné formy",["zarovnání kritérií procesu AI odpovědná škola s rámcem Kvalitní škola, aby výstupy nevytvářely paralelní požadavky","explicitní vymezení, že označení není certifikátem právního souladu ani inspekčním nálezem — konzultace s ČŠI je nejlepší prevence tohoto rizika","využití tematických zpráv ČŠI k digitalizaci pro cílení podpory a jako externí referenční data pro evaluaci","nabídka anonymizovaných zjištění z první vlny jako podkladu pro připravovaná tematická šetření k AI"]],
+      ["Hloubka","Konzultační, bez závazku a bez finančního toku. ČŠI není řídícím orgánem, ale její kritéria fakticky normují, co se ve školách považuje za dobrou praxi."]
+    ]
+  },
+  vedeni: {
+    title:"Vedení školy + lídr změny",
+    depth:"school", depthLabel:"Kde změna vzniká",
+    status:"20 školních týmů v první vlně",
+    dl:[
+      ["Proč právě tato dvojice","Ředitel české školy má jednu z nejvyšších autonomií v OECD — jakákoli proměna školy stojí a padá s ním. Zároveň nemá kapacitu vést změnu sám, proto lídr změny jako součást vedení, ne osamocený nadšenec zdola."],
+      ["Co dělá",["formuluje rámec a plán změny školy","zavádí pravidla, odpovědnosti a rozvoj AI gramotnosti zaměstnanců","zapojuje sbor přes interní workshopy a pilotní aktivity","dokumentuje změny, bariéry a rozhodnutí"]],
+      ["Riziko","Přetížení. Mitigace: předem sjednaná uvolněná kapacita, práce se školním týmem místo jednotlivce, sledování přetížení."]
+    ]
+  },
+  ppp: {
+    title:"Pedagogicko-psychologické poradny",
+    depth:"d4", depthLabel:"Hloubka 4 — explorativní",
+    status:"Záměr — zatím neosloveno",
+    dl:[
+      ["Nabídka",["rozvoj AI gramotnosti poradenských pracovníků","vymezení hranic využití AI v diagnostice a při práci s osobními údaji dětí","podpora žáků se speciálními vzdělávacími potřebami a individualizace"]],
+      ["Napojení","Váže se na oblast změny „inkluze“ z metodiky šesti oblastí."],
+      ["Forma","Mapování potřeb, otevřené materiály zdarma, jedno až dvě pilotní školení. Bez vazby na klíčové indikátory projektu."]
+    ]
+  },
+  ospod: {
+    title:"OSPOD",
+    depth:"d4", depthLabel:"Hloubka 4 — explorativní",
+    status:"Záměr — zatím neosloveno",
+    dl:[
+      ["Nabídka",["proškolení pracovníků","zpřístupnění nástrojů pro automatizaci administrativy","společné téma bezpečnosti dětí v prostředí generativní AI"]],
+      ["Proč to dává smysl","Tato pracoviště nesou vysokou administrativní zátěž a nemají v oblasti AI žádnou systematickou podporu. Zároveň řeší rizika spojená s AI u dětí často dřív než školy."]
+    ]
+  },
+  prevence: {
+    title:"Služby sociální prevence",
+    depth:"d4", depthLabel:"Hloubka 4 — explorativní",
+    status:"Záměr — zatím neosloveno",
+    dl:[
+      ["Koho zahrnuje","Nízkoprahová zařízení pro děti a mládež, terénní programy, sociálně aktivizační služby pro rodiny s dětmi."],
+      ["Nabídka",["proškolení pracovníků a otevřené vzdělávací cesty","nástroje pro automatizaci administrativy","deepfakes, AI companions, manipulace a online rizika jako preventivní téma"]],
+      ["Prostředník","MAS zaměřené na práci s rodinami a odbor sociálních věcí kraje."]
+    ]
+  },
+  ustavy: {
+    title:"Výchovné a diagnostické ústavy",
+    depth:"d4", depthLabel:"Hloubka 4 — explorativní",
+    status:"Záměr — zatím neosloveno",
+    dl:[
+      ["Proč právě ony","Pracují s dětmi s nejnižším přístupem k technologiím a nejvyšší mírou zranitelnosti. Linie se váže na cíl snižování nerovností — druhý cíl Strategie 2030+ i hodnotu Nadace ČS."],
+      ["Nabídka","Proškolení pracovníků a zpřístupnění hotových technologických řešení a materiálů."],
+      ["Rozsah","Určí se podle výsledků úvodního mapování potřeb."]
+    ]
+  },
+  pravnici: {
+    title:"Právní experti a DPO",
+    depth:"d3", depthLabel:"Odborná garance",
+    status:"Součást projektového týmu",
+    dl:[
+      ["Role","Spolutvorba a odborná garance právních a bezpečnostních výstupů — výklad čl. 4 AI Actu, revize checklistu MŠMT, vzorové dokumenty, průběžná aktualizace podle vývoje výkladu a technologií."],
+      ["Riziko, které kryjí","Výklad AI Actu a technologie se rychle mění. Mitigace: modulární obsah, vlastník každého výstupu, verzování a pravidelná aktualizace."]
+    ]
+  },
+  fakulta: {
+    title:"Pedagogická fakulta / výzkumný partner",
+    depth:"d3", depthLabel:"Hloubka 3 — evaluace",
+    status:"K dojednání",
+    dl:[
+      ["Role","Nezávislá revize evaluace, kvalitativní šetření a posílení kredibility výsledků. Potenciálně také rezervoár mentorů."],
+      ["Proč to potřebujeme","Interní evaluace dává návaznost na pilot, ale pro systémovou nabídku směrem k MŠMT a dalším krajům je potřeba externí výzkumná vrstva."]
+    ]
+  },
+  eduzmena: {
+    title:"Eduzměna a Centra podpory vzdělávání",
+    depth:"d3", depthLabel:"Hloubka 3 — výměna a diseminace",
+    status:"Existující vazby",
+    dl:[
+      ["Proč je to relevantní benchmark","Pětiletý pilot na Kutnohorsku vyústil v Centrum podpory vzdělávání spoluzaložené obcemi regionu; od září 2026 se model rozšiřuje do osmi dalších regionů s cílem mít CPV v každém kraji do roku 2028."],
+      ["Forma","Výměna zkušeností s regionálním modelem; v územích, kde CPV působí, možná místní doručovací struktura. AI je téma, které jejich model nepokrývá do hloubky."]
+    ]
+  },
+  partnerstvi: {
+    title:"Partnerství 2030+ a Univerzita Karlova",
+    depth:"d3", depthLabel:"Hloubka 3 — advokacie",
+    status:"Memoranda podepsána",
+    dl:[
+      ["Role","Platforma pro systémovou advokacii a diseminaci metodiky. Partnerství pro vzdělávání 2030+ vyvinulo vlastní model místní školské správy a publikuje analytiku správy školství."],
+      ["Využití","Společná komunikace směrem k MŠMT v okně evaluace Strategie 2030+."]
+    ]
+  },
+  tiny: {
+    title:"Tiny",
+    depth:"d3", depthLabel:"Obsahová spolupráce",
+    status:"Součást portfolia AI dětem",
+    dl:[
+      ["Role","Obsahová a implementační spolupráce na přímé práci se žáky a propojení s dalšími vzdělávacími tématy."],
+      ["Jak se dostane do školy","Aplikace doplněná proškolením pedagoga, modelovou hodinou a podporou navazujícího využívání — ne jako samostatný nástroj."]
+    ]
+  },
+  ncs: {
+    title:"Nadace České spořitelny",
+    depth:"d1", depthLabel:"Strategický partner",
+    status:"Žádost 09/2026–08/2028 · 5 576 880 Kč",
+    dl:[
+      ["Co podpora financuje","Vznik metodiky, mentorského jádra, právního rámce, evaluace a přenositelné infrastruktury — tedy to, co se nedá pořídit z rutinních zdrojů."],
+      ["Co nese někdo jiný","Rutinní a plošné náklady nese kraj, zřizovatelé, krajské dotační tituly a projekty MAP. Celkový rozpočet projektu 12 461 880 Kč, spolufinancování 6 885 000 Kč."],
+      ["Návaznost","Čtvrtá podpora v řadě — předchozí granty ověřily potřeby škol, pilotní model transformace i vzdělávací a metodické výstupy."]
+    ]
+  }
+};
+
+const DEFAULT_PANEL = `
+<h2>Dva pohledy na jeden systém</h2>
+<div class="chips"><span class="chip on">Klikněte na uzel</span></div>
+<dl>
+<dt>Kaskáda dopadu</dt>
+<dd>Jak se know-how dostává od šesti lidí v AI dětem až k deseti tisícům žáků — a proč to jde jen přes lidi uvnitř kraje a uvnitř škol. Levá větev je hloubka, pravá dosah.</dd>
+<dt>Mapa aktérů</dt>
+<dd>Kdo je v české vzdělávací soustavě potřeba a jak hluboký závazek s ním máme. Soustava nemá jednu řídicí linii — proto čtyři vodorovné vrstvy a AI dětem jako svislá spojnice napříč nimi.</dd>
+<dt>Ovládání</dt>
+<dd>Klikněte na kterýkoli uzel a zobrazí se role, hloubka spolupráce a stav jednání. Tlačítky pod diagramem se dá mapa filtrovat podle hloubky. Klávesnicí: Tab a Enter, Esc zavírá.</dd>
+</dl>`;
+
+const CAPTIONS = {
+  A:"Kaskáda dopadu — jedna intervence ve dvou měřítkách. Vlevo hloubková kaskáda v partnerském kraji, vpravo celostátní distribuce ověřeného know-how; obě větve končí u žáků a obě se vracejí do metodiky.",
+  B:"Mapa aktérů — česká vzdělávací soustava nemá jednu řídicí linii, ale čtyři vrstvy s vlastní logikou. AI dětem prochází všemi a nikde nenahrazuje jejich řízení. Přerušovaně je vyznačena explorativní linie bez vazby na klíčové indikátory projektu."
+};
+
+const viewA = document.getElementById('viewA');
+const viewB = document.getElementById('viewB');
+const btnA  = document.getElementById('btnA');
+const btnB  = document.getElementById('btnB');
+const cap   = document.getElementById('cap');
+const panelBody = document.getElementById('panelBody');
+
+function renderPanel(id){
+  const d = DETAILS[id];
+  if(!d){ panelBody.innerHTML = DEFAULT_PANEL; return; }
+  let html = `<h2>${d.title}</h2><div class="chips">`;
+  html += `<span class="chip on">${d.depthLabel}</span>`;
+  if(d.status) html += `<span class="chip">${d.status}</span>`;
+  html += `</div><dl>`;
+  for(const [term, val] of d.dl){
+    html += `<dt>${term}</dt><dd>`;
+    html += Array.isArray(val) ? `<ul>${val.map(x=>`<li>${x}</li>`).join('')}</ul>` : val;
+    html += `</dd>`;
+  }
+  html += `</dl>`;
+  panelBody.innerHTML = html;
+}
+
+function select(id, el){
+  document.querySelectorAll('.node.sel').forEach(n=>n.classList.remove('sel'));
+  document.querySelectorAll(`.node[data-id="${id}"]`).forEach(n=>n.classList.add('sel'));
+  renderPanel(id);
+}
+
+document.querySelectorAll('.node').forEach(node=>{
+  node.addEventListener('click', ()=> select(node.dataset.id, node));
+  node.addEventListener('keydown', e=>{
+    if(e.key==='Enter'||e.key===' '){ e.preventDefault(); select(node.dataset.id, node); }
+  });
+});
+
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.node.sel').forEach(n=>n.classList.remove('sel'));
+    renderPanel(null);
+  }
+});
+
+function setView(v){
+  const isA = v==='A';
+  viewA.classList.toggle('hidden', !isA);
+  viewB.classList.toggle('hidden', isA);
+  btnA.setAttribute('aria-pressed', String(isA));
+  btnB.setAttribute('aria-pressed', String(!isA));
+  cap.textContent = CAPTIONS[v];
+}
+btnA.addEventListener('click', ()=>setView('A'));
+btnB.addEventListener('click', ()=>setView('B'));
+
+// depth filter
+let activeDepth = null;
+document.querySelectorAll('.keys button').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    const d = b.dataset.depth;
+    activeDepth = (activeDepth===d) ? null : d;
+    document.querySelectorAll('.keys button').forEach(x=>
+      x.setAttribute('aria-pressed', String(x.dataset.depth===activeDepth)));
+    [viewA, viewB].forEach(svg=>{
+      svg.classList.toggle('filtering', !!activeDepth);
+      svg.querySelectorAll('.node').forEach(n=>
+        n.classList.toggle('match', !!activeDepth && n.classList.contains('n-'+activeDepth)));
+    });
+  });
+});
+
+renderPanel(null);
+</script>
