@@ -363,6 +363,59 @@ h1,h2,h3,.brand-title,.nav-name,.topbar-title{font-family:var(--font-heading);le
   .hint{display:none}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* ---------- Editor textů (režim úprav) ---------- */
+.ed-gate{position:fixed;inset:0;z-index:80;background:rgba(28,37,48,.45);display:flex;align-items:center;justify-content:center;padding:24px}
+.ed-gate-box{background:#fff;border-radius:var(--radius-lg);padding:26px 28px;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.ed-gate-box h2{font-family:var(--font-heading);font-size:1.15rem;margin:0 0 6px}
+.ed-gate-box p{margin:0 0 16px;font-size:.84rem;color:var(--muted);line-height:1.5}
+.ed-gate-box input{width:100%;border:1px solid var(--line);border-radius:var(--radius);padding:11px 14px;font:inherit;font-size:.95rem}
+.ed-gate-box input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.ed-gate-err{color:var(--accent);font-size:.82rem;margin-top:10px;font-weight:600}
+.ed-row{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+.btn{font:inherit;font-size:.86rem;font-weight:600;border-radius:var(--pill);padding:10px 18px;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--muted)}
+.btn:hover{border-color:var(--muted);color:var(--ink)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.pri:hover{background:var(--accent-hover, #c94e4e);color:#fff}
+
+.ed-bar{
+  position:fixed;left:0;right:0;bottom:0;z-index:70;
+  background:var(--ink);color:#fff;display:flex;align-items:center;gap:14px;
+  padding:10px 20px;font-size:.84rem;
+}
+.ed-bar .sp{margin-left:auto;display:flex;gap:8px}
+.ed-bar .btn{background:transparent;border-color:rgba(255,255,255,.28);color:#fff}
+.ed-bar .btn:hover{border-color:#fff;color:#fff}
+.ed-bar .btn.pri{background:var(--accent);border-color:var(--accent)}
+.ed-badge{background:var(--accent);border-radius:var(--pill);padding:2px 9px;font-weight:700;font-size:.76rem}
+body.editing{padding-bottom:0}
+body.editing .app{height:calc(100dvh - 46px)}
+body.editing .main{height:calc(100dvh - 46px)}
+
+/* zvýraznění upravitelných míst */
+body.editing [data-ed]{outline:1px dashed rgba(220,91,91,.45);outline-offset:2px;cursor:text}
+body.editing [data-ed]:hover{outline:1.5px solid var(--accent);background:rgba(220,91,91,.06)}
+/* Texty v diagramu mají běžně pointer-events:none, aby klik prošel na uzel.
+   V režimu úprav je potřeba je naopak zaměřit. */
+body.editing #viewA text,body.editing #viewB text{pointer-events:auto}
+body.editing text[data-ed]{outline:none}
+body.editing text[data-ed]:hover{fill:var(--accent)!important}
+body.editing [data-ed].ed-dirty{outline:1.5px solid var(--accent)!important;background:var(--accent-soft)}
+body.editing text[data-ed].ed-dirty{fill:var(--accent)!important;font-weight:700}
+
+#ed-pencil{
+  position:fixed;z-index:75;width:26px;height:26px;border-radius:var(--pill);
+  background:var(--accent);color:#fff;border:2px solid #fff;
+  display:none;align-items:center;justify-content:center;cursor:pointer;
+  font-size:13px;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.2);padding:0;
+}
+#ed-pencil.on{display:flex}
+#ed-input{
+  position:fixed;z-index:78;border:2px solid var(--accent);border-radius:8px;
+  padding:5px 8px;font:inherit;font-size:.9rem;background:#fff;color:var(--ink);
+  box-shadow:0 6px 24px rgba(0,0,0,.18);display:none;
+}
+#ed-input.on{display:block}
+[contenteditable="true"]{outline:2px solid var(--accent)!important;background:#fff;border-radius:6px}
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -1789,6 +1842,293 @@ document.addEventListener('pointerout', e=>{
 renderPanel(null);
 setView('A');
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+/* =====================================================================
+   Editor textů
+   ---------------------------------------------------------------------
+   Spuštění: adresa s #admin, nebo Ctrl+Shift+E.
+   Heslo je jen zámek proti náhodnému otevření — stránka je veřejná
+   a heslo je čitelné ve zdrojovém kódu. Není to bezpečnostní prvek.
+   Úpravy se ukládají do localStorage tohoto prohlížeče, nikam se
+   neodesílají a nikdo jiný je nevidí. Ven vedou jen přes Export.
+   ===================================================================== */
+const ED_HESLO = 'aidetem';
+const ED_KEY   = 'kaskada-upravy-v1';
+
+let edits = {};
+try { edits = JSON.parse(localStorage.getItem(ED_KEY) || '{}'); } catch (e) { edits = {}; }
+
+function edSave(){
+  try { localStorage.setItem(ED_KEY, JSON.stringify(edits)); }
+  catch(e){ alert('Úpravu se nepodařilo uložit do prohlížeče: ' + e.message); }
+  edCount();
+}
+function edCount(){
+  const b = document.getElementById('ed-count');
+  if(b) b.textContent = Object.keys(edits).length;
+}
+
+/* --- kde se dá upravovat --------------------------------------------- */
+const ED_HTML_SEL = [
+  '.brand-title','.brand-sub','.nav-label','.nav-name','.nav-desc','.foot-note','.foot-brand',
+  '#viewC h1','#viewC h3','#viewC h4','#viewC p','#viewC li','#viewC th','#viewC td',
+  '#viewC .kpi-n','#viewC .kpi-l','#viewC .kpi-s','#viewC .lg-i',
+  '#underA h2','#underA p','#underA .card-num','#underA .card-lab',
+  '#viewC .card-num','#viewC .card-lab','#viewTitle small','.statusbar'
+].join(',');
+
+/* Prvek nesmí obsahovat blokové dítě — jinak by se úpravou rozbila struktura. */
+function edLeaf(el){ return !el.querySelector('div,table,ul,ol,svg,section,nav'); }
+
+function edContext(el){
+  const n = el.closest && el.closest('.node[data-id]');
+  if(n) return 'uzel „' + n.dataset.id + '“';
+  const svg = el.ownerSVGElement || (el.closest && el.closest('svg'));
+  if(svg) return svg.id === 'viewA' ? 'Kaskáda dopadu' : 'Mapa aktérů';
+  if(el.closest && el.closest('#viewC')){
+    let h = el.closest('h1,h2,h3,h4') ? el : null;
+    let p = el, sec = '';
+    while(p && p !== document.body){
+      let s = p.previousElementSibling;
+      while(s){ if(s.tagName === 'H2'){ sec = s.textContent.trim(); break; } s = s.previousElementSibling; }
+      if(sec) break; p = p.parentElement;
+    }
+    return 'Kraj v číslech' + (sec ? ' · ' + sec : '');
+  }
+  if(el.closest && el.closest('#panelBody')){
+    const k = el.getAttribute('data-ed') || '';
+    const m = k.match(/^P:([^#]+)#/);
+    return 'detail uzlu „' + (m ? m[1] : '?') + '“';
+  }
+  if(el.closest && el.closest('.sidebar')) return 'levý panel';
+  if(el.closest && el.closest('#underA')) return 'Dopočteno pod kaskádou';
+  return 'stránka';
+}
+
+/* Klíč je stabilní v rámci jednoho vydání souboru; export nese i původní
+   text, takže úpravu dohledám i kdyby se pořadí prvků později posunulo. */
+function edMark(){
+  let i = 0;
+  const put = (el, scope) => {
+    if(el.hasAttribute('data-ed')) return;
+    el.setAttribute('data-ed', scope + '#' + (i++));
+  };
+  i = 0; document.querySelectorAll('#viewA text').forEach(el => put(el, 'A'));
+  i = 0; document.querySelectorAll('#viewB text').forEach(el => put(el, 'B'));
+  i = 0; document.querySelectorAll(ED_HTML_SEL).forEach(el => { if(edLeaf(el)) put(el, 'H'); });
+  /* nadpisy sekcí mají uvnitř číselný odznak — upravuje se jen text vedle něj */
+  i = 0; document.querySelectorAll('#viewC h2').forEach(h2 => {
+    if(h2.querySelector('.ht')) return;
+    const sp = document.createElement('span'); sp.className = 'ht';
+    while(h2.lastChild && h2.lastChild !== h2.querySelector('.hn')) sp.insertBefore(h2.lastChild, sp.firstChild);
+    h2.appendChild(sp); sp.setAttribute('data-ed', 'HH#' + (i++));
+  });
+}
+
+function edApply(root){
+  (root || document).querySelectorAll('[data-ed]').forEach(el => {
+    const rec = edits[el.getAttribute('data-ed')];
+    if(!rec) return;
+    if(el.namespaceURI === 'http://www.w3.org/2000/svg') el.textContent = rec.nove;
+    else el.innerHTML = rec.nove;
+    el.classList.add('ed-dirty');
+  });
+}
+
+/* --- režim úprav ------------------------------------------------------ */
+let editing = false;
+const pencil = document.createElement('button');
+pencil.id = 'ed-pencil'; pencil.type = 'button';
+pencil.title = 'Upravit text'; pencil.textContent = '✎';
+document.body.appendChild(pencil);
+const edInput = document.createElement('input');
+edInput.id = 'ed-input'; edInput.type = 'text';
+document.body.appendChild(edInput);
+
+let hovered = null, editingEl = null;
+
+function placePencil(el){
+  const r = el.getBoundingClientRect();
+  if(!r.width && !r.height){ pencil.classList.remove('on'); return; }
+  pencil.style.left = Math.min(r.right + 4, innerWidth - 32) + 'px';
+  pencil.style.top  = Math.max(r.top - 6, 4) + 'px';
+  pencil.classList.add('on');
+}
+document.addEventListener('pointermove', e => {
+  if(!editing || editingEl) return;
+  const el = e.target.closest && e.target.closest('[data-ed]');
+  if(el === pencil) return;
+  if(el){ hovered = el; placePencil(el); }
+  else if(e.target !== pencil){ pencil.classList.remove('on'); hovered = null; }
+});
+
+function startEdit(el){
+  if(!el) return;
+  editingEl = el;
+  pencil.classList.remove('on');
+  const key = el.getAttribute('data-ed');
+  const orig = edits[key] ? edits[key].puvodni : (el.namespaceURI === 'http://www.w3.org/2000/svg' ? el.textContent : el.innerHTML);
+
+  if(el.namespaceURI === 'http://www.w3.org/2000/svg'){
+    const r = el.getBoundingClientRect();
+    edInput.value = el.textContent;
+    edInput.style.left = Math.max(6, r.left - 6) + 'px';
+    edInput.style.top  = Math.max(6, r.top - 6) + 'px';
+    edInput.style.width = Math.max(180, Math.min(r.width + 60, innerWidth - r.left - 20)) + 'px';
+    edInput.classList.add('on'); edInput.focus(); edInput.select();
+    const done = ok => {
+      edInput.classList.remove('on');
+      if(ok && edInput.value !== el.textContent) commit(el, key, orig, edInput.value);
+      editingEl = null;
+      edInput.onblur = null; edInput.onkeydown = null;
+    };
+    edInput.onblur = () => done(true);
+    edInput.onkeydown = ev => {
+      if(ev.key === 'Enter'){ ev.preventDefault(); done(true); }
+      if(ev.key === 'Escape'){ ev.preventDefault(); done(false); }
+    };
+  } else {
+    el.setAttribute('contenteditable', 'true');
+    el.focus();
+    const sel = getSelection(); const rg = document.createRange();
+    rg.selectNodeContents(el); sel.removeAllRanges(); sel.addRange(rg);
+    const done = ok => {
+      el.removeAttribute('contenteditable');
+      if(ok) commit(el, key, orig, el.innerHTML.trim());
+      else el.innerHTML = orig;
+      editingEl = null; el.onblur = null; el.onkeydown = null;
+    };
+    el.onblur = () => done(true);
+    el.onkeydown = ev => {
+      if(ev.key === 'Enter' && !ev.shiftKey){ ev.preventDefault(); el.blur(); }
+      if(ev.key === 'Escape'){ ev.preventDefault(); done(false); }
+    };
+  }
+}
+
+function commit(el, key, orig, val){
+  if(val === orig){ delete edits[key]; el.classList.remove('ed-dirty'); }
+  else { edits[key] = { puvodni: orig, nove: val, kde: edContext(el) }; el.classList.add('ed-dirty'); }
+  if(el.namespaceURI === 'http://www.w3.org/2000/svg') el.textContent = val;
+  edSave();
+}
+
+pencil.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); startEdit(hovered); });
+document.addEventListener('click', e => {
+  if(!editing || editingEl) return;
+  const el = e.target.closest && e.target.closest('[data-ed]');
+  if(el){ e.preventDefault(); e.stopPropagation(); startEdit(el); }
+}, true);
+
+/* --- ovládací lišta --------------------------------------------------- */
+function edBar(){
+  if(document.getElementById('ed-bar')) return;
+  const bar = document.createElement('div');
+  bar.id = 'ed-bar'; bar.className = 'ed-bar';
+  bar.innerHTML = '<strong>Režim úprav</strong>'
+    + '<span>upravených textů: <span class="ed-badge" id="ed-count">0</span></span>'
+    + '<span style="opacity:.7">Klikněte na text nebo na tužku. Enter uloží, Esc zruší.</span>'
+    + '<span class="sp">'
+    + '<button class="btn" id="ed-import">Načíst zpět</button>'
+    + '<button class="btn" id="ed-reset">Zahodit vše</button>'
+    + '<button class="btn pri" id="ed-export">Export pro Claude</button>'
+    + '<button class="btn" id="ed-quit">Konec</button>'
+    + '</span>';
+  document.body.appendChild(bar);
+  edCount();
+  document.getElementById('ed-export').onclick = edExport;
+  document.getElementById('ed-import').onclick = edImport;
+  document.getElementById('ed-quit').onclick = () => { sessionStorage.removeItem('ed-ok'); location.hash = ''; location.reload(); };
+  document.getElementById('ed-reset').onclick = () => {
+    if(!confirm('Opravdu zahodit všech ' + Object.keys(edits).length + ' úprav? Vrátí se původní texty.')) return;
+    edits = {}; edSave(); location.reload();
+  };
+}
+
+function edExport(){
+  const list = Object.entries(edits).map(([klic, r]) => ({ klic, kde: r.kde, puvodni: r.puvodni, nove: r.nove }));
+  if(!list.length){ alert('Zatím nejsou žádné úpravy k exportu.'); return; }
+  const data = { verze: 1, soubor: 'kaskada-ai-akceleratoru.html', vytvoreno: new Date().toISOString(), pocet: list.length, upravy: list };
+  const txt = JSON.stringify(data, null, 2);
+  const blob = new Blob([txt], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'upravy-textu.json';
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  /* Kdyby prohlížeč stahování zablokoval, ať se text dá aspoň zkopírovat. */
+  if(navigator.clipboard) navigator.clipboard.writeText(txt).catch(()=>{});
+}
+
+function edImport(){
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = 'application/json,.json';
+  inp.onchange = () => {
+    const f = inp.files[0]; if(!f) return;
+    const rd = new FileReader();
+    rd.onload = () => {
+      try {
+        const d = JSON.parse(rd.result);
+        if(!d.upravy) throw new Error('Soubor neobsahuje pole „upravy“.');
+        d.upravy.forEach(u => { edits[u.klic] = { puvodni: u.puvodni, nove: u.nove, kde: u.kde }; });
+        edSave(); location.reload();
+      } catch(e){ alert('Soubor se nepodařilo načíst: ' + e.message); }
+    };
+    rd.readAsText(f);
+  };
+  inp.click();
+}
+
+/* --- vstup ------------------------------------------------------------ */
+function edEnter(){
+  editing = true;
+  document.body.classList.add('editing');
+  edBar();
+}
+function edGate(){
+  if(sessionStorage.getItem('ed-ok') === '1'){ edEnter(); return; }
+  const g = document.createElement('div');
+  g.className = 'ed-gate';
+  g.innerHTML = '<div class="ed-gate-box"><h2>Režim úprav</h2>'
+    + '<p>Úpravy zůstanou jen v tomto prohlížeči a nikam se neodesílají. '
+    + 'Heslo je zámek proti náhodnému otevření, ne ochrana — stránka je veřejná.</p>'
+    + '<input type="password" id="ed-pass" placeholder="Heslo" autocomplete="off">'
+    + '<div class="ed-gate-err" id="ed-err" hidden>Špatné heslo.</div>'
+    + '<div class="ed-row"><button class="btn" id="ed-cancel">Zrušit</button>'
+    + '<button class="btn pri" id="ed-ok">Pokračovat</button></div></div>';
+  document.body.appendChild(g);
+  const inp = g.querySelector('#ed-pass'); inp.focus();
+  const close = () => { g.remove(); location.hash = ''; };
+  const tryIt = () => {
+    if(inp.value === ED_HESLO){ sessionStorage.setItem('ed-ok','1'); g.remove(); edEnter(); }
+    else { g.querySelector('#ed-err').hidden = false; inp.select(); }
+  };
+  g.querySelector('#ed-ok').onclick = tryIt;
+  g.querySelector('#ed-cancel').onclick = close;
+  inp.onkeydown = e => { if(e.key === 'Enter') tryIt(); if(e.key === 'Escape') close(); };
+}
+
+edMark();
+edApply();
+if(location.hash === '#admin') edGate();
+addEventListener('hashchange', () => { if(location.hash === '#admin' && !editing) edGate(); });
+addEventListener('keydown', e => {
+  if(e.ctrlKey && e.shiftKey && (e.key === 'E' || e.key === 'e')){ e.preventDefault(); if(!editing) edGate(); }
+});
+
+/* Panel detailu se překresluje při každém kliknutí na uzel, takže se musí
+   označit a znovu naplnit uloženými úpravami až po vykreslení. */
+const _renderPanelOrig = renderPanel;
+renderPanel = function(id){
+  _renderPanelOrig(id);
+  if(typeof edApply !== 'function') return;
+  let i = 0;
+  panelBody.querySelectorAll('h2,dt,dd,li,.chip').forEach(el => {
+    if(!edLeaf(el)) return;
+    el.setAttribute('data-ed', 'P:' + (id || 'uvod') + '#' + (i++));
+  });
+  edApply(panelBody);
+};
+
 </script>
 
 </body>
