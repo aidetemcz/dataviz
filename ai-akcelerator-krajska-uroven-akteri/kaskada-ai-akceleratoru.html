@@ -85,6 +85,7 @@ h1,h2,h3,.brand-title,.nav-name,.topbar-title{font-family:var(--font-heading);le
   transition:background .15s,border-color .15s,transform .05s;
   display:flex;flex-direction:column;gap:3px;width:100%;font-family:inherit;
 }
+.nav-item{text-decoration:none;color:inherit}
 .nav-item:hover{background:var(--sky-light)}
 .nav-item:active{transform:translateY(1px)}
 .nav-item.active{background:var(--accent-soft);border-color:var(--accent)}
@@ -460,34 +461,34 @@ body.editing text[data-ed].ed-dirty{fill:var(--accent)!important;font-weight:700
     <div class="views">
       <div class="nav-label">Pohledy</div>
       <nav class="nav">
-        <button class="nav-item active" data-view="A" aria-pressed="true">
+        <a class="nav-item active" href="#kaskada" data-view="A" aria-current="page">
           <span class="nav-num" aria-hidden="true"></span>
           <span class="nav-text">
             <span class="nav-name">Kaskáda dopadu</span>
             <span class="nav-desc">Hierarchie působení v kraji</span>
           </span>
-        </button>
-        <button class="nav-item" data-view="B" aria-pressed="false">
+        </a>
+        <a class="nav-item" href="#mapa-akteru" data-view="B">
           <span class="nav-num" aria-hidden="true"></span>
           <span class="nav-text">
             <span class="nav-name">Mapa aktérů</span>
             <span class="nav-desc">Čtyři vrstvy české vzdělávací soustavy</span>
           </span>
-        </button>
-        <button class="nav-item" data-view="C" aria-pressed="false">
+        </a>
+        <a class="nav-item" href="#kraj-v-cislech" data-view="C">
           <span class="nav-num" aria-hidden="true"></span>
           <span class="nav-text">
             <span class="nav-name">Kraj v číslech</span>
             <span class="nav-desc">Rešerše dat z oblasti vzdělávání (může obsahovat nepřesnosti)</span>
           </span>
-        </button>
-        <button class="nav-item" data-view="D" aria-pressed="false">
+        </a>
+        <a class="nav-item" href="#prehled-orp" data-view="D">
           <span class="nav-num" aria-hidden="true"></span>
           <span class="nav-text">
             <span class="nav-name">Přehled ORP v kraji</span>
             <span class="nav-desc">Obce, starostové a školy v sedmi obvodech</span>
           </span>
-        </button>
+        </a>
       </nav>
     </div>
 
@@ -1844,6 +1845,14 @@ const SUBTITLES = {
   D: "Sedm obvodů, 133 obcí, jejich školy a starostové"
 };
 const TITLES = { A:"Kaskáda dopadu", B:"Mapa aktérů", C:"Kraj v číslech", D:"Přehled ORP v kraji" };
+/* Každý pohled má vlastní adresu, aby se na něj dalo odkázat. */
+const SLUGS = { A:"kaskada", B:"mapa-akteru", C:"kraj-v-cislech", D:"prehled-orp" };
+const VIEW_BY_SLUG = {};
+for(const v in SLUGS) VIEW_BY_SLUG[SLUGS[v]] = v;
+function slugView(){
+  const h = decodeURIComponent(location.hash.replace(/^#/, '')).trim().toLowerCase();
+  return VIEW_BY_SLUG[h] || null;
+}
 
 const stage  = document.getElementById('stage');
 const canvas = document.getElementById('canvas');
@@ -2020,8 +2029,9 @@ function setView(v){
   document.querySelectorAll('.nav-item[data-view]').forEach(b=>{
     const on = b.dataset.view === v;
     b.classList.toggle('active', on);
-    b.setAttribute('aria-pressed', String(on));
+    if(on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
   });
+  document.title = TITLES[v] + ' — Kaskáda AI akcelerátoru';
   document.getElementById('viewTitle').childNodes[0].nodeValue = TITLES[v];
   document.getElementById('viewSub').textContent = SUBTITLES[v];
   cap.textContent = CAPTIONS[v];
@@ -2029,9 +2039,13 @@ function setView(v){
 }
 document.querySelectorAll('.nav-item[data-view]').forEach(b=>{
   b.addEventListener('click', ()=>{
-    setView(b.dataset.view);
+    /* Přepnutí obstará změna adresy; tady se jen na mobilu zavře panel. */
     if(window.matchMedia('(max-width:860px)').matches) openSidebar(false);
   });
+});
+addEventListener('hashchange', ()=>{
+  const v = slugView();
+  if(v && v !== current) setView(v);
 });
 
 /* ---------- výběr uzlu ---------- */
@@ -2110,7 +2124,11 @@ document.addEventListener('pointerout', e=>{
 });
 
 renderPanel(null);
-setView('A');
+setView(slugView() || 'A');
+/* Prázdnou nebo neznámou adresu srovnáme na aktuální pohled; #admin necháme,
+   ten si přebírá editor. */
+if(!slugView() && location.hash !== '#admin')
+  history.replaceState(null, '', '#' + SLUGS[current]);
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 /* =====================================================================
    Editor textů
@@ -2288,7 +2306,11 @@ pencil.addEventListener('click', e => { e.preventDefault(); e.stopPropagation();
 document.addEventListener('click', e => {
   if(!editing || editingEl) return;
   const el = e.target.closest && e.target.closest('[data-ed]');
-  if(el){ e.preventDefault(); e.stopPropagation(); startEdit(el); }
+  if(!el) return;
+  /* U položek přepínače má přednost přechod na jiný pohled — jinak by se
+     v režimu úprav nedalo přepínat. Text se u nich upraví tužkou. */
+  if(el.closest('.nav-item')) return;
+  e.preventDefault(); e.stopPropagation(); startEdit(el);
 }, true);
 
 /* --- ovládací lišta --------------------------------------------------- */
@@ -2309,7 +2331,7 @@ function edBar(){
   edCount();
   document.getElementById('ed-export').onclick = edExport;
   document.getElementById('ed-import').onclick = edImport;
-  document.getElementById('ed-quit').onclick = () => { sessionStorage.removeItem('ed-ok'); location.hash = ''; location.reload(); };
+  document.getElementById('ed-quit').onclick = () => { sessionStorage.removeItem('ed-ok'); location.hash = SLUGS[current]; location.reload(); };
   document.getElementById('ed-reset').onclick = () => {
     if(!confirm('Opravdu zahodit všech ' + Object.keys(edits).length + ' úprav? Vrátí se původní texty.')) return;
     edits = {}; edSave(); location.reload();
@@ -2369,9 +2391,13 @@ function edGate(){
     + '<button class="btn pri" id="ed-ok">Pokračovat</button></div></div>';
   document.body.appendChild(g);
   const inp = g.querySelector('#ed-pass'); inp.focus();
-  const close = () => { g.remove(); location.hash = ''; };
+  const close = () => { g.remove(); location.hash = SLUGS[current]; };
   const tryIt = () => {
-    if(inp.value === ED_HESLO){ sessionStorage.setItem('ed-ok','1'); g.remove(); edEnter(); }
+    if(inp.value === ED_HESLO){
+      sessionStorage.setItem('ed-ok','1'); g.remove();
+      history.replaceState(null, '', '#' + SLUGS[current]);   // ať adresa dál ukazuje na pohled
+      edEnter();
+    }
     else { g.querySelector('#ed-err').hidden = false; inp.select(); }
   };
   g.querySelector('#ed-ok').onclick = tryIt;

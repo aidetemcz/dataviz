@@ -45,6 +45,17 @@ Podklady a interaktivní diagram k **aktérům AI akcelerátoru na krajské úro
 
 Diagram je samostatný HTML dokument bez build kroku a bez závislostí kromě Google Fonts; logo je vložené jako data URI, takže soubor funguje i offline. Vzhled kopíruje aplikaci z větve `claude/prevod-katalogu-4c5gcn` v repozitáři `aidetemcz/podpurna-opatreni` — stejné CSS proměnné, rádiusy, fonty i rozvržení s levým panelem. Pouze světlý motiv.
 
+**Každý pohled má vlastní adresu**, takže se na něj dá odkázat:
+
+| Pohled | Adresa |
+|---|---|
+| Kaskáda dopadu | `…/ai-akcelerator-krajska-uroven-akteri/#kaskada` |
+| Mapa aktérů | `…/#mapa-akteru` |
+| Kraj v číslech | `…/#kraj-v-cislech` |
+| Přehled ORP v kraji | `…/#prehled-orp` |
+
+Položky přepínače jsou skutečné odkazy, takže se dají zkopírovat pravým tlačítkem a funguje na nich tlačítko zpět. Neznámá adresa spadne na kaskádu; `#admin` je vyhrazená editoru.
+
 Ovládání: levý panel přepíná mezi čtyřmi pohledy — kaskáda dopadu, mapa aktérů, „Kraj v číslech“ a „Přehled ORP v kraji“ — a zobrazuje detail uzlu, na který se klikne. Pod kaskádou je blok s dopočtenými poměry, třetí pohled je datový list s tabulkami a grafy; v obou se místo zoomu normálně roluje. Grafy jsou inline SVG bez knihoven; jejich paleta prošla validátorem ze skillu `dataviz` (odstup barev pro barvosleposti i kontrast vůči podkladu).
 
 **Režim úprav textů.** Adresa s `#admin` nebo Ctrl+Shift+E otevře editor. Po zadání hesla se u každého textu — v diagramech, v levém panelu i v datovém listu — objeví tužka; Enter uloží, Esc zruší. Úpravy se ukládají do `localStorage` daného prohlížeče, nikam se neodesílají a nikdo další je nevidí. Tlačítko **Export pro Claude** stáhne `upravy-textu.json` s klíčem, kontextem, původním i novým zněním — podle toho se úpravy zapracují do zdroje. **Heslo v souboru není ochrana:** stránka je veřejná a heslo je ve zdrojovém kódu čitelné. Je to zámek proti náhodnému otevření, nic víc. Další pohled stačí přidat jako položku do přepínače a odpovídající blok do plátna; čísla u položek generuje CSS counter. Plátno se přizpůsobí šířce okna, kolečkem se přibližuje, tažením posouvá. Jeho vzhled vychází ze stejných tokenů jako aplikace v repozitáři `aidetemcz/podpurna-opatreni`.
