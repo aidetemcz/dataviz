@@ -207,6 +207,72 @@ h1,h2,h3,.brand-title,.nav-name,.topbar-title{font-family:var(--font-heading);le
 .hidden{display:none}
 .canvas svg.hidden{display:none}
 
+/* ---------- Pracovní plocha: plátno + volitelný blok pod ním ---------- */
+.workarea{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+/* Při rolování musí být plocha blokový kontejner: jako flex by se blok pod
+   diagramem místo přetečení smrskl a datový list by dostal nulovou šířku. */
+.workarea.scrolls{display:block;overflow-y:auto}
+.workarea.scrolls .stage{height:64vh}
+.under-inner{max-width:1000px;margin:0 auto;padding:28px 28px 48px}
+.under{border-top:1px solid var(--line);background:var(--line-soft)}
+.under h2{font-size:1.05rem;font-weight:700;margin:0 0 8px}
+
+/* ---------- Grafy ---------- */
+.chart{display:block;width:100%;height:auto;margin-top:4px;overflow:visible}
+.chart .ax{font-size:11px;fill:var(--muted);font-family:var(--font-body)}
+.chart .gl{font-size:11.5px;fill:var(--ink)}
+.chart .val{font-size:11.5px;font-weight:600;fill:var(--ink);font-family:var(--font-heading)}
+.chart [data-tip]{cursor:default}
+.lg{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 2px}
+.lg-i{display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--muted)}
+.lg-s{width:11px;height:11px;border-radius:3px;flex:none}
+#tip{
+  position:fixed;z-index:60;pointer-events:none;opacity:0;transition:opacity .12s;
+  background:var(--ink);color:#fff;font-size:.76rem;line-height:1.35;
+  padding:6px 10px;border-radius:10px;max-width:260px;
+}
+#tip.on{opacity:1}
+
+/* ---------- Prvky datového listu ---------- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:18px 0 6px}
+.kpi{border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;background:#fff}
+.kpi.bad{border-color:var(--accent);background:var(--accent-soft)}
+.kpi-n{font-family:var(--font-heading);font-size:1.7rem;font-weight:700;line-height:1.05}
+.kpi.bad .kpi-n{color:var(--accent)}
+.kpi-l{font-size:.84rem;font-weight:600;margin-top:5px;line-height:1.3}
+.kpi-s{font-size:.74rem;color:var(--muted);margin-top:4px;line-height:1.35}
+.sheet h2{display:flex;align-items:center;gap:12px;margin:44px 0 6px;scroll-margin-top:20px}
+.hn{
+  flex:none;width:26px;height:26px;border-radius:var(--pill);background:var(--ink);color:#fff;
+  font-size:.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;
+}
+.sheet h3{font-family:var(--font-heading);font-size:.95rem;font-weight:700;margin:26px 0 6px}
+.sheet h4{font-family:var(--font-heading);font-size:.85rem;font-weight:700;margin:0 0 6px}
+.sec-lead{color:var(--muted);font-size:.88rem;margin:0 0 10px;max-width:80ch}
+.quote{border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 var(--radius) var(--radius) 0;padding:12px 16px;margin:16px 0 0}
+.quote p{margin:0;font-size:.86rem;line-height:1.55}
+.bul{margin:12px 0 0;padding-left:20px;font-size:.86rem;line-height:1.6}
+.bul li{margin:6px 0}
+.bul.tight li{margin:3px 0;font-size:.82rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.two.charts{gap:22px}
+.box{border:1px solid var(--line);border-radius:var(--radius-lg);padding:16px 18px;background:#fff;margin-top:16px}
+.box p{margin:0;font-size:.84rem;line-height:1.55;color:var(--ink)}
+.box.flagbox{border-color:var(--sky);background:var(--sky-light)}
+.note.flag{border-left:3px solid var(--accent);padding-left:12px;color:var(--ink)}
+.warn-i{font-style:normal}
+.tl{list-style:none;margin:12px 0 0;padding:0;border-left:2px solid var(--line)}
+.tl li{display:grid;grid-template-columns:88px 1fr 190px;gap:12px;padding:9px 0 9px 16px;
+  font-size:.83rem;border-bottom:1px solid var(--line-soft);align-items:baseline}
+.tl li:last-child{border-bottom:0}
+.tl-d{font-family:var(--font-heading);font-weight:700;color:var(--accent);font-size:.78rem}
+.tl-w{color:var(--muted);font-size:.78rem;text-align:right}
+@media (max-width:900px){
+  .two,.two.charts{grid-template-columns:1fr}
+  .tl li{grid-template-columns:1fr;gap:2px}
+  .tl-w{text-align:left}
+}
+
 /* ---------- Datový list (pohled „Kraj v číslech“) ---------- */
 .stage.sheet-mode{overflow-y:auto;cursor:default}
 .sheet{position:relative;width:100%}
@@ -377,6 +443,7 @@ h1,h2,h3,.brand-title,.nav-name,.topbar-title{font-family:var(--font-heading);le
     </div>
   </header>
 
+  <div class="workarea" id="workarea">
   <div class="stage" id="stage">
     <div class="canvas" id="canvas">
   <svg id="viewA" class="diagram" viewBox="0 0 1080 800" role="group" aria-label="Kaskáda dopadu: AI dětem školí 12 krajských mentorů, ti mentorují 20 škol, školy zapojují pedagogické sbory a ty pracují se žáky; paralelně běží celostátní distribuční vrstva.">
@@ -710,68 +777,11 @@ h1,h2,h3,.brand-title,.nav-name,.topbar-title{font-family:var(--font-heading);le
     </g>
   </svg>
     </div>
-  <div class="sheet hidden" id="viewC">
-    <div class="sheet-inner">
-      <h1>Karlovarský kraj v číslech</h1>
-      <p class="sheet-lead">Data o vzdělávací soustavě partnerského kraje. Slouží jako měřítko pro cílové hodnoty kaskády — kolik škol, dětí a učitelů v kraji vlastně je.</p>
-      <p class="src"><strong>Zdroj:</strong> podklad dodaný 21.&nbsp;8.&nbsp;2026. <span class="todo">[DOPLNIT: přesný název zdroje, datum platnosti dat a odkaz]</span></p>
-
-      <h2>Počet škol a školských zařízení</h2>
-      <div class="tw">
-      <table>
-        <thead>
-          <tr>
-            <th rowspan="2" class="l">Škola / školské zařízení</th>
-            <th colspan="4">podle okresů</th>
-            <th colspan="4">podle zřizovatele</th>
-          </tr>
-          <tr>
-            <th>Celkem</th><th>CH</th><th>KV</th><th>SO</th>
-            <th>MŠMT</th><th>Kraj</th><th>Obec*</th><th>Soukr. a církev</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><th class="l">Mateřská škola</th><td class="b">129</td><td>43</td><td>46</td><td>40</td><td>–</td><td>1</td><td>117</td><td>11</td></tr>
-          <tr class="sub"><th class="l">z toho MŠ při zdravotnickém zařízení</th><td class="b">1</td><td>–</td><td>1</td><td>–</td><td>–</td><td>1</td><td>–</td><td>–</td></tr>
-          <tr><th class="l">Základní škola</th><td class="b">112</td><td>35</td><td>44</td><td>33</td><td>1</td><td>3</td><td>97</td><td>11</td></tr>
-          <tr class="sub"><th class="l">z toho ZŠ při zdravotnickém zařízení</th><td class="b">1</td><td>–</td><td>1</td><td>–</td><td>–</td><td>1</td><td>–</td><td>–</td></tr>
-          <tr><th class="l">Základní umělecká škola</th><td class="b">20</td><td>6</td><td>8</td><td>6</td><td>–</td><td>1</td><td>19</td><td>–</td></tr>
-          <tr><th class="l">Střední škola</th><td class="b">31</td><td>9</td><td>16</td><td>6</td><td>–</td><td>21</td><td>2</td><td>8</td></tr>
-          <tr><th class="l">Jazyková škola s pr. st. jaz. zkoušky</th><td class="b">1</td><td>–</td><td>1</td><td>–</td><td>–</td><td>1</td><td>–</td><td>–</td></tr>
-          <tr class="cut"><th class="l">[DOPLNIT: poslední řádek tabulky byl v podkladu oříznutý]</th><td colspan="8">—</td></tr>
-        </tbody>
-      </table>
-      </div>
-      <p class="note">* Zřizovatel „Obec“ — vysvětlivka k hvězdičce nebyla v dodaném podkladu čitelná. Součty po okresech i po zřizovatelích u všech uvedených řádků sedí na sloupec Celkem.</p>
-
-      <h2>Počty dětí a žáků</h2>
-      <div class="tw">
-      <table>
-        <thead><tr><th class="l">&nbsp;</th><th>2021/22</th><th>2022/23</th><th>2023/24</th><th>2024/25</th></tr></thead>
-        <tbody>
-          <tr><th class="l">Počet dětí navštěvujících MŠ <sup>1)</sup></th><td>8 354</td><td>8 610</td><td>8 402</td><td class="b">8 266</td></tr>
-          <tr><th class="l">Počet žáků navštěvujících ZŠ <sup>2)</sup></th><td>24 818</td><td>26 071</td><td>25 464</td><td class="b">25 134</td></tr>
-          <tr><th class="l">Počet žáků navštěvujících SŠ <sup>3)</sup></th><td>10 442</td><td>10 783</td><td>11 254</td><td class="b">11 686</td></tr>
-        </tbody>
-      </table>
-      </div>
-      <p class="note"><span class="todo">[DOPLNIT: znění poznámek 1), 2) a 3) — v podkladu nebyly čitelné.]</span></p>
-
-      <h2>Učitelé</h2>
-      <div class="tw">
-      <table>
-        <thead><tr><th class="l">Školní rok</th><th>Celkem</th><th>z toho ženy</th><th>Přepočtení na plně zaměstnané</th><th>z toho bez kvalifikace pro PPČ</th></tr></thead>
-        <tbody>
-          <tr><th class="l">22/23</th><td class="b">2 540</td><td>2 113</td><td>2 039,20</td><td>438,60</td></tr>
-          <tr><th class="l">23/24</th><td class="b">2 616</td><td>2 163</td><td>2 051,50</td><td>449,50</td></tr>
-          <tr><th class="l">24/25</th><td class="b">2 639</td><td>2 215</td><td>2 037,90</td><td>408,50</td></tr>
-        </tbody>
-      </table>
-      </div>
-      <p class="note">PPČ = přímá pedagogická činnost. <span class="todo">[DOPLNIT: patička tabulky byla v podkladu oříznutá — u kterých druhů škol se učitelé počítají.]</span></p>
-
+  </div><!-- /stage -->
+  <div class="under hidden" id="underA">
+    <div class="under-inner">
       <h2>Dopočteno — co z toho plyne pro kaskádu</h2>
-      <p class="note">Následující čísla <strong>nejsou v podkladu</strong>, jsou dopočítaná z tabulek výše.</p>
+      <p class="note">Čísla níže <strong>nejsou v žádném podkladu</strong>, jsou dopočítaná z krajských dat v pohledu <em>Kraj v číslech</em>. Slouží k tomu, aby cílové hodnoty kaskády výše měly měřítko.</p>
       <div class="cards">
         <div class="card"><div class="card-num">18 %</div><div class="card-lab">20 škol první vlny ze 112 základních škol v kraji</div></div>
         <div class="card"><div class="card-num">224</div><div class="card-lab">žáků na průměrnou ZŠ v kraji (25 134 ÷ 112)</div></div>
@@ -783,8 +793,429 @@ h1,h2,h3,.brand-title,.nav-name,.topbar-title{font-family:var(--font-heading);le
       <p class="note"><strong>Poměr žáků na úvazek (12,3) odpovídá základním školám</strong>, ne celé soustavě — kdyby tabulka učitelů kryla i MŠ a SŠ, vyšlo by 22,1 žáka na úvazek, což neodpovídá skutečnosti. Tabulku učitelů proto čteme jako údaj za základní školy; před použitím v žádosti je to potřeba ověřit u zdroje.</p>
     </div>
   </div>
+  <div class="sheet hidden" id="viewC">
+<div class="sheet-inner">
+<h1>Karlovarský kraj v číslech</h1>
+<p class="sheet-lead">Proč se akcelerátor pilotuje právě tady. Data jsou seřazená od stavu soustavy přes učitele a výsledky žáků k tomu, co se v kraji kolem AI už děje.</p>
+<p class="src"><strong>Zdroje:</strong> Výroční zpráva o stavu a rozvoji vzdělávací soustavy KV kraje (tabulky v části 1); doplňující rešerše z 22.&nbsp;8.&nbsp;2026 (MŠMT, ČŠI, ČSÚ, PAQ Research, Dlouhodobý záměr kraje). Každý údaj má u sebe rok. Údaje označené <span class="warn-i">⚠️</span> se nepodařilo doložit primárním zdrojem.</p>
+<div class="kpis">
+<div class="kpi bad"><div class="kpi-n">13,6 %</div><div class="kpi-l">učitelů bez odborné kvalifikace</div><div class="kpi-s">nejvíc ze všech krajů · ČR 7,4 % · 2024/25</div></div>
+<div class="kpi bad"><div class="kpi-n">49,1</div><div class="kpi-l">roku — průměrný věk učitele</div><div class="kpi-s">nejvyšší v ČR · ČR 47,4 · 2024/25</div></div>
+<div class="kpi bad"><div class="kpi-n">41 %</div><div class="kpi-l">úspěšnost v matematice, 9. ročník</div><div class="kpi-s">na úrovni nejhoršího kraje · Praha 61 % · 2022</div></div>
+<div class="kpi bad"><div class="kpi-n">10,6 %</div><div class="kpi-l">obyvatel s vysokoškolským vzděláním</div><div class="kpi-s">poslední v ČR · ČR 18,7 % · SLDB 2021</div></div>
+<div class="kpi"><div class="kpi-n">50</div><div class="kpi-l">počítačů na 100 žáků ZŠ</div><div class="kpi-s">mezi nejlépe vybavenými · ČR 24 · 2023</div></div>
+<div class="kpi bad"><div class="kpi-n">4,60 %</div><div class="kpi-l">předčasných odchodů ze ZŠ</div><div class="kpi-s">ČR 2,73 % · druhý nejhorší kraj</div></div>
+</div>
+<p class="note">Kraj má vybavení, ale ne výsledky. Bariéra není technická, ale lidská — kvalifikace, aprobovanost a kapacita vedení škol. Na to akcelerátor cílí.</p>
+<h2><span class="hn">1</span>Soustava kraje</h2>
+<p class="sec-lead">Kolik škol, dětí a učitelů v kraji je. Podklad pro cílové hodnoty kaskády.</p>
+<h3>Počet škol a školských zařízení</h3>
+<div class="tw"><table>
+<thead>
+<tr><th rowspan="2" class="l">Škola / školské zařízení</th><th colspan="4">podle okresů</th><th colspan="4">podle zřizovatele</th></tr>
+<tr><th>Celkem</th><th>CH</th><th>KV</th><th>SO</th><th>MŠMT</th><th>Kraj</th><th>Obec*</th><th>Soukr. a církev</th></tr>
+</thead>
+<tbody>
+<tr><th class="l">Mateřská škola</th><td class="b">129</td><td>43</td><td>46</td><td>40</td><td>–</td><td>1</td><td>117</td><td>11</td></tr>
+<tr class="sub"><th class="l">z toho MŠ při zdravotnickém zařízení</th><td class="b">1</td><td>–</td><td>1</td><td>–</td><td>–</td><td>1</td><td>–</td><td>–</td></tr>
+<tr><th class="l">Základní škola</th><td class="b">112</td><td>35</td><td>44</td><td>33</td><td>1</td><td>3</td><td>97</td><td>11</td></tr>
+<tr class="sub"><th class="l">z toho ZŠ při zdravotnickém zařízení</th><td class="b">1</td><td>–</td><td>1</td><td>–</td><td>–</td><td>1</td><td>–</td><td>–</td></tr>
+<tr><th class="l">Základní umělecká škola</th><td class="b">20</td><td>6</td><td>8</td><td>6</td><td>–</td><td>1</td><td>19</td><td>–</td></tr>
+<tr><th class="l">Střední škola</th><td class="b">31</td><td>9</td><td>16</td><td>6</td><td>–</td><td>21</td><td>2</td><td>8</td></tr>
+<tr><th class="l">Jazyková škola s pr. st. jaz. zkoušky</th><td class="b">1</td><td>–</td><td>1</td><td>–</td><td>–</td><td>1</td><td>–</td><td>–</td></tr>
+<tr class="cut"><th class="l">[DOPLNIT: poslední řádek tabulky byl v podkladu oříznutý]</th><td colspan="8">—</td></tr>
+</tbody></table></div>
+<p class="note">* Vysvětlivka k hvězdičce nebyla v podkladu čitelná. Součty po okresech i po zřizovatelích sedí u všech uvedených řádků na sloupec Celkem.</p>
+<p class="note flag"><strong>Nesoulad zdrojů:</strong> rešerše z 8/2026 uvádí <strong>108 ZŠ</strong> a <strong>4,3 tis. učitelů / 3,9 tis. úvazků</strong> (MŠMT, celá regionální soustava), zatímco výroční zpráva výše má 112 ZŠ a 2 639 učitelů / 2 037,90 úvazku. Rozdíl v počtu učitelů odpovídá tomu, že tabulka výroční zprávy pokrývá jen základní školy — rozdíl u počtu škol je potřeba ověřit u zdroje.</p>
+<h3>Počty dětí a žáků</h3>
+<div class="lg"><span class="lg-i"><span class="lg-s" style="background:#DC5B5B"></span>Základní školy</span><span class="lg-i"><span class="lg-s" style="background:#2E6DA4"></span>Střední školy</span><span class="lg-i"><span class="lg-s" style="background:#B0862F"></span>Mateřské školy</span></div><svg class="chart" viewBox="0 0 720 230" role="img"><line x1="52" y1="190.0" x2="662" y2="190.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="44" y="194.0" text-anchor="end">0</text><line x1="52" y1="132.7" x2="662" y2="132.7" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="44" y="136.7" text-anchor="end">10 000</text><line x1="52" y1="75.3" x2="662" y2="75.3" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="44" y="79.3" text-anchor="end">20 000</text><line x1="52" y1="18.0" x2="662" y2="18.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="44" y="22.0" text-anchor="end">30 000</text><text class="ax gl" x="52.0" y="210" text-anchor="middle">2021/22</text><text class="ax gl" x="255.3" y="210" text-anchor="middle">2022/23</text><text class="ax gl" x="458.7" y="210" text-anchor="middle">2023/24</text><text class="ax gl" x="662.0" y="210" text-anchor="middle">2024/25</text><path d="M52.0,47.7 L255.3,40.5 L458.7,44.0 L662.0,45.9" fill="none" stroke="#DC5B5B" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="52.0" cy="47.7" r="4.5" fill="#DC5B5B" stroke="#fff" stroke-width="2" data-tip="Základní školy 2021/22: 24 818 dětí"/><circle cx="255.3" cy="40.5" r="4.5" fill="#DC5B5B" stroke="#fff" stroke-width="2" data-tip="Základní školy 2022/23: 26 071 dětí"/><circle cx="458.7" cy="44.0" r="4.5" fill="#DC5B5B" stroke="#fff" stroke-width="2" data-tip="Základní školy 2023/24: 25 464 dětí"/><circle cx="662.0" cy="45.9" r="4.5" fill="#DC5B5B" stroke="#fff" stroke-width="2" data-tip="Základní školy 2024/25: 25 134 dětí"/><text class="val" x="672.0" y="49.9" text-anchor="start">25 134</text><path d="M52.0,130.1 L255.3,128.2 L458.7,125.5 L662.0,123.0" fill="none" stroke="#2E6DA4" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="52.0" cy="130.1" r="4.5" fill="#2E6DA4" stroke="#fff" stroke-width="2" data-tip="Střední školy 2021/22: 10 442 dětí"/><circle cx="255.3" cy="128.2" r="4.5" fill="#2E6DA4" stroke="#fff" stroke-width="2" data-tip="Střední školy 2022/23: 10 783 dětí"/><circle cx="458.7" cy="125.5" r="4.5" fill="#2E6DA4" stroke="#fff" stroke-width="2" data-tip="Střední školy 2023/24: 11 254 dětí"/><circle cx="662.0" cy="123.0" r="4.5" fill="#2E6DA4" stroke="#fff" stroke-width="2" data-tip="Střední školy 2024/25: 11 686 dětí"/><text class="val" x="672.0" y="127.0" text-anchor="start">11 686</text><path d="M52.0,142.1 L255.3,140.6 L458.7,141.8 L662.0,142.6" fill="none" stroke="#B0862F" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="52.0" cy="142.1" r="4.5" fill="#B0862F" stroke="#fff" stroke-width="2" data-tip="Mateřské školy 2021/22: 8 354 dětí"/><circle cx="255.3" cy="140.6" r="4.5" fill="#B0862F" stroke="#fff" stroke-width="2" data-tip="Mateřské školy 2022/23: 8 610 dětí"/><circle cx="458.7" cy="141.8" r="4.5" fill="#B0862F" stroke="#fff" stroke-width="2" data-tip="Mateřské školy 2023/24: 8 402 dětí"/><circle cx="662.0" cy="142.6" r="4.5" fill="#B0862F" stroke="#fff" stroke-width="2" data-tip="Mateřské školy 2024/25: 8 266 dětí"/><text class="val" x="672.0" y="146.6" text-anchor="start">8 266</text></svg>
+<p class="note">Základní školy po vrcholu 2022/23 klesají, střední školy naopak rostou — silné ročníky postupují do vyššího stupně. <span class="warn-i">⚠️</span> [DOPLNIT: znění poznámek 1), 2) a 3) — v podkladu nebyly čitelné.]</p>
+<h3>Učitelé</h3>
+<div class="tw"><table class=""><thead><tr>
+<th class="l">Školní rok</th>
+<th>Celkem</th>
+<th>z toho ženy</th>
+<th>Přepočtení na plně zaměstnané</th>
+<th>z toho bez kvalifikace pro PPČ</th>
+</tr></thead><tbody>
+<tr>
+<th class="l">22/23</th>
+<td><b>2 540</b></td>
+<td>2 113</td>
+<td>2 039,20</td>
+<td>438,60</td>
+</tr>
+<tr>
+<th class="l">23/24</th>
+<td><b>2 616</b></td>
+<td>2 163</td>
+<td>2 051,50</td>
+<td>449,50</td>
+</tr>
+<tr>
+<th class="l">24/25</th>
+<td><b>2 639</b></td>
+<td>2 215</td>
+<td>2 037,90</td>
+<td>408,50</td>
+</tr>
+</tbody></table></div>
+<p class="note">PPČ = přímá pedagogická činnost. Počet osob roste, počet úvazků stagnuje — přibývá částečných úvazků. <span class="warn-i">⚠️</span> [DOPLNIT: patička tabulky byla oříznutá — u kterých druhů škol se učitelé počítají.]</p>
+<h2><span class="hn">2</span>Učitelé — nejslabší místo kraje</h2>
+<p class="sec-lead">Kraj je v republikovém srovnání poslední hned ve třech ukazatelích najednou: kvalifikaci, věku i schopnosti sehnat nové učitele.</p>
+<div class="lg"><span class="lg-i"><span class="lg-s" style="background:#DC5B5B"></span>Karlovarský kraj</span><span class="lg-i"><span class="lg-s" style="background:#8A97A3"></span>ČR</span></div><svg class="chart" viewBox="0 0 720 210" role="img"><line x1="44" y1="164.0" x2="708" y2="164.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="168.0" text-anchor="end">0,0</text><line x1="44" y1="127.5" x2="708" y2="127.5" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="131.5" text-anchor="end">10,0</text><line x1="44" y1="91.0" x2="708" y2="91.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="95.0" text-anchor="end">20,0</text><line x1="44" y1="54.5" x2="708" y2="54.5" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="58.5" text-anchor="end">30,0</text><line x1="44" y1="18.0" x2="708" y2="18.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="22.0" text-anchor="end">40,0</text><text class="ax gl" x="154.7" y="184" text-anchor="middle">Bez odborné kvalifikace</text><path d="M129.7,164 V118.4 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Bez odborné kvalifikace · Karlovarský kraj: 13,6 %"/><text class="val" x="141.7" y="108.4" text-anchor="middle">13,6</text><path d="M155.7,164 V141.0 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#8A97A3" data-tip="Bez odborné kvalifikace · ČR: 7,4 %"/><text class="val" x="167.7" y="131.0" text-anchor="middle">7,4</text><text class="ax gl" x="376.0" y="184" text-anchor="middle">Učitelé 55+</text><path d="M351.0,164 V35.1 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Učitelé 55+ · Karlovarský kraj: 36,4 %"/><text class="val" x="363.0" y="25.1" text-anchor="middle">36,4</text><path d="M377.0,164 V59.6 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#8A97A3" data-tip="Učitelé 55+ · ČR: 29,7 %"/><text class="val" x="389.0" y="49.6" text-anchor="middle">29,7</text><text class="ax gl" x="597.3" y="184" text-anchor="middle">Učitelé 65+</text><path d="M572.3,164 V145.7 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Učitelé 65+ · Karlovarský kraj: 6,1 %"/><text class="val" x="584.3" y="135.7" text-anchor="middle">6,1</text><path d="M598.3,164 V157.4 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#8A97A3" data-tip="Učitelé 65+ · ČR: 2,9 %"/><text class="val" x="610.3" y="147.4" text-anchor="middle">2,9</text></svg>
+<p class="note">Podíly v procentech, 2024/25. Zdroj: MŠMT, Mimořádné šetření 2025; hodnoty pro 55+ a 65+ jsou dopočet z tab. 9 téhož šetření.</p>
+<div class="tw"><table class=""><thead><tr>
+<th class="l">Ukazatel</th>
+<th>Karlovarský kraj</th>
+<th>ČR</th>
+<th>Rok</th>
+<th>Zdroj</th>
+</tr></thead><tbody>
+<tr>
+<th class="l">Průměrný věk učitele</th>
+<td><b>49,1 roku</b> — nejvyšší v ČR</td>
+<td>47,4 roku</td>
+<td>2024/25</td>
+<td>MŠMT, Analýza věku učitelů (1/2026)</td>
+</tr>
+<tr>
+<th class="l">SŠ, které potřebují nové učitele</th>
+<td><b>83,9 %</b> — nejvyšší podíl v ČR</td>
+<td>—</td>
+<td>2024/25</td>
+<td>MŠMT, Mimořádné šetření 2025</td>
+</tr>
+<tr>
+<th class="l">Absolutní počet učitelů</th>
+<td><b>4,3 tis. osob / 3,9 tis. úvazků</b> — nejméně v ČR</td>
+<td>—</td>
+<td>2024/25</td>
+<td>tamtéž</td>
+</tr>
+<tr>
+<th class="l">Kvalifikovanost na 2. stupni ZŠ</th>
+<td><b>až o 8 p. b. níže</b> než ostatní regiony</td>
+<td>—</td>
+<td>2026</td>
+<td>MŠMT, Analýza trendů v nerovnostech (4/2026)</td>
+</tr>
+</tbody></table></div>
+<div class="quote"><p>Dlouhodobý záměr kraje 2024–2028 to přiznává sám: kvalifikovanost <strong>85,23 %</strong> proti <strong>92,22 %</strong> v ČR, kraj „zaujímá poslední místo“ a za posledních šest let mu kvalifikovanost <strong>klesla o 5,54 p. b.</strong> Starší krajská data (2020/21) uvádějí <strong>49,2 % neaprobované výuky na 2. stupni ZŠ</strong>.</p></div>
+<p class="note flag"><span class="warn-i">⚠️</span> <strong>Pozor na metodiku:</strong> MŠMT ve srovnávací zprávě 2019 vs. 2025 uvádí pro kraj 88,2 % kvalifikovaných, základní zpráva 84,3 %. Rozdíl je daný jiným vzorkem škol — v žádosti citovat čísla ze základní zprávy.</p>
+<h2><span class="hn">3</span>Výsledky žáků</h2>
+<p class="sec-lead">Testování ČŠI v 5. a 9. ročnících (2022), průměrná úspěšnost po korekci. Kraj je v matematice 9. ročníku na úrovni nejhoršího kraje republiky.</p>
+<div class="lg"><span class="lg-i"><span class="lg-s" style="background:#2E6DA4"></span>Praha (nejlepší)</span><span class="lg-i"><span class="lg-s" style="background:#DC5B5B"></span>Karlovarský kraj</span><span class="lg-i"><span class="lg-s" style="background:#B0862F"></span>Ústecký (nejhorší)</span></div><svg class="chart" viewBox="0 0 720 210" role="img"><line x1="44" y1="164.0" x2="708" y2="164.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="168.0" text-anchor="end">0</text><line x1="44" y1="127.5" x2="708" y2="127.5" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="131.5" text-anchor="end">20</text><line x1="44" y1="91.0" x2="708" y2="91.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="95.0" text-anchor="end">40</text><line x1="44" y1="54.5" x2="708" y2="54.5" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="58.5" text-anchor="end">60</text><line x1="44" y1="18.0" x2="708" y2="18.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="22.0" text-anchor="end">80</text><text class="ax gl" x="127.0" y="184" text-anchor="middle">Čeština 5. r.</text><path d="M89.0,164 V38.4 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#2E6DA4" data-tip="Čeština 5. r. · Praha (nejlepší): 71 %"/><text class="val" x="101.0" y="28.4" text-anchor="middle">71</text><path d="M115.0,164 V49.4 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Čeština 5. r. · Karlovarský kraj: 65 %"/><text class="val" x="127.0" y="39.4" text-anchor="middle">65</text><path d="M141.0,164 V53.0 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#B0862F" data-tip="Čeština 5. r. · Ústecký (nejhorší): 63 %"/><text class="val" x="153.0" y="43.0" text-anchor="middle">63</text><text class="ax gl" x="293.0" y="184" text-anchor="middle">Matematika 5. r.</text><path d="M255.0,164 V58.5 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#2E6DA4" data-tip="Matematika 5. r. · Praha (nejlepší): 60 %"/><text class="val" x="267.0" y="48.5" text-anchor="middle">60</text><path d="M281.0,164 V84.1 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Matematika 5. r. · Karlovarský kraj: 46 %"/><text class="val" x="293.0" y="74.1" text-anchor="middle">46</text><path d="M307.0,164 V89.5 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#B0862F" data-tip="Matematika 5. r. · Ústecký (nejhorší): 43 %"/><text class="val" x="319.0" y="79.5" text-anchor="middle">43</text><text class="ax gl" x="459.0" y="184" text-anchor="middle">Čeština 9. r.</text><path d="M421.0,164 V42.1 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#2E6DA4" data-tip="Čeština 9. r. · Praha (nejlepší): 69 %"/><text class="val" x="433.0" y="32.1" text-anchor="middle">69</text><path d="M447.0,164 V60.3 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Čeština 9. r. · Karlovarský kraj: 59 %"/><text class="val" x="459.0" y="50.3" text-anchor="middle">59</text><path d="M473.0,164 V62.2 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#B0862F" data-tip="Čeština 9. r. · Ústecký (nejhorší): 58 %"/><text class="val" x="485.0" y="52.2" text-anchor="middle">58</text><text class="ax gl" x="625.0" y="184" text-anchor="middle">Matematika 9. r.</text><path d="M587.0,164 V56.7 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#2E6DA4" data-tip="Matematika 9. r. · Praha (nejlepší): 61 %"/><text class="val" x="599.0" y="46.7" text-anchor="middle">61</text><path d="M613.0,164 V93.2 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Matematika 9. r. · Karlovarský kraj: 41 %"/><text class="val" x="625.0" y="83.2" text-anchor="middle">41</text><path d="M639.0,164 V93.2 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#B0862F" data-tip="Matematika 9. r. · Ústecký (nejhorší): 41 %"/><text class="val" x="651.0" y="83.2" text-anchor="middle">41</text></svg>
+<p class="note">V matematice 9. ročníku dělí kraj od Prahy <strong>20 procentních bodů</strong>. Zdroj: ČŠI, Vyhodnocení výsledků vzdělávání žáků 5. a 9. ročníků ZŠ a VG (2022).</p>
+<div class="tw"><table class=""><thead><tr>
+<th class="l">Ukazatel</th>
+<th>Hodnota</th>
+<th>Kontext</th>
+<th>Zdroj</th>
+</tr></thead><tbody>
+<tr>
+<th class="l">Předčasné odchody ze ZŠ</th>
+<td><b>4,60 %</b></td>
+<td>ČR 2,73 %; podle DZ kraje cca 5 % žáků ročně končí docházku bez základního vzdělání — druhý nejhorší kraj</td>
+<td>ČŠI</td>
+</tr>
+<tr>
+<th class="l">Opakování ročníku</th>
+<td>2.–3. nejvyšší v ČR</td>
+<td>na 1. stupni vzrostlo z 0,34 % (2017) na <b>1,40 %</b> (2024)</td>
+<td>ČŠI</td>
+</tr>
+<tr>
+<th class="l">Žáci na 4letých gymnáziích a lyceích</th>
+<td><b>18,6 %</b> — nejnižší v ČR</td>
+<td>Praha 34,9 %</td>
+<td>PAQ Research, data 2024</td>
+</tr>
+<tr>
+<th class="l">Maturitní obor-školy s horšími výsledky, než odpovídá složení žáků</th>
+<td><b>32 %</b></td>
+<td>jen 15 % lepších — s Ústeckým a MSK nejhorší poměr v ČR</td>
+<td>ČŠI 2025</td>
+</tr>
+<tr>
+<th class="l">Nestabilita vzdělávacích drah</th>
+<td>nejvyšší v ČR</td>
+<td>společně s Ústeckým krajem</td>
+<td>MŠMT, 4/2026</td>
+</tr>
+<tr>
+<th class="l">PISA 2015</th>
+<td>3. nejvyšší podíl žáků pod 2. úrovní</td>
+<td>a nejnižší podíl nejúspěšnějších</td>
+<td>ČŠI</td>
+</tr>
+<tr>
+<th class="l">Národní testování 9. ročníku 2017/18</th>
+<td>nejhorší v republice</td>
+<td>v matematice i češtině; ve <b>20 % škol kraje</b> nedosáhl ani jeden žák 60 % v matematice</td>
+<td>ČŠI</td>
+</tr>
+</tbody></table></div>
+<h3>Na úrovni ORP — nedokončení ZŠ</h3>
+<div class="tw"><table class=""><thead><tr>
+<th class="l">ORP</th>
+<th>Nedokončení ZŠ</th>
+<th>Poznámka</th>
+</tr></thead><tbody>
+<tr>
+<th class="l">Kraslice</th>
+<td><b>~10–15 %</b></td>
+<td>nejhorší v kraji</td>
+</tr>
+<tr>
+<th class="l">Aš</th>
+<td><b>11,3 %</b></td>
+<td>ČR 3,8 %</td>
+</tr>
+<tr>
+<th class="l">Ostrov</th>
+<td>4,7 %</td>
+<td></td>
+</tr>
+<tr>
+<th class="l">Karlovy Vary</th>
+<td>3,0 %</td>
+<td></td>
+</tr>
+<tr>
+<th class="l">Sokolov</th>
+<td>—</td>
+<td>PAQ uvádí jako <strong>pozitivní příklad</strong> mikroregionu, který vzdělávací neúspěch dokáže snižovat</td>
+</tr>
+</tbody></table></div>
+<p class="note">PAQ Research / Mapa vzdělávání, data 2023–2024.</p>
+<h2><span class="hn">4</span>Vzdělanostní struktura a odliv</h2>
+<p class="sec-lead">Odstup od republiky se nezmenšuje, ale prohlubuje — u vysokoškolského vzdělání z −5,5 p. b. (2011) na −8,1 p. b. (2021).</p>
+<div class="lg"><span class="lg-i"><span class="lg-s" style="background:#DC5B5B"></span>Karlovarský kraj</span><span class="lg-i"><span class="lg-s" style="background:#8A97A3"></span>ČR</span></div><svg class="chart" viewBox="0 0 720 210" role="img"><line x1="44" y1="164.0" x2="708" y2="164.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="168.0" text-anchor="end">0,0</text><line x1="44" y1="127.5" x2="708" y2="127.5" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="131.5" text-anchor="end">5,0</text><line x1="44" y1="91.0" x2="708" y2="91.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="95.0" text-anchor="end">10,0</text><line x1="44" y1="54.5" x2="708" y2="54.5" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="58.5" text-anchor="end">15,0</text><line x1="44" y1="18.0" x2="708" y2="18.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="22.0" text-anchor="end">20,0</text><text class="ax gl" x="154.7" y="184" text-anchor="middle">Vysokoškolské</text><path d="M129.7,164 V90.6 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Vysokoškolské · Karlovarský kraj: 10,6 %"/><text class="val" x="141.7" y="80.6" text-anchor="middle">10,6</text><path d="M155.7,164 V31.5 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#8A97A3" data-tip="Vysokoškolské · ČR: 18,7 %"/><text class="val" x="167.7" y="21.5" text-anchor="middle">18,7</text><text class="ax gl" x="376.0" y="184" text-anchor="middle">Základní vč. neukončeného</text><path d="M351.0,164 V33.7 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Základní vč. neukončeného · Karlovarský kraj: 18,4 %"/><text class="val" x="363.0" y="23.7" text-anchor="middle">18,4</text><path d="M377.0,164 V70.9 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#8A97A3" data-tip="Základní vč. neukončeného · ČR: 13,3 %"/><text class="val" x="389.0" y="60.9" text-anchor="middle">13,3</text><text class="ax gl" x="597.3" y="184" text-anchor="middle">Bez vzdělání</text><path d="M572.3,164 V158.5 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Bez vzdělání · Karlovarský kraj: 1,3 %"/><text class="val" x="584.3" y="148.5" text-anchor="middle">1,3</text><path d="M598.3,164 V162.9 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#8A97A3" data-tip="Bez vzdělání · ČR: 0,7 %"/><text class="val" x="610.3" y="152.9" text-anchor="middle">0,7</text></svg>
+<p class="note">Sčítání lidu 2021. Kraj je poslední v podílu vysokoškoláků a zároveň první v podílu lidí se základním vzděláním i bez vzdělání.</p>
+<ul class="bul">
+<li><strong>90 % úspěšných absolventů SŠ studuje vysokou školu mimo kraj</strong> — 42 % v Praze, 26 % v Plzni.</li>
+<li>Ročně kraj opouští 1 000–1 200 mladých lidí kvůli studiu nebo práci, více než polovina se nevrací. <span class="warn-i">⚠️</span> Odhad roční ekonomické ztráty 216 mil. Kč pochází z analýzy vedavyzkum.cz, není to statistický údaj.</li>
+<li><strong>Jediný kraj ČR bez veřejné vysoké školy.</strong> Vláda návrh kraje na vznik samostatné VŠ v březnu 2025 odmítla. Jedná se o „Kampus Karlovy Vary“ se ZČU (vysokoškolský ústav od 2027) a o regionální ústav FTVS UK (bakalář od 2027/28); v Chebu jsou pracoviště FEK a FPE ZČU.</li>
+</ul>
+<h2><span class="hn">5</span>Sociální kontext</h2>
+<p class="sec-lead">Kraj je první v republice v podílu žáků se zdravotním postižením i v podílu obcí se sociálně vyloučenou lokalitou, a poslední v mzdách i HDP na obyvatele.</p>
+<div class="tw"><table class=""><thead><tr>
+<th class="l">Ukazatel</th>
+<th>Karlovarský kraj</th>
+<th>Pořadí v ČR</th>
+<th>Rok</th>
+</tr></thead><tbody>
+<tr>
+<th class="l">Podíl žáků se zdravotním postižením v ZŠ</th>
+<td><b>17,5 %</b></td>
+<td><b>1. — nejvyšší</b></td>
+<td>2024/25</td>
+</tr>
+<tr>
+<th class="l">Z toho ve speciálních třídách</th>
+<td>~30 %</td>
+<td>2.–3. (ČR 22,6 %)</td>
+<td>2024/25</td>
+</tr>
+<tr>
+<th class="l">Podíl obcí se sociálně vyloučenou lokalitou</th>
+<td><b>17 %</b></td>
+<td><b>1. — nejvyšší</b></td>
+<td>2024</td>
+</tr>
+<tr>
+<th class="l">Podíl sociálně znevýhodněných žáků</th>
+<td>—</td>
+<td>2. (po Ústeckém)</td>
+<td>2026</td>
+</tr>
+<tr>
+<th class="l">Osoby 15+ v exekuci</th>
+<td>11,1 %</td>
+<td>2. (Ústecký 12,4 %)</td>
+<td>konec 2025</td>
+</tr>
+<tr>
+<th class="l">Účast na předškolním vzdělávání</th>
+<td>85,3 %</td>
+<td><b>14. — nejnižší</b></td>
+<td>~2024</td>
+</tr>
+<tr>
+<th class="l">Odklady povinné školní docházky</th>
+<td>18,99 %</td>
+<td>—</td>
+<td>2022/23</td>
+</tr>
+<tr>
+<th class="l">Průměrná hrubá mzda</th>
+<td>44 981 Kč (ČR 52 283)</td>
+<td><b>14. — nejnižší</b></td>
+<td>4Q 2025</td>
+</tr>
+<tr>
+<th class="l">HDP na obyvatele</th>
+<td>460 940 Kč</td>
+<td><b>14. — nejnižší</b></td>
+<td>2024</td>
+</tr>
+<tr>
+<th class="l">Podíl nezaměstnaných</th>
+<td>5,72 % (ČR 4,96 %)</td>
+<td>3. nejvyšší</td>
+<td>VII/2026</td>
+</tr>
+<tr>
+<th class="l">— okres Sokolov</th>
+<td>7,67 %, 18,3 uchazeče na místo</td>
+<td>2. nejhorší okres ČR</td>
+<td>VII/2026</td>
+</tr>
+</tbody></table></div>
+<div class="two">
+<div class="box"><h4>Exekuce v obcích</h4><p>Vřesová <strong>49,5 %</strong>, Nová Ves 32,7 %, Rovná 31,0 % — vše Sokolovsko. ORP Sokolov 13,9 %, ORP Cheb 11,7 %.</p></div>
+<div class="box"><h4>Cizinci a ukrajinští žáci</h4><p>Kraj je hned za Prahou. <strong>12,6 %</strong> obyvatel jsou cizinci (3. nejvyšší v ČR), z toho polovina Ukrajinci (2025). Ukrajinští azylanti: <strong>ZŠ 6,3 %</strong> (2. v ČR), MŠ 2,7 % (2.), <strong>SŠ 2,8 %</strong> (1. v ČR) — MŠMT, jaro 2026. Cizinci v běžných ZŠ celkem 11 % (Praha 18 %) — ČŠI 2026.</p></div>
+</div>
+<div class="box"><h4>Index prosperity regionů 2026 (Česká spořitelna)</h4><p>Kraj je <strong>13. ze 14</strong>. Z 206 ORP v ČR: Ostrov 108., Mariánské Lázně 134., Karlovy Vary 140., Aš 154., Cheb 165., <strong>Kraslice 192., Sokolov 193.</strong> Aš je poslední v ČR v podílu vysokoškoláků.</p></div>
+<p class="note">Do kraje už kvůli znevýhodnění míří peníze: <strong>220 mil. Kč z NPO</strong> na podporu nejohroženějších škol (KV, Ústecký a MSK dohromady 640 mil.), 2024–2025.</p>
+<h2><span class="hn">6</span>Demografie — propad teprve přijde</h2>
+<p class="sec-lead">Porodnost v kraji spadla mezi lety 2021 a 2024 o 31 %, nejvíc ze všech krajů. Tyto ročníky nastoupí do prvních tříd v letech 2030–2032.</p>
+<div class="lg"><span class="lg-i"><span class="lg-s" style="background:#DC5B5B"></span>Počet patnáctiletých v kraji</span></div><svg class="chart" viewBox="0 0 720 210" role="img"><line x1="44" y1="164.0" x2="708" y2="164.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="168.0" text-anchor="end">0</text><line x1="44" y1="127.5" x2="708" y2="127.5" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="131.5" text-anchor="end">1 000</text><line x1="44" y1="91.0" x2="708" y2="91.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="95.0" text-anchor="end">2 000</text><line x1="44" y1="54.5" x2="708" y2="54.5" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="58.5" text-anchor="end">3 000</text><line x1="44" y1="18.0" x2="708" y2="18.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="22.0" text-anchor="end">4 000</text><text class="ax gl" x="154.7" y="184" text-anchor="middle">2023</text><path d="M142.7,164 V48.4 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="2023 · Počet patnáctiletých v kraji: 3 276 osob"/><text class="val" x="154.7" y="38.4" text-anchor="middle">3 276</text><text class="ax gl" x="376.0" y="184" text-anchor="middle">2027</text><path d="M364.0,164 V69.6 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="2027 · Počet patnáctiletých v kraji: 2 696 osob"/><text class="val" x="376.0" y="59.6" text-anchor="middle">2 696</text><text class="ax gl" x="597.3" y="184" text-anchor="middle">2028</text><path d="M585.3,164 V77.1 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="2028 · Počet patnáctiletých v kraji: 2 491 osob"/><text class="val" x="597.3" y="67.1" text-anchor="middle">2 491</text></svg>
+<p class="note">Pokles o 17,7 % do roku 2027 a o 24 % do roku 2028 oproti roku 2023 (hodnota pro 2028 podle Dlouhodobého záměru kraje).</p>
+<ul class="bul">
+<li><strong>Porodnost 2021 → 2024: −31 %</strong>, nejvíc ze všech krajů (ČR −25 %). V roce 2024 se narodilo 1 814 dětí, meziročně o 14,9 % méně.</li>
+<li>Přirozený přírůstek <strong>−5,4 ‰</strong> — nejnižší v ČR (2024). Populace kraje 292 027 obyvatel (31. 12. 2025), nejmenší v ČR.</li>
+<li>Saldo stěhování 2024 <strong>−295</strong>; spolu s Moravskoslezským krajem jediné záporné. 59,7 % vystěhovalých míří do jiných krajů ČR.</li>
+<li>Města už reagují: Sokolov na novou povinnost minimálního počtu 180 dětí v jednom školském zařízení, Cheb zvažuje redukci kapacit MŠ.</li>
+</ul>
+<div class="quote"><p>Pro rámování akcelerátoru je to podstatné: <strong>kraj bude v příštích letech muset řídit restrukturalizaci sítě škol</strong> — a to je přesně situace, kdy se hodí lídři změny a nástroje pro řízení.</p></div>
+<h2><span class="hn">7</span>Digitalizace — paradox vybavení a výsledků</h2>
+<p class="sec-lead">Nejzajímavější zjištění celé rešerše. Kraj patří mezi nejlépe vybavené, a přitom má nejhorší výsledky. Dvě různé veličiny, proto dva samostatné grafy.</p>
+<div class="two charts">
+<div><h4>Počítače na 100 žáků ZŠ (2023)</h4><div class="lg"><span class="lg-i"><span class="lg-s" style="background:#DC5B5B"></span>Počítačů na 100 žáků</span></div><svg class="chart" viewBox="0 0 720 190" role="img"><line x1="44" y1="144.0" x2="708" y2="144.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="148.0" text-anchor="end">0</text><line x1="44" y1="118.8" x2="708" y2="118.8" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="122.8" text-anchor="end">10</text><line x1="44" y1="93.6" x2="708" y2="93.6" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="97.6" text-anchor="end">20</text><line x1="44" y1="68.4" x2="708" y2="68.4" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="72.4" text-anchor="end">30</text><line x1="44" y1="43.2" x2="708" y2="43.2" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="47.2" text-anchor="end">40</text><line x1="44" y1="18.0" x2="708" y2="18.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="22.0" text-anchor="end">50</text><text class="ax gl" x="210.0" y="164" text-anchor="middle">Karlovarský kraj</text><path d="M198.0,144 V22.0 q0,-4 4,-4 h16.0 q4,0 4,4 V144 Z" fill="#DC5B5B" data-tip="Karlovarský kraj · Počítačů na 100 žáků: 50 ks"/><text class="val" x="210.0" y="12.0" text-anchor="middle">50</text><text class="ax gl" x="542.0" y="164" text-anchor="middle">ČR</text><path d="M530.0,144 V87.5 q0,-4 4,-4 h16.0 q4,0 4,4 V144 Z" fill="#DC5B5B" data-tip="ČR · Počítačů na 100 žáků: 24 ks"/><text class="val" x="542.0" y="77.5" text-anchor="middle">24</text></svg></div>
+<div><h4>Úspěšnost v matematice, 9. ročník (2022)</h4><div class="lg"><span class="lg-i"><span class="lg-s" style="background:#2E6DA4"></span>Úspěšnost</span></div><svg class="chart" viewBox="0 0 720 190" role="img"><line x1="44" y1="144.0" x2="708" y2="144.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="148.0" text-anchor="end">0</text><line x1="44" y1="102.0" x2="708" y2="102.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="106.0" text-anchor="end">25</text><line x1="44" y1="60.0" x2="708" y2="60.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="64.0" text-anchor="end">50</text><line x1="44" y1="18.0" x2="708" y2="18.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="22.0" text-anchor="end">75</text><text class="ax gl" x="210.0" y="164" text-anchor="middle">Karlovarský kraj</text><path d="M198.0,144 V79.1 q0,-4 4,-4 h16.0 q4,0 4,4 V144 Z" fill="#2E6DA4" data-tip="Karlovarský kraj · Úspěšnost: 41 %"/><text class="val" x="210.0" y="69.1" text-anchor="middle">41</text><text class="ax gl" x="542.0" y="164" text-anchor="middle">Praha</text><path d="M530.0,144 V45.5 q0,-4 4,-4 h16.0 q4,0 4,4 V144 Z" fill="#2E6DA4" data-tip="Praha · Úspěšnost: 61 %"/><text class="val" x="542.0" y="35.5" text-anchor="middle">61</text></svg></div>
+</div>
+<p class="note">Vlevo počty kusů, vpravo procenta úspěšnosti — schválně ve dvou grafech, aby se dvě různé jednotky nesešly na jedné ose.</p>
+<div class="tw"><table class=""><thead><tr>
+<th class="l">Ukazatel</th>
+<th>Karlovarský kraj</th>
+<th>ČR / kontext</th>
+<th>Rok</th>
+</tr></thead><tbody>
+<tr>
+<th class="l">Počítače na 100 žáků ZŠ</th>
+<td><b>50</b> — mezi nejlépe vybavenými kraji</td>
+<td>ČR 24</td>
+<td>2023</td>
+</tr>
+<tr>
+<th class="l">Podíl nových počítačů (max. 2 roky)</th>
+<td><b>největší ze všech krajů</b></td>
+<td>—</td>
+<td>2023</td>
+</tr>
+<tr>
+<th class="l">Domácnosti s internetem</th>
+<td>90,4 %</td>
+<td>ČR 88,9 %, 2. nejvyšší po Praze</td>
+<td>2024</td>
+</tr>
+<tr>
+<th class="l">Domácnosti s počítačem</th>
+<td>77,4 %</td>
+<td>3. nejnižší</td>
+<td>2024</td>
+</tr>
+</tbody></table></div>
+<div class="quote"><p><strong>Kraj má hardware, ale nemá výsledky.</strong> Bariéra není technická, ale lidská — kvalifikace, aprobovanost, kapacita vedení škol.</p></div>
+<p class="note">Peníze na vybavení dál tečou: OP Spravedlivá transformace pro kraj celkem <strong>6,3 mld. Kč</strong> (95 % vyčerpáno, 221 projektů), z toho <strong>200 mil. Kč cíleně pro základní školy</strong> ve výzvě 8/2025–2/2026 (až 40 mil. Kč na školu včetně IT vybavení). Kraj sám píše, že nová konektivita „otevírá prostor pro využívání pokročilých vzdělávacích aplikací včetně nástrojů využívajících umělou inteligenci“ — metodika, jak na to, ale chybí.</p>
+<h2><span class="hn">8</span>Kdo je kdo a co se v kraji děje kolem AI</h2>
+<p class="sec-lead">Kontakty pro jednání a přehled aktivit, které v kraji kolem AI už běží.</p>
+<h3>Vedení kraje a klíčoví lidé</h3>
+<div class="tw"><table class=""><thead><tr>
+<th class="l">Role</th>
+<th>Jméno</th>
+<th>Kontakt</th>
+</tr></thead><tbody>
+<tr>
+<th class="l">Hejtman</th>
+<td>Mgr. Petr Kubis</td>
+<td>—</td>
+</tr>
+<tr>
+<th class="l">Radní pro vzdělávání, školství, sport a tělovýchovu</th>
+<td><b>Mgr. Bc. Hana Žáková</b></td>
+<td>—</td>
+</tr>
+<tr>
+<th class="l">Náměstek pro dopravu, regionální rozvoj a IT</th>
+<td>Martin Hurajčík</td>
+<td>—</td>
+</tr>
+<tr>
+<th class="l">Vedoucí Odboru školství, mládeže a tělovýchovy KÚ</th>
+<td><b>PhDr. Mgr. Vratislav Smoleja</b></td>
+<td>vratislav.smoleja@kr-karlovarsky.cz · 725 751 702</td>
+</tr>
+<tr>
+<th class="l">Vedoucí krajského pracoviště NPI Karlovy Vary</th>
+<td>Mgr. Martina Bělohlávková</td>
+<td>karlovyvary@npi.cz</td>
+</tr>
+<tr>
+<th class="l">Ředitel Krajského inovačního centra</th>
+<td><b>Ing. Vlastimil Veselý</b></td>
+<td>kickk.cz</td>
+</tr>
+</tbody></table></div>
+<p class="note">Vedení kraje za ANO 2011, období 2024–2028.</p>
+<div class="box flagbox"><h4>Krajské inovační centrum — změna názvu</h4><p>Od 8. 8. 2025 se Karlovarská agentura rozvoje podnikání (KARP) přejmenovala na <strong>Krajské inovační centrum Karlovarského kraje, p. o. (KIC KK)</strong>. Nová strategie 2025–2027 má mezi oblastmi činnosti explicitně <strong>„rozvoj talentů a AI a jejich praktické uplatnění“</strong>. Staví budovu za <strong>635 mil. Kč</strong> z OP ST, plný provoz od začátku 2027, se vzdělávacími prostory.</p></div>
+<h3>Doložené AI aktivity v kraji</h3>
+<ol class="tl">
+<li><span class="tl-d">10/2024</span><span class="tl-t">Dny AI 2024 — workshopy i na základních školách</span><span class="tl-w">KARP + KHK KK</span></li>
+<li><span class="tl-d">od 3/2025</span><span class="tl-t">VR&amp;AI Academy — celoroční program pro pedagogy</span><span class="tl-w">KARP / KIC KK</span></li>
+<li><span class="tl-d">6/2025</span><span class="tl-t">Konference Inovace 2025 — AI a technologie budoucnosti</span><span class="tl-w">KARP / KIC KK</span></li>
+<li><span class="tl-d">11/2025</span><span class="tl-t">Dny AI 2025</span><span class="tl-w">KIC KK</span></li>
+<li><span class="tl-d">12/2025</span><span class="tl-t"><strong>Inovační platforma pro pedagogy s AI mentory a metodickou asistencí</strong></span><span class="tl-w">KIC KK</span></li>
+<li><span class="tl-d">6/2026</span><span class="tl-t">AI &amp; Programming Hackathon 2026 — první regionální pro středoškoláky</span><span class="tl-w">KIC KK + Praut + ISŠ Cheb</span></li>
+<li><span class="tl-d">6/2026</span><span class="tl-t">Inovační konference „Cesta talentu“, přes 100 účastníků</span><span class="tl-w">KIC KK</span></li>
+</ol>
+<p class="note flag"><strong>Pozor na překryv:</strong> KIC KK už provozuje Inovační platformu s AI mentory pro pedagogy. Je to buď partner, nebo konkurence v témže poli — vyjasnit hned na začátku jednání.</p>
+<h3>Strategická kotva v dokumentech kraje</h3>
+<p class="sec-lead">Dlouhodobý záměr vzdělávání KV kraje 2024–2028 (schválen 24. 6. 2024, usn. ZK 230/06/24) má AI přímo v textu.</p>
+<div class="tw"><table class=""><thead><tr>
+<th class="l">Místo v dokumentu</th>
+<th>Co říká</th>
+</tr></thead><tbody>
+<tr>
+<th class="l">Průřezové opatření <b>PO2</b></th>
+<td>„Digitální vzdělávání a umělá inteligence představují v českém školství nové možnosti a nástroje…“</td>
+</tr>
+<tr>
+<th class="l">Cíl <b>B.1.5</b></th>
+<td>„Sledovat vývoj umělé inteligence a dalších průlomových digitálních inovací a zařazovat je do vzdělávacího procesu.“</td>
+</tr>
+<tr>
+<th class="l">Samostatná priorita</th>
+<td><b>„Rozvoj ředitelů jako lídrů škol“</b> — vzdělávání ředitelů, metodické vedení</td>
+</tr>
+<tr>
+<th class="l">Průřezové opatření <b>PO4</b></th>
+<td>wellbeing dětí i pedagogů</td>
+</tr>
+</tbody></table></div>
+<p class="note">Průsečík AI a leadershipu ředitelů je v dokumentu doslova — pro žádost i pro jednání s krajem je to silná opora.</p>
+<div class="box"><h4>Volné místo v systému</h4><ul class="bul tight"><li><strong>Eduzměna v kraji nepůsobí</strong> — v červnu 2026 vybrala osm nových regionů, žádný z Karlovarského kraje.</li><li><strong>MAP v ORP kraje nemají AI</strong> jako téma pracovní skupiny.</li><li><strong>Krajské dotace ve školství</strong> (~500 tis. Kč rozděleno v 5/2025) nemíří na digitalizaci ani AI.</li><li><strong>Krajské memorandum k AI ve školství neexistuje.</strong></li></ul></div>
+<h2><span class="hn">9</span>Kde data chybí</h2>
+<p class="sec-lead">Tohle se dohledat nepodařilo a stojí za doptání přímo na kraji nebo v institucích.</p>
+<ul class="bul"><li><strong>Výroční zpráva o stavu a rozvoji vzdělávací soustavy KV kraje za 2023/24 a 2024/25</strong> — kraj ji na webu nepublikuje, na rozdíl od většiny krajů. Lze vyžádat na odboru školství, případně dle zák. 106/1999 Sb.</li><li><strong>Krajský akční plán rozvoje vzdělávání (KAP II–IV)</strong> — veřejně je jen KAP 1 z roku 2019.</li><li><strong>Bodové výsledky jednotné přijímací zkoušky za 2025/26</strong> — v PDF MŠMT na str. 27, nepodařilo se vytěžit. Doložený je jen údaj z 2024: KV a Ústecký shodně 46,5 bodu, nejméně v ČR (ČR 56).</li><li><strong>Neúspěšnost u maturity 2022–2025</strong> — CERMAT publikuje jen v interaktivním Power BI. Poslední veřejná krajská řada končí 2021 <span class="warn-i">⚠️</span> (hrubá neúspěšnost společné části 2021: KV 8,9 %, ČR 6,3 % — hodnota se při opakovaném čtení lišila, ověřit ručně).</li><li><strong>Krajský rozpad prostředků NPO na digitalizaci</strong> — MŠMT nepublikuje; peníze šly normativně na žáka přes krajský úřad.</li><li><strong>Číselné hodnoty indexů PAQ pro jednotlivá ORP</strong> — jsou v interaktivní mapě mapavzdelavani.cz; analytické zprávy lze stáhnout ručně nebo vyžádat.</li><li><strong>Krajská data PISA 2022</strong> — ČŠI je záměrně nezveřejňuje.</li></ul>
+<p class="note flag"><strong>Dvě opravy oproti dřívějším předpokladům:</strong> KARP se už jmenuje KIC KK, a Fakulta zdravotnických studií ZČU sídlí v Plzni, ne v Chebu — v Chebu jsou pracoviště FEK a FPE ZČU.</p>
+</div>
   </div>
 
+
+  </div><!-- /workarea -->
   <div class="statusbar" id="cap"></div>
 </main>
 
@@ -1098,6 +1529,8 @@ const canvas = document.getElementById('canvas');
 const viewA  = document.getElementById('viewA');
 const viewB  = document.getElementById('viewB');
 const viewC  = document.getElementById('viewC');
+const underA = document.getElementById('underA');
+const workarea = document.getElementById('workarea');
 const cap    = document.getElementById('cap');
 const panelBody = document.getElementById('panelBody');
 const zoomLevel = document.getElementById('zoomLevel');
@@ -1253,8 +1686,14 @@ function setView(v){
   viewC.classList.toggle('hidden', !sheet);
   canvas.classList.toggle('hidden', sheet);
   stage.classList.toggle('sheet-mode', sheet);
+  stage.classList.toggle('hidden', sheet);
   document.querySelector('.zoom').classList.toggle('hidden', sheet);
-  if(sheet) stage.scrollTop = 0;
+  /* Blok „Dopočteno“ patří jen ke kaskádě; plocha pak roluje a plátno
+     dostane pevnou výšku, aby se pod něj dalo scrollovat. */
+  const under = v === 'A';
+  underA.classList.toggle('hidden', !under);
+  workarea.classList.toggle('scrolls', under || sheet);
+  workarea.scrollTop = 0;
   document.querySelectorAll('.nav-item[data-view]').forEach(b=>{
     const on = b.dataset.view === v;
     b.classList.toggle('active', on);
@@ -1322,6 +1761,29 @@ window.addEventListener('resize', ()=>{ clearTimeout(resizeTimer); resizeTimer =
   const {w, h} = svgSize(svg);
   svg.style.width  = w + 'px';
   svg.style.height = h + 'px';
+});
+
+/* Jeden sdílený popisek pro všechny grafy; značky nesou data-tip. */
+const tip = document.createElement('div');
+tip.id = 'tip'; document.body.appendChild(tip);
+document.addEventListener('pointerover', e=>{
+  const m = e.target.closest && e.target.closest('[data-tip]');
+  if(!m) return;
+  tip.textContent = m.getAttribute('data-tip');
+  tip.classList.add('on');
+});
+document.addEventListener('pointermove', e=>{
+  if(!tip.classList.contains('on')) return;
+  const pad = 14;
+  let x = e.clientX + pad, y = e.clientY + pad;
+  const r = tip.getBoundingClientRect();
+  if(x + r.width  > innerWidth  - 8) x = e.clientX - r.width  - pad;
+  if(y + r.height > innerHeight - 8) y = e.clientY - r.height - pad;
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+});
+document.addEventListener('pointerout', e=>{
+  const m = e.target.closest && e.target.closest('[data-tip]');
+  if(m) tip.classList.remove('on');
 });
 
 renderPanel(null);

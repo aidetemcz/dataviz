@@ -45,7 +45,7 @@ Podklady a interaktivní diagram k **aktérům AI akcelerátoru na krajské úro
 
 Diagram je samostatný HTML dokument bez build kroku a bez závislostí kromě Google Fonts; logo je vložené jako data URI, takže soubor funguje i offline. Vzhled kopíruje aplikaci z větve `claude/prevod-katalogu-4c5gcn` v repozitáři `aidetemcz/podpurna-opatreni` — stejné CSS proměnné, rádiusy, fonty i rozvržení s levým panelem. Pouze světlý motiv.
 
-Ovládání: levý panel přepíná mezi třemi pohledy — kaskáda dopadu, mapa aktérů a „Kraj v číslech“ — a zobrazuje detail uzlu, na který se klikne. Třetí pohled je datový list, ne diagram, takže se v něm místo zoomu normálně roluje. Další pohled stačí přidat jako položku do přepínače a odpovídající blok do plátna; čísla u položek generuje CSS counter. Plátno se přizpůsobí šířce okna, kolečkem se přibližuje, tažením posouvá. Jeho vzhled vychází ze stejných tokenů jako aplikace v repozitáři `aidetemcz/podpurna-opatreni`.
+Ovládání: levý panel přepíná mezi třemi pohledy — kaskáda dopadu, mapa aktérů a „Kraj v číslech“ — a zobrazuje detail uzlu, na který se klikne. Pod kaskádou je blok s dopočtenými poměry, třetí pohled je datový list s tabulkami a grafy; v obou se místo zoomu normálně roluje. Grafy jsou inline SVG bez knihoven; jejich paleta prošla validátorem ze skillu `dataviz` (odstup barev pro barvosleposti i kontrast vůči podkladu). Další pohled stačí přidat jako položku do přepínače a odpovídající blok do plátna; čísla u položek generuje CSS counter. Plátno se přizpůsobí šířce okna, kolečkem se přibližuje, tažením posouvá. Jeho vzhled vychází ze stejných tokenů jako aplikace v repozitáři `aidetemcz/podpurna-opatreni`.
 
 ## Vizuální styl
 
