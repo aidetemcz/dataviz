@@ -233,6 +233,30 @@ h1,h2,h3,.brand-title,.nav-name,.topbar-title{font-family:var(--font-heading);le
 }
 #tip.on{opacity:1}
 
+/* ---------- Rozklikávací obvody ORP ---------- */
+.orp{border:1px solid var(--line);border-radius:var(--radius-lg);margin-top:10px;background:#fff}
+.orp summary{
+  list-style:none;cursor:pointer;padding:14px 18px;display:flex;flex-wrap:wrap;
+  align-items:baseline;gap:6px 14px;border-radius:var(--radius-lg);
+}
+.orp summary::-webkit-details-marker{display:none}
+.orp summary::before{
+  content:"›";font-family:var(--font-heading);font-weight:700;color:var(--accent);
+  font-size:1.1rem;line-height:1;transition:transform .15s;display:inline-block;
+}
+.orp[open] summary::before{transform:rotate(90deg)}
+.orp summary:hover{background:var(--sky-light)}
+.orp-n{font-family:var(--font-heading);font-weight:700;font-size:.98rem}
+.orp-m{color:var(--muted);font-size:.8rem}
+.orp .tw{margin:0 14px}
+.orp > .note{padding:0 18px 16px;margin-top:10px}
+.orp tr.noskola th.l:first-child{color:var(--muted)}
+.orp td,.orp th{font-size:.82rem}
+.star{font-weight:400!important}
+.dim{color:var(--muted);font-weight:400}
+tr.sum th,tr.sum td{background:var(--line-soft);font-weight:700}
+.bul.num{padding-left:22px}
+
 /* ---------- Prvky datového listu ---------- */
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:18px 0 6px}
 .kpi{border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;background:#fff}
@@ -455,6 +479,13 @@ body.editing text[data-ed].ed-dirty{fill:var(--accent)!important;font-weight:700
           <span class="nav-text">
             <span class="nav-name">Kraj v číslech</span>
             <span class="nav-desc">Rešerše dat z oblasti vzdělávání (může obsahovat nepřesnosti)</span>
+          </span>
+        </button>
+        <button class="nav-item" data-view="D" aria-pressed="false">
+          <span class="nav-num" aria-hidden="true"></span>
+          <span class="nav-text">
+            <span class="nav-name">Přehled ORP v kraji</span>
+            <span class="nav-desc">Obce, starostové a školy v sedmi obvodech</span>
           </span>
         </button>
       </nav>
@@ -848,6 +879,7 @@ body.editing text[data-ed].ed-dirty{fill:var(--accent)!important;font-weight:700
       <p class="note"><strong>Poměr žáků na úvazek (12,3) odpovídá základním školám</strong>, ne celé soustavě — kdyby tabulka učitelů kryla i MŠ a SŠ, vyšlo by 22,1 žáka na úvazek, což neodpovídá skutečnosti. Tabulku učitelů proto čteme jako údaj za základní školy; před použitím v žádosti je to potřeba ověřit u zdroje.</p>
     </div>
   </div>
+
   <div class="sheet hidden" id="viewC">
 <div class="sheet-inner">
 <h1>Karlovarský kraj v číslech</h1>
@@ -1268,6 +1300,238 @@ body.editing text[data-ed].ed-dirty{fill:var(--accent)!important;font-weight:700
 <p class="note flag"><strong>Dvě opravy oproti dřívějším předpokladům:</strong> KARP se už jmenuje KIC KK, a Fakulta zdravotnických studií ZČU sídlí v Plzni, ne v Chebu — v Chebu jsou pracoviště FEK a FPE ZČU.</p>
 </div>
   </div>
+  <div class="sheet hidden" id="viewD">
+<div class="sheet-inner">
+<h1>Přehled ORP v kraji</h1>
+<p class="sheet-lead">Sedm správních obvodů, 133 obcí, jejich starostové a školy. Slouží k výběru pilotního území a k tomu, s kým se o školách jedná.</p>
+<p class="src"><strong>Zdroje:</strong> ČSÚ (číselník obcí a počty obyvatel k 1.&nbsp;1.&nbsp;2026), Dlouhodobý záměr kraje 2024–2028, dokumenty MAP jednotlivých ORP, oficiální weby obcí. Podklad z 22.&nbsp;8.&nbsp;2026.</p>
+<div class="kpis">
+<div class="kpi"><div class="kpi-n">7</div><div class="kpi-l">správních obvodů ORP</div><div class="kpi-s">ve třech okresech — žádné ORP hranici okresu nepřesahuje</div></div>
+<div class="kpi"><div class="kpi-n">133</div><div class="kpi-l">obcí</div><div class="kpi-s">z toho 38 měst · 292 027 obyvatel</div></div>
+<div class="kpi bad"><div class="kpi-n">53</div><div class="kpi-l">obcí nemá žádnou školu</div><div class="kpi-s">40 % všech obcí v kraji</div></div>
+<div class="kpi"><div class="kpi-n">96</div><div class="kpi-l">ze 108 ZŠ zřizuje obec</div><div class="kpi-s">kraj jen 3, MŠMT 1, soukromé a církevní 8</div></div>
+</div>
+<p class="note flag"><strong>Pozor při citování počtu škol.</strong> Součet škol sestavený zdola z adresářů dává ~115 ZŠ, oficiální tabulka kraje 108 ZŠ (k 31.&nbsp;8.&nbsp;2023). Rozdíl tvoří zaniklé „ZŠ praktické“, které adresáře stále drží, a nové soukromé školy vzniklé po srpnu 2023. Reálný počet je 108–112. <strong>Navenek používejte čísla z Dlouhodobého záměru kraje, ne ze souhrnu níže.</strong></p>
+<h2><span class="hn">1</span>Sedm správních obvodů</h2>
+<p class="sec-lead">Kraj se dělí na sedm ORP ve třech okresech. Součet obyvatel přes ORP i přes okresy dává shodně 292 027.</p>
+<div class="tw"><table><thead><tr><th class="l">Správní obvod ORP</th><th>Obcí</th><th>z toho měst</th><th>Obyvatel</th><th>Obcí bez školy</th><th>ZŠ</th><th>MŠ</th><th>Okres</th></tr></thead><tbody>
+<tr><th class="l">Aš</th><td class="b">5</td><td>2</td><td>17 111</td><td>1 <span class="dim">(20 %)</span></td><td>6</td><td>7</td><td>Cheb</td></tr>
+<tr><th class="l">Cheb</th><td class="b">21</td><td>5</td><td>51 023</td><td>9 <span class="dim">(43 %)</span></td><td>18</td><td>21</td><td>Cheb</td></tr>
+<tr><th class="l">Karlovy Vary</th><td class="b">40</td><td>9</td><td>87 965</td><td>20 <span class="dim">(50 %)</span></td><td>36</td><td>31</td><td>Karlovy Vary</td></tr>
+<tr><th class="l">Kraslice</th><td class="b">8</td><td>4</td><td>12 504</td><td>4 <span class="dim">(50 %)</span></td><td>6</td><td>9</td><td>Sokolov</td></tr>
+<tr><th class="l">Mariánské Lázně</th><td class="b">14</td><td>3</td><td>25 400</td><td>6 <span class="dim">(43 %)</span></td><td>11</td><td>16</td><td>Cheb</td></tr>
+<tr><th class="l">Ostrov</th><td class="b">15</td><td>6</td><td>26 213</td><td>4 <span class="dim">(27 %)</span></td><td>11</td><td>17</td><td>Karlovy Vary</td></tr>
+<tr><th class="l">Sokolov</th><td class="b">30</td><td>9</td><td>71 811</td><td>9 <span class="dim">(30 %)</span></td><td>27</td><td>34</td><td>Sokolov</td></tr>
+<tr class="sum"><th class="l">Celkem</th><td class="b">133</td><td>38</td><td>292 027</td><td>53 <span class="dim">(40 %)</span></td><td>~115</td><td>~135</td><td>3 okresy</td></tr>
+</tbody></table></div>
+<p class="note">ČSÚ někdy uvádí 134 „obcí“ — do číselníku započítává i <strong>vojenský újezd Hradiště</strong> (0 obyvatel, SO ORP Karlovy Vary), který obcí není.</p>
+<h3>Velikost obvodů</h3>
+<div class="lg"><span class="lg-i"><span class="lg-s" style="background:#DC5B5B"></span>Obyvatel k 1. 1. 2026</span></div><svg class="chart" viewBox="0 0 720 210" role="img"><line x1="59.5" y1="164.0" x2="708" y2="164.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="51.5" y="168.0" text-anchor="end">0</text><line x1="59.5" y1="127.5" x2="708" y2="127.5" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="51.5" y="131.5" text-anchor="end">25 000</text><line x1="59.5" y1="91.0" x2="708" y2="91.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="51.5" y="95.0" text-anchor="end">50 000</text><line x1="59.5" y1="54.5" x2="708" y2="54.5" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="51.5" y="58.5" text-anchor="end">75 000</text><line x1="59.5" y1="18.0" x2="708" y2="18.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="51.5" y="22.0" text-anchor="end">100 000</text><text class="ax gl" x="105.8" y="184" text-anchor="middle">Aš</text><path d="M93.8,164 V143.0 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Aš · Obyvatel k 1. 1. 2026: 17 111 obyvatel"/><text class="val" x="105.8" y="133.0" text-anchor="middle">17 111</text><text class="ax gl" x="198.5" y="184" text-anchor="middle">Cheb</text><path d="M186.5,164 V93.5 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Cheb · Obyvatel k 1. 1. 2026: 51 023 obyvatel"/><text class="val" x="198.5" y="83.5" text-anchor="middle">51 023</text><text class="ax gl" x="291.1" y="184" text-anchor="middle">Karlovy Vary</text><path d="M279.1,164 V39.6 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Karlovy Vary · Obyvatel k 1. 1. 2026: 87 965 obyvatel"/><text class="val" x="291.1" y="29.6" text-anchor="middle">87 965</text><text class="ax gl" x="383.8" y="184" text-anchor="middle">Kraslice</text><path d="M371.8,164 V149.7 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Kraslice · Obyvatel k 1. 1. 2026: 12 504 obyvatel"/><text class="val" x="383.8" y="139.7" text-anchor="middle">12 504</text><text class="ax gl" x="476.4" y="184" text-anchor="middle">Mar. Lázně</text><path d="M464.4,164 V130.9 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Mar. Lázně · Obyvatel k 1. 1. 2026: 25 400 obyvatel"/><text class="val" x="476.4" y="120.9" text-anchor="middle">25 400</text><text class="ax gl" x="569.0" y="184" text-anchor="middle">Ostrov</text><path d="M557.0,164 V129.7 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Ostrov · Obyvatel k 1. 1. 2026: 26 213 obyvatel"/><text class="val" x="569.0" y="119.7" text-anchor="middle">26 213</text><text class="ax gl" x="661.7" y="184" text-anchor="middle">Sokolov</text><path d="M649.7,164 V63.2 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#DC5B5B" data-tip="Sokolov · Obyvatel k 1. 1. 2026: 71 811 obyvatel"/><text class="val" x="661.7" y="53.2" text-anchor="middle">71 811</text></svg>
+<h3>Podíl obcí bez školy</h3>
+<div class="lg"><span class="lg-i"><span class="lg-s" style="background:#2E6DA4"></span>Obcí bez školy</span></div><svg class="chart" viewBox="0 0 720 210" role="img"><line x1="44" y1="164.0" x2="708" y2="164.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="168.0" text-anchor="end">0</text><line x1="44" y1="134.8" x2="708" y2="134.8" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="138.8" text-anchor="end">10</text><line x1="44" y1="105.6" x2="708" y2="105.6" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="109.6" text-anchor="end">20</text><line x1="44" y1="76.4" x2="708" y2="76.4" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="80.4" text-anchor="end">30</text><line x1="44" y1="47.2" x2="708" y2="47.2" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="51.2" text-anchor="end">40</text><line x1="44" y1="18.0" x2="708" y2="18.0" stroke="#E8EDF0" stroke-width="1"/><text class="ax" x="36" y="22.0" text-anchor="end">50</text><text class="ax gl" x="91.4" y="184" text-anchor="middle">Aš</text><path d="M79.4,164 V109.6 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#2E6DA4" data-tip="Aš · Obcí bez školy: 20 %"/><text class="val" x="91.4" y="99.6" text-anchor="middle">20</text><text class="ax gl" x="186.3" y="184" text-anchor="middle">Cheb</text><path d="M174.3,164 V42.4 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#2E6DA4" data-tip="Cheb · Obcí bez školy: 43 %"/><text class="val" x="186.3" y="32.4" text-anchor="middle">43</text><text class="ax gl" x="281.1" y="184" text-anchor="middle">Karlovy Vary</text><path d="M269.1,164 V22.0 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#2E6DA4" data-tip="Karlovy Vary · Obcí bez školy: 50 %"/><text class="val" x="281.1" y="12.0" text-anchor="middle">50</text><text class="ax gl" x="376.0" y="184" text-anchor="middle">Kraslice</text><path d="M364.0,164 V22.0 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#2E6DA4" data-tip="Kraslice · Obcí bez školy: 50 %"/><text class="val" x="376.0" y="12.0" text-anchor="middle">50</text><text class="ax gl" x="470.9" y="184" text-anchor="middle">Mar. Lázně</text><path d="M458.9,164 V42.4 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#2E6DA4" data-tip="Mar. Lázně · Obcí bez školy: 43 %"/><text class="val" x="470.9" y="32.4" text-anchor="middle">43</text><text class="ax gl" x="565.7" y="184" text-anchor="middle">Ostrov</text><path d="M553.7,164 V89.2 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#2E6DA4" data-tip="Ostrov · Obcí bez školy: 27 %"/><text class="val" x="565.7" y="79.2" text-anchor="middle">27</text><text class="ax gl" x="660.6" y="184" text-anchor="middle">Sokolov</text><path d="M648.6,164 V80.4 q0,-4 4,-4 h16.0 q4,0 4,4 V164 Z" fill="#2E6DA4" data-tip="Sokolov · Obcí bez školy: 30 %"/><text class="val" x="660.6" y="70.4" text-anchor="middle">30</text></svg>
+<p class="note">V Karlových Varech a v Kraslicích nemá školu polovina obcí. <strong>Územní vrstva projektu proto nemůže stavět na obci, ale na ORP nebo mikroregionu.</strong></p>
+<h2><span class="hn">2</span>Obce, starostové a školy</h2>
+<p class="sec-lead">Rozklikněte obvod. U každé obce je počet obyvatel, starosta nebo starostka a jestli je v obci škola.</p>
+<p class="note flag"><strong>Komunální volby jsou na podzim 2026</strong> — seznam starostů platí do ustavujících zastupitelstev. Jména označená <span class="warn-i">⚠️</span> pocházejí z jednoho zdroje (portál RISY, zpoždění zhruba rok) a nejsou ověřená na webu obce; u zbylých 121 ze 133 obcí ověřené jsou.</p>
+<details class="orp"><summary><span class="orp-n">Aš</span><span class="orp-m">5 obcí · 17 111 obyvatel · 6 ZŠ, 7 MŠ · 1 bez školy</span></summary>
+<div class="tw"><table><thead><tr><th class="l">Obec</th><th>Obyvatel</th><th class="l">Starosta / starostka</th><th>Škola v obci</th></tr></thead><tbody>
+<tr><th class="l">Aš (město, ORP)</th><td>12 683</td><th class="l star">Vítězslav Kokoř</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Hazlov</th><td>1 507</td><th class="l star">Lenka Dvořáková</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Hranice (město)</th><td>2 070</td><th class="l star">Ing. Daniel Mašlár</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Krásná</th><td>632</td><th class="l star">Luboš Pokorný</th><td>MŠ</td></tr>
+<tr class="noskola"><th class="l">Podhradí</th><td>219</td><th class="l star">Kamila Červenková <span class="warn-i">⚠️</span></th><td>—</td></tr>
+</tbody></table></div>
+<p class="note"><strong>Školy:</strong> 6 ZŠ, 7 MŠ. Zřizovatelé: 5 obecních, 1 krajský (ZŠ a SŠ Aš), žádný soukromý. <strong>Jediné ORP bez aktuálního dokumentu MAP</strong> — poslední nalezený je z roku 2017, seznam škol tu tedy nemá oporu v primárním dokumentu.</p></details>
+<details class="orp"><summary><span class="orp-n">Cheb</span><span class="orp-m">21 obcí · 51 023 obyvatel · 18 ZŠ, 21 MŠ · 9 bez školy</span></summary>
+<div class="tw"><table><thead><tr><th class="l">Obec</th><th>Obyvatel</th><th class="l">Starosta / starostka</th><th>Škola v obci</th></tr></thead><tbody>
+<tr><th class="l">Cheb (město, ORP)</th><td>32 892</td><th class="l star">Ing. Jan Vrba</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Dolní Žandov</th><td>1 186</td><th class="l star">Ing. Eliška Stránská</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Františkovy Lázně (město)</th><td>5 648</td><th class="l star">Mgr. Lenka Průšová</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Křižovatka</th><td>261</td><th class="l star">Jan Strachota</th><td>—</td></tr>
+<tr><th class="l">Libá</th><td>817</td><th class="l star">Radek Jaroch</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Lipová</th><td>752</td><th class="l star">Mgr. Tomáš Linda</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Luby (město)</th><td>2 147</td><th class="l star">Ing. Vladimír Vorm</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Milhostov</th><td>311</td><th class="l star">Josef Hrdý</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Milíkov</th><td>293</td><th class="l star">Jan Benka</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Nebanice</th><td>320</td><th class="l star">Bc. Jitka Pagáčová</th><td>—</td></tr>
+<tr><th class="l">Nový Kostel</th><td>530</td><th class="l star">Ing. Gabriela Mlezivová</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Odrava</th><td>238</td><th class="l star">Alžběta Derahová</th><td>—</td></tr>
+<tr><th class="l">Okrouhlá</th><td>266</td><th class="l star">Mgr. Iva Váňová <span class="warn-i">⚠️</span></th><td>MŠ</td></tr>
+<tr><th class="l">Plesná (město)</th><td>1 890</td><th class="l star">Petr Schaller</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Pomezí nad Ohří</th><td>378</td><th class="l star">Ing. Radek Tlačil</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Poustka</th><td>170</td><th class="l star">Jan Ryba</th><td>—</td></tr>
+<tr><th class="l">Skalná (město)</th><td>1 875</td><th class="l star">Mgr. Rita Skalová</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Třebeň</th><td>484</td><th class="l star">Karel Mikoláš, DiS.</th><td>MŠ</td></tr>
+<tr class="noskola"><th class="l">Tuřany</th><td>137</td><th class="l star">Jitka Šindelářová</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Velký Luh</th><td>180</td><th class="l star">Jiřina Vrábelová</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Vojtanov</th><td>248</td><th class="l star">Jiří Mařík</th><td>—</td></tr>
+</tbody></table></div>
+<p class="note"><strong>Školy:</strong> 18 ZŠ, 21 MŠ. Zřizovatelé: 12 obcí (28 subjektů), 4 soukromí (z toho 1 církevní — MŠ Diakonie ČCE Cheb), žádná krajská ani MŠMT škola. Soukromé: Svobodná chebská škola (ZŠ a gymnázium), Waldorfská ZŠ a MŠ Cheb, Lesní MŠ Pod Lipami, MŠ Diakonie ČCE. <strong>Počty se přesně shodují s dokumentem MAP IV — nejlépe doložené ORP v kraji.</strong></p></details>
+<details class="orp"><summary><span class="orp-n">Karlovy Vary</span><span class="orp-m">40 obcí · 87 965 obyvatel · 36 ZŠ, 31 MŠ · 20 bez školy</span></summary>
+<div class="tw"><table><thead><tr><th class="l">Obec</th><th>Obyvatel</th><th class="l">Starosta / starostka</th><th>Škola v obci</th></tr></thead><tbody>
+<tr><th class="l">Karlovy Vary (stat. město, ORP)</th><td>48 788</td><th class="l star">Ing. Andrea Pfeffer Ferklová, MBA (primátorka)</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Andělská Hora</th><td>408</td><th class="l star">Bc. Miloslava Křimská</th><td>—</td></tr>
+<tr><th class="l">Bečov nad Teplou (město)</th><td>911</td><th class="l star">Miroslav Nepraš</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Bochov (město)</th><td>1 876</td><th class="l star">Miroslav Egert</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Božičany</th><td>589</td><th class="l star">Miloš Kameš <span class="warn-i">⚠️</span></th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Bražec</th><td>264</td><th class="l star">Marie Ambrosová</th><td>—</td></tr>
+<tr><th class="l">Březová (u K. Varů)</th><td>714</td><th class="l star">Mgr. Martin Gruber, DiS. <span class="warn-i">⚠️</span></th><td>MŠ</td></tr>
+<tr class="noskola"><th class="l">Černava</th><td>308</td><th class="l star">Zuzana Šťastná</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Čichalov</th><td>158</td><th class="l star">Štěpán Volf</th><td>—</td></tr>
+<tr><th class="l">Dalovice</th><td>1 992</td><th class="l star">Ing. Lukáš Kolovrátek</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Děpoltovice</th><td>466</td><th class="l star">Štěpánka Luxíková</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Hory</th><td>502</td><th class="l star">Lucie Hostašová</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Chodov (u Bečova n. T.)</th><td>129</td><th class="l star">Karel Čížek</th><td>—</td></tr>
+<tr><th class="l">Chyše (město)</th><td>586</td><th class="l star">Josef Lavička</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Jenišov</th><td>1 116</td><th class="l star">Mgr. Jiří Stehlík <span class="warn-i">⚠️</span></th><td>—</td></tr>
+<tr><th class="l">Kolová</th><td>952</td><th class="l star">Mgr. Jakub Jiskra</th><td>ZŠ</td></tr>
+<tr><th class="l">Krásné Údolí (město)</th><td>389</td><th class="l star">Ing. Martin Frank</th><td>MŠ</td></tr>
+<tr><th class="l">Kyselka</th><td>820</td><th class="l star">Aleš Labík</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Mírová</th><td>382</td><th class="l star">Ing. Lenka Baštová</th><td>—</td></tr>
+<tr><th class="l">Nejdek (město)</th><td>7 647</td><th class="l star">Bc. Zdeněk Plas</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Nová Role (město)</th><td>4 298</td><th class="l star">Mgr. Luboš Pastor</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Nové Hamry</th><td>354</td><th class="l star">Bc. Eva Machková</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Otovice</th><td>1 061</td><th class="l star">Stefana Švecová</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Otročín</th><td>438</td><th class="l star">Marie Šašková</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Pila</th><td>573</td><th class="l star">Mgr. Stanislav Hoffman</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Pšov</th><td>595</td><th class="l star">Ing. Radmila Houdková</th><td>—</td></tr>
+<tr><th class="l">Sadov</th><td>1 298</td><th class="l star">Eduard Frisch</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Smolné Pece</th><td>242</td><th class="l star">Rostislav Anděl</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Stanovice</th><td>652</td><th class="l star">Alice Kondelčíková</th><td>—</td></tr>
+<tr><th class="l">Stružná</th><td>633</td><th class="l star">Zuzana Večerková <span class="warn-i">⚠️</span></th><td>MŠ</td></tr>
+<tr><th class="l">Šemnice</th><td>659</td><th class="l star">Bc. Josef Fiala</th><td>MŠ</td></tr>
+<tr><th class="l">Štědrá</th><td>543</td><th class="l star">František Pánek</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Teplička</th><td>103</td><th class="l star">Tomáš Kundrát</th><td>—</td></tr>
+<tr><th class="l">Toužim (město)</th><td>3 458</td><th class="l star">Alexandr Žák</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Útvina</th><td>590</td><th class="l star">Ing. Lenka Straková</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Valeč</th><td>320</td><th class="l star">Michaela Holubcová</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Verušičky</th><td>456</td><th class="l star">Petr Kvasnička</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Vrbice</th><td>202</td><th class="l star">Jiří Sojka</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Vysoká Pec</th><td>340</td><th class="l star">Václav Malý</th><td>—</td></tr>
+<tr><th class="l">Žlutice (město)</th><td>2 153</td><th class="l star">Mgr. et Mgr. Helena Plitzová</th><td>MŠ + ZŠ</td></tr>
+</tbody></table></div>
+<p class="note"><strong>Školy:</strong> ~36 ZŠ, 31 MŠ, celkem 59 RED IZO. Zřizovatelé: 23 veřejných a 5 soukromých. ZŠ a MŠ Regionu Karlovarský venkov v Sadově zřizuje <strong>dobrovolný svazek obcí</strong> — jediný takový případ v kraji. Výchovný ústav, dětský domov se školou, ZŠ a SŠ Žlutice zřizuje <strong>MŠMT</strong>. <strong>Polovina obcí obvodu (20 ze 40) nemá školu</strong> a žije v nich zhruba 1 120 dětí a žáků do 15 let. Počty dětí: ~8 000 žáků ZŠ a ~3 500 dětí v MŠ (MAP Karlovarsko, 2025).</p></details>
+<details class="orp"><summary><span class="orp-n">Kraslice</span><span class="orp-m">8 obcí · 12 504 obyvatel · 6 ZŠ, 9 MŠ · 4 bez školy</span></summary>
+<div class="tw"><table><thead><tr><th class="l">Obec</th><th>Obyvatel</th><th class="l">Starosta / starostka</th><th>Škola v obci</th></tr></thead><tbody>
+<tr><th class="l">Kraslice (město, ORP)</th><td>6 369</td><th class="l star">Ing. Jiřina Junková</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Bublava</th><td>409</td><th class="l star">Ing. Monika Matasová</th><td>—</td></tr>
+<tr><th class="l">Jindřichovice</th><td>543</td><th class="l star">Martina Majdáková</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Oloví (město)</th><td>1 618</td><th class="l star">Jiří Mikuláš</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Přebuz (město)</th><td>67</td><th class="l star">Martin Bruoth</th><td>—</td></tr>
+<tr><th class="l">Rotava (město)</th><td>2 753</td><th class="l star">Michal Červenka</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Stříbrná</th><td>449</td><th class="l star">Jana Kortusová</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Šindelová</th><td>296</td><th class="l star">Věra Drozdíková</th><td>—</td></tr>
+</tbody></table></div>
+<p class="note"><strong>Školy:</strong> 6 ZŠ, 9 MŠ. Zřizovatelé: 4 obce (Kraslice, Oloví, Rotava, Jindřichovice), 1 krajská škola (SŠ, ZŠ a MŠ Kraslice), žádná soukromá. <strong>Polovina obcí bez školy — nejhorší poměr v kraji.</strong> Přebuz je nejmenší město ČR (67 obyvatel).</p></details>
+<details class="orp"><summary><span class="orp-n">Mariánské Lázně</span><span class="orp-m">14 obcí · 25 400 obyvatel · 11 ZŠ, 16 MŠ · 6 bez školy</span></summary>
+<div class="tw"><table><thead><tr><th class="l">Obec</th><th>Obyvatel</th><th class="l">Starosta / starostka</th><th>Škola v obci</th></tr></thead><tbody>
+<tr><th class="l">Mariánské Lázně (město, ORP)</th><td>13 921</td><th class="l star">Martin Hurajčík</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Drmoul</th><td>1 046</td><th class="l star">Ing. Josef Švajgl</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Lázně Kynžvart (město)</th><td>1 403</td><th class="l star">Jindřich Zíval</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Mnichov</th><td>409</td><th class="l star">Jiří Křenčil</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Ovesné Kladruby</th><td>149</td><th class="l star">Aurelie Skřivanová</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Prameny</th><td>89</td><th class="l star">Michala Málková</th><td>—</td></tr>
+<tr><th class="l">Stará Voda</th><td>494</td><th class="l star">Eva Procházková <span class="warn-i">⚠️</span></th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Teplá (město)</th><td>2 909</td><th class="l star">Karel Hermann</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Trstěnice</th><td>407</td><th class="l star">Helena Repíková</th><td>MŠ</td></tr>
+<tr><th class="l">Tři Sekery</th><td>1 072</td><th class="l star">Iva Stolcová (uváděno též Štolcová) <span class="warn-i">⚠️</span></th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Valy</th><td>468</td><th class="l star">Andrea Kakašová</th><td>—</td></tr>
+<tr><th class="l">Velká Hleďsebe</th><td>2 483</td><th class="l star">Ing. Pavel Zteiskar</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Vlkovice</th><td>120</td><th class="l star">Helena Klesnilová</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Zádub-Závišín</th><td>430</td><th class="l star">Josef Tréšek</th><td>—</td></tr>
+</tbody></table></div>
+<p class="note"><strong>Školy:</strong> 11 ZŠ, 16 MŠ, celkem 21 subjektů. Zřizovatelé: 8 obcí, 1 krajský (ZŠ a MŠ při Léčebných lázních Lázně Kynžvart), 2 soukromí (ZŠ a lesní MŠ Čtyřlístek, MŠ PRAMÍNEK). Počty dětí: ~2 400 dětí a žáků, z toho ~250 z Ukrajiny (Strategický rámec MAP, 2023). <strong>Martin Hurajčík je zároveň náměstkem hejtmana</strong> pro dopravu, regionální rozvoj a IT.</p></details>
+<details class="orp"><summary><span class="orp-n">Ostrov</span><span class="orp-m">15 obcí · 26 213 obyvatel · 11 ZŠ, 17 MŠ · 4 bez školy</span></summary>
+<div class="tw"><table><thead><tr><th class="l">Obec</th><th>Obyvatel</th><th class="l">Starosta / starostka</th><th>Škola v obci</th></tr></thead><tbody>
+<tr><th class="l">Ostrov (město, ORP)</th><td>15 615</td><th class="l star">Pavel Čekan</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Abertamy (město)</th><td>817</td><th class="l star">Ing. Renata Mrňková</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Boží Dar (město)</th><td>250</td><th class="l star">Ing. Jan Horník <span class="warn-i">⚠️</span></th><td>—</td></tr>
+<tr class="noskola"><th class="l">Doupovské Hradiště</th><td>172</td><th class="l star">Jarmila Bošková</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Hájek</th><td>643</td><th class="l star">Ing. Vít Hromádko</th><td>—</td></tr>
+<tr><th class="l">Horní Blatná (město)</th><td>350</td><th class="l star">Robert Petro</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Hroznětín (město)</th><td>2 179</td><th class="l star">Martin Maleček</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Jáchymov (město)</th><td>2 248</td><th class="l star">František Holý</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Krásný Les</th><td>361</td><th class="l star">Pavel Jandák</th><td>—</td></tr>
+<tr><th class="l">Merklín</th><td>888</td><th class="l star">Ing. Zdeněk Gerát</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Pernink</th><td>581</td><th class="l star">Petr Groh</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Potůčky</th><td>405</td><th class="l star">Vlastimil Ondra</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Stráž nad Ohří</th><td>565</td><th class="l star">Ing. Jana Viková</th><td>MŠ</td></tr>
+<tr><th class="l">Velichov</th><td>499</td><th class="l star">Ing. Markéta Sinkulová Moravcová</th><td>MŠ</td></tr>
+<tr><th class="l">Vojkovice</th><td>640</td><th class="l star">Luboš Garaj</th><td>MŠ</td></tr>
+</tbody></table></div>
+<p class="note"><strong>Školy:</strong> 11 ZŠ, 17 MŠ. Zřizovatelé: <strong>výhradně obce</strong> — jediné ORP v kraji bez soukromé, krajské i MŠMT školy, jednání o zřizovatelích je tu nejjednodušší. Ostrov měl v období 2022–2026 turbulentní vedení (Hanakovič → Čekan 2023 → Lerch 4/2024 → Čekan 10/2024). Boží Dar vede Jan Horník nepřetržitě od roku 1990, je zároveň senátor.</p></details>
+<details class="orp"><summary><span class="orp-n">Sokolov</span><span class="orp-m">30 obcí · 71 811 obyvatel · 27 ZŠ, 34 MŠ · 9 bez školy</span></summary>
+<div class="tw"><table><thead><tr><th class="l">Obec</th><th>Obyvatel</th><th class="l">Starosta / starostka</th><th>Škola v obci</th></tr></thead><tbody>
+<tr><th class="l">Sokolov (město, ORP)</th><td>21 908</td><th class="l star">Ing. Renata Oulehlová</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Březová (u Sokolova, město)</th><td>2 640</td><th class="l star">Jaroslav Bělíček</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Bukovany</th><td>1 476</td><th class="l star">Zdeněk Paulus</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Citice</th><td>838</td><th class="l star">Václav Mach</th><td>MŠ</td></tr>
+<tr class="noskola"><th class="l">Dasnice</th><td>249</td><th class="l star">Bc. Gabriela Turnerová</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Dolní Nivy</th><td>368</td><th class="l star">Pavel Hrysz</th><td>—</td></tr>
+<tr><th class="l">Dolní Rychnov</th><td>1 280</td><th class="l star">Anna Klímová</th><td>MŠ</td></tr>
+<tr><th class="l">Habartov (město)</th><td>4 614</td><th class="l star">Ing. Petr Janura</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Horní Slavkov (město)</th><td>5 071</td><th class="l star">Alexandr Terek</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Chlum Svaté Maří</th><td>314</td><th class="l star">Karel Průša</th><td>—</td></tr>
+<tr><th class="l">Chodov (město)</th><td>12 451</td><th class="l star">Patrik Pizinger</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Josefov</th><td>442</td><th class="l star">Mgr. Jan Onak</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Kaceřov</th><td>404</td><th class="l star">Miroslav Püchner</th><td>—</td></tr>
+<tr><th class="l">Krajková</th><td>920</td><th class="l star">Ing. Josef Horvát</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Královské Poříčí</th><td>768</td><th class="l star">Michal Kováč</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Krásno (město)</th><td>712</td><th class="l star">Josef Havel</th><td>MŠ</td></tr>
+<tr><th class="l">Kynšperk nad Ohří (město)</th><td>4 537</td><th class="l star">Marek Matoušek</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Libavské Údolí</th><td>513</td><th class="l star">Ing. Petra Nachtmann Gajičová</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Loket (město)</th><td>2 990</td><th class="l star">Ing. Zdeněk Bednář</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Lomnice</th><td>1 344</td><th class="l star">Miloš Matoušek</th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Nová Ves</th><td>229</td><th class="l star">Ing. et Ing. Pavel Straka <span class="warn-i">⚠️</span></th><td>—</td></tr>
+<tr><th class="l">Nové Sedlo (město)</th><td>2 527</td><th class="l star">Robert Zelenka</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Rovná</th><td>338</td><th class="l star">Ing. Jiří Chodúr</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Staré Sedlo</th><td>785</td><th class="l star">Miroslav Toncar</th><td>MŠ</td></tr>
+<tr><th class="l">Svatava (městys)</th><td>1 593</td><th class="l star">Radek Burda</th><td>MŠ + ZŠ</td></tr>
+<tr><th class="l">Šabina</th><td>394</td><th class="l star">František Pešek <span class="warn-i">⚠️</span></th><td>MŠ</td></tr>
+<tr class="noskola"><th class="l">Tatrovice</th><td>166</td><th class="l star">Michal Tvrdík</th><td>—</td></tr>
+<tr class="noskola"><th class="l">Těšovice</th><td>265</td><th class="l star">Ing. Josef Radek</th><td>—</td></tr>
+<tr><th class="l">Vintířov</th><td>1 245</td><th class="l star">Marek Choc <span class="warn-i">⚠️</span></th><td>MŠ + ZŠ</td></tr>
+<tr class="noskola"><th class="l">Vřesová</th><td>430</td><th class="l star">Jiří Sivák</th><td>—</td></tr>
+</tbody></table></div>
+<p class="note"><strong>Školy:</strong> 27 ZŠ, 34 MŠ. Zřizovatelé: 21 obcí (včetně městyse Svatava), 1 soukromý (Škola Můj Projekt Mánesova, Sokolov), žádná krajská ani MŠMT škola. Společně s ORP Kraslice: 67 školských subjektů ve 25 obcích, 24 zřizovatelů, ~1 300 pedagogických pracovníků, 10 411 dětí a žáků (MAP SOKRA, září 2022). <strong>Od 12. 12. 2025 má Sokolov novou starostku Ing. Renatu Oulehlovou</strong> (ANO); předchozí starosta Petr Kubis se stal hejtmanem kraje. Většina veřejných databází stále uvádí Kubise.</p></details>
+<h2><span class="hn">3</span>Co z toho plyne pro výběr pilotního území</h2>
+<div class="quote"><p><strong>Zřizovatelská struktura je jednoduchá.</strong> V kraji je 96 obecních ZŠ ze 108 a 116 obecních MŠ ze 127. Kraj zřizuje jen 3 ZŠ, MŠMT jednu. Jednání o pilotních školách jsou tedy prakticky vždy jednáním s obcí, ne s krajem — jiná logika než u středních škol, kde kraj zřizuje 21 z 31.</p></div>
+<h3>Kandidáti na pilotní ORP</h3>
+<div class="tw"><table><thead><tr><th class="l">ORP</th><th class="l">Pro</th><th class="l">Proti</th></tr></thead><tbody>
+<tr><th class="l">Sokolov</th><td class="l">největší koncentrace ZŠ mimo Karlovy Vary (27 ZŠ, 21 zřizovatelů), fungující MAP SOKRA s daty, vazba na hejtmana, PAQ ho uvádí jako pozitivní příklad</td><td class="l">velké území, 9 obcí bez školy</td></tr>
+<tr><th class="l">Cheb</th><td class="l">nejlépe zdokumentované ORP, aktivní MAP IV/V přímo pod městem, pestrá zřizovatelská struktura včetně soukromých a církevní školy</td><td class="l">9 z 21 obcí bez školy</td></tr>
+<tr><th class="l">Karlovy Vary</th><td class="l">největší objem žáků (~8 000), krajské město, sídlí zde KIC KK i NPI</td><td class="l">nejsložitější struktura, polovina obcí bez školy, 5 soukromých zřizovatelů</td></tr>
+<tr><th class="l">Ostrov</th><td class="l">výhradně obecní zřizovatelé — nejjednodušší jednání, kompaktní území, 11 ZŠ</td><td class="l">nestabilní vedení města v minulém období, MAP je nejslabší dokument v kraji</td></tr>
+<tr><th class="l">Kraslice / Aš</th><td class="l">nejmenší a nejzranitelnější území — silný argument „kde je to nejvíc potřeba“</td><td class="l">málo škol, ORP Aš nemá funkční MAP</td></tr>
+</tbody></table></div>
+<h3>Kdo je vstupní bod v území</h3>
+<p class="sec-lead">Nositelé MAP. S nimi se podle žádosti uzavírá dohoda hned v úvodní fázi, ne až při náboru škol.</p>
+<div class="tw"><table><thead><tr><th class="l">ORP</th><th class="l">Nositel MAP</th><th class="l">Kontakt</th></tr></thead><tbody>
+<tr><th class="l">Cheb</th><td class="l">Město Cheb</td><td class="l">map.cheb.cz</td></tr>
+<tr><th class="l">Sokolov + Kraslice</th><td class="l">MAS Sokolovsko</td><td class="l">Mgr. Zuzana Odvody · odvody@mas-sokolovsko.eu · 605 108 877</td></tr>
+<tr><th class="l">Karlovy Vary</th><td class="l">MAS Kraj živých vod</td><td class="l">—</td></tr>
+<tr><th class="l">Ostrov</th><td class="l">MAS Krušné hory</td><td class="l">—</td></tr>
+<tr><th class="l">Mariánské Lázně</th><td class="l">MAP Mariánskolázeňsko</td><td class="l">—</td></tr>
+<tr><th class="l">Aš</th><td class="l"><span class="todo">nositele se nepodařilo dohledat</span></td><td class="l">—</td></tr>
+</tbody></table></div>
+<h2><span class="hn">4</span>Kde data končí</h2>
+<p class="sec-lead">Počty žáků a učitelů po ORP se veřejně nepublikují. Ověřeno ve třech nezávislých produktech ČSÚ — statistická ročenka kraje, časové řady za jednotlivá SO ORP i souhrn „Vybrané údaje za všechny SO ORP 2026“ školství neobsahují. Nejnižší veřejná úroveň je okres, a i tam jen počty škol.</p>
+<h3>Počty škol po okresech</h3>
+<div class="tw"><table><thead><tr><th class="l">&nbsp;</th><th>okres Cheb</th><th>okres Karlovy Vary</th><th>okres Sokolov</th><th>Kraj</th></tr></thead><tbody>
+<tr><th class="l">Mateřská škola</th><td>42</td><td>46</td><td>39</td><td class="b">127</td></tr>
+<tr><th class="l">Základní škola</th><td>34</td><td>43</td><td>31</td><td class="b">108</td></tr>
+<tr><th class="l">Střední škola</th><td>9</td><td>16</td><td>6</td><td class="b">31</td></tr>
+<tr><th class="l">Vyšší odborná škola</th><td>1</td><td>3</td><td>–</td><td class="b">4</td></tr>
+<tr><th class="l">Všechna školská zařízení</th><td>207</td><td>259</td><td>185</td><td class="b">660</td></tr>
+</tbody></table></div>
+<p class="note">Dlouhodobý záměr KK 2024–2028, stav k 31.&nbsp;8.&nbsp;2023. Rozpad zřizovatelů za kraj: ZŠ — 96 obec, 3 kraj, 1 MŠMT, 8 soukromé a církevní; MŠ — 116 obec, 1 kraj, 10 soukromé a církevní.</p>
+<h3>Tři cesty, jak data za ORP doplnit</h3>
+<ol class="bul num"><li><strong>Agregace rejstříku škol</strong> — otevřená data rejstříku (JSON-LD, čtvrtletní snímky) na data.msmt.cz, napojit kód obce na číselník ORP ČSÚ a sečíst podle ORP × druh školy × zřizovatel. Dá to počty škol a zřizovatele za každé ORP přesně; vyžaduje stažení souboru a skript.</li><li><strong>Nositelé MAP</strong> — každý realizační tým sbírá od škol dotazníkem aktuální počty dětí, žáků, tříd i pedagogů. Nejrychlejší cesta ke skutečným číslům, stačí napsat (kontakty výše).</li><li><strong>Statistický odbor MŠMT</strong> — individuální výkazy škol (M3, S1) obsahují vše, ale nejsou veřejné. Žádost na posta@msmt.gov.cz.</li></ol>
+<h3>Dvě věci k ručnímu doověření</h3>
+<ul class="bul"><li><strong>Které 3 ZŠ zřizuje Karlovarský kraj.</strong> Kandidátů je pět — ZŠ a SŠ Aš, SŠ ZŠ a MŠ Kraslice, ZŠ MŠ a praktická škola Karlovy Vary, ZŠ a MŠ při zdravotnických zařízeních KV, ZŠ a MŠ při Léčebných lázních Lázně Kynžvart. Doptat na odboru školství krajského úřadu.</li><li><strong>Dvanáct starostů označených ⚠️</strong> — Podhradí, Okrouhlá, Božičany, Březová u&nbsp;K.&nbsp;Varů, Jenišov, Stružná, Nová Ves, Vintířov, Šabina, Boží Dar, Stará Voda, Tři Sekery. Weby těchto obcí blokují automatické čtení, jméno je jen z portálu RISY.</li></ul>
+<div class="box flagbox"><h4>Metodická past: území MAP se nekryjí se správními obvody</h4><p>Dolní Žandov patří do ORP Cheb, ale své školy vykazuje přes MAP Mariánskolázeňsko. Teplá patří do ORP Mariánské Lázně, ale MAP ji řadí pod Karlovarsko. MAP Cheb zahrnuje i obce z ORP Aš. V tomto přehledu je řídící logikou <strong>správní obvod ORP</strong> podle oficiálního seznamu kraje, ne území MAP. Kdo bude s daty pracovat dál, musí si vybrat jednu logiku a držet ji.</p></div>
+</div>
+  </div>
 
 
   </div><!-- /workarea -->
@@ -1294,7 +1558,7 @@ const DETAILS = {
     status:"12 vybraných · min. 10 absolventů · min. 8 aktivních",
     dl:[
       ["Kdo to je","Zkušení pedagogové, ředitelé nebo regionální odborníci vybraní společně s krajem. Zůstávají v kraji i po skončení projektu — to je ta místní kapacita, kterou kraj přebírá. Od začátku jsou financováni Krajem."],
-      ["Školení a menrtoring mentorů",["úvodní týdenní blok — role mentora, change management, diagnostika","dvoudenní trénink před vstupem do každé ze šesti oblastí změny","pravidelná online setkání, intervize a supervize","aplikační učení: během akademie vede každý nejvýše tři školy","certifikace na základě portfolia, reflexe, zpětné vazby škol a hospitace"]],
+      ["Školení a mentoring mentorů",["úvodní týdenní blok — role mentora, change management, diagnostika","dvoudenní trénink před vstupem do každé ze šesti oblastí změny","pravidelná online setkání, intervize a supervize","aplikační učení: během akademie vede každý nejvýše tři školy","certifikace na základě portfolia, reflexe, zpětné vazby škol a hospitace"]],
       ["Riziko","Kvalita mentorů je nejcitlivější místo celé kaskády. Osobnost a expertíza mentora zásadně ovlivňuje výsledek školy — proto náročný výběr, jednotná metodika a kalibrace."]
     ]
   },
@@ -1424,7 +1688,7 @@ const DETAILS = {
     depth:"d3", depthLabel:"Hloubka 3 — metodický soulad",
     status:"Memorandum podepsáno · jednání s útvarem digitálního vzdělávání",
     dl:[
-      ["O čem jednáme",["sdílení implementačního know-how z velkých plošných projektů (DIGI, AIDIG)","spolupráce při tvorbě školicích modulů pro pedagogy","soulad metodiky s národními doporučeními k AI a s rámcem DigCompEdu a Strategiíí AI ve vzdělávání 2030","případné napojení na krajské pracoviště NPI"]],
+      ["O čem jednáme",["sdílení implementačního know-how z velkých plošných projektů (DIGI, AIDIG)","spolupráce při tvorbě školicích modulů pro pedagogy","soulad metodiky s národními doporučeními k AI a s rámcem DigCompEdu a Strategií AI ve vzdělávání 2030","případné napojení na krajské pracoviště NPI"]],
       ["Vymezení","Společné naplňování Strategie AI ve vzdělávání 2030"],
       ["další detaily","Budou doplněny"]
     ]
@@ -1558,7 +1822,8 @@ const DETAILS = {
 const CAPTIONS = {
   A:"Kaskáda dopadu — jedna intervence ve dvou měřítkách. Vlevo hloubková kaskáda v partnerském kraji, vpravo celostátní distribuce ověřeného know-how; obě větve končí u žáků a obě se vracejí do metodiky.",
   B:"Mapa aktérů — česká vzdělávací soustava nemá jednu řídicí linii, ale čtyři vrstvy s vlastní logikou. AI dětem prochází všemi a nikde nenahrazuje jejich řízení. Přerušovaně je vyznačena explorativní linie bez vazby na klíčové indikátory projektu.",
-  C:"Kraj v číslech — data o vzdělávací soustavě Karlovarského kraje tak, jak přišla v podkladu. Dopočítané poměry jsou zvlášť a jsou jako dopočítané označené; místa, kde byl podklad nečitelný, jsou vyznačena červeně."
+  C:"Kraj v číslech — data o vzdělávací soustavě Karlovarského kraje tak, jak přišla v podkladu. Dopočítané poměry jsou zvlášť a jsou jako dopočítané označené; místa, kde byl podklad nečitelný, jsou vyznačena červeně.",
+  D:"Přehled ORP — sedm správních obvodů, jejich obce, starostové a školy. Slouží k výběru pilotního území a k tomu, s kým se o školách jedná; počty škol sestavené zdola jsou orientační, navenek citujte Dlouhodobý záměr kraje."
 };
 
 const DEFAULT_PANEL = `<h2>Dva pohledy na jeden systém</h2>
@@ -1575,15 +1840,17 @@ const DEFAULT_PANEL = `<h2>Dva pohledy na jeden systém</h2>
 const SUBTITLES = {
   A: "Jedna intervence ve dvou měřítkách",
   B: "Čtyři vrstvy soustavy a AI dětem napříč nimi",
-  C: "Podklad pro cílové hodnoty kaskády"
+  C: "Podklad pro cílové hodnoty kaskády",
+  D: "Sedm obvodů, 133 obcí, jejich školy a starostové"
 };
-const TITLES = { A:"Kaskáda dopadu", B:"Mapa aktérů", C:"Kraj v číslech" };
+const TITLES = { A:"Kaskáda dopadu", B:"Mapa aktérů", C:"Kraj v číslech", D:"Přehled ORP v kraji" };
 
 const stage  = document.getElementById('stage');
 const canvas = document.getElementById('canvas');
 const viewA  = document.getElementById('viewA');
 const viewB  = document.getElementById('viewB');
 const viewC  = document.getElementById('viewC');
+const viewD  = document.getElementById('viewD');
 const underA = document.getElementById('underA');
 const workarea = document.getElementById('workarea');
 const cap    = document.getElementById('cap');
@@ -1735,10 +2002,11 @@ document.getElementById('zoomAll').addEventListener('click', fitAll);
 /* ---------- přepínání pohledů ---------- */
 function setView(v){
   current = v;
-  const sheet = v === 'C';
+  const sheet = v === 'C' || v === 'D';
   viewA.classList.toggle('hidden', v !== 'A');
   viewB.classList.toggle('hidden', v !== 'B');
-  viewC.classList.toggle('hidden', !sheet);
+  viewC.classList.toggle('hidden', v !== 'C');
+  viewD.classList.toggle('hidden', v !== 'D');
   canvas.classList.toggle('hidden', sheet);
   stage.classList.toggle('sheet-mode', sheet);
   stage.classList.toggle('hidden', sheet);
@@ -1874,6 +2142,8 @@ const ED_HTML_SEL = [
   '.brand-title','.brand-sub','.nav-label','.nav-name','.nav-desc','.foot-note','.foot-brand',
   '#viewC h1','#viewC h3','#viewC h4','#viewC p','#viewC li','#viewC th','#viewC td',
   '#viewC .kpi-n','#viewC .kpi-l','#viewC .kpi-s','#viewC .lg-i',
+  '#viewD h1','#viewD h3','#viewD h4','#viewD p','#viewD li','#viewD th','#viewD td',
+  '#viewD .kpi-n','#viewD .kpi-l','#viewD .kpi-s','#viewD .lg-i','#viewD .orp-n','#viewD .orp-m',
   '#underA h2','#underA p','#underA .card-num','#underA .card-lab',
   '#viewC .card-num','#viewC .card-lab','#viewTitle small','.statusbar'
 ].join(',');
@@ -1918,7 +2188,7 @@ function edMark(){
   i = 0; document.querySelectorAll('#viewB text').forEach(el => put(el, 'B'));
   i = 0; document.querySelectorAll(ED_HTML_SEL).forEach(el => { if(edLeaf(el)) put(el, 'H'); });
   /* nadpisy sekcí mají uvnitř číselný odznak — upravuje se jen text vedle něj */
-  i = 0; document.querySelectorAll('#viewC h2').forEach(h2 => {
+  i = 0; document.querySelectorAll('#viewC h2, #viewD h2').forEach(h2 => {
     if(h2.querySelector('.ht')) return;
     const sp = document.createElement('span'); sp.className = 'ht';
     while(h2.lastChild && h2.lastChild !== h2.querySelector('.hn')) sp.insertBefore(h2.lastChild, sp.firstChild);
