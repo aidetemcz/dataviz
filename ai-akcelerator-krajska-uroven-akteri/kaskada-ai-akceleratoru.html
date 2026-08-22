@@ -207,6 +207,35 @@ h1,h2,h3,.brand-title,.nav-name,.topbar-title{font-family:var(--font-heading);le
 .hidden{display:none}
 .canvas svg.hidden{display:none}
 
+/* ---------- Datový list (pohled „Kraj v číslech“) ---------- */
+.stage.sheet-mode{overflow-y:auto;cursor:default}
+.sheet{position:relative;width:100%}
+.sheet-inner{max-width:1000px;margin:0 auto;padding:32px 28px 56px}
+.sheet h1{font-size:1.6rem;font-weight:700;margin:0 0 8px;letter-spacing:-.01em}
+.sheet h2{font-size:1.05rem;font-weight:700;margin:32px 0 10px}
+.sheet-lead{color:var(--muted);margin:0 0 14px;max-width:70ch}
+.src{font-size:.82rem;color:var(--muted);margin:0 0 8px}
+.todo{color:var(--accent);font-weight:600}
+.note{font-size:.8rem;color:var(--muted);margin:10px 0 0;max-width:80ch}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-lg)}
+.sheet table{border-collapse:collapse;width:100%;font-size:.85rem;background:#fff}
+.sheet th,.sheet td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:center;white-space:nowrap}
+.sheet thead th{background:var(--sky-light);color:var(--ink);font-family:var(--font-heading);font-weight:600;font-size:.78rem}
+.sheet thead tr:first-child th{border-bottom:1px solid var(--sky)}
+.sheet th.l{text-align:left;font-weight:600;white-space:normal}
+.sheet tbody th.l{background:#fff}
+.sheet td.b{font-weight:700}
+.sheet tbody tr:last-child th,.sheet tbody tr:last-child td{border-bottom:0}
+.sheet tr.sub th.l{padding-left:26px;font-weight:400;color:var(--muted)}
+.sheet tr.sub td{color:var(--muted)}
+.sheet tr.cut th.l,.sheet tr.cut td{color:var(--accent);font-weight:600;font-size:.78rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:12px}
+.card{border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;background:#fff}
+.card.warn{border-color:var(--accent);background:var(--accent-soft)}
+.card-num{font-family:var(--font-heading);font-size:1.5rem;font-weight:700;line-height:1.1}
+.card.warn .card-num{color:var(--accent)}
+.card-lab{font-size:.78rem;color:var(--muted);margin-top:4px}
+
 .statusbar{
   border-top:1px solid var(--line);background:var(--line-soft);
   padding:12px 24px;font-size:0.8rem;color:var(--muted);flex-shrink:0;
@@ -300,6 +329,13 @@ h1,h2,h3,.brand-title,.nav-name,.topbar-title{font-family:var(--font-heading);le
           <span class="nav-text">
             <span class="nav-name">Mapa aktérů</span>
             <span class="nav-desc">Čtyři vrstvy české vzdělávací soustavy</span>
+          </span>
+        </button>
+        <button class="nav-item" data-view="C" aria-pressed="false">
+          <span class="nav-num" aria-hidden="true"></span>
+          <span class="nav-text">
+            <span class="nav-name">Kraj v číslech</span>
+            <span class="nav-desc">Školy, děti a učitelé v Karlovarském kraji</span>
           </span>
         </button>
       </nav>
@@ -423,7 +459,7 @@ h1,h2,h3,.brand-title,.nav-name,.topbar-title{font-family:var(--font-heading);le
       <rect class="box" x="170" y="356" width="380" height="84" rx="3"/>
       <text class="num" x="196" y="406">20</text>
       <text class="t" x="252" y="390">Školy první vlny</text>
-      <text class="s" x="252" y="408">vedení školy + lídr změny (1–2 lidé)</text>
+      <text class="s" x="252" y="408">z 112 základních škol v kraji (18 %)</text>
       <text class="s" x="252" y="424">diagnostika, plán změny, pravidla pro AI</text>
     </g>
 
@@ -674,6 +710,79 @@ h1,h2,h3,.brand-title,.nav-name,.topbar-title{font-family:var(--font-heading);le
     </g>
   </svg>
     </div>
+  <div class="sheet hidden" id="viewC">
+    <div class="sheet-inner">
+      <h1>Karlovarský kraj v číslech</h1>
+      <p class="sheet-lead">Data o vzdělávací soustavě partnerského kraje. Slouží jako měřítko pro cílové hodnoty kaskády — kolik škol, dětí a učitelů v kraji vlastně je.</p>
+      <p class="src"><strong>Zdroj:</strong> podklad dodaný 21.&nbsp;8.&nbsp;2026. <span class="todo">[DOPLNIT: přesný název zdroje, datum platnosti dat a odkaz]</span></p>
+
+      <h2>Počet škol a školských zařízení</h2>
+      <div class="tw">
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2" class="l">Škola / školské zařízení</th>
+            <th colspan="4">podle okresů</th>
+            <th colspan="4">podle zřizovatele</th>
+          </tr>
+          <tr>
+            <th>Celkem</th><th>CH</th><th>KV</th><th>SO</th>
+            <th>MŠMT</th><th>Kraj</th><th>Obec*</th><th>Soukr. a církev</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th class="l">Mateřská škola</th><td class="b">129</td><td>43</td><td>46</td><td>40</td><td>–</td><td>1</td><td>117</td><td>11</td></tr>
+          <tr class="sub"><th class="l">z toho MŠ při zdravotnickém zařízení</th><td class="b">1</td><td>–</td><td>1</td><td>–</td><td>–</td><td>1</td><td>–</td><td>–</td></tr>
+          <tr><th class="l">Základní škola</th><td class="b">112</td><td>35</td><td>44</td><td>33</td><td>1</td><td>3</td><td>97</td><td>11</td></tr>
+          <tr class="sub"><th class="l">z toho ZŠ při zdravotnickém zařízení</th><td class="b">1</td><td>–</td><td>1</td><td>–</td><td>–</td><td>1</td><td>–</td><td>–</td></tr>
+          <tr><th class="l">Základní umělecká škola</th><td class="b">20</td><td>6</td><td>8</td><td>6</td><td>–</td><td>1</td><td>19</td><td>–</td></tr>
+          <tr><th class="l">Střední škola</th><td class="b">31</td><td>9</td><td>16</td><td>6</td><td>–</td><td>21</td><td>2</td><td>8</td></tr>
+          <tr><th class="l">Jazyková škola s pr. st. jaz. zkoušky</th><td class="b">1</td><td>–</td><td>1</td><td>–</td><td>–</td><td>1</td><td>–</td><td>–</td></tr>
+          <tr class="cut"><th class="l">[DOPLNIT: poslední řádek tabulky byl v podkladu oříznutý]</th><td colspan="8">—</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="note">* Zřizovatel „Obec“ — vysvětlivka k hvězdičce nebyla v dodaném podkladu čitelná. Součty po okresech i po zřizovatelích u všech uvedených řádků sedí na sloupec Celkem.</p>
+
+      <h2>Počty dětí a žáků</h2>
+      <div class="tw">
+      <table>
+        <thead><tr><th class="l">&nbsp;</th><th>2021/22</th><th>2022/23</th><th>2023/24</th><th>2024/25</th></tr></thead>
+        <tbody>
+          <tr><th class="l">Počet dětí navštěvujících MŠ <sup>1)</sup></th><td>8 354</td><td>8 610</td><td>8 402</td><td class="b">8 266</td></tr>
+          <tr><th class="l">Počet žáků navštěvujících ZŠ <sup>2)</sup></th><td>24 818</td><td>26 071</td><td>25 464</td><td class="b">25 134</td></tr>
+          <tr><th class="l">Počet žáků navštěvujících SŠ <sup>3)</sup></th><td>10 442</td><td>10 783</td><td>11 254</td><td class="b">11 686</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="note"><span class="todo">[DOPLNIT: znění poznámek 1), 2) a 3) — v podkladu nebyly čitelné.]</span></p>
+
+      <h2>Učitelé</h2>
+      <div class="tw">
+      <table>
+        <thead><tr><th class="l">Školní rok</th><th>Celkem</th><th>z toho ženy</th><th>Přepočtení na plně zaměstnané</th><th>z toho bez kvalifikace pro PPČ</th></tr></thead>
+        <tbody>
+          <tr><th class="l">22/23</th><td class="b">2 540</td><td>2 113</td><td>2 039,20</td><td>438,60</td></tr>
+          <tr><th class="l">23/24</th><td class="b">2 616</td><td>2 163</td><td>2 051,50</td><td>449,50</td></tr>
+          <tr><th class="l">24/25</th><td class="b">2 639</td><td>2 215</td><td>2 037,90</td><td>408,50</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="note">PPČ = přímá pedagogická činnost. <span class="todo">[DOPLNIT: patička tabulky byla v podkladu oříznutá — u kterých druhů škol se učitelé počítají.]</span></p>
+
+      <h2>Dopočteno — co z toho plyne pro kaskádu</h2>
+      <p class="note">Následující čísla <strong>nejsou v podkladu</strong>, jsou dopočítaná z tabulek výše.</p>
+      <div class="cards">
+        <div class="card"><div class="card-num">18 %</div><div class="card-lab">20 škol první vlny ze 112 základních škol v kraji</div></div>
+        <div class="card"><div class="card-num">224</div><div class="card-lab">žáků na průměrnou ZŠ v kraji (25 134 ÷ 112)</div></div>
+        <div class="card"><div class="card-num">23,6</div><div class="card-lab">učitele na průměrnou ZŠ (2 639 ÷ 112), tj. 18,2 úvazku</div></div>
+        <div class="card"><div class="card-num">12,3</div><div class="card-lab">žáka ZŠ na přepočtený úvazek (25 134 ÷ 2 037,90)</div></div>
+        <div class="card warn"><div class="card-num">~470</div><div class="card-lab">učitelů ve 20 průměrných školách — proti cíli 1 000 v kaskádě</div></div>
+        <div class="card"><div class="card-num">~4 500</div><div class="card-lab">žáků ve 20 průměrných školách první vlny</div></div>
+      </div>
+      <p class="note"><strong>Poměr žáků na úvazek (12,3) odpovídá základním školám</strong>, ne celé soustavě — kdyby tabulka učitelů kryla i MŠ a SŠ, vyšlo by 22,1 žáka na úvazek, což neodpovídá skutečnosti. Tabulku učitelů proto čteme jako údaj za základní školy; před použitím v žádosti je to potřeba ověřit u zdroje.</p>
+    </div>
+  </div>
   </div>
 
   <div class="statusbar" id="cap"></div>
@@ -710,7 +819,8 @@ const DETAILS = {
     dl:[
       ["Kdo za školu","Tým vedení školy a lídra změny (1–2 lidé). Lídr změny nesmí být sám ředitel — nemá kapacitu — ani osamocený nadšenec zdola."],
       ["Co škola projde",["vstupní diagnostika a inventura používání AI","Institut lídrů změny propojený s reálnými úkoly ve škole","mentoring ve dvou až třech prioritních oblastech podle potřeb","zavedení pravidel, odpovědností a rozvoje AI gramotnosti zaměstnanců","možnost získat označení AI odpovědná škola"]],
-      ["Cíl","Nejméně 16 z 20 škol zavede alespoň tři konkrétní klíčové změny; nejméně 15 splní kritéria procesu AI odpovědná škola."]
+      ["Cíl","Nejméně 16 z 20 škol zavede alespoň tři konkrétní klíčové změny; nejméně 15 splní kritéria procesu AI odpovědná škola."],
+      ["Měřítko v kraji","Karlovarský kraj má 112 základních škol, 20 škol první vlny je tedy 18 % z nich. Průměrná ZŠ v kraji má 224 žáků, 23,6 učitele a 18,2 přepočteného úvazku (2024/25). Dvacet průměrných škol znamená zhruba 4 500 žáků a 470 učitelů."]
     ]
   },
   sbor: {
@@ -720,7 +830,8 @@ const DETAILS = {
     dl:[
       ["Jak se zapojují","Přes interní workshopy, pilotní aktivity, komunikaci a sdílení výsledků uvnitř školy — vede je lídr změny, ne externí lektor. To je důvod, proč kaskáda funguje i bez přímé kapacity centrálního týmu."],
       ["Co se měří",["podíl zaměstnanců, kteří znají školní pravidla a bezpečné postupy","podíl pedagogů využívajících AI s konkrétním pedagogickým účelem","60 % účastníků použije nástroj do 8 týdnů, 40 % opakovaně do 4 měsíců"]],
-      ["Právní rovina","Rolově cílené proškolení je zároveň způsob, jak škola naplňuje čl. 4 AI Actu — požadavek AI gramotnosti osob, které AI používají jejím jménem."]
+      ["Právní rovina","Rolově cílené proškolení je zároveň způsob, jak škola naplňuje čl. 4 AI Actu — požadavek AI gramotnosti osob, které AI používají jejím jménem."],
+      ["K ověření — velikost škol","Cíl 1 000 pracovníků z 20 škol znamená 50 lidí na školu. Průměrná ZŠ v Karlovarském kraji má ale 23,6 učitele, takže dvacet průměrných škol dá zhruba 470. Na 1 000 se dá dosáhnout jen výběrem výrazně nadprůměrně velkých škol. Pilot měl 400+ pedagogů z 6 škol, tedy 67 na školu — jeho školy byly skoro trojnásobek krajského průměru. Buď je potřeba to promítnout do kritérií výběru škol, nebo cílovou hodnotu přepočítat."]
     ]
   },
   celostat: {
@@ -960,7 +1071,8 @@ const DETAILS = {
 
 const CAPTIONS = {
   A:"Kaskáda dopadu — jedna intervence ve dvou měřítkách. Vlevo hloubková kaskáda v partnerském kraji, vpravo celostátní distribuce ověřeného know-how; obě větve končí u žáků a obě se vracejí do metodiky.",
-  B:"Mapa aktérů — česká vzdělávací soustava nemá jednu řídicí linii, ale čtyři vrstvy s vlastní logikou. AI dětem prochází všemi a nikde nenahrazuje jejich řízení. Přerušovaně je vyznačena explorativní linie bez vazby na klíčové indikátory projektu."
+  B:"Mapa aktérů — česká vzdělávací soustava nemá jednu řídicí linii, ale čtyři vrstvy s vlastní logikou. AI dětem prochází všemi a nikde nenahrazuje jejich řízení. Přerušovaně je vyznačena explorativní linie bez vazby na klíčové indikátory projektu.",
+  C:"Kraj v číslech — data o vzdělávací soustavě Karlovarského kraje tak, jak přišla v podkladu. Dopočítané poměry jsou zvlášť a jsou jako dopočítané označené; místa, kde byl podklad nečitelný, jsou vyznačena červeně."
 };
 
 const DEFAULT_PANEL = `<h2>Dva pohledy na jeden systém</h2>
@@ -976,13 +1088,16 @@ const DEFAULT_PANEL = `<h2>Dva pohledy na jeden systém</h2>
 
 const SUBTITLES = {
   A: "Jedna intervence ve dvou měřítkách",
-  B: "Čtyři vrstvy soustavy a AI dětem napříč nimi"
+  B: "Čtyři vrstvy soustavy a AI dětem napříč nimi",
+  C: "Podklad pro cílové hodnoty kaskády"
 };
+const TITLES = { A:"Kaskáda dopadu", B:"Mapa aktérů", C:"Kraj v číslech" };
 
 const stage  = document.getElementById('stage');
 const canvas = document.getElementById('canvas');
 const viewA  = document.getElementById('viewA');
 const viewB  = document.getElementById('viewB');
+const viewC  = document.getElementById('viewC');
 const cap    = document.getElementById('cap');
 const panelBody = document.getElementById('panelBody');
 const zoomLevel = document.getElementById('zoomLevel');
@@ -1013,7 +1128,8 @@ function select(id){
 const MIN_K = 0.15, MAX_K = 4;
 let k = 1, tx = 0, ty = 0, current = 'A';
 
-function activeSvg(){ return current === 'A' ? viewA : viewB; }
+function activeSvg(){ return current === 'B' ? viewB : viewA; }
+function isSheet(){ return current === 'C'; }
 function svgSize(svg){
   const [,,w,h] = svg.getAttribute('viewBox').split(/\s+/).map(Number);
   return {w, h};
@@ -1023,6 +1139,7 @@ function apply(){
   zoomLevel.textContent = Math.round(k*100) + ' %';
 }
 function fit(){
+  if(isSheet()) return;
   const {w, h} = svgSize(activeSvg());
   const r = stage.getBoundingClientRect();
   if(!r.width || !r.height) return;
@@ -1035,6 +1152,7 @@ function fit(){
 /* Mapa aktérů je vyšší než široká, takže při přizpůsobení šířce spodní
    vrstvy vypadnou pod okraj. fitAll() vejde celý diagram do plátna. */
 function fitAll(){
+  if(isSheet()) return;
   const {w, h} = svgSize(activeSvg());
   const r = stage.getBoundingClientRect();
   if(!r.width || !r.height) return;
@@ -1058,6 +1176,7 @@ function zoomCentre(factor){
 }
 
 stage.addEventListener('wheel', e=>{
+  if(isSheet()) return;            // list se roluje normálně
   e.preventDefault();
   const r = stage.getBoundingClientRect();
   zoomAt(e.clientX - r.left, e.clientY - r.top, Math.exp(-e.deltaY * 0.0015));
@@ -1070,6 +1189,7 @@ let dragging = false, moved = false, sx = 0, sy = 0, stx = 0, sty = 0;
 let pinchDist = 0, suppressClick = false;
 
 stage.addEventListener('pointerdown', e=>{
+  if(isSheet()) return;
   pointers.set(e.pointerId, {x:e.clientX, y:e.clientY});
   if(pointers.size === 2){
     dragging = false;
@@ -1127,18 +1247,23 @@ document.getElementById('zoomAll').addEventListener('click', fitAll);
 /* ---------- přepínání pohledů ---------- */
 function setView(v){
   current = v;
+  const sheet = v === 'C';
   viewA.classList.toggle('hidden', v !== 'A');
-  viewB.classList.toggle('hidden', v === 'A');
+  viewB.classList.toggle('hidden', v !== 'B');
+  viewC.classList.toggle('hidden', !sheet);
+  canvas.classList.toggle('hidden', sheet);
+  stage.classList.toggle('sheet-mode', sheet);
+  document.querySelector('.zoom').classList.toggle('hidden', sheet);
+  if(sheet) stage.scrollTop = 0;
   document.querySelectorAll('.nav-item[data-view]').forEach(b=>{
     const on = b.dataset.view === v;
     b.classList.toggle('active', on);
     b.setAttribute('aria-pressed', String(on));
   });
-  document.getElementById('viewTitle').childNodes[0].nodeValue =
-    v === 'A' ? 'Kaskáda dopadu' : 'Mapa aktérů';
+  document.getElementById('viewTitle').childNodes[0].nodeValue = TITLES[v];
   document.getElementById('viewSub').textContent = SUBTITLES[v];
   cap.textContent = CAPTIONS[v];
-  fit();
+  if(!sheet) fit();
 }
 document.querySelectorAll('.nav-item[data-view]').forEach(b=>{
   b.addEventListener('click', ()=>{
