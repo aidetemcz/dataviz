@@ -1,0 +1,422 @@
+{
+  "verze": 1,
+  "soubor": "kaskada-ai-akceleratoru.html",
+  "vytvoreno": "2026-08-22T08:02:04.870Z",
+  "pocet": 69,
+  "upravy": [
+    {
+      "klic": "H#12",
+      "kde": "levý panel",
+      "puvodni": "Podklad k odstavci 4.1 projektové žádosti Nadace České spořitelny. Stav jednání k 21. 8. 2026; počty jsou cílové hodnoty z matice logického rámce, nikoli dosažené výsledky.",
+      "nove": "Rozvaha intervence v Karlovarském kraji za podpory Nadace České spořitelny."
+    },
+    {
+      "klic": "H#2",
+      "kde": "levý panel",
+      "puvodni": "Pohledy — přepněte diagram",
+      "nove": "Pohledy"
+    },
+    {
+      "klic": "H#4",
+      "kde": "levý panel",
+      "puvodni": "Od šesti lidí v AI dětem k žákům ve třídách",
+      "nove": "Hierarchie působení v kraji"
+    },
+    {
+      "klic": "H#8",
+      "kde": "levý panel",
+      "puvodni": "Školy, děti a učitelé v Karlovarském kraji",
+      "nove": "Rešerše dat z oblasti vzdělávání (může obsahovat nepřesnosti)"
+    },
+    {
+      "klic": "H#14",
+      "kde": "Dopočteno pod kaskádou",
+      "puvodni": "Dopočteno — co z toho plyne pro kaskádu",
+      "nove": "Porovnání kaskády s celkovými daty KV kraje"
+    },
+    {
+      "klic": "A#0",
+      "kde": "Kaskáda dopadu",
+      "puvodni": "zpětná vazba do metodiky · data z praxe, evaluace, ověřování nástrojů",
+      "nove": "zpětná vazba do metodiky · data z praxe, evaluace, ověřování  metod a nástrojů"
+    },
+    {
+      "klic": "A#1",
+      "kde": "Kaskáda dopadu",
+      "puvodni": "Akademie krajských mentorů",
+      "nove": "Institut krajských AI mentorů"
+    },
+    {
+      "klic": "A#2",
+      "kde": "Kaskáda dopadu",
+      "puvodni": "kontinuální školení, supervize, intervize",
+      "nove": "kontinuální školení, mentoring supervize, intervize"
+    },
+    {
+      "klic": "A#35",
+      "kde": "uzel „celostat“",
+      "puvodni": "implementační balíček k čl. 4 AI Actu",
+      "nove": "implementační balíček k národní AI strategii ve vzdělávání 2030"
+    },
+    {
+      "klic": "A#37",
+      "kde": "uzel „celostat“",
+      "puvodni": "rozcestník, AI asistenti, workflow, prompty",
+      "nove": "metodologie, nástroje a intervence"
+    },
+    {
+      "klic": "A#4",
+      "kde": "Kaskáda dopadu",
+      "puvodni": "mentoring — 2–3 školy na mentora",
+      "nove": "mentoring: 2—3 školy na mentora"
+    },
+    {
+      "klic": "A#5",
+      "kde": "Kaskáda dopadu",
+      "puvodni": "šest oblastí změny",
+      "nove": "přímý vztah k lídrům změny"
+    },
+    {
+      "klic": "A#27",
+      "kde": "uzel „skoly“",
+      "puvodni": "Školy první vlny",
+      "nove": "Školy v první vlně"
+    },
+    {
+      "klic": "A#29",
+      "kde": "uzel „skoly“",
+      "puvodni": "diagnostika, plán změny, pravidla pro AI",
+      "nove": "lídr změny: analýza, nástroje změny, evaluace"
+    },
+    {
+      "klic": "A#6",
+      "kde": "Kaskáda dopadu",
+      "puvodni": "nábor škol přes MAP, MAS a zřizovatele",
+      "nove": "různé oblasti změny"
+    },
+    {
+      "klic": "P:aidetem#4",
+      "kde": "detail uzlu „aidetem“",
+      "puvodni": "Šest mentorů a odborných garantů drží metodiku šesti oblastí změny, Akademii krajských mentorů, supervizi, standard kvality mentoringu a evaluaci. Role se oproti pilotu posouvá z „mentora škol“ na „architekta a garanta systému“.",
+      "nove": "Šest mentorů a odborných garantů drží metodiku šesti oblastí změny, Institut krajských mentorů a Institut lídrů změny, supervizi, standard kvality mentoringu a evaluaci. Role se oproti pilotu posouvá z „mentora škol“ na „architekta a garanta systému“."
+    },
+    {
+      "klic": "P:aidetem#6",
+      "kde": "detail uzlu „aidetem“",
+      "puvodni": "metodika, sylaby a certifikační proces Akademie mentorů",
+      "nove": "metodika, sylaby a certifikační proces Institutu krajských mentorů"
+    },
+    {
+      "klic": "P:aidetem#8",
+      "kde": "detail uzlu „aidetem“",
+      "puvodni": "AI kurikulum, AI asistenti, workflow, promptové sady, Tiny",
+      "nove": "AI kurikulum, metodologie AI akcelerátoru, AI asistenti, workflow, promptové sady, Tiny"
+    },
+    {
+      "klic": "P:mentori#4",
+      "kde": "detail uzlu „mentori“",
+      "puvodni": "Zkušení pedagogové, ředitelé nebo regionální odborníci vybraní společně s krajem. Zůstávají v kraji i po skončení projektu — to je ta místní kapacita, kterou kraj přebírá.",
+      "nove": "Zkušení pedagogové, ředitelé nebo regionální odborníci vybraní společně s krajem. Zůstávají v kraji i po skončení projektu — to je ta místní kapacita, kterou kraj přebírá. Od začátku jsou financováni Krajem."
+    },
+    {
+      "klic": "P:mentori#5",
+      "kde": "detail uzlu „mentori“",
+      "puvodni": "Jak vznikají",
+      "nove": "Školení a menrtoring mentorů"
+    },
+    {
+      "klic": "P:mentori#6",
+      "kde": "detail uzlu „mentori“",
+      "puvodni": "úvodní dvoudenní blok — role mentora, change management, diagnostika",
+      "nove": "úvodní týdenní blok — role mentora, change management, diagnostika"
+    },
+    {
+      "klic": "P:mentori#7",
+      "kde": "detail uzlu „mentori“",
+      "puvodni": "jednodenní trénink před vstupem do každé ze šesti oblastí změny",
+      "nove": "dvoudenní trénink před vstupem do každé ze šesti oblastí změny"
+    },
+    {
+      "klic": "P:celostat#4",
+      "kde": "detail uzlu „celostat“",
+      "puvodni": "implementační balíček k čl. 4 AI Actu a nejméně 8 editovatelných vzorových dokumentů",
+      "nove": "implementační balíček k národní AI strategii ve vzdělávání 2030"
+    },
+    {
+      "klic": "P:skoly#4",
+      "kde": "detail uzlu „skoly“",
+      "puvodni": "Tým vedení školy a lídra změny (1–2 lidé). Lídr změny nesmí být sám ředitel — nemá kapacitu — ani osamocený nadšenec zdola.",
+      "nove": "Tým vedení školy a lídra změny (1–2 lidé). Lídr změny nesmí být sám ředitel*ka — nemá kapacitu — ani osamocený nadšenec zdola."
+    },
+    {
+      "klic": "P:ceskolky#8",
+      "kde": "detail uzlu „ceskolky“",
+      "puvodni": "Vlastní lektorská komunita a digitální kanály AI dětem, plus kanály NPI ČR, Středního článku podpory, MAP a MAS.",
+      "nove": "Vlastní lektorská komunita a digitální kanály AI dětem, případně kanály NPI ČR, Středního článku podpory, MAP a MAS."
+    },
+    {
+      "klic": "P:ceskolky#10",
+      "kde": "detail uzlu „ceskolky“",
+      "puvodni": "Vysoký dosah bez skutečného použití. Proto se odděleně měří unikátní uživatelé, použití po 8 týdnech a opakované použití — ne jen zhlédnutí.",
+      "nove": "Vysoký dosah bez skutečného použití. Proto se odděleně měří unikátní uživatelé."
+    },
+    {
+      "klic": "P:zaci#6",
+      "kde": "detail uzlu „zaci“",
+      "puvodni": "Žákovské dotazníky nebo ověřovací úlohy a fokusní skupiny v evaluačním vzorku; cílem je zlepšení alespoň jednoho sledovaného ukazatele AI gramotnosti nebo bezpečného používání AI.",
+      "nove": "Žákovské dotazníky nebo ověřovací úlohy a fokusní skupiny v evaluačním vzorku; cílem je zlepšení alespoň jednoho sledovaného ukazatele AI gramotnosti a wellbeingových indikátorů."
+    },
+    {
+      "klic": "P:aidetem#7",
+      "kde": "detail uzlu „aidetem“",
+      "puvodni": "právní a metodický rámec AI odpovědná škola",
+      "nove": "právní a metodický rámec AI odpovědná škola + checklist pro školy od MŠMT"
+    },
+    {
+      "klic": "P:msmt#5",
+      "kde": "detail uzlu „msmt“",
+      "puvodni": "2.3.1 a 2.3.2 promítnutí pravidel do školní dokumentace — editovatelné vzory ověřené v praxi",
+      "nove": "<br>"
+    },
+    {
+      "klic": "P:msmt#6",
+      "kde": "detail uzlu „msmt“",
+      "puvodni": "2.1.1 a 2.2.x výklad legislativy, GDPR, lidský dohled — zpětná vazba, kde je výklad neproveditelný",
+      "nove": "<br>"
+    },
+    {
+      "klic": "P:msmt#7",
+      "kde": "detail uzlu „msmt“",
+      "puvodni": "3.1.1 a 3.1.3 rámec profesního rozvoje a podpora vedení škol — pilot rolově diferencovaného modelu",
+      "nove": "<br>"
+    },
+    {
+      "klic": "P:msmt#8",
+      "kde": "detail uzlu „msmt“",
+      "puvodni": "3.1.2 centrální metodický rozcestník — náš rozcestník jako obsahový dodavatel, ne konkurent",
+      "nove": "<br>"
+    },
+    {
+      "klic": "P:msmt#9",
+      "kde": "detail uzlu „msmt“",
+      "puvodni": "3.3 síť krajských AI metodiků — kompetenční profil, standard kvality, certifikační proces",
+      "nove": "<br>"
+    },
+    {
+      "klic": "P:msmt#10",
+      "kde": "detail uzlu „msmt“",
+      "puvodni": "3.4 monitorování implementace — evaluační data a případové studie",
+      "nove": "<br>"
+    },
+    {
+      "klic": "P:msmt#11",
+      "kde": "detail uzlu „msmt“",
+      "puvodni": "4.1.1 a 4.1.2 proměna hodnocení — jedna ze šesti oblastí změny akcelerátoru",
+      "nove": "<br>"
+    },
+    {
+      "klic": "P:msmt#12",
+      "kde": "detail uzlu „msmt“",
+      "puvodni": "5.1 osvětová kampaň — nemá být hrazena ze sekce II, otevírá prostor pro neziskového realizátora",
+      "nove": "<br>"
+    },
+    {
+      "klic": "P:msmt#4",
+      "kde": "detail uzlu „msmt“",
+      "puvodni": "1.1 a 1.2 katalog ověřených nástrojů — inventura reálně používaných nástrojů ve 20 školách jako terénní data",
+      "nove": "Konkrétní provazby budou doplněny po tom, co se Strategie AI ve vzdělávání 2030 finalizuje.&nbsp;"
+    },
+    {
+      "klic": "P:msmt#2",
+      "kde": "detail uzlu „msmt“",
+      "puvodni": "Dlouhodobá spolupráce · podíl na přípravě Strategie AI ve vzdělávání",
+      "nove": "Dlouhodobá spolupráce · podíl AI dětem na přípravě Strategie AI ve vzdělávání"
+    },
+    {
+      "klic": "B#24",
+      "kde": "uzel „npi“",
+      "puvodni": "školicí moduly, KIM",
+      "nove": "a spolupráce v naplňování Strategie AI ve vzdělávání 2030"
+    },
+    {
+      "klic": "P:npi#6",
+      "kde": "detail uzlu „npi“",
+      "puvodni": "soulad metodiky s národními doporučeními k AI a s rámcem DigCompEdu",
+      "nove": "soulad metodiky s národními doporučeními k AI a s rámcem DigCompEdu a Strategiíí AI ve vzdělávání 2030"
+    },
+    {
+      "klic": "P:npi#9",
+      "kde": "detail uzlu „npi“",
+      "puvodni": "Spolupráce se záměrně soustředí na pedagogickou rovinu. Podporu vedení a řízení škol pokrývá v systému Střední článek podpory — vztah je komplementární, ne konkurenční.",
+      "nove": "Společné naplňování Strategie AI ve vzdělávání 2030"
+    },
+    {
+      "klic": "P:npi#10",
+      "kde": "detail uzlu „npi“",
+      "puvodni": "K ověření",
+      "nove": "další detaily"
+    },
+    {
+      "klic": "P:npi#11",
+      "kde": "detail uzlu „npi“",
+      "puvodni": "Draft Strategie AI ve vzdělávání přiřazuje NPI opatření 3.1.3 „Podporovat vzdělávání vedení škol, školních týmů a profesních komunit“ — formálně tedy NPI kompetenci k vedení škol má. Toto je potřeba vyjasnit dřív, než se na vymezení v žádosti odvoláme.",
+      "nove": "Budou doplněny"
+    },
+    {
+      "klic": "P:stredni#11",
+      "kde": "detail uzlu „stredni“",
+      "puvodni": "Střední článek podporuje manažerskou a nepedagogickou práci vedení a necílí na pedagogické inovace ani AI. Projekt doplňuje vrstvu, kterou nepokrývá — nejde o konkurenci.",
+      "nove": "Střední článek podporuje manažerskou a nepedagogickou práci vedení a necílí na pedagogické inovace ani AI."
+    },
+    {
+      "klic": "P:csi#2",
+      "kde": "detail uzlu „csi“",
+      "puvodni": "Kontaktováno — formy spolupráce k projednání",
+      "nove": "zatím jsme je nekontaktovali"
+    },
+    {
+      "klic": "P:csi#9",
+      "kde": "detail uzlu „csi“",
+      "puvodni": "ČŠI jsme kontaktovali; čtyři formy spolupráce chceme projednat v úvodní fázi projektu.",
+      "nove": "ČŠI jsme ještě v tomto kontextu kontaktovali; čtyři formy spolupráce chceme projednat v úvodní fázi projektu."
+    },
+    {
+      "klic": "P:kraj#9",
+      "kde": "detail uzlu „kraj“",
+      "puvodni": "Smlouva o spolupráci, společná řídicí skupina, spoluautorství krajské implementační strategie a její ukotvení v dlouhodobém záměru kraje, spolurozhodování o výběru krajských mentorů a škol první vlny, koordinace zřizovatelů, spolufinancování a závazek převzít místní kapacitu (krajští mentoři, koordinace dalších vln) po skončení grantu.",
+      "nove": "Smlouva o spolupráci, společná řídicí skupina, spoluautorství krajské implementační strategie (a její ukotvení v dlouhodobém záměru kraje), spolurozhodování o výběru krajských mentorů a škol první vlny, koordinace zřizovatelů, spolufinancování a závazek převzít místní kapacitu (krajští mentoři, koordinace dalších vln) po skončení financování."
+    },
+    {
+      "klic": "P:kraj#11",
+      "kde": "detail uzlu „kraj“",
+      "puvodni": "Kraj základní školy přímo neřídí — zřizovateli jsou obce. Kraj je nositelem systémovosti a financí, ne velitelem škol; nábor musí jít přes územní vrstvu.",
+      "nove": "Kraj základní školy přímo neřídí — zřizovateli jsou obce. Kraj je nositelem systémovosti a financí."
+    },
+    {
+      "klic": "P:kraj#2",
+      "kde": "detail uzlu „kraj“",
+      "puvodni": "Dohodnuto",
+      "nove": "rozjednáno"
+    },
+    {
+      "klic": "P:kic#4",
+      "kde": "detail uzlu „kic“",
+      "puvodni": "Finanční — vlastní dotační nástroje mohou krýt část krajské vrstvy programu. Operační — vlastní síť spolupracujících škol, komunikační kanál k ředitelům, zázemí pro krajskou komunitu a krajský event.",
+      "nove": "Finanční — vlastní dotační nástroje mohou krýt část krajské vrstvy programu. Operační — vlastní síť spolupracujících škol, komunikační kanál k ředitelům, zázemí pro krajskou komunitu a krajský event. Marketing a komunikace ven."
+    },
+    {
+      "klic": "P:map#12",
+      "kde": "detail uzlu „map“",
+      "puvodni": "Nositel MAP má povinnost projednávat aktivity se školami v území kvůli zamezení duplicit. Jako partner je zlatý důl, opomenut je veto-hráč — dohoda proto musí být uzavřena hned v úvodní fázi, ne až při náboru.",
+      "nove": "Nositel MAP má povinnost projednávat aktivity se školami v území kvůli zamezení duplicit. Dohoda proto musí být uzavřena hned v úvodní fázi, ne až při náboru."
+    },
+    {
+      "klic": "P:map#2",
+      "kde": "detail uzlu „map“",
+      "puvodni": "Rozjednáno",
+      "nove": "nekontaktovali jsme"
+    },
+    {
+      "klic": "P:vedeni#11",
+      "kde": "detail uzlu „vedeni“",
+      "puvodni": "Přetížení. Mitigace: předem sjednaná uvolněná kapacita, práce se školním týmem místo jednotlivce, sledování přetížení.",
+      "nove": "Přetížení. Mitigace: předem sjednaná uvolněná kapacita, práce se školním týmem místo jednotlivce, sledování přetížení, rozdělení práce na dva lidi."
+    },
+    {
+      "klic": "P:sbor#4",
+      "kde": "detail uzlu „sbor“",
+      "puvodni": "Přes interní workshopy, pilotní aktivity, komunikaci a sdílení výsledků uvnitř školy — vede je lídr změny, ne externí lektor. To je důvod, proč kaskáda funguje i bez přímé kapacity centrálního týmu.",
+      "nove": "Přes interní workshopy, pilotní aktivity, komunikaci a sdílení výsledků uvnitř školy — vede je lídr změny, někdy externí lektor. To je důvod, proč kaskáda funguje i bez přímé kapacity centrálního týmu."
+    },
+    {
+      "klic": "P:sbor#10",
+      "kde": "detail uzlu „sbor“",
+      "puvodni": "Rolově cílené proškolení je zároveň způsob, jak škola naplňuje čl. 4 AI Actu — požadavek AI gramotnosti osob, které AI používají jejím jménem.",
+      "nove": "Rolově cílené proškolení je zároveň způsob, jak škola naplňuje čl. 4 AI Actu — požadavek AI gramotnosti osob, které AI používají jejím jménem a Strategii AI ve vzdělávání 2030."
+    },
+    {
+      "klic": "P:sbor#12",
+      "kde": "detail uzlu „sbor“",
+      "puvodni": "Cíl 1 000 pracovníků z 20 škol znamená 50 lidí na školu. Průměrná ZŠ v Karlovarském kraji má ale 23,6 učitele, takže dvacet průměrných škol dá zhruba 470. Na 1 000 se dá dosáhnout jen výběrem výrazně nadprůměrně velkých škol. Pilot měl 400+ pedagogů z 6 škol, tedy 67 na školu — jeho školy byly skoro trojnásobek krajského průměru. Buď je potřeba to promítnout do kritérií výběru škol, nebo cílovou hodnotu přepočítat.",
+      "nove": "Cíl 1 000 pracovníků z 20 škol znamená 50 lidí na školu. Průměrná ZŠ v Karlovarském kraji má ale 23,6 učitele, takže dvacet průměrných škol dá zhruba 470. Na 1 000 se dá dosáhnout jen výběrem výrazně nadprůměrně velkých škol (což je otázka, zda to chceme / zda to dává smysl). Pilot měl 400+ pedagogů z 6 škol, tedy 67 na školu — jeho školy byly skoro trojnásobek krajského průměru. Buď je potřeba to promítnout do kritérií výběru škol, nebo cílovou hodnotu přepočítat."
+    },
+    {
+      "klic": "P:zaci#4",
+      "kde": "detail uzlu „zaci“",
+      "puvodni": "Více příležitostí rozvíjet kritické, tvořivé a bezpečné používání AI a výuka, která smysluplně reaguje na změny spojené s AI.",
+      "nove": "Více příležitostí rozvíjet kritické, tvořivé a bezpečné používání AI, výuka, která smysluplně reaguje na změny spojené s AI a zvýšení wellbeingu.&nbsp;"
+    },
+    {
+      "klic": "B#57",
+      "kde": "uzel „zaci“",
+      "puvodni": "AI kurikulum, Tiny",
+      "nove": "AI kurikulum, Tiny..."
+    },
+    {
+      "klic": "P:ppp#10",
+      "kde": "detail uzlu „ppp“",
+      "puvodni": "Mapování potřeb, otevřené materiály zdarma, jedno až dvě pilotní školení. Bez vazby na klíčové indikátory projektu.",
+      "nove": "Mapování potřeb, otevřené materiály a nástroje zdarma, jedno až dvě pilotní školení. Zvažujeme vazbu na klíčové indikátory projektu."
+    },
+    {
+      "klic": "P:ncs#2",
+      "kde": "detail uzlu „ncs“",
+      "puvodni": "Žádost 09/2026–08/2028 · 5 576 880 Kč",
+      "nove": "Žádost 09/2026–08/2028"
+    },
+    {
+      "klic": "P:ncs#6",
+      "kde": "detail uzlu „ncs“",
+      "puvodni": "Rutinní a plošné náklady nese kraj, zřizovatelé, krajské dotační tituly a projekty MAP. Celkový rozpočet projektu 12 461 880 Kč, spolufinancování 6 885 000 Kč.",
+      "nove": "Rutinní a plošné náklady nese kraj, zřizovatelé, krajské dotační tituly a projekty MAP.&nbsp;"
+    },
+    {
+      "klic": "B#82",
+      "kde": "uzel „tiny“",
+      "puvodni": "Tiny",
+      "nove": "Impactso"
+    },
+    {
+      "klic": "B#83",
+      "kde": "uzel „tiny“",
+      "puvodni": "přímá práce",
+      "nove": "analýza"
+    },
+    {
+      "klic": "B#84",
+      "kde": "uzel „tiny“",
+      "puvodni": "se žáky",
+      "nove": "evaluace"
+    },
+    {
+      "klic": "P:fakulta#4",
+      "kde": "detail uzlu „fakulta“",
+      "puvodni": "Nezávislá revize evaluace, kvalitativní šetření a posílení kredibility výsledků. Potenciálně také rezervoár mentorů.",
+      "nove": "V KV kraji univerzita není, proto zvažujeme spolupráci s UJEP na úrovni praxe budoucích pedagogů."
+    },
+    {
+      "klic": "P:fakulta#6",
+      "kde": "detail uzlu „fakulta“",
+      "puvodni": "Interní evaluace dává návaznost na pilot, ale pro systémovou nabídku směrem k MŠMT a dalším krajům je potřeba externí výzkumná vrstva.",
+      "nove": "Z pilotního běhu AI akcelerátoru jsme zjistili, že zapojení Pedagogické fakulty podpoří celý ekosystém.&nbsp;&nbsp;"
+    },
+    {
+      "klic": "P:eduzmena#2",
+      "kde": "detail uzlu „eduzmena“",
+      "puvodni": "Existující vazby",
+      "nove": "obsahový partner"
+    },
+    {
+      "klic": "P:tiny#4",
+      "kde": "detail uzlu „tiny“",
+      "puvodni": "Obsahová a implementační spolupráce na přímé práci se žáky a propojení s dalšími vzdělávacími tématy.",
+      "nove": "Dlouhodobá analýza a evaluační strategie"
+    },
+    {
+      "klic": "P:tiny#6",
+      "kde": "detail uzlu „tiny“",
+      "puvodni": "Aplikace doplněná proškolením pedagoga, modelovou hodinou a podporou navazujícího využívání — ne jako samostatný nástroj.",
+      "nove": "Lídr školy a krajský mentor společně provádí na základě metodologie Impactso analýzu a evaluaci dat přímo ve škole."
+    }
+  ]
+}
