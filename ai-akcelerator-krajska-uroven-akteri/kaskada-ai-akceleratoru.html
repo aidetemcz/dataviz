@@ -1305,9 +1305,6 @@ body.editing text[data-ed].ed-dirty{fill:var(--accent)!important;font-weight:700
 </tbody></table></div>
 <p class="note">Průsečík AI a leadershipu ředitelů je v dokumentu doslova — pro žádost i pro jednání s krajem je to silná opora.</p>
 <div class="box"><h4>Volné místo v systému</h4><ul class="bul tight"><li><strong>Eduzměna v kraji nepůsobí</strong> — v červnu 2026 vybrala osm nových regionů, žádný z Karlovarského kraje.</li><li><strong>MAP v ORP kraje nemají AI</strong> jako téma pracovní skupiny.</li><li><strong>Krajské dotace ve školství</strong> (~500 tis. Kč rozděleno v 5/2025) nemíří na digitalizaci ani AI.</li><li><strong>Krajské memorandum k AI ve školství neexistuje.</strong></li></ul></div>
-<h2><span class="hn">9</span>Kde data chybí</h2>
-<p class="sec-lead">Tohle se dohledat nepodařilo a stojí za doptání přímo na kraji nebo v institucích.</p>
-<ul class="bul"><li><strong>Výroční zpráva o stavu a rozvoji vzdělávací soustavy KV kraje</strong> — <strong>vyřešeno.</strong> Krajští analytici upozornili, že je k dispozici na školském portálu kraje <a href="https://kvkskoly.cz/" target="_blank" rel="noopener">kvkskoly.cz</a>. Dřívější tvrzení, že ji kraj nepublikuje, bylo chybné.</li><li><strong>Krajský akční plán rozvoje vzdělávání (KAP II–IV)</strong> — veřejně je jen KAP 1 z roku 2019.</li><li><strong>Bodové výsledky jednotné přijímací zkoušky za 2025/26</strong> — v PDF MŠMT na str. 27, nepodařilo se vytěžit. Doložený je jen údaj z 2024: KV a Ústecký shodně 46,5 bodu, nejméně v ČR (ČR 56).</li><li><strong>Neúspěšnost u maturity 2022–2025</strong> — CERMAT publikuje jen v interaktivním Power BI. Poslední veřejná krajská řada končí 2021 <span class="warn-i">⚠️</span> (hrubá neúspěšnost společné části 2021: KV 8,9 %, ČR 6,3 % — hodnota se při opakovaném čtení lišila, ověřit ručně).</li><li><strong>Krajský rozpad prostředků NPO na digitalizaci</strong> — MŠMT nepublikuje; peníze šly normativně na žáka přes krajský úřad.</li><li><strong>Číselné hodnoty indexů PAQ pro jednotlivá ORP</strong> — jsou v interaktivní mapě mapavzdelavani.cz; analytické zprávy lze stáhnout ručně nebo vyžádat.</li><li><strong>Krajská data PISA 2022</strong> — ČŠI je záměrně nezveřejňuje.</li></ul>
 <p class="note flag"><strong>Dvě opravy oproti dřívějším předpokladům:</strong> KARP se už jmenuje KIC KK, a Fakulta zdravotnických studií ZČU sídlí v Plzni, ne v Chebu — v Chebu jsou pracoviště FEK a FPE ZČU.</p>
 </div>
   </div>
@@ -1531,9 +1528,8 @@ body.editing text[data-ed].ed-dirty{fill:var(--accent)!important;font-weight:700
 <tr><th class="l">Mariánské Lázně</th><td class="l">MAP Mariánskolázeňsko</td><td class="l">—</td></tr>
 <tr><th class="l">Aš</th><td class="l">Sdružení Ašsko</td><td class="l">sa.obeckrasna.cz/index.php/mistni-akcni-plan/nase-cinnost</td></tr>
 </tbody></table></div>
-<h2><span class="hn">4</span>Kde data končí</h2>
-<p class="sec-lead">Počty žáků a učitelů po ORP se veřejně nepublikují. Ověřeno ve třech nezávislých produktech ČSÚ — statistická ročenka kraje, časové řady za jednotlivá SO ORP i souhrn „Vybrané údaje za všechny SO ORP 2026“ školství neobsahují. Nejnižší veřejná úroveň je okres, a i tam jen počty škol.</p>
-<p class="note flag"><strong>Kraj to potvrzuje a pracuje na tom:</strong> „počty žáků a učitelů po ORP teď nedokážeme zjistit, zkoušíme získat od obcí, MAP či ORP“. Do té doby je nejbližší náhradou počet dětí ve věku 0–14 let podle ČSÚ, který je v tabulce obvodů výše.</p>
+<h2><span class="hn">4</span>Počty škol a kdo je zřizuje</h2>
+<p class="sec-lead">Kolik základních škol v obvodech a okresech je a kdo je zřizuje. Údaje jsou z krajského rejstříku za školní rok 2025/26.</p>
 <h3>Počty základních škol po ORP a okresech</h3>
 <p class="sec-lead">Školní rok 2025/26, sídla škol bez poboček a odloučených pracovišť. Bez rozlišení prvního a druhého stupně.</p>
 <div class="tw"><table><thead><tr><th class="l">Oblast</th><th>Sídel ZŠ</th></tr></thead><tbody>
@@ -1559,9 +1555,6 @@ body.editing text[data-ed].ed-dirty{fill:var(--accent)!important;font-weight:700
 <tr><th class="l">Všechna školská zařízení</th><td>207</td><td>259</td><td>185</td><td class="b">660</td></tr>
 </tbody></table></div>
 <p class="note">Dlouhodobý záměr KK 2024–2028, stav k 31.&nbsp;8.&nbsp;2023 — tedy o dva roky starší než tabulka výše, proto u ZŠ 108 místo 114. Rozpad zřizovatelů podle tohoto zdroje: MŠ — 116 obec, 1 kraj, 10 soukromé a církevní.</p>
-<h3>Tři cesty, jak data za ORP doplnit</h3>
-<ol class="bul num"><li><strong>Agregace rejstříku škol</strong> — otevřená data rejstříku (JSON-LD, čtvrtletní snímky) na data.msmt.cz, napojit kód obce na číselník ORP ČSÚ a sečíst podle ORP × druh školy × zřizovatel. Dá to počty škol a zřizovatele za každé ORP přesně; vyžaduje stažení souboru a skript.</li><li><strong>Nositelé MAP</strong> — každý realizační tým sbírá od škol dotazníkem aktuální počty dětí, žáků, tříd i pedagogů. Nejrychlejší cesta ke skutečným číslům, stačí napsat (kontakty výše).</li><li><strong>Statistický odbor MŠMT</strong> — individuální výkazy škol (M3, S1) obsahují vše, ale nejsou veřejné. Žádost na posta@msmt.gov.cz.</li></ol>
-<h3>Dvě věci k ručnímu doověření</h3>
 <h3>Tři základní školy zřizované krajem — doověřeno</h3>
 <p class="sec-lead">Kraj potvrdil, které to jsou; dřívější seznam pěti kandidátů byl nepřesný. Školní rok 2025/26.</p>
 <div class="tw"><table><thead><tr><th class="l">Škola</th><th class="l">Sídlo</th><th class="l">Kontakt</th></tr></thead><tbody>
@@ -1570,8 +1563,6 @@ body.editing text[data-ed].ed-dirty{fill:var(--accent)!important;font-weight:700
 <tr><th class="l">ZŠ a MŠ při zdravotnických zařízeních Karlovy Vary</th><td class="l">Bezručova 19, 360 66 Karlovy Vary</td><td class="l">353 115 344 · zsnemkv.cz · IČ 70838992</td></tr>
 </tbody></table></div>
 <p class="note">Třetí z nich má <strong>tři pobočky</strong>: ZŠ a MŠ při nemocnici Karlovy Vary (Bezručova 1190/19), ZŠ a MŠ při léčebně Mánes Karlovy Vary (Křižíkova 12) a ZŠ a MŠ při Léčebných lázních Lázně Kynžvart (Lázeňská 153). Dřívější kandidáti <strong>ZŠ a SŠ Aš</strong> a <strong>SŠ, ZŠ a MŠ Kraslice</strong> mezi krajské základní školy nepatří.</p>
-<h3>Zbývá doověřit</h3>
-<ul class="bul"><li><strong>Dvanáct starostů označených ⚠️</strong> — Podhradí, Okrouhlá, Božičany, Březová u&nbsp;K.&nbsp;Varů, Jenišov, Stružná, Nová Ves, Vintířov, Šabina, Boží Dar, Stará Voda, Tři Sekery. Weby těchto obcí blokují automatické čtení, jméno je jen z portálu RISY. Kraj navrhuje doplnit kontakty až po podzimních volbách.</li><li><strong>Rozdíl 60 vs. 70 obcí bez ZŠ</strong> — potvrdit u kraje, že deset obcí navíc má pobočku ZŠ bez vlastního sídla, a zjistit které.</li></ul>
 <div class="box flagbox"><h4>Metodická past: území MAP se nekryjí se správními obvody</h4><p>Dolní Žandov patří do ORP Cheb, ale své školy vykazuje přes MAP Mariánskolázeňsko. Teplá patří do ORP Mariánské Lázně, ale MAP ji řadí pod Karlovarsko. MAP Cheb zahrnuje i obce z ORP Aš. V tomto přehledu je řídící logikou <strong>správní obvod ORP</strong> podle oficiálního seznamu kraje, ne území MAP. Kdo bude s daty pracovat dál, musí si vybrat jednu logiku a držet ji.</p></div>
 </div>
   </div>
