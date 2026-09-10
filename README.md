@@ -40,6 +40,7 @@ Podklady a interaktivní diagram k **aktérům AI akcelerátoru na krajské úro
 | `index.html` | Přesměrování na diagram, aby fungovala i adresa samotné složky — Pages nevypisuje adresáře |
 | `kaskada-ai-akceleratoru.html` | Interaktivní diagram se dvěma pohledy — kaskáda dopadu a mapa aktérů |
 | `zadost_4_1_spoluprace.md` | Odstavec 4.1 projektové žádosti — klíčoví hráči a hloubka spolupráce |
+| `revize-kraj-2026-09.xlsx` | Revize podkladu od analytiků Karlovarského kraje (9/2026) — opravená čísla, seznam sídel škol 2025/26, počty obyvatel a dětí |
 | `ZADANI.md` | Zadání navazujících úkolů |
 | `CLAUDE.md` | Trvalý kontext projektu |
 
