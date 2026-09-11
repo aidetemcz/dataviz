@@ -1,5 +1,7 @@
 # Podpůrné služby a personál škol v Karlovarském kraji — co se dá zjistit
 
+> **Tento dokument je překonaný.** Vznikl v prostředí bez přístupu na české weby, takže žádný údaj v něm nebyl čtený v primárním zdroji. Od 10. 9. 2026 platí [`podpurna-sit-karlovarsky-kraj.md`](podpurna-sit-karlovarsky-kraj.md) — ověřená rešerše s primárními zdroji a datem u každého údaje, ze které vychází i pohled „Podpůrná síť kolem dětí“ na stránce. Tenhle soubor zůstává jen jako záznam toho, co šlo zjistit bez přístupu ke zdrojům.
+
 **Podklad pro:** AI dětem, z.s. — AI akcelerátor, explorativní linie
 **Zpracováno:** 10. 9. 2026
 
