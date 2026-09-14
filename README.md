@@ -25,6 +25,24 @@ AI Olympiáda 2026, kategorie Startup Lab.
 
 Název souboru školní stránky je prvních 12 znaků `sha256` z přesného jména školy (ověřeno na všech 49 záznamech v CSV). Adresa tedy **není tajná** — kdo zná přesný název školy, dopočítá si ji. Pokud mají výsledky zůstat neveřejné, je potřeba je chránit jinak než nezveřejněním odkazu.
 
+### `pisa-2025/`
+
+Výsledky **PISA 2025 pro Česko** v grafech — určeno k promítání na konferencích.
+
+| Soubor | Obsah |
+|---|---|
+| `index.html` | Prezentace o 15 slidech: skóre 2025, trendy 2000–2025, slabí a špičkoví žáci, sociální nerovnosti, postoje k učení, AI ve škole, podpora od učitelů, šikana a zázemí, environmentální gramotnost a dva přehledy ČR vs. OECD |
+
+Jeden soubor, žádný build, žádné závislosti kromě Google Fonts; logo je vložené jako data URI. Grafy jsou inline SVG vykreslené vanilla JS z objektu `DATA` na začátku skriptu — tam se mění čísla.
+
+**Ovládání.** `→` / `←` / mezerník přepínají slidy, `Home` a `End` skáčou na začátek a konec, `V` přepne do režimu čtení (všechny slidy pod sebou, adresa `#vse`), `T` ukáže datové tabulky ke všem grafům, `F` zapne celou obrazovku. Totéž je v červené liště a v ovladači v pravém dolním rohu. Každý slide má vlastní adresu (`#vysledky`, `#trendy`, `#nerovnosti`, `#ai`, `#ucitele`, `#nad-oecd`, `#pod-oecd`, `#souhrn` …), takže se na něj dá odkázat; neznámá adresa spadne na první slide.
+
+**Na promítání.** Grafy se po přepnutí slidu automaticky zmenší tak, aby se slide vešel na obrazovku bez rolování (testováno na 1920×1080); přepočet se opakuje při změně velikosti okna. Tisk do PDF dává jeden slide na stránku (na šířku). Na telefonu se graf posouvá do strany a pod ním se vždy ukazuje tabulka s daty.
+
+**Data.** Všechna čísla jsou z country note OECD pro Česko — OECD (2026), *PISA 2025 Results (Volume I): Future-Ready Students*, [doi.org/10.1787/73451bc5-en](https://doi.org/10.1787/73451bc5-en), © OECD 2026, licence CC BY 4.0. Hodnoty z grafů country note (trendy, podíly úrovní, přehledový panel) byly odečteny z popisků v grafech, ostatní z textu. Stránka je adaptace: čísla jsou přeložena do češtiny a znovu vykreslena, atribuce a podmínky licence jsou na posledním slidu. Logo OECD se nepoužívá.
+
+Paleta grafů je `#DC5B5B` (ČR), `#2E6DA4` (průměr OECD) a `#B0862F` (nejlepší země) — stejná trojice jako v `ai-akcelerator-krajska-uroven-akteri/` a prošla validátorem ze skillu `dataviz`.
+
 ### `lektori-sk/`
 
 | Soubor | Obsah |

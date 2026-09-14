@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PISA 2025 · Česko — výsledky pro konference</title>
+<meta name="description" content="Výsledky PISA 2025 pro Česko v grafech — přírodní vědy, matematika, čtení, počítačové řešení problémů, postoje žáků, AI ve škole a klima ve školách.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Darker+Grotesque:wght@400;500;600;700;800&display=block" rel="stylesheet">
+<style>
+  :root {
+    --red:       #DC5B5B;
+    --red-dark:  #c44848;
+    --red-light: #faeaea;
+    --sky:       #B3CDD6;
+    --sky-text:  #7DA4B2;
+    --sky-bg:    #E3F1F6;
+    --sky-dark:  #3a6878;
+    --white:     #ffffff;
+    --bg:        #f8fbfc;
+    --border:    #e0ecf0;
+    --text:      #1a2b30;
+    --text-soft: #4a6570;
+    --text-mute: #7d939c;
+    --green:     #4caf87;
+    --green-bg:  #eaf7f1;
+    --amber:     #e8943a;
+    --amber-bg:  #fdf3e7;
+
+    /* graf: paleta prošla validátorem ze skillu dataviz (light, surface #ffffff) */
+    --c-cz:      #DC5B5B;
+    --c-oecd:    #2E6DA4;
+    --c-top:     #B0862F;
+    --c-past:    #9db9c4;
+    --grid:      #e8eef1;
+    --surface:   #ffffff;
+
+    --fs-xl:   clamp(34px, 4.4vw, 62px);
+    --fs-lg:   clamp(24px, 2.2vw, 34px);
+    --fs-md:   clamp(19px, 1.35vw, 25px);
+    --fs-base: clamp(19px, 1.25vw, 24px);
+    --fs-sm:   clamp(17px, 1.05vw, 21px);
+    --fs-xs:   clamp(13px, 0.8vw, 16px);
+    --lh:      1.05;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Darker Grotesque", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: var(--fs-base);
+    line-height: var(--lh);
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---- TOPBAR ---- */
+  .topbar {
+    background: var(--red);
+    padding: 9px 0;
+    position: sticky; top: 0; z-index: 60;
+  }
+  .topbar-inner {
+    max-width: 1480px; margin: 0 auto; padding: 0 28px;
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap; row-gap: 8px;
+  }
+  .topbar-logo {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 17px; font-weight: 700; color: white;
+    display: flex; align-items: center; gap: 9px;
+  }
+  .topbar-logo img { width: 26px; height: 26px; border-radius: 6px; }
+  .topbar-logo span { opacity: 0.75; font-weight: 400; font-size: 14px; }
+  .topbar-tools { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .tbtn {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: #fff; background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.32);
+    border-radius: 100px; padding: 5px 13px;
+    cursor: pointer; line-height: 1;
+  }
+  .tbtn:hover { background: rgba(255,255,255,0.26); }
+  .tbtn[aria-pressed="true"] { background: #fff; color: var(--red-dark); border-color: #fff; }
+
+  /* ---- PRŮBĚH ---- */
+  .progress {
+    position: fixed; left: 0; top: 0; height: 3px; z-index: 70;
+    background: var(--sky-dark); width: 0;
+    transition: width 0.18s ease-out;
+  }
+
+  /* ---- SLIDE ---- */
+  .deck { max-width: 1480px; margin: 0 auto; padding: 0 28px; }
+
+  .slide {
+    min-height: calc(100vh - 44px);
+    padding: 28px 0 76px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    animation: fade 0.22s ease-out;
+  }
+  .slide.is-live { display: flex; }
+  body.mode-all .slide { display: flex; border-bottom: 2px solid var(--border); }
+  body.mode-all .slide:last-of-type { border-bottom: none; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .slide { animation: none; } html { scroll-behavior: auto; } }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--sky-bg); border: 1.5px solid var(--sky);
+    border-radius: 100px; padding: 5px 15px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: var(--fs-xs); font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--sky-dark);
+    margin-bottom: 16px; align-self: flex-start;
+  }
+  .slide h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: var(--fs-lg); font-weight: 700;
+    letter-spacing: -0.015em; line-height: 1.1;
+    margin-bottom: 10px; max-width: 22ch;
+  }
+  .slide h2 em { font-style: normal; color: var(--red); }
+  .lead {
+    font-size: var(--fs-md); color: var(--text-soft);
+    max-width: 92ch; margin-bottom: 20px; line-height: 1.15;
+  }
+  .lead strong { color: var(--text); font-weight: 700; }
+  .slide-body { display: flex; flex-direction: column; gap: 22px; }
+
+  /* ---- TITULNÍ SLIDE ---- */
+  .slide.title-slide {
+    background: var(--red); color: #fff;
+    width: 100vw; margin-left: calc(50% - 50vw);
+    padding: 0 0 92px;
+    justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .slide.title-slide::after {
+    content: ""; position: absolute; right: -80px; top: -80px;
+    width: 420px; height: 420px; border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .slide.title-slide::before {
+    content: ""; position: absolute; right: 120px; bottom: -120px;
+    width: 280px; height: 280px; border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .title-slide .inner { position: relative; z-index: 1; width: 100%; max-width: 1480px; margin: 0 auto; padding: 0 28px; }
+  .title-slide .eyebrow {
+    background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.92);
+  }
+  .title-slide h1 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: var(--fs-xl); font-weight: 700; line-height: 1.05;
+    letter-spacing: -0.025em; margin-bottom: 16px;
+  }
+  .title-slide h1 em { font-style: normal; color: rgba(255,255,255,0.82); }
+  .title-slide .sub {
+    font-size: var(--fs-md); color: rgba(255,255,255,0.86);
+    max-width: 62ch; margin-bottom: 40px; line-height: 1.15;
+  }
+  .title-stats { display: flex; gap: clamp(24px, 4vw, 64px); flex-wrap: wrap; }
+  .title-stat-val {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(30px, 3.2vw, 46px); font-weight: 700; line-height: 1;
+  }
+  .title-stat-label { font-size: var(--fs-sm); color: rgba(255,255,255,0.72); margin-top: 6px; }
+  .title-hint {
+    margin-top: 44px; font-size: var(--fs-sm); color: rgba(255,255,255,0.7);
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .key {
+    display: inline-block; font-family: "Space Grotesk", sans-serif; font-size: 13px;
+    background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.34);
+    border-radius: 6px; padding: 2px 8px; line-height: 1.4;
+  }
+  .slide:not(.title-slide) .key {
+    background: var(--bg); border-color: var(--border); color: var(--text-soft);
+  }
+
+  /* ---- KPI ---- */
+  .kpi-row {
+    display: grid; gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  }
+  .kpi {
+    background: var(--white); border: 2px solid var(--border);
+    border-radius: 16px; padding: 22px 24px 20px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .kpi.accent { border-color: var(--red); background: var(--red-light); }
+  .kpi-label {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: var(--fs-xs); font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--sky-text);
+  }
+  .kpi.accent .kpi-label { color: var(--red-dark); }
+  .kpi-val {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(34px, 3.4vw, 54px); font-weight: 700; line-height: 1;
+    color: var(--text); letter-spacing: -0.02em;
+  }
+  .kpi-unit { font-size: 0.42em; font-weight: 600; color: var(--text-mute); letter-spacing: 0; }
+  .kpi-delta {
+    font-family: "Space Grotesk", sans-serif; font-size: var(--fs-sm); font-weight: 600;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .kpi-delta.down { color: var(--red-dark); }
+  .kpi-delta.up   { color: #2a7a55; }
+  .kpi-delta.flat { color: var(--text-mute); }
+  .kpi-note { font-size: var(--fs-sm); color: var(--text-soft); line-height: 1.15; }
+
+  /* ---- KARTA S GRAFEM ---- */
+  .card {
+    background: var(--white); border: 2px solid var(--border);
+    border-radius: 16px; padding: 22px 24px 18px;
+    position: relative;
+  }
+  .card-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 4px; padding-right: 78px; }
+  .card-title {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: var(--fs-md); font-weight: 700; color: var(--text);
+  }
+  .card-sub { font-size: var(--fs-sm); color: var(--text-mute); }
+  .card-tools { position: absolute; top: 18px; right: 18px; }
+  .dbtn {
+    font-family: "Space Grotesk", sans-serif; font-size: 12px; font-weight: 600;
+    color: var(--text-soft); background: var(--bg);
+    border: 1.5px solid var(--border); border-radius: 100px;
+    padding: 4px 12px; cursor: pointer; line-height: 1.2;
+  }
+  .dbtn:hover { border-color: var(--sky); color: var(--sky-dark); }
+  .dbtn[aria-pressed="true"] { background: var(--sky-bg); border-color: var(--sky); color: var(--sky-dark); }
+  .grid-2 { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); align-items: start; }
+  .split { display: grid; gap: 18px; align-items: start;
+           grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr)); }
+  .split .kpi-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 10px 0 6px; }
+  .legend-i {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: var(--fs-sm); color: var(--text-soft); line-height: 1;
+  }
+  .legend-s { width: 14px; height: 14px; border-radius: 4px; flex-shrink: 0; }
+  .legend-s.line { height: 4px; border-radius: 2px; }
+  .legend-s.ring { border-radius: 50%; background: #fff; }
+
+  .chart svg { width: 100%; height: auto; display: block; margin-inline: auto; overflow: visible; }
+  .chart [data-tip] { cursor: default; }
+
+  .note {
+    font-size: var(--fs-sm); color: var(--text-mute); line-height: 1.2;
+    margin-top: 10px; max-width: 100ch;
+  }
+  .note strong { color: var(--text-soft); }
+
+  /* ---- TABULKA DAT ---- */
+  .dataview { display: none; margin-top: 14px; overflow-x: auto; }
+  .dataview.is-open { display: block; }
+  table { border-collapse: collapse; width: 100%; font-size: var(--fs-sm); }
+  th, td {
+    padding: 7px 12px; text-align: right;
+    border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums;
+  }
+  th { font-family: "Space Grotesk", sans-serif; font-size: var(--fs-xs); font-weight: 700;
+       text-transform: uppercase; letter-spacing: 0.06em; color: var(--sky-text); }
+  th.l, td.l { text-align: left; font-variant-numeric: normal; }
+  td.l { color: var(--text-soft); }
+  tbody tr:hover { background: var(--bg); }
+
+  /* ---- ZÁVĚREČNÝ SEZNAM ---- */
+  .points { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr)); }
+  .point {
+    background: var(--white); border: 2px solid var(--border);
+    border-radius: 16px; padding: 20px 22px;
+  }
+  .point.good { background: var(--green-bg); border-color: #a8ddc3; }
+  .point.watch { background: var(--amber-bg); border-color: #f0c98e; }
+  .point.bad { background: var(--red-light); border-color: #efb4b4; }
+  .point-h {
+    font-family: "Space Grotesk", sans-serif; font-size: var(--fs-md); font-weight: 700;
+    margin-bottom: 8px; line-height: 1.12;
+  }
+  .point-t { font-size: var(--fs-base); color: var(--text-soft); line-height: 1.18; }
+  .point-t b { color: var(--text); }
+
+  /* ---- NAVIGACE ---- */
+  .nav {
+    position: fixed; right: 18px; bottom: 16px; z-index: 65;
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.94);
+    border: 1.5px solid var(--border); border-radius: 100px;
+    padding: 6px 8px 6px 16px;
+    box-shadow: 0 3px 14px rgba(26,43,48,0.08);
+  }
+  .nav-count {
+    font-family: "Space Grotesk", sans-serif; font-size: 14px; font-weight: 600;
+    color: var(--text-soft); font-variant-numeric: tabular-nums;
+  }
+  .nav-btn {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1.5px solid var(--border); background: var(--white);
+    color: var(--text-soft); cursor: pointer;
+    font-size: 17px; line-height: 1; display: grid; place-items: center;
+  }
+  .nav-btn:hover { border-color: var(--red); color: var(--red); }
+  .nav-btn:disabled { opacity: 0.35; cursor: default; border-color: var(--border); color: var(--text-mute); }
+  body.mode-all .nav-btn, body.mode-all .nav-count { display: none; }
+  body.mode-all .nav::after { content: "režim čtení"; font-family: "Space Grotesk", sans-serif;
+    font-size: 13px; font-weight: 600; color: var(--text-soft); padding-right: 8px; }
+
+  /* ---- TOOLTIP ---- */
+  .tip {
+    position: fixed; z-index: 90; pointer-events: none; opacity: 0;
+    background: var(--text); color: #fff;
+    font-size: 15px; line-height: 1.25; font-weight: 600;
+    padding: 8px 12px; border-radius: 9px; max-width: 300px;
+    transition: opacity 0.1s;
+  }
+  .tip.is-on { opacity: 1; }
+
+  /* ---- ZDROJ ---- */
+  .source {
+    font-size: var(--fs-xs); color: var(--text-mute); line-height: 1.3;
+    border-top: 1.5px solid var(--border); padding-top: 12px; margin-top: 4px;
+  }
+  .source a { color: var(--sky-dark); }
+
+  /* ---- SVG GRAFY ---- */
+  .chart text { font-family: "Space Grotesk", sans-serif; }
+  .chart svg   { --m: 1; }
+  .chart .cat  { font-size: calc(17px * var(--m)); font-weight: 500; fill: var(--text-soft); }
+  .chart .ax   { font-size: calc(15px * var(--m)); font-weight: 500; fill: var(--text-mute); }
+  .chart .val  { font-size: calc(18px * var(--m)); font-weight: 700; fill: var(--text); }
+  .chart .val.soft { font-weight: 600; fill: var(--text-mute); }
+  .chart .val.sm { font-size: calc(16px * var(--m)); }
+  .chart .band { fill: transparent; }
+  .chart .band:hover { fill: rgba(179,205,214,0.16); }
+  .chart .grid { stroke: var(--grid); stroke-width: 1; }
+  .chart .zero { stroke: #c6d6dd; stroke-width: 1.5; }
+  .chart .conn { stroke: #cfdde3; stroke-width: 2.5; stroke-linecap: round; }
+
+  @media print {
+    .topbar, .nav, .progress, .card-tools, .title-hint { display: none !important; }
+    .slide {
+      display: flex !important; min-height: 0 !important; height: auto;
+      animation: none !important;
+      page-break-after: always; break-after: page; padding: 10px 0;
+      justify-content: flex-start;
+    }
+    .slide.title-slide {
+      background: #fff; color: var(--text);
+      width: auto; margin-left: 0; padding: 10px 0;
+    }
+    .title-slide::before, .title-slide::after { display: none; }
+    .title-slide h1, .title-slide .sub, .title-stat-label, .title-stat-val { color: var(--text) !important; }
+    .title-slide h1 em { color: var(--red) !important; }
+    .title-slide .eyebrow { background: var(--sky-bg); border-color: var(--sky); color: var(--sky-dark); }
+    .title-slide .inner { padding: 0; }
+    .chart svg { max-height: 400px !important; }
+    .dataview { display: none; }
+    .dataview.is-open { display: block; }
+    .card, .kpi, .point { break-inside: avoid; }
+    body { background: #fff; }
+  }
+
+  @media (max-width: 700px) {
+    .topbar-inner { padding: 0 16px; }
+    .topbar-tools { margin-left: 0; }
+    #btn-full { display: none; }
+    .deck { padding: 0 16px; }
+    .slide { padding: 26px 0 84px; }
+    /* na telefonu je graf posuvný do strany a data se ukazují vždy */
+    .chart { overflow-x: auto; }
+    .chart svg { min-width: 620px; }
+    .dataview { display: block; }
+    .card-head { padding-right: 0; }
+    .card-tools { position: static; margin-top: 10px; }
+    .title-slide .inner { padding: 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-logo">
+      <img src="data:image/png;base64,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zZu3QZeyZyxhr7utek5U2WyatJomVjxO7/79Wb16NaFQiNbWVs466yzy8/OZPHmyWwX7siYOR/gH8zwKpyo3ffp0brjhBn71q1+Rk5PjuohAIMDatWu59NJLGTRoEGPGjOGII44gJyeH9PR0d26hs7OTuro6li5dyrvvvusGuW6ptq2NW265Zbe+wK6gOeuss8jIyOC6665zYxHTNOnZsyc//elPue2223j66adpa2tj7NixbNy4kY8//pgRI0YkGkFSU8n3eDCkJGya+4wBlFLKo+vCtu1dbR0dmxIWYMECjZISM27bH/s07eT9DQQdADTG44SVworHKSwspLa2lsLCQlatWsXkyZNZvnw5AwcOpKWlhalTp7oLIBw2rmvO3NnZybZt29wJoINxOSb5sssuwzRNHnjgAVJTU113kJqa6tYkPv30UxYuXOj6YcdaOMOmznYxJ41zCkCXXnop559//m4pbG1tLeXl5RxzzDEEAgFisRjbtm1zS9NCCHcFTWZmpsugFhQUEI1GGTFiBLt27Ur0HwhBgWF0vwoohO2VUjOFWNvvlVc6FixYIHXKyhSAR4hV0QQ7pu3PTVfJRtGGeJy4UijLonfv3nR0dBAMBgkGgwwZMoTCwkJ69uzpTgo7xaA9+fSqqipuuukmPv74Yy688EJ+/vOffyP075fx9wBXXnklvXv35p577qGmpob09HQ3TfT7/btF/12ngzwez24/k1K6AyOzZ8/m1ltv/cJAaWVlJR999BHHHHMMgDtq5gzCZGZmusFjQ0MD//jHP2htbaW9vZ077rgDgAULFiSUBijweLpdBFKJgJ/OWOx9gDtB6pSW2gAtnZ0fp3u9tR5N6xG3bbU/+4AE0BCPJ/rNNY3evXvz3nvvUVxczNixY+nZs6fr47+qK0jTNEpLS3n33XcpKiri2WefZfr06Rx33HFux803cXVdQ7Nz50569OjB6aefztixY3n88cdZtmyZW4p2GMmuTad7EktOc0g4HCYzM5PrrruOH/3oR18Iep0UdPz48WzYsIG33nqLESNGuPsBOjs7ycnJYejQoTQ1NVFZWYlhGPz4xz8mFAqxatUqjjzyyMTameRhVnmGgdXNBhmhlAzH47YG7zq3QopEE5EcWVrarAmxypeIvPd7DU1rslPWKYI0NzcTi8XcZgqHe98XXenz+dwxKL/f71bKnCrZgV5OahmLxbjjjjs4+eSTufnmm4nH4/Ts2ZNbb72VF198kV/84hccc8wx+P1+YrEYbW1ttLS00NjYSFNTE01NTTQ3N9Pa2ko8HqeoqIgrrriC559/3hW+A4Dq6mra29tpbGzkiiuucLOBo446yt0/4PAgmZmZjB49mpkzZ1JeXk5+fj5Lly7l008/ZcGCBdTU1NDc3JxoAxPCLQJ1Q1ttr6YJpdTWymj0EwBRUqIScJ4yRbJypR1TaplXiHO7yyp1vSK2jUpmAAUFBcyYMcMFQ9dtXfu6jjrqKLdi6PP52LJlC1dccQX33HMPffr0OSBuwLnxdXV13HTTTaxatYrs7GxefvllJk2a5O4vzsnJYebMmcycOdNdNl1fX09bWxuRSMQVmM/nIyMjgz59+jBkyBAXuI6Fccz/Qw89xLRp05g0aRJXX301Uko33X366afdCWPHxz/yyCMMGTKElpYWUlJSePbZZxk5ciQ5OTmJ4ZC6OoSmkSElmcmRfLFv82/7dV2G4/G3ji0tjThnCSUAkNwSIuLxZSHo0IVIT/aJiS5/4CsXRepOAJRcvTJgwAA++ugjjj766G4HZUopjjzySI444gg++eQTUlNTSU9PZ/369cyaNYs77riD6dOnu8LcM474Ml/vCETTNP71r39x/fXXuySMY6JXrVrF2Wef7X4O53cKCgooKCjYL+vipHsOSM855xx3gYSze6CsrAy/3++2vTnv2atXL1avXs2IESPcqSFN02hqaqKoqIjGxkZaW1oQfj95hkGKphHtTgqolIzZNkKpVwGKu/A4OG6g//PPl2tSrkjRNKX2cAMK7K/qOE1LfgkhJRWVlVRVVXHEEUd86crWryrXOmbSScvS0tLo6OjgRz/6Eb/85S+pra3dLXNwhku77vt3nnP2CDgFn4svvpjq6moyMzPdppT09HRmzZq1G1fgsJWOYJy/t7eH49a6MpwOOJ0VtPn5+fz+979nxYoVQGJjyNKlS4lEIru1j2VkZBAOhwkEArS2trotZ10XYESjUWwh6OPz4e3SfvcV2q88ui5jllUe9HrfARDJ2M8Fzorkskhs+wWR+OZ7Rk5faWV8UmJ4PNTV1nL4yJFMmjSJd999122S6I7JdszmpEmTuPjii93o2LIsPB4PaWlpPPHEE8ycOZO7776btWvXuiXUrqeCdD1oIhKJ8OabbzJ37lz+53/+x51BcFg8pRT3338/Rx555F6zDUeQWpejafZ8WJaVWO/WJTDcsGGDuy9o5cqVKKU46aSTGDVqFKFQiK1btxKLxdzBU6cLyEk/Y7GYG3BmZWURDocpKipizdq17mfs16Wcvg/NslI0DSnEy8Mee6wjecq4cplA+PeySBEMvhZJS6sxNK1wt2xAyi+VoK0UPZOERDQWY8WKFQwfPpzTTz/9azN1N954I42Njbz44ovu1g6HqWtvb+exxx7jueeeo1+/fhx77LEcccQR9O/fn4yMDFpbW9m+fTtr167l/fffp7y83N0T5JjpUChESkoKDzzwgFt32F/quWtqt2zZMi6//HK31v+3v/2N4cOHM3bsWHfwdciQIUgpWb16tVvn7+jowO/3uymgA1BnqZQzcLp9+3b69u3LQw89hM/vRwL9fD7M7pTJhdDCpmkL234O/r0ldDcACFCLi4u1otLSpqp5817wado1LdGoLZIbw+WX+H5NCKK2zdCUFLKkpC0lhdLFiznvvPPo1avXft9Y58vouu7uGPjLX/7i5txO1S07Oxvbttm2bRuffvopuq67RE5nZyehUMjdsOEwj87vtrS00L9/f377298ybNiwr1136FrT+K//+i937R1AXl4eRx55JDU1Nbz55pucffbZ3HDDDTz00EPU1tYSCATcfQOpqalub2JHRwc+n4/DDjuMkSNH8pe//IVzzz2Xk08+mdbWVnZs347u9ZKpaRR5PMT3EbArsFJ1XcYt6/2iZ575p3rmGSGEsLrWctzLOTCi0zSfjJhmvLsLI2NJC3BCZiZRTaO5oYEf/fjHboDjbAbZnxvrvP7GG2/kkUcecQMghzN3fL0zK9B1wFMI4S5ucAgdJzBrbGzkuOOO46mnnvrawnc+W21tLZFIhOXLl/Pyyy/T0tLiDog4y6gNw2Dw4MFUV1eza9cuhBDU19fTq1cvmpqaXCvidCfX1NQQCAQ46qijOPzwwwkGg24p+u233yba2UlcCIampJBjGMT30cZn27bQpBQSHhVCqBVTp2p7FvP+feNLSmy1YIEctGjRGlupZemGIVTyeBF7X32ClsWs/HwGeTxYPh//WreOiy6+mI0bN6Lr+m59+E759KtA0XXZ0tSpU1m8eDHXXXcdmZmZNDU1uTOCXc2fs4HEEajzN5xys5SSG264gUcffZSC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" alt="">
+      AI dětem <span>/ PISA 2025</span>
+    </div>
+    <div class="topbar-tools">
+      <button class="tbtn" id="btn-mode" aria-pressed="false" title="Přepnout mezi prezentací a čtením (klávesa V)">Vše na jedné stránce</button>
+      <button class="tbtn" id="btn-tables" aria-pressed="false" title="Zobrazit data ke všem grafům (klávesa T)">Data</button>
+      <button class="tbtn" id="btn-full" title="Celá obrazovka (klávesa F)">Celá obrazovka</button>
+    </div>
+  </div>
+</div>
+
+<main class="deck" id="deck">
+
+<!-- ============ 1 · TITUL ============ -->
+<section class="slide title-slide" id="s-uvod" data-name="Úvod">
+  <div class="inner">
+    <div class="eyebrow">OECD · zveřejněno 8. září 2026</div>
+    <h1>PISA 2025<br><em>Česko v grafech</em></h1>
+    <p class="sub">Jak si vedlo 8 462 českých patnáctiletých v přírodních vědách, matematice, čtení a počítačovém řešení problémů — a co data říkají o postojích k učení, AI ve škole a klimatu v českých školách.</p>
+    <div class="title-stats">
+      <div>
+        <div class="title-stat-val">8 462</div>
+        <div class="title-stat-label">žáků v ČR</div>
+      </div>
+      <div>
+        <div class="title-stat-val">387</div>
+        <div class="title-stat-label">českých škol</div>
+      </div>
+      <div>
+        <div class="title-stat-val">91</div>
+        <div class="title-stat-label">zemí a ekonomik</div>
+      </div>
+      <div>
+        <div class="title-stat-val">760 000+</div>
+        <div class="title-stat-label">žáků celkem</div>
+      </div>
+    </div>
+    <div class="title-hint">
+      <span class="key">→</span> <span class="key">←</span> další a předchozí slide ·
+      <span class="key">V</span> vše na jedné stránce ·
+      <span class="key">T</span> data ke grafům ·
+      <span class="key">F</span> celá obrazovka
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2 · VÝSLEDKY 2025 ============ -->
+<section class="slide" id="s-vysledky" data-name="Výsledky 2025">
+  <div class="eyebrow">Výsledky 2025</div>
+  <h2>Česko je nad průměrem OECD ve <em>všech čtyřech</em> oblastech</h2>
+  <p class="lead">Průměrný počet bodů českých patnáctiletých v roce 2025. Zároveň ale ve dvou ze tří tradičních oblastí výsledky proti roku 2022 klesly — a ve čtení je propad největší v historii českého měření.</p>
+  <div class="slide-body">
+   <div class="split">
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-label">Přírodní vědy</div>
+        <div class="kpi-val">490</div>
+        <div class="kpi-delta flat">−8 proti 2022 · bez významné změny</div>
+        <div class="kpi-note">Hlavní oblast testování 2025.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Matematika</div>
+        <div class="kpi-val">477</div>
+        <div class="kpi-delta down">−10 proti 2022</div>
+        <div class="kpi-note">Nejnižší hodnota od roku 2003.</div>
+      </div>
+      <div class="kpi accent">
+        <div class="kpi-label">Čtení</div>
+        <div class="kpi-val">468</div>
+        <div class="kpi-delta down">−21 proti 2022</div>
+        <div class="kpi-note">Nejnižší hodnota od vstupu ČR do PISA (2000).</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Počítačové řešení problémů</div>
+        <div class="kpi-val">517</div>
+        <div class="kpi-delta up">nad průměrem OECD</div>
+        <div class="kpi-note">Nová oblast — učení v digitálním světě.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Podíl žáků nad základní úrovní způsobilosti</div>
+        <div class="card-sub">úroveň 2 a vyšší; u počítačového řešení problémů úroveň 3 a vyšší</div>
+        <div class="card-tools"><button class="dbtn" data-toggle-table aria-pressed="false">Data</button></div>
+      </div>
+      <div class="chart" data-chart="baseline"></div>
+      <p class="note">Nejlepší země v každé oblasti: B-S-J-Z (Čína) v přírodních vědách, matematice i čtení, Macao (Čína) v počítačovém řešení problémů.</p>
+    </div>
+   </div>
+  </div>
+</section>
+
+<!-- ============ 3 · TRENDY ============ -->
+<section class="slide" id="s-trendy" data-name="Trendy 2000–2025">
+  <div class="eyebrow">Trendy 2000–2025</div>
+  <h2>Přírodní vědy stagnují, matematika a čtení <em>klesají</em></h2>
+  <p class="lead">Průměrné skóre ČR v jednotlivých cyklech PISA. <strong>Plný bod</strong> znamená, že se výsledek statisticky významně liší od roku 2025; <strong>prázdný bod</strong> znamená, že rozdíl proti roku 2025 není statisticky významný.</p>
+  <div class="slide-body">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Průměrné skóre ČR podle cyklu PISA</div>
+        <div class="card-sub">body na škále PISA</div>
+        <div class="card-tools"><button class="dbtn" data-toggle-table aria-pressed="false">Data</button></div>
+      </div>
+      <div class="chart" data-chart="trendy"></div>
+      <p class="note">Přírodní vědy jsou od roku 2015 stabilní. V matematice i ve čtení jsou výsledky roku 2025 významně nižší než v letech 2015 a 2018. Mezera mezi nejlepšími a nejslabšími 10&nbsp;% žáků se mezi roky 2022 a 2025 významně nezměnila v žádné oblasti.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 · SLABÍ A SILNÍ ============ -->
+<section class="slide" id="s-urovne" data-name="Slabí a špičkoví žáci">
+  <div class="eyebrow">Rozložení výkonu</div>
+  <h2>Slabých žáků je u nás <em>méně</em> než v OECD — ale jejich podíl roste</h2>
+  <p class="lead">Vlevo žáci pod úrovní 2, kteří nezvládnou ani základní úlohy. Vpravo špičkoví žáci na úrovni 5 nebo 6. Proti roku 2015 se podíl slabých žáků v ČR zvýšil o <strong>7 procentních bodů v matematice</strong> a o <strong>5 ve čtení</strong>; v přírodních vědách se významně nezměnil.</p>
+  <div class="slide-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">Pod úrovní 2</div>
+          <div class="card-sub">slabě prospívající žáci, % žáků</div>
+          <div class="card-tools"><button class="dbtn" data-toggle-table aria-pressed="false">Data</button></div>
+        </div>
+        <div class="chart" data-chart="low"></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">Úroveň 5 a vyšší</div>
+          <div class="card-sub">špičkoví žáci, % žáků</div>
+          <div class="card-tools"><button class="dbtn" data-toggle-table aria-pressed="false">Data</button></div>
+        </div>
+        <div class="chart" data-chart="high"></div>
+      </div>
+    </div>
+    <p class="note">V matematice je v ČR 10&nbsp;% špičkových žáků, což je nad průměrem OECD (8&nbsp;%). Pro srovnání: v B-S-J-Z (Čína) je to 54&nbsp;%, v Singapuru 37&nbsp;%, na Tchaj-wanu 32&nbsp;%.</p>
+  </div>
+</section>
+
+<!-- ============ 5 · NEROVNOSTI ============ -->
+<section class="slide" id="s-nerovnosti" data-name="Sociální nerovnosti">
+  <div class="eyebrow">Nerovnosti</div>
+  <h2>Socioekonomický původ rozhoduje u nás <em>víc</em> než v OECD</h2>
+  <p class="lead">Mezi nejvíce a nejméně zvýhodněnou čtvrtinou českých žáků je v přírodních vědách rozdíl 96&nbsp;bodů, zatímco v OECD 85&nbsp;bodů. Mezi roky 2015 a 2025 se tato mezera v ČR nezmenšila, zatímco průměr OECD se zúžil.</p>
+  <div class="slide-body">
+    <div class="kpi-row">
+      <div class="kpi accent">
+        <div class="kpi-label">Mezera mezi čtvrtinami</div>
+        <div class="kpi-val">96 <span class="kpi-unit">bodů</span></div>
+        <div class="kpi-note">Průměr OECD: 85&nbsp;bodů. V ČR se od roku 2015 nezměnila.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Vliv původu na výsledek</div>
+        <div class="kpi-val">15 <span class="kpi-unit">%</span></div>
+        <div class="kpi-note">Podíl rozptylu výsledků v přírodních vědách vysvětlený socioekonomickým statusem. Průměr OECD: 12&nbsp;%.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Odolní žáci</div>
+        <div class="kpi-val">10 <span class="kpi-unit">%</span></div>
+        <div class="kpi-note">Znevýhodnění žáci, kteří se dostali do nejlepší čtvrtiny v ČR. Průměr OECD: 12&nbsp;%.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Kde jsou čeští žáci na mezinárodní socioekonomické škále</div>
+        <div class="card-sub">% českých žáků v jednotlivých mezinárodních kvartilech</div>
+        <div class="card-tools"><button class="dbtn" data-toggle-table aria-pressed="false">Data</button></div>
+      </div>
+      <div class="chart" data-chart="kvartily"></div>
+      <p class="note">Jen 3&nbsp;% českých žáků patří do nejvíce znevýhodněné čtvrtiny všech žáků, kteří PISA 2025 psali. Největší skupina — 37&nbsp;% — je ve třetím kvartilu a v přírodních vědách dosáhla 489&nbsp;bodů, což je jeden z nejlepších výsledků mezi žáky se srovnatelným původem na světě.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6 · POSTOJE ============ -->
+<section class="slide" id="s-postoje" data-name="Postoje k učení">
+  <div class="eyebrow">Postoje k učení</div>
+  <h2>Čeští žáci jsou <em>méně zvídaví</em> a méně vytrvalí než jejich vrstevníci</h2>
+  <p class="lead">Podíl žáků, kteří souhlasí s danými výroky o sobě a o své škole. Česko je pod průměrem OECD u zvídavosti, vytrvalosti, plánování učení i hledání pomoci u učitele — a nad průměrem jen v tom, jak často se žáci obracejí na spolužáky.</p>
+  <div class="slide-body">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Postoje a strategie učení: ČR a průměr OECD</div>
+        <div class="card-sub">% žáků</div>
+        <div class="card-tools"><button class="dbtn" data-toggle-table aria-pressed="false">Data</button></div>
+      </div>
+      <div class="chart" data-chart="postoje"></div>
+      <p class="note">Mezi roky 2022 a 2025 v ČR ubylo zvídavých žáků o <strong>5,1 procentního bodu</strong> a žáků, kteří přidají úsilí u obtížné práce, o <strong>7,8&nbsp;bodu</strong>; podíl těch, pro které je škola ztráta času, vzrostl o <strong>2,5&nbsp;bodu</strong>.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ 7 · POSTOJE A VÝSLEDKY ============ -->
+<section class="slide" id="s-postoje-vysledky" data-name="Postoje a výsledky">
+  <div class="eyebrow">Postoje k učení</div>
+  <h2>Postoje se <em>propisují</em> do výsledků</h2>
+  <p class="lead">O kolik bodů v přírodních vědách se liší žáci podle svých postojů — po zohlednění socioekonomického profilu žáků a škol, aby čísla neměřila jen bohatší rodiny. V ČR je vazba postojů na výsledek o něco slabší než v OECD; nejsilnější je u zvídavosti a u toho, jestli žák ve škole vidí smysl.</p>
+  <div class="slide-body">
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-label">Zvídavost a výsledek</div>
+        <div class="kpi-val">+18 <span class="kpi-unit">bodů</span></div>
+        <div class="kpi-note">Nárůst indexu zvídavosti o jednu jednotku odpovídá v ČR o 18&nbsp;bodů lepšímu výsledku v přírodních vědách (OECD: 19). Po zohlednění socioekonomického profilu žáků a škol.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Vytrvalost a výsledek</div>
+        <div class="kpi-val">+11 <span class="kpi-unit">bodů</span></div>
+        <div class="kpi-note">Za jednu jednotku indexu vytrvalosti (OECD: 13).</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Smysl školy a výsledek</div>
+        <div class="kpi-val">+24 <span class="kpi-unit">bodů</span></div>
+        <div class="kpi-note">Rozdíl mezi žáky, kteří ve škole vidí smysl, a těmi, kteří ji považují za ztrátu času (OECD: 27).</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Růstové myšlení a výsledek</div>
+        <div class="kpi-val">+12 <span class="kpi-unit">bodů</span></div>
+        <div class="kpi-note">Rozdíl mezi žáky s růstovým a s fixním myšlením (OECD: 28). Růstové myšlení má v ČR 64&nbsp;% žáků, v OECD 69&nbsp;%.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8 · AI A DIGITÁLNÍ SVĚT ============ -->
+<section class="slide" id="s-ai" data-name="AI a digitální svět">
+  <div class="eyebrow">AI a digitální svět</div>
+  <h2>Skoro <em>polovina</em> českých žáků používá AI k učení každý týden</h2>
+  <p class="lead">A v tom, jak často se ve výuce učí hodnotit kvalitu obsahu od AI, je Česko nad průměrem OECD. Slabinou není přístup k technologiím, ale pravidla a pozornost — zákaz mobilů má jen 28&nbsp;% škol proti 49&nbsp;% v OECD.</p>
+  <div class="slide-body">
+    <div class="kpi-row">
+      <div class="kpi accent">
+        <div class="kpi-label">Týdenní použití AI k učení</div>
+        <div class="kpi-val">47 <span class="kpi-unit">%</span></div>
+        <div class="kpi-note">Žáci, kteří použijí AI chatbota k učení alespoň jednou za týden. Průměr OECD: 46&nbsp;%.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Učí se hodnotit obsah od AI</div>
+        <div class="kpi-val">70 <span class="kpi-unit">%</span></div>
+        <div class="kpi-note">Žáci, kteří ve výuce alespoň někdy hodnotí kvalitu informací od AI chatbotů. Průměr OECD: 63&nbsp;%, nejlepší SAE 82&nbsp;%.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">AI nepoužívá téměř nikdy</div>
+        <div class="kpi-val">12 <span class="kpi-unit">%</span></div>
+        <div class="kpi-note">Žáci, kteří AI nepoužijí k žádné ze zkoumaných školních činností. Průměr OECD: 14&nbsp;%.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Zákaz mobilů ve škole</div>
+        <div class="kpi-val">28 <span class="kpi-unit">%</span></div>
+        <div class="kpi-note">Žáci ve školách se zákazem telefonů v celém areálu. V roce 2022 to bylo 20&nbsp;%. Průměr OECD: 49&nbsp;%.</div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">K čemu žáci používají AI</div>
+          <div class="card-sub">% žáků, ČR a průměr OECD</div>
+          <div class="card-tools"><button class="dbtn" data-toggle-table aria-pressed="false">Data</button></div>
+        </div>
+        <div class="chart" data-chart="ai"></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">Digitální zařízení ve škole</div>
+          <div class="card-sub">hodiny denně, průměr na žáka</div>
+          <div class="card-tools"><button class="dbtn" data-toggle-table aria-pressed="false">Data</button></div>
+        </div>
+        <div class="chart" data-chart="digital"></div>
+      </div>
+    </div>
+    <p class="note">Ve školách se zákazem telefonů je pravděpodobnost, že žák hlásí digitální rozptýlení, o <strong>38&nbsp;% nižší</strong> (průměr OECD: o 13&nbsp;% nižší). Rozptýlení stojí v ČR v průměru 10&nbsp;bodů v přírodních vědách, v OECD 11.</p>
+  </div>
+</section>
+
+<!-- ============ 9 · UČITELÉ ============ -->
+<section class="slide" id="s-ucitele" data-name="Podpora od učitelů">
+  <div class="eyebrow">Podpora od učitelů</div>
+  <h2>Vnímaná podpora od učitelů je <em>nejslabší stránka</em> českých škol</h2>
+  <p class="lead">Na indexu podpory učitele v hodinách přírodních věd má ČR −0,51 proti průměru OECD 0,03 — jeden z nejnižších výsledků v celém šetření. A proti roku 2015 to je v každé jednotlivé otázce horší.</p>
+  <div class="slide-body">
+   <div class="grid-2">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Co žáci říkají o učitelích v hodinách přírodních věd</div>
+        <div class="card-sub">% žáků, ČR 2015 → ČR 2025, s vyznačeným průměrem OECD 2025</div>
+        <div class="card-tools"><button class="dbtn" data-toggle-table aria-pressed="false">Data</button></div>
+      </div>
+      <div class="chart" data-chart="ucitele"></div>
+      <p class="note">Mezi roky 2015 a 2025 se v průměru OECD zlepšila jak disciplína, tak podpora učitelů. V ČR se zlepšila jen disciplína — podpora učitelů klesla.</p>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Disciplína v hodinách přírodních věd</div>
+        <div class="card-sub">% žáků, kteří to hlásí ve většině nebo ve všech hodinách</div>
+        <div class="card-tools"><button class="dbtn" data-toggle-table aria-pressed="false">Data</button></div>
+      </div>
+      <div class="chart" data-chart="disciplina"></div>
+    </div>
+   </div>
+  </div>
+</section>
+
+<!-- ============ 10 · KLIMA ============ -->
+<section class="slide" id="s-klima" data-name="Šikana a zázemí">
+  <div class="eyebrow">Bezpečí a zázemí</div>
+  <h2>Šikana v ČR <em>roste</em> a je nad průměrem OECD</h2>
+  <p class="lead">Čtvrtina českých žáků byla v roce 2025 alespoň několikrát za měsíc terčem některé formy šikany. Podíl vzrostl proti roku 2022, stejně jako ve většině zemí. Předchozí pokles z let 2018–2022 OECD spojuje s doznívajícími dopady covidu.</p>
+  <div class="slide-body">
+    <div class="kpi-row">
+      <div class="kpi accent">
+        <div class="kpi-label">Terčem šikany</div>
+        <div class="kpi-val">25 <span class="kpi-unit">%</span></div>
+        <div class="kpi-note">Alespoň několikrát za měsíc, alespoň jedna forma. Průměr OECD: 20&nbsp;%.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Kyberšikana</div>
+        <div class="kpi-val">4 <span class="kpi-unit">%</span></div>
+        <div class="kpi-note">O žákovi byly bez jeho svolení zveřejněny nepříjemné informace. Průměr OECD: 3&nbsp;%. Tito žáci měli v přírodních vědách o <b>49&nbsp;bodů</b> horší výsledek.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Rodiče se ptají na školu</div>
+        <div class="kpi-val">72 <span class="kpi-unit">%</span></div>
+        <div class="kpi-note">Alespoň jednou týdně se ptají, co bylo ve škole. V roce 2022 to bylo 77&nbsp;%.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Rodiče řeší problémy</div>
+        <div class="kpi-val">45 <span class="kpi-unit">%</span></div>
+        <div class="kpi-note">Alespoň jednou týdně mluví o problémech ve škole. V roce 2022 to bylo 50&nbsp;%.</div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">Záškoláctví a pozdní příchody</div>
+          <div class="card-sub">% žáků, dva týdny před testem</div>
+          <div class="card-tools"><button class="dbtn" data-toggle-table aria-pressed="false">Data</button></div>
+        </div>
+        <div class="chart" data-chart="zaskolactvi"></div>
+        <p class="note">Záškoláctví je v ČR výrazně nižší než v OECD, pozdní příchody naopak vyšší.</p>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">Nedostatek zdrojů podle ředitelů</div>
+          <div class="card-sub">% žáků ve školách, kde to podle ředitele alespoň částečně brzdí výuku</div>
+          <div class="card-tools"><button class="dbtn" data-toggle-table aria-pressed="false">Data</button></div>
+        </div>
+        <div class="chart" data-chart="zdroje"></div>
+        <p class="note">Průměr OECD je u pedagogů 39&nbsp;% a u pomocného personálu také 39&nbsp;% — v tom se ČR od OECD neliší. Proti roku 2022 se situace téměř nezměnila (materiál 18&nbsp;%, budovy 35&nbsp;%).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11 · PROSTŘEDÍ ============ -->
+<section class="slide" id="s-prostredi" data-name="Environmentální gramotnost">
+  <div class="eyebrow">Environmentální gramotnost</div>
+  <h2>Vědomosti ano, <em>společné jednání</em> ne</h2>
+  <p class="lead">V environmentální části přírodovědného testu dosáhlo základní úrovně 78&nbsp;% českých žáků, nad průměrem OECD (74&nbsp;%). Ale jen 54&nbsp;% žáků ví, jak se s ostatními domluvit na společném jednání ve prospěch prostředí — tady je Česko 14 procentních bodů pod OECD.</p>
+  <div class="slide-body">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Environmentální postoje a jednání</div>
+        <div class="card-sub">% žáků, ČR a průměr OECD</div>
+        <div class="card-tools"><button class="dbtn" data-toggle-table aria-pressed="false">Data</button></div>
+      </div>
+      <div class="chart" data-chart="prostredi"></div>
+      <p class="note">Nejčastější formy zapojení jsou v OECD i v ČR shodné: debata s přáteli a rodinou o tom, jak prostředí pomoct, a rozhodování o nákupech podle udržitelnosti.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 12 · PŘEHLED: NAD OECD ============ -->
+<section class="slide" id="s-nad-oecd" data-name="V čem je ČR nad OECD">
+  <div class="eyebrow">Přehled · podíly žáků</div>
+  <h2>V čem je Česko <em>nad</em> průměrem OECD</h2>
+  <p class="lead">Ukazatele z přehledového panelu OECD, které se vykazují v procentech žáků a ve kterých je ČR nad průměrem. Řazeno podle velikosti rozdílu. Záškoláctví je přepočteno na podíl žáků, kteří v posledních dvou týdnech <strong>nic nevynechali</strong>, aby i tady platilo „více je lépe“.</p>
+  <div class="slide-body">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Nad průměrem OECD</div>
+        <div class="card-sub">% žáků; vpravo nejlepší země v daném ukazateli</div>
+        <div class="card-tools"><button class="dbtn" data-toggle-table aria-pressed="false">Data</button></div>
+      </div>
+      <div class="chart" data-chart="prehledPlus"></div>
+      <p class="note">Největší plus má ČR u záškoláctví: hodinu nebo celý den vynechalo 12&nbsp;% žáků, v průměru OECD 34&nbsp;%.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 13 · PŘEHLED: POD OECD ============ -->
+<section class="slide" id="s-pod-oecd" data-name="V čem je ČR pod OECD">
+  <div class="eyebrow">Přehled · podíly žáků</div>
+  <h2>V čem je Česko <em>pod</em> průměrem OECD</h2>
+  <p class="lead">Stejný přehled, obrácená strana. Dvě největší mezery nejsou o vědomostech, ale o tom, jak škola funguje: <strong>vzájemné doučování mezi žáky</strong> a <strong>pravidla pro mobily</strong>.</p>
+  <div class="slide-body">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Pod průměrem OECD</div>
+        <div class="card-sub">% žáků; vpravo nejlepší země v daném ukazateli</div>
+        <div class="card-tools"><button class="dbtn" data-toggle-table aria-pressed="false">Data</button></div>
+      </div>
+      <div class="chart" data-chart="prehledMinus"></div>
+      <p class="note">Vzájemné doučování mezi žáky nabízí podle ředitelů 26&nbsp;% českých škol proti 51&nbsp;% v OECD — přitom jde o opatření, které nestojí rozpočet téměř nic.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 14 · PŘEHLED INDEXY ============ -->
+<section class="slide" id="s-prehled-index" data-name="Přehled: indexy">
+  <div class="eyebrow">Přehled · indexy dotazníků</div>
+  <h2>Postoje a zázemí: ČR je pod OECD téměř <em>všude</em></h2>
+  <p class="lead">Indexy z dotazníků pro žáky a ředitele. Průměr OECD je nastaven blízko nuly, jedna jednotka odpovídá jedné směrodatné odchylce napříč zeměmi OECD. Jediná výjimka, kde je ČR na úrovni OECD, jsou představy o povaze vědy.</p>
+  <div class="slide-body">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Indexy dotazníků: ČR vs. průměr OECD</div>
+        <div class="card-sub">jednotky indexu; poslední sloupec je nejlepší země v daném ukazateli</div>
+        <div class="card-tools"><button class="dbtn" data-toggle-table aria-pressed="false">Data</button></div>
+      </div>
+      <div class="chart" data-chart="prehledIdx"></div>
+      <p class="note">OECD upozorňuje, že u ukazatelů z dotazníků mohou rozdíly mezi zeměmi odrážet i odlišné způsoby odpovídání — kulturní normy, výklad otázek nebo nevyplněné dotazníky — a ne jen skutečné rozdíly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 15 · SOUHRN ============ -->
+<section class="slide" id="s-souhrn" data-name="Souhrn">
+  <div class="eyebrow">Souhrn</div>
+  <h2>Čtyři věci, které si z PISA 2025 <em>odnést</em></h2>
+  <p class="lead">Shrnutí toho, co v datech vyčnívá — dobré zprávy i to, na co se v Česku dlouhodobě nedaří.</p>
+  <div class="slide-body">
+    <div class="points">
+      <div class="point good">
+        <div class="point-h">1 · Výkon je nad OECD, digitální myšlení nejvíc</div>
+        <div class="point-t">Ve všech čtyřech oblastech je ČR nad průměrem OECD. Nejvýrazněji v <b>počítačovém řešení problémů</b> (517&nbsp;bodů), kde je Česko nad všemi srovnávanými zeměmi středoevropského regionu. V matematice má ČR víc špičkových žáků, než je průměr OECD (10&nbsp;% vs. 8&nbsp;%).</div>
+      </div>
+      <div class="point bad">
+        <div class="point-h">2 · Čtení má nejhorší výsledek v historii</div>
+        <div class="point-t">468&nbsp;bodů, o <b>21&nbsp;bodů méně</b> než v roce 2022 a nejméně od roku 2000. Podíl žáků, kteří nezvládnou základní úroveň čtení, vzrostl proti roku 2015 o 5 procentních bodů, v matematice o 7.</div>
+      </div>
+      <div class="point watch">
+        <div class="point-h">3 · Slabinou nejsou znalosti, ale vztah ke škole</div>
+        <div class="point-t">Zvídavost, vytrvalost, plánování učení, růstové myšlení, pocit přijetí ve škole i <b>vnímaná podpora od učitelů</b> (−0,51 proti 0,03 v OECD) jsou pod OECD. Zvídavost i vytrvalost navíc proti roku 2022 dál klesly.</div>
+      </div>
+      <div class="point">
+        <div class="point-h">4 · AI už je ve třídách, pravidla zaostávají</div>
+        <div class="point-t">47&nbsp;% žáků používá AI k učení každý týden a 70&nbsp;% se ve výuce učí hodnotit její výstupy — nad OECD. Zákaz mobilů ale má jen 28&nbsp;% škol (OECD 49&nbsp;%) a vzájemné doučování žáků nabízí 26&nbsp;% škol proti 51&nbsp;% v OECD.</div>
+      </div>
+    </div>
+    <div class="source">
+      <strong>Zdroj:</strong> OECD (2026), <em>PISA 2025 Results (Volume I): Future-Ready Students</em> — Country Note: Czechia, OECD Publishing, Paris, <a href="https://doi.org/10.1787/73451bc5-en">doi.org/10.1787/73451bc5-en</a>. Data zveřejněna 8. září 2026.<br>
+      © OECD 2026, licence <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Tato stránka je adaptací originálního díla OECD: údaje z tabulek a grafů country note jsou přeloženy do češtiny a znovu vykresleny. Názory a formulace v adaptaci nelze vykládat jako oficiální postoj OECD ani jejích členských zemí. V případě rozporu mezi originálem a překladem je platný pouze text originálu.<br>
+      Interaktivní přehled OECD: <a href="https://www.oecd.org/en/data/dashboards/pisa-education-and-skills.html">oecd.org/en/data/dashboards/pisa-education-and-skills</a>. Grafy a překlad: <strong>AI dětem</strong>, 2026.
+    </div>
+  </div>
+</section>
+
+</main>
+
+<nav class="nav" id="nav">
+  <span class="nav-count" id="nav-count">1 / 15</span>
+  <button class="nav-btn" id="nav-prev" title="Předchozí (←)" aria-label="Předchozí slide">‹</button>
+  <button class="nav-btn" id="nav-next" title="Další (→)" aria-label="Další slide">›</button>
+</nav>
+
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   PISA 2025 · Česko — data a grafy
+   Zdroj: OECD (2026), PISA 2025 Results (Volume I), Country Note: Czechia.
+   Paleta prošla validátorem ze skillu dataviz (light, surface #ffffff):
+   #DC5B5B (ČR) · #2E6DA4 (OECD) · #B0862F (nejlepší země)
+   ============================================================ */
+
+const CZ   = { name: 'Česko',        color: '#DC5B5B' };
+const OECD = { name: 'Průměr OECD',  color: '#2E6DA4' };
+const TOP  = { name: 'Nejlepší země', color: '#B0862F' };
+const CZ15 = { name: 'Česko 2015',   color: '#f0a5a5' };
+const SURF = '#ffffff';
+
+/* ---------- DATA ---------- */
+const DATA = {
+  baseline: {
+    kind: 'hbars', unit: '%', max: 100, scale: 1.45, labelW: 360,
+    series: [CZ, OECD, TOP],
+    rows: [
+      { label: 'Přírodní vědy',              vals: [79, 74, 97], top: 'B-S-J-Z (Čína)' },
+      { label: 'Čtení',                      vals: [73, 69, 93], top: 'B-S-J-Z (Čína)' },
+      { label: 'Počítačové řešení problémů', vals: [72, 64, 93], top: 'Macao (Čína)' },
+      { label: 'Matematika',                 vals: [71, 65, 96], top: 'B-S-J-Z (Čína)' }
+    ]
+  },
+
+  trendy: {
+    kind: 'line', yMin: 460, yMax: 520, unit: 'bodů',
+    years: [2000, 2003, 2006, 2009, 2012, 2015, 2018, 2022, 2025],
+    series: [
+      { name: 'Přírodní vědy', color: '#2E6DA4', points: [
+        [2006, 513, 1], [2009, 500, 0], [2012, 508, 1], [2015, 493, 0],
+        [2018, 497, 0], [2022, 498, 0], [2025, 490, 0] ] },
+      { name: 'Matematika', color: '#B0862F', points: [
+        [2003, 516, 1], [2006, 510, 1], [2009, 493, 1], [2012, 499, 1],
+        [2015, 492, 1], [2018, 499, 1], [2022, 487, 1], [2025, 477, 0] ] },
+      { name: 'Čtení', color: '#DC5B5B', points: [
+        [2000, 492, 1], [2003, 489, 1], [2006, 483, 0], [2009, 478, 0], [2012, 493, 1],
+        [2015, 487, 1], [2018, 490, 1], [2022, 489, 1], [2025, 468, 0] ] }
+    ]
+  },
+
+  low: {
+    kind: 'hbars', unit: '%', max: 40, series: [CZ, OECD], scale: 1.5, labelW: 250,
+    rows: [
+      { label: 'Matematika',    vals: [29, 35] },
+      { label: 'Čtení',         vals: [27, 31] },
+      { label: 'Přírodní vědy', vals: [21, 26] }
+    ]
+  },
+
+  high: {
+    kind: 'hbars', unit: '%', max: 40, series: [CZ, OECD], scale: 1.5, labelW: 250,
+    rows: [
+      { label: 'Matematika',    vals: [10, 8] },
+      { label: 'Přírodní vědy', vals: [7, 7] },
+      { label: 'Čtení',         vals: [5, 6] }
+    ]
+  },
+
+  kvartily: {
+    kind: 'hbars', unit: '%', max: 40, series: [CZ],
+    labelW: 400, scale: 1.15,
+    rows: [
+      { label: '1. kvartil — nejvíc znevýhodnění', vals: [3] },
+      { label: '2. kvartil',                       vals: [26] },
+      { label: '3. kvartil',                       vals: [37] },
+      { label: '4. kvartil — nejvíc zvýhodnění',   vals: [35] }
+    ]
+  },
+
+  postoje: {
+    kind: 'dumbbell', unit: '%', min: 0, max: 100, labelW: 420,
+    rows: [
+      { label: 'Požádá spolužáky o pomoc, když něčemu nerozumí', cz: 83, oecd: 82 },
+      { label: 'Je zvídavý v mnoha různých věcech',              cz: 66, oecd: 73 },
+      { label: 'Požádá o pomoc učitele, když ji potřebuje',      cz: 64, oecd: 77 },
+      { label: 'Věří, že inteligenci lze rozvíjet',              cz: 64, oecd: 69 },
+      { label: 'Přidá úsilí, když je práce obtížná',             cz: 57, oecd: 60 },
+      { label: 'Ověřuje si otázkami, že látku pochopil',         cz: 39, oecd: 49 },
+      { label: 'Škola byla ztráta času',                         cz: 28, oecd: 24 },
+      { label: 'Často si plánuje, jak se bude učit',             cz: 21, oecd: 37 }
+    ]
+  },
+
+  ai: {
+    kind: 'dumbbell', unit: '%', min: 0, max: 80, labelW: 450, scale: 1.45,
+    rows: [
+      { label: 'Hodnocení obsahu od AI ve výuce', cz: 70, oecd: 63 },
+      { label: 'Použití AI k učení aspoň týdně',  cz: 47, oecd: 46 },
+      { label: 'Shrnutí textu, který měl přečíst', cz: 30, oecd: 30 },
+      { label: 'První rešerše nového tématu',     cz: 29, oecd: 31 },
+      { label: 'Návrh textu pro zadání',          cz: 29, oecd: 29 },
+      { label: 'AI téměř nikdy nepoužije',        cz: 12, oecd: 14 }
+    ]
+  },
+
+  digital: {
+    kind: 'hbars', unit: ' h', max: 2, series: [CZ, OECD], decimals: 1, labelW: 320, scale: 1.5,
+    rows: [
+      { label: 'Zábava, ne učení', vals: [1.7, 1.1] },
+      { label: 'Učení',            vals: [1.4, 1.7] }
+    ]
+  },
+
+  ucitele: {
+    kind: 'dumbbell', unit: '%', min: 0, max: 100, labelW: 470, scale: 1.45,
+    emph: { name: 'Česko 2025', color: '#DC5B5B' },
+    ctx:  { name: 'Česko 2015', color: '#f0a5a5' },
+    mark: { name: 'Průměr OECD 2025', color: '#2E6DA4' },
+    rows: [
+      { label: 'Dá pomoc navíc, když je potřeba', cz: 58, oecd: 76, m: 73 },
+      { label: 'Zajímá se o každého žáka',        cz: 46, oecd: 63, m: 69 },
+      { label: 'Učí, dokud žáci nepochopí',       cz: 44, oecd: 52, m: 66 }
+    ]
+  },
+
+  disciplina: {
+    kind: 'hbars', unit: '%', max: 40, series: [CZ, OECD], labelW: 370, scale: 1.5,
+    rows: [
+      { label: 'Neposlouchají učitele', vals: [35, 29] },
+      { label: 'Hluk a nepořádek',      vals: [31, 31] },
+      { label: 'Nemohou dobře pracovat', vals: [18, 19] }
+    ]
+  },
+
+  zaskolactvi: {
+    kind: 'hbars', unit: '%', max: 60, series: [CZ, OECD], labelW: 360, scale: 1.5,
+    rows: [
+      { label: 'Přišel pozdě',      vals: [54, 50] },
+      { label: 'Vynechal hodinu',   vals: [9, 24] },
+      { label: 'Vynechal celý den', vals: [9, 22] }
+    ]
+  },
+
+  zdroje: {
+    kind: 'hbars', unit: '%', max: 50, series: [CZ], labelW: 330, scale: 1.45,
+    rows: [
+      { label: 'Pomocný personál', vals: [40] },
+      { label: 'Pedagogové',       vals: [37] },
+      { label: 'Budovy a vybavení', vals: [36] },
+      { label: 'Výukový materiál', vals: [19] }
+    ]
+  },
+
+  prostredi: {
+    kind: 'dumbbell', unit: '%', min: 0, max: 100, labelW: 430,
+    rows: [
+      { label: 'Dosáhli úrovně 2 v environmentálních vědách',   cz: 78, oecd: 74 },
+      { label: 'Věří, že sami mohou prostředí pomoct',          cz: 78, oecd: 81 },
+      { label: 'Věří, že společné jednání může problémy řešit', cz: 77, oecd: 82 },
+      { label: 'Zajímá je práce, která prostředí pomáhá',       cz: 60, oecd: 62 },
+      { label: 'Mluvili o tom s přáteli a rodinou',             cz: 57, oecd: 56 },
+      { label: 'Rozhodují o nákupech podle udržitelnosti',      cz: 54, oecd: 54 },
+      { label: 'Vědí, jak se s ostatními na jednání domluvit',  cz: 54, oecd: 68 }
+    ]
+  },
+
+  prehledPlus: {
+    kind: 'dumbbell', unit: '%', min: 0, max: 100, labelW: 410, showTop: true, sort: true, topW: 180,
+    rows: [
+      { label: 'Bez záškoláctví',                           cz: 88, oecd: 66, top: 97, topName: 'Korea' },
+      { label: 'Nad základní úrovní: poč. řešení problémů', cz: 72, oecd: 64, top: 93, topName: 'Macao (Čína)' },
+      { label: 'Učí se ve výuce hodnotit obsah od AI',      cz: 70, oecd: 63, top: 82, topName: 'SAE' },
+      { label: 'Nad základní úrovní: matematika',           cz: 71, oecd: 65, top: 96, topName: 'B-S-J-Z (Čína)' },
+      { label: 'Nad základní úrovní: přírodní vědy',        cz: 79, oecd: 74, top: 97, topName: 'B-S-J-Z (Čína)' },
+      { label: 'Nad základní úrovní: čtení',                cz: 73, oecd: 69, top: 93, topName: 'B-S-J-Z (Čína)' },
+      { label: 'Víra v sociální mobilitu',                  cz: 70, oecd: 66, top: 77, topName: 'Portugalsko' },
+      { label: 'Dost pedagogů podle ředitele',              cz: 33, oecd: 29, top: 83, topName: 'Georgie' }
+    ]
+  },
+
+  prehledMinus: {
+    kind: 'dumbbell', unit: '%', min: 0, max: 100, labelW: 430, showTop: true, sort: true, topW: 180,
+    rows: [
+      { label: 'Akademická odolnost v přírodních vědách',     cz: 10, oecd: 12, top: 26, topName: 'Kenya' },
+      { label: 'Bez zkušenosti se šikanou',                   cz: 50, oecd: 53, top: 80, topName: 'Armenie' },
+      { label: 'Škola připravila na dospělý život',           cz: 47, oecd: 51, top: 85, topName: 'Korea' },
+      { label: 'Růstové myšlení',                             cz: 64, oecd: 69, top: 83, topName: 'Estonsko' },
+      { label: 'Pravidla pro digitální zařízení v předmětech', cz: 66, oecd: 71, top: 96, topName: 'SAE' },
+      { label: 'Zákaz mobilů v areálu školy',                 cz: 28, oecd: 49, top: 98, topName: 'Řecko' },
+      { label: 'Vzájemné doučování mezi žáky',                cz: 26, oecd: 51, top: 98, topName: 'Uzbekistán' }
+    ]
+  },
+
+  prehledIdx: {
+    kind: 'dumbbell', unit: '', min: -0.6, max: 1.4, labelW: 430, showTop: true, sort: true, decimals: 2, topW: 190, tickCount: 4,
+    rows: [
+      { label: 'Disciplína v hodinách přírodních věd',   cz: 0.10,  oecd: 0.14,  top: 1.32, topName: 'Korea' },
+      { label: 'Představy o povaze vědy',                cz: 0.00,  oecd: 0.00,  top: 0.38, topName: 'B-S-J-Z (Čína)' },
+      { label: 'Podpora od rodiny',                      cz: -0.20, oecd: -0.19, top: 0.16, topName: 'Rumunsko' },
+      { label: 'Připravenost školy na digitální učení',  cz: -0.11, oecd: -0.03, top: 0.98, topName: 'SAE' },
+      { label: 'Kognitivní přizpůsobivost',              cz: -0.17, oecd: 0.01,  top: 0.30, topName: 'Saúdská Arábie' },
+      { label: 'Pocit přijetí ve škole',                 cz: -0.19, oecd: 0.09,  top: 0.50, topName: 'Rakousko' },
+      { label: 'Hledání pomoci',                         cz: -0.27, oecd: 0.00,  top: 0.43, topName: 'Malajsie' },
+      { label: 'Zvídavost',                              cz: -0.28, oecd: 0.00,  top: 0.32, topName: 'Mauricius' },
+      { label: 'Vytrvalost',                             cz: -0.30, oecd: 0.00,  top: 0.51, topName: 'Kostarika' },
+      { label: 'Stanovování cílů',                       cz: -0.35, oecd: 0.00,  top: 0.59, topName: 'Kenya' },
+      { label: 'Podpora od učitele v přírodních vědách', cz: -0.51, oecd: 0.03,  top: 0.82, topName: 'Azerbajdžán' }
+    ]
+  }
+};
+</script>
+
+<script>
+/* ---------- POMOCNÉ ---------- */
+const W = 1000;
+const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const num = (v, d = 0) => v.toFixed(d).replace('.', ',').replace('-', '−');
+const fmt = (v, spec) => num(v, spec.decimals || 0) + (spec.unit || '');
+
+/* hezké dílky osy */
+function ticks(min, max, count = 5) {
+  const span = max - min;
+  const raw = span / count;
+  const mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const step = [1, 2, 2.5, 5, 10].map(m => m * mag).find(s => s >= raw) || 10 * mag;
+  const out = [];
+  for (let t = Math.ceil(min / step) * step; t <= max + 1e-9; t += step) out.push(+t.toFixed(6));
+  return out;
+}
+
+/* pruh s 4px zaoblením na konci dat, u základní linie hranatý */
+function barPath(x0, y, w, h, r) {
+  if (w <= 0.5) return `M${x0},${y} h0.5 v${h} h-0.5 Z`;
+  const rr = Math.min(r, w, h / 2);
+  return `M${x0},${y} h${w - rr} q${rr},0 ${rr},${rr} v${h - 2 * rr} q0,${rr} ${-rr},${rr} h${-(w - rr)} Z`;
+}
+
+/* ---------- SLOUPCOVÝ GRAF (vodorovný, 1–3 řady) ---------- */
+function renderHbars(spec) {
+  const S = spec.series, n = S.length;
+  const labelW = spec.labelW || 260;
+  const padR = 88;
+  const plotX = labelW, plotW = W - labelW - padR;
+  const barH = spec.rows.length <= 3 ? (n === 1 ? 28 : 24) : (n === 1 ? 22 : 20), gap = 2;
+  const rowH = n * barH + (n - 1) * gap + (spec.rows.length <= 3 ? 44 : 30);
+  const axisH = 34;
+  const H = spec.rows.length * rowH + axisH + 6;
+  const max = spec.max, x = v => plotX + (v / max) * plotW;
+  const tk = ticks(0, max, 5);
+  let g = '';
+
+  tk.forEach(t => {
+    g += `<line class="grid" x1="${x(t).toFixed(1)}" y1="0" x2="${x(t).toFixed(1)}" y2="${spec.rows.length * rowH}"/>`;
+    g += `<text class="ax" x="${x(t).toFixed(1)}" y="${spec.rows.length * rowH + 22}" text-anchor="middle">${num(t, spec.decimals || 0)}${spec.unit || ''}</text>`;
+  });
+
+  spec.rows.forEach((r, i) => {
+    const y0 = i * rowH + 12;
+    g += `<text class="cat" x="${labelW - 16}" y="${(y0 + (n * barH + (n - 1) * gap) / 2 + 6).toFixed(1)}" text-anchor="end">${esc(r.label)}</text>`;
+    r.vals.forEach((v, k) => {
+      const y = y0 + k * (barH + gap);
+      const tip = `${r.label} · ${S[k].name}: ${fmt(v, spec)}${r.top && S[k] === TOP ? ' — ' + r.top : ''}`;
+      g += `<path d="${barPath(plotX, y, (v / max) * plotW, barH, 4)}" fill="${S[k].color}" data-tip="${esc(tip)}"/>`;
+      g += `<text class="val${k > 0 ? ' soft' : ''}" x="${(x(v) + 9).toFixed(1)}" y="${(y + barH / 2 + 6).toFixed(1)}">${fmt(v, spec)}</text>`;
+    });
+  });
+
+  const legend = n > 1 ? legendHtml(S.map((s, k) => ({
+    name: s.name + (s === TOP && spec.rows.every(r => r.top) ? '' : ''), color: s.color
+  }))) : '';
+  return legend + `<svg viewBox="0 0 ${W} ${H}" style="--m:${spec.scale || 1}" role="img" aria-label="${esc(spec.aria || 'sloupcový graf')}">${g}</svg>`;
+}
+
+/* ---------- DUMBBELL (ČR vs. OECD na jednom řádku) ---------- */
+function renderDumbbell(spec) {
+  const emph = spec.emph || CZ, ctx = spec.ctx || OECD;
+  const labelW = spec.labelW || 420;
+  const topW = spec.showTop ? (spec.topW || 210) : 0;
+  const padR = 74 + topW;
+  const plotX = labelW, plotW = W - labelW - padR;
+  const rowH = spec.rowH || (spec.rows.length <= 4 ? 58 : 42), axisH = 34;
+  const rows = spec.sort ? spec.rows.slice().sort((a, b) => (b.cz - b.oecd) - (a.cz - a.oecd)) : spec.rows;
+  spec._rows = rows;
+  const H = rows.length * rowH + axisH + 10;
+  const min = spec.min, max = spec.max, x = v => plotX + ((v - min) / (max - min)) * plotW;
+  const tk = ticks(min, max, spec.tickCount || (spec.showTop ? 2 : 5));
+  let g = '';
+
+  tk.forEach(t => {
+    const zero = Math.abs(t) < 1e-9 && min < 0;
+    g += `<line class="${zero ? 'zero' : 'grid'}" x1="${x(t).toFixed(1)}" y1="0" x2="${x(t).toFixed(1)}" y2="${rows.length * rowH}"/>`;
+    g += `<text class="ax" x="${x(t).toFixed(1)}" y="${rows.length * rowH + 22}" text-anchor="middle">${num(t, spec.decimals || 0)}${spec.unit || ''}</text>`;
+  });
+
+  rows.forEach((r, i) => {
+    const yc = i * rowH + rowH / 2;
+    let tip = `${r.label} · ${emph.name}: ${fmt(r.cz, spec)} · ${ctx.name}: ${fmt(r.oecd, spec)}`;
+    if (r.m != null) tip += ` · ${spec.mark.name}: ${fmt(r.m, spec)}`;
+    if (spec.showTop && r.top != null) tip += ` · nejlepší ${r.topName}: ${fmt(r.top, spec)}`;
+    g += `<rect class="band" x="0" y="${i * rowH}" width="${W}" height="${rowH}" data-tip="${esc(tip)}"/>`;
+    g += `<text class="cat" x="${labelW - 18}" y="${(yc + 6).toFixed(1)}" text-anchor="end">${esc(r.label)}</text>`;
+    g += `<line class="conn" x1="${x(r.cz).toFixed(1)}" y1="${yc}" x2="${x(r.oecd).toFixed(1)}" y2="${yc}"/>`;
+    if (r.m != null) {
+      g += `<line x1="${x(r.m).toFixed(1)}" y1="${yc - 11}" x2="${x(r.m).toFixed(1)}" y2="${yc + 11}" stroke="${spec.mark.color}" stroke-width="3" stroke-linecap="round"/>`;
+    }
+    g += dot(x(r.oecd), yc, 7, ctx.color);
+    g += dot(x(r.cz), yc, 8, emph.color);
+    /* hodnotu ČR píšeme na vnější stranu dvojice; když by zasáhla do popisků, obrátíme ji */
+    let lx = x(r.cz) - 15, anchor = 'end';
+    if (r.cz > r.oecd || lx < plotX + 34) { lx = Math.max(x(r.cz), x(r.oecd)) + 15; anchor = 'start'; }
+    g += `<text class="val" x="${lx.toFixed(1)}" y="${(yc + 6).toFixed(1)}" text-anchor="${anchor}">${fmt(r.cz, spec)}</text>`;
+    if (spec.showTop) {
+      g += `<text class="val soft sm" x="${W - topW + 6}" y="${(yc + 6).toFixed(1)}" text-anchor="start">${fmt(r.top, spec)}</text>`;
+      g += `<text class="cat" x="${W - topW + 66}" y="${(yc + 6).toFixed(1)}" text-anchor="start" style="font-size:15px">${esc(r.topName)}</text>`;
+    }
+  });
+
+  if (spec.showTop) {
+    g += `<text class="ax" x="${W - topW + 6}" y="-8" text-anchor="start" style="font-weight:700;letter-spacing:0.06em">NEJLEPŠÍ ZEMĚ</text>`;
+  }
+
+  const items = [{ name: emph.name, color: emph.color }, { name: ctx.name, color: ctx.color, ring: true }];
+  if (spec.mark) items.push({ name: spec.mark.name, color: spec.mark.color, line: true });
+  return legendHtml(items) + `<svg viewBox="0 -22 ${W} ${H + 22}" style="--m:${spec.scale || 1}" role="img" aria-label="${esc(spec.aria || 'srovnávací graf')}">${g}</svg>`;
+}
+
+function dot(cx, cy, r, color) {
+  return `<circle cx="${cx.toFixed(1)}" cy="${cy}" r="${r}" fill="${color}" stroke="${SURF}" stroke-width="2"/>`;
+}
+
+/* ---------- SPOJNICOVÝ GRAF (trendy) ---------- */
+function renderLine(spec) {
+  const H = 470, padL = 62, padR = 78, padT = 16, padB = 46;
+  const x0 = spec.years[0], x1 = spec.years[spec.years.length - 1];
+  const x = y => padL + ((y - x0) / (x1 - x0)) * (W - padL - padR);
+  const y = v => padT + (1 - (v - spec.yMin) / (spec.yMax - spec.yMin)) * (H - padT - padB);
+  const tk = ticks(spec.yMin, spec.yMax, 4);
+  let g = '';
+
+  tk.forEach(t => {
+    g += `<line class="grid" x1="${padL}" y1="${y(t).toFixed(1)}" x2="${W - padR}" y2="${y(t).toFixed(1)}"/>`;
+    g += `<text class="ax" x="${padL - 12}" y="${(y(t) + 5).toFixed(1)}" text-anchor="end">${t}</text>`;
+  });
+  spec.years.forEach(yr => {
+    g += `<text class="ax" x="${x(yr).toFixed(1)}" y="${H - padB + 26}" text-anchor="middle">${yr}</text>`;
+  });
+
+  /* pruhy pro hover po ročnících */
+  spec.years.forEach((yr, i) => {
+    const prev = spec.years[i - 1], next = spec.years[i + 1];
+    const xa = prev ? (x(yr) + x(prev)) / 2 : x(yr) - 16;
+    const xb = next ? (x(yr) + x(next)) / 2 : x(yr) + 16;
+    const parts = spec.series.map(s => {
+      const p = s.points.find(p => p[0] === yr);
+      return p ? `${s.name}: ${p[1]}` : null;
+    }).filter(Boolean);
+    g += `<rect class="band" x="${xa.toFixed(1)}" y="${padT}" width="${(xb - xa).toFixed(1)}" height="${H - padT - padB}" data-tip="${esc(yr + ' · ' + parts.join(' · '))}"/>`;
+  });
+
+  spec.series.forEach(s => {
+    const d = s.points.map((p, i) => `${i ? 'L' : 'M'}${x(p[0]).toFixed(1)},${y(p[1]).toFixed(1)}`).join(' ');
+    g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+    s.points.forEach(p => {
+      g += p[2]
+        ? `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="5.5" fill="${s.color}" stroke="${SURF}" stroke-width="2"/>`
+        : `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="5" fill="${SURF}" stroke="${s.color}" stroke-width="2.5"/>`;
+    });
+    const last = s.points[s.points.length - 1];
+    g += `<text class="val" x="${(x(last[0]) + 14).toFixed(1)}" y="${(y(last[1]) + 6).toFixed(1)}" text-anchor="start">${last[1]}</text>`;
+  });
+
+  const items = spec.series.map(s => ({ name: s.name, color: s.color, line: true }));
+  items.push({ name: 'prázdný bod = rozdíl proti 2025 není významný', color: '#8ba3ad', hollow: true });
+  return legendHtml(items) + `<svg viewBox="0 0 ${W} ${H}" style="--m:1.1" role="img" aria-label="Trendy průměrného skóre ČR v PISA 2000–2025">${g}</svg>`;
+}
+
+/* ---------- LEGENDA ---------- */
+function legendHtml(items) {
+  return '<div class="legend">' + items.map(i => {
+    const sw = i.hollow
+      ? `<span class="legend-s ring" style="border:2.5px solid ${i.color}"></span>`
+      : `<span class="legend-s${i.line ? ' line' : ''}" style="background:${i.color}"></span>`;
+    return `<span class="legend-i">${sw}${esc(i.name)}</span>`;
+  }).join('') + '</div>';
+}
+
+/* ---------- TABULKA DAT ---------- */
+function tableHtml(spec) {
+  let head = '', body = '';
+  if (spec.kind === 'hbars') {
+    head = '<th class="l">Ukazatel</th>' + spec.series.map(s => `<th>${esc(s.name)}</th>`).join('');
+    body = spec.rows.map(r => `<tr><td class="l">${esc(r.label)}${r.top ? ' <span style="color:var(--text-mute)">(' + esc(r.top) + ')</span>' : ''}</td>` +
+      r.vals.map(v => `<td>${fmt(v, spec)}</td>`).join('') + '</tr>').join('');
+  } else if (spec.kind === 'dumbbell') {
+    const emph = spec.emph || CZ, ctx = spec.ctx || OECD;
+    const rws = spec._rows || spec.rows;
+    head = `<th class="l">Ukazatel</th><th>${esc(emph.name)}</th><th>${esc(ctx.name)}</th>` +
+      (spec.mark ? `<th>${esc(spec.mark.name)}</th>` : '') +
+      (spec.showTop ? '<th>Nejlepší země</th><th class="l">Kde</th>' : '');
+    body = rws.map(r => `<tr><td class="l">${esc(r.label)}</td><td>${fmt(r.cz, spec)}</td><td>${fmt(r.oecd, spec)}</td>` +
+      (spec.mark ? `<td>${r.m != null ? fmt(r.m, spec) : '–'}</td>` : '') +
+      (spec.showTop ? `<td>${fmt(r.top, spec)}</td><td class="l">${esc(r.topName)}</td>` : '') + '</tr>').join('');
+  } else if (spec.kind === 'line') {
+    head = '<th class="l">Rok</th>' + spec.series.map(s => `<th>${esc(s.name)}</th>`).join('');
+    body = spec.years.map(yr => {
+      const cells = spec.series.map(s => {
+        const p = s.points.find(p => p[0] === yr);
+        return `<td>${p ? p[1] + (p[2] ? '' : ' ○') : '–'}</td>`;
+      }).join('');
+      return `<tr><td class="l">${yr}</td>${cells}</tr>`;
+    }).join('');
+  }
+  return `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>` +
+    (spec.kind === 'line' ? '<p class="note">○ = rozdíl proti roku 2025 není statisticky významný.</p>' : '');
+}
+
+/* ---------- VYKRESLENÍ ---------- */
+document.querySelectorAll('[data-chart]').forEach(el => {
+  const spec = DATA[el.dataset.chart];
+  if (!spec) return;
+  const html = spec.kind === 'hbars' ? renderHbars(spec)
+    : spec.kind === 'dumbbell' ? renderDumbbell(spec)
+    : renderLine(spec);
+  el.innerHTML = html;
+  const dv = document.createElement('div');
+  dv.className = 'dataview';
+  dv.innerHTML = tableHtml(spec);
+  el.after(dv);
+});
+</script>
+
+<script>
+/* ---------- TOOLTIP ---------- */
+(function () {
+  const tip = document.getElementById('tip');
+  let on = null;
+  document.addEventListener('mouseover', e => {
+    const t = e.target.closest('[data-tip]');
+    if (!t) return;
+    on = t; tip.textContent = t.getAttribute('data-tip'); tip.classList.add('is-on');
+  });
+  document.addEventListener('mousemove', e => {
+    if (!on) return;
+    const r = tip.getBoundingClientRect();
+    let x = e.clientX + 16, y = e.clientY + 16;
+    if (x + r.width > innerWidth - 8) x = e.clientX - r.width - 14;
+    if (y + r.height > innerHeight - 8) y = e.clientY - r.height - 14;
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  });
+  document.addEventListener('mouseout', e => {
+    if (on && !e.target.closest('[data-tip]')) { on = null; tip.classList.remove('is-on'); }
+  });
+})();
+
+/* ---------- TABULKY DAT ---------- */
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-toggle-table]');
+  if (!b) return;
+  const dv = b.closest('.card').querySelector('.dataview');
+  const open = dv.classList.toggle('is-open');
+  b.setAttribute('aria-pressed', String(open));
+});
+
+const btnTables = document.getElementById('btn-tables');
+btnTables.addEventListener('click', () => {
+  const open = btnTables.getAttribute('aria-pressed') !== 'true';
+  btnTables.setAttribute('aria-pressed', String(open));
+  document.querySelectorAll('.dataview').forEach(d => d.classList.toggle('is-open', open));
+  document.querySelectorAll('[data-toggle-table]').forEach(b => b.setAttribute('aria-pressed', String(open)));
+});
+
+/* ---------- NAVIGACE PO SLIDECH ---------- */
+const slides = [...document.querySelectorAll('.slide')];
+const navCount = document.getElementById('nav-count');
+const prevBtn = document.getElementById('nav-prev');
+const nextBtn = document.getElementById('nav-next');
+const progress = document.getElementById('progress');
+const btnMode = document.getElementById('btn-mode');
+let cur = 0, allMode = false;
+
+function paint() {
+  slides.forEach((s, i) => s.classList.toggle('is-live', i === cur));
+  navCount.textContent = (cur + 1) + ' / ' + slides.length;
+  prevBtn.disabled = cur === 0;
+  nextBtn.disabled = cur === slides.length - 1;
+  progress.style.width = allMode ? '100%' : (((cur + 1) / slides.length) * 100) + '%';
+  fitCharts();
+}
+
+/* grafy se zmenší tak, aby se slide vešel na obrazovku — kvůli promítání */
+function fitCharts() {
+  const slide = slides[cur];
+  const svgs = [...document.querySelectorAll('.chart svg')];
+  svgs.forEach(s => { s.style.maxHeight = ''; });
+  if (allMode || !slide || innerWidth <= 700) return;
+  const own = [...slide.querySelectorAll('.chart svg')];
+  if (!own.length) return;
+  /* slide má min-height calc(100vh - 44px), takže výš než to se nedostaneme */
+  const avail = innerHeight - 44;
+  const base = own.map(s => s.getBoundingClientRect().height);
+  let f = 1;
+  for (let i = 0; i < 14 && slide.scrollHeight > avail + 6 && f > 0.42; i++) {
+    f *= 0.94;
+    own.forEach((s, k) => { s.style.maxHeight = (base[k] * f).toFixed(0) + 'px'; });
+  }
+}
+
+let fitTimer;
+addEventListener('resize', () => { clearTimeout(fitTimer); fitTimer = setTimeout(fitCharts, 140); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitCharts);
+
+function go(i, push = true) {
+  cur = Math.max(0, Math.min(slides.length - 1, i));
+  if (allMode) setMode(false, false);
+  paint();
+  if (push) history.replaceState(null, '', '#' + slides[cur].id.replace(/^s-/, ''));
+  scrollTo({ top: 0, behavior: 'instant' in document.documentElement.style ? 'instant' : 'auto' });
+}
+
+function setMode(all, push = true) {
+  allMode = all;
+  document.body.classList.toggle('mode-all', all);
+  btnMode.setAttribute('aria-pressed', String(all));
+  btnMode.textContent = all ? 'Zpět na prezentaci' : 'Vše na jedné stránce';
+  paint();
+  if (push) history.replaceState(null, '', all ? '#vse' : '#' + slides[cur].id.replace(/^s-/, ''));
+}
+
+btnMode.addEventListener('click', () => setMode(!allMode));
+prevBtn.addEventListener('click', () => go(cur - 1));
+nextBtn.addEventListener('click', () => go(cur + 1));
+
+document.getElementById('btn-full').addEventListener('click', () => {
+  if (document.fullscreenElement) document.exitFullscreen();
+  else document.documentElement.requestFullscreen?.();
+});
+
+document.addEventListener('keydown', e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key;
+  if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { if (!allMode) { e.preventDefault(); go(cur + 1); } }
+  else if (k === 'ArrowLeft' || k === 'PageUp') { if (!allMode) { e.preventDefault(); go(cur - 1); } }
+  else if (k === 'Home') { e.preventDefault(); go(0); }
+  else if (k === 'End') { e.preventDefault(); go(slides.length - 1); }
+  else if (k === 'v' || k === 'V') setMode(!allMode);
+  else if (k === 't' || k === 'T') btnTables.click();
+  else if (k === 'f' || k === 'F') document.getElementById('btn-full').click();
+});
+
+/* adresa v URL — každý slide má vlastní odkaz, #vse otevře režim čtení */
+function fromHash() {
+  const h = decodeURIComponent(location.hash.replace('#', ''));
+  if (h === 'vse') { setMode(true, false); return; }
+  const i = slides.findIndex(s => s.id === 's-' + h);
+  cur = i >= 0 ? i : 0;
+  setMode(false, false);
+}
+addEventListener('hashchange', fromHash);
+fromHash();
+</script>
+
+</body>
+</html>
