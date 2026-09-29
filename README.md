@@ -43,6 +43,16 @@ Jeden soubor, žádný build, žádné závislosti kromě Google Fonts; logo je 
 
 Paleta grafů je `#DC5B5B` (ČR), `#2E6DA4` (průměr OECD) a `#B0862F` (nejlepší země) — stejná trojice jako v `ai-akcelerator-krajska-uroven-akteri/` a prošla validátorem ze skillu `dataviz`.
 
+### `vecerni-skola/`
+
+Vstupní dotazník **Večerní AI školy pro ředitele a ředitelky** („Kde jste s AI dnes?“) v grafech — promítá se na začátku prvního setkání.
+
+| Soubor | Obsah |
+|---|---|
+| `index.html` | Prezentace o 10 slidech: kdo jsou účastníci, jak často a jak jistě AI používají, nástroje, na co AI používají, pravidla a dokumenty, priority témat, roztříděné otevřené odpovědi, závěry pro program a slide o tom, jak prezentace vznikla |
+
+Stejná kostra jako `pisa-2025/` (CSS, ovládání klávesami, adresy slidů, přepínač dat, režim čtení); data jsou v objektu `DATA` na začátku skriptu. **Zdrojové CSV sem necommitujeme** — obsahuje jména a školy. Stránka ukazuje jen souhrnné počty a anonymní, mírně zkrácené citace.
+
 ### `lektori-sk/`
 
 | Soubor | Obsah |
