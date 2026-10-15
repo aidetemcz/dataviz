@@ -53,6 +53,18 @@ Vstupní dotazník **Večerní AI školy pro ředitele a ředitelky** („Kde js
 
 Stejná kostra jako `pisa-2025/` (CSS, ovládání klávesami, adresy slidů, přepínač dat, režim čtení); data jsou v objektu `DATA` na začátku skriptu. **Zdrojové CSV sem necommitujeme** — obsahuje jména a školy. Stránka ukazuje jen souhrnné počty a anonymní, mírně zkrácené citace.
 
+### `openslava/`
+
+Prihlasovací formulár na **workshop Open Slava** („Kde ste s AI dnes?“) v grafoch — premieta sa na začiatku workshopu. Stránka je po slovensky.
+
+| Soubor | Obsah |
+|---|---|
+| `index.html` | Prezentace o 7 slidech: sebehodnocení v 6 dovednostech (divergentní pruhy), anonymní matice 24 účastníků × 6 dovedností, co už s AI udělali, co jim nejvíc bere čas, závěry pro workshop a slide o tom, jak prezentace vznikla |
+
+Stejná kostra jako `vecerni-skola/` (CSS, ovládání klávesami, adresy slidů, přepínač dat, režim čtení — tady `#vsetko`); data jsou v objektu `DATA` na začátku skriptu. **Zdrojovou tabulku sem necommitujeme** — obsahuje jména, e-maily a organizace. Stránka ukazuje jen souhrnné počty, anonymní matici sebehodnocení (seřazenou podle průměru, ne podle času odeslání) a anonymní, jazykově mírně upravené citace.
+
+Divergentní škála `#2E6DA4 · #80A4CA · #CFD7DB · #E98585 · #B83A3A` prošla validátorem ze skillu `dataviz` (sousední páry ΔE ≥ 15 i pro barvoslepost); světlé odstíny mají v grafu vždy číslo a k dispozici je tabulka dat.
+
 ### `lektori-sk/`
 
 | Soubor | Obsah |
